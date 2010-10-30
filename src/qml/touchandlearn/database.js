@@ -47,7 +47,27 @@ function objects()
             { Id: "key",            DisplayName: qsTranslate("Objects", "key") }
         ]);
     }
-    return cachedObjects
+    return cachedObjects;
+}
+
+var cachedFirstLetters = null;
+function firstLetters()
+{
+    if (cachedFirstLetters == null) {
+        var firstLettersMap = new Array();
+        objects(); // initializing 'cachedObjects'
+        for (var i = 0; i < cachedObjects.length; i++) {
+            var firstLetter = cachedObjects[i].Id[0].toUpperCase();
+            if (firstLettersMap[firstLetter] === undefined)
+                firstLettersMap[firstLetter] = new Array();
+            firstLettersMap[firstLetter].push(cachedObjects[i]);
+        }
+        var firstLetters = new Array();
+        for (var letter in firstLettersMap)
+            firstLetters.push({ Id: letter, DisplayName: letter, Objects: firstLettersMap[letter]});
+        cachedFirstLetters = addIndicesToDict(firstLetters);
+    }
+    return cachedFirstLetters;
 }
 
 var cachedNumbers = null;
