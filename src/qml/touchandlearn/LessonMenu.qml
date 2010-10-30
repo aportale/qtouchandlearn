@@ -35,11 +35,11 @@ Rectangle {
     ListModel {
         id: lessonModel
         ListElement { name: QT_TR_NOOP("Read the first letter");    component: "LessonFirstLetter";     button: "read_initial_letters" }
-        ListElement { name: QT_TR_NOOP("Read words");               component: "LessonNameTerms";         button: "read_words" }
-        ListElement { name: QT_TR_NOOP("Count to 5");               component: "LessonCountEasy";    button: "count_easy" }
-        ListElement { name: QT_TR_NOOP("Count and read to 5");       component: "LessonCountReadEasy";      button: "count_and_read_easy" }
-        ListElement { name: QT_TR_NOOP("Count to 20");              component: "LessonCountHard";    button: "count_hard" }
-        ListElement { name: QT_TR_NOOP("Count and read to 20");      component: "LessonCountReadHard";    button: "count_and_read_hard" }
+        ListElement { name: QT_TR_NOOP("Read words");               component: "LessonNameTerms";       button: "read_words" }
+        ListElement { name: QT_TR_NOOP("Count to 5");               component: "LessonCountEasy";       button: "count_easy" }
+        ListElement { name: QT_TR_NOOP("Count and read to 5");      component: "LessonCountReadEasy";   button: "count_and_read_easy" }
+        ListElement { name: QT_TR_NOOP("Count to 20");              component: "LessonCountHard";       button: "count_hard" }
+        ListElement { name: QT_TR_NOOP("Count and read to 20");     component: "LessonCountReadHard";   button: "count_and_read_hard" }
     }
 
     Component {
