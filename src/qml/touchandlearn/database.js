@@ -85,13 +85,13 @@ function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index, listMode
 {
     if (listModelItemsLength < 1)
         return false;
-    return listModelItems[listModelItemsLength - 1].Answers[index].Index == answerObjectIndex;
+    return listModelItems[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
 }
 
 function previousExercisesHaveSameCorrectAnswer(answerObjectIndex, uniqueAnswers, listModelItems, listModelItemsLength)
 {
     for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++)
-        if (listModelItems[i].Index == answerObjectIndex)
+        if (listModelItems[i].Index === answerObjectIndex)
             return true;
     return false;
 }
@@ -99,7 +99,7 @@ function previousExercisesHaveSameCorrectAnswer(answerObjectIndex, uniqueAnswers
 function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
 {
     for (var i = 0; i < j; i++)
-        if (answers[i].Index == answerObjectIndex)
+        if (answers[i].Index === answerObjectIndex)
             return true;
     return false;
 }
@@ -116,7 +116,7 @@ function dumpExcercise(exercise)
     var output = "  ";
     for (var i = 0; i < exercise.Answers.count; i++) {
         var answer = exercise.Answers.get(i).DisplayName;
-        if (i == exercise.CorrectAnswerIndex)
+        if (i === exercise.CorrectAnswerIndex)
             answer = "_" + answer + "_";
         output += " " + answer
     }
