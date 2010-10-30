@@ -1,4 +1,4 @@
-# checksum 0xe2d5 version 0x10008
+# checksum 0x3b8d version 0x10009
 # This file should not be edited.
 # Future versions of Qt Creator might offer updated versions of this file.
 
@@ -7,10 +7,6 @@ QT += declarative
 SOURCES += $$PWD/qmlapplicationviewer.cpp
 HEADERS += $$PWD/qmlapplicationviewer.h
 INCLUDEPATH += $$PWD
-
-contains(DEFINES, QMLOBSERVER) {
-    DEFINES *= QMLJSDEBUGGER
-}
 
 defineTest(minQtVersion) {
     maj = $$1
@@ -76,6 +72,7 @@ for(deploymentfolder, DEPLOYMENTFOLDERS) {
 MAINPROFILEPWD = $$PWD
 
 symbian {
+    ICON = $${TARGET}.svg
     TARGET.EPOCHEAPSIZE = 0x20000 0x2000000
     contains(DEFINES, ORIENTATIONLOCK):LIBS += -lavkon -leikcore -leiksrv -lcone
     contains(DEFINES, NETWORKACCESS):TARGET.CAPABILITY += NetworkServices
@@ -141,6 +138,7 @@ symbian {
     INSTALLS += desktopfile icon target
 }
 
+export (ICON)
 export (INSTALLS)
 export (DEPLOYMENT)
 export (TARGET.EPOCHEAPSIZE)
