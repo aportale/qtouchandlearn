@@ -71,10 +71,10 @@ function firstLetters()
 }
 
 var cachedNumbers = null;
-function numbers()
+function numbers(from, to)
 {
     if (cachedNumbers == null) {
-        cachedNumbers = addIndicesToDict([
+        cachedNumbers = [
             { Id:  0,   DisplayName: qsTranslate("Numbers", "zero")},
             { Id:  1,   DisplayName: qsTranslate("Numbers", "one") },
             { Id:  2,   DisplayName: qsTranslate("Numbers", "two") },
@@ -96,9 +96,12 @@ function numbers()
             { Id: 18,   DisplayName: qsTranslate("Numbers", "eighteen") },
             { Id: 19,   DisplayName: qsTranslate("Numbers", "nineteen") },
             { Id: 20,   DisplayName: qsTranslate("Numbers", "twenty") }
-        ]);
+        ];
     }
-    return cachedNumbers;
+    var result = [];
+    for (var i = from; i <= to; ++i)
+        result.push(cachedNumbers[i]);
+    return addIndicesToDict(result);
 }
 
 function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index, listModelItems, listModelItemsLength)

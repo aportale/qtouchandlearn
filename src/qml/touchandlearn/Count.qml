@@ -52,17 +52,16 @@ Item {
 
     function createQuantitiesModel()
     {
-        var objects = Database.numbers();
-        var rangeLength = rangeTo - rangeFrom + 1;
+        var objects = Database.numbers(rangeFrom, rangeTo);
         var itemTypes = ["fish", "apple"];
         var listModelItems = Array(choicesCount);
         for (var i = 0; i < choicesCount; i++) {
             var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
             var currentQuantityIndex;
             do {
-                currentQuantityIndex = rangeFrom + Math.floor(Math.random() * rangeLength);
+                currentQuantityIndex = Math.floor(Math.random() * objects.length);
             } while (Database.previousExerciseHasSameAnswerOnIndex(currentQuantityIndex, correctAnswerIndex, listModelItems, i)
-                     || Database.previousExercisesHaveSameCorrectAnswer(currentQuantityIndex, Math.round(rangeLength * 0.5), listModelItems, i));
+                     || Database.previousExercisesHaveSameCorrectAnswer(currentQuantityIndex, Math.round(objects.length * 0.5), listModelItems, i));
             var object = objects[currentQuantityIndex];
             var answers = Array(answersPerChoiceCount);
             answers[correctAnswerIndex] = object;
@@ -70,7 +69,7 @@ Item {
                 if (j != correctAnswerIndex) {
                     var wrongAnswerQuantityIndex;
                     do {
-                        wrongAnswerQuantityIndex = rangeFrom + Math.floor(Math.random() * (rangeLength - 1)) + 1; // -1/+1: avoid 0
+                        wrongAnswerQuantityIndex = Math.floor(Math.random() * objects.length);
                     } while (wrongAnswerQuantityIndex == currentQuantityIndex
                              || Database.previousExerciseHasSameAnswerOnIndex(wrongAnswerQuantityIndex, j, listModelItems, i)
                              || Database.currentAnswersContainObjectIndex(wrongAnswerQuantityIndex, j, answers))
@@ -81,7 +80,7 @@ Item {
                 var itemType = itemTypes[i % itemTypes.length];
                 answers[a].ImageSource = "image://imageprovider/quantity/" + answers[a].Id + "/" + itemType;
                 if (!numbersAsWords)
-                    answers[a].DisplayName = String(answers[a].Index)
+                    answers[a].DisplayName = String(answers[a].Id)
             }
             var listItem = {
                 Index: object.Index,
