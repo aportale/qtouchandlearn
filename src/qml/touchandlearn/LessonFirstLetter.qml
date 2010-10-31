@@ -43,43 +43,17 @@ Item {
         viewHeightRatio: 0.5
     }
 
+    function imageSourceFunction(object, answerIndex) {
+        var answerObjects = object.Objects;
+        return "image://imageprovider/object/"
+                + answerObjects[Math.floor(Math.random() * answerObjects.length)].Id;
+    }
+
     function createFirstLetterListModel()
     {
-        var letters = Database.firstLetters();
-        var listModelItems = Array(choicesCount);
-        for (var i = 0; i < choicesCount; i++) {
-            var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
-            var currentLetterIndex;
-            do {
-                currentLetterIndex = Math.floor(Math.random() * letters.length);
-            } while (Database.previousExerciseHasSameAnswerOnIndex(currentLetterIndex, correctAnswerIndex, listModelItems, i)
-                     || Database.previousExercisesHaveSameCorrectAnswer(currentLetterIndex, Math.round(letters.length * 0.5), listModelItems, i));
-            var object = letters[currentLetterIndex];
-            var answers = Array(answersPerChoiceCount);
-            answers[correctAnswerIndex] = object;
-            for (var j = 0; j < answersPerChoiceCount; j++) {
-                if (j != correctAnswerIndex) {
-                    var wrongAnswerObjectIndex;
-                    do {
-                        wrongAnswerObjectIndex = Math.floor(Math.random() * letters.length);
-                    } while (wrongAnswerObjectIndex == currentLetterIndex
-                             || Database.previousExerciseHasSameAnswerOnIndex(wrongAnswerObjectIndex, j, listModelItems, i)
-                             || Database.currentAnswersContainObjectIndex(wrongAnswerObjectIndex, j, answers))
-                    answers[j] = letters[wrongAnswerObjectIndex];
-                }
-            }
-            for (var a = 0; a < answers.length; a++) {
-                var answerObjects = answers[a].Objects;
-                answers[a].ImageSource = "image://imageprovider/object/" + answerObjects[Math.floor(Math.random() * answerObjects.length)].Id;
-            }
-            var listItem = {
-                Index: object.Index,
-                ImageSource: answers[correctAnswerIndex].ImageSource,
-                Answers: answers,
-                CorrectAnswerIndex: correctAnswerIndex};
-            listModelItems[i] = listItem;
-            listModel.append(listItem);
-        }
-//        Database.dumpLesson(listModel)
+        Database.populateMultipleChoiceModel(
+                    listModel, Database.firstLetters(),
+                    choicesCount, answersPerChoiceCount,
+                    imageSourceFunction);
     }
 }

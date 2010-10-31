@@ -52,44 +52,17 @@ Item {
 
     function createQuantitiesModel()
     {
-        var objects = Database.numbers(rangeFrom, rangeTo);
+        var numbers = Database.numbers(rangeFrom, rangeTo);
+        if (!numbersAsWords)
+            for (var i = 0; i < numbers.length; ++i)
+                numbers[i].DisplayName = String(numbers[i].Id);
         var itemTypes = ["fish", "apple"];
-        var listModelItems = Array(choicesCount);
-        for (var i = 0; i < choicesCount; i++) {
-            var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
-            var currentQuantityIndex;
-            do {
-                currentQuantityIndex = Math.floor(Math.random() * objects.length);
-            } while (Database.previousExerciseHasSameAnswerOnIndex(currentQuantityIndex, correctAnswerIndex, listModelItems, i)
-                     || Database.previousExercisesHaveSameCorrectAnswer(currentQuantityIndex, Math.round(objects.length * 0.5), listModelItems, i));
-            var object = objects[currentQuantityIndex];
-            var answers = Array(answersPerChoiceCount);
-            answers[correctAnswerIndex] = object;
-            for (var j = 0; j < answersPerChoiceCount; j++) {
-                if (j != correctAnswerIndex) {
-                    var wrongAnswerQuantityIndex;
-                    do {
-                        wrongAnswerQuantityIndex = Math.floor(Math.random() * objects.length);
-                    } while (wrongAnswerQuantityIndex == currentQuantityIndex
-                             || Database.previousExerciseHasSameAnswerOnIndex(wrongAnswerQuantityIndex, j, listModelItems, i)
-                             || Database.currentAnswersContainObjectIndex(wrongAnswerQuantityIndex, j, answers))
-                    answers[j] = objects[wrongAnswerQuantityIndex];
-                }
-            }
-            for (var a = 0; a < answers.length; a++) {
-                var itemType = itemTypes[i % itemTypes.length];
-                answers[a].ImageSource = "image://imageprovider/quantity/" + answers[a].Id + "/" + itemType;
-                if (!numbersAsWords)
-                    answers[a].DisplayName = String(answers[a].Id)
-            }
-            var listItem = {
-                Index: object.Index,
-                ImageSource: answers[correctAnswerIndex].ImageSource,
-                Answers: answers,
-                CorrectAnswerIndex: correctAnswerIndex};
-            listModelItems[i] = listItem;
-            listModel.append(listItem);
-        }
-//        Database.dumpLesson(listModel)
+        Database.populateMultipleChoiceModel(
+                    listModel, numbers,
+                    choicesCount, answersPerChoiceCount,
+                    function (object, answerIndex) { // imageSourceFunction
+                        return "image://imageprovider/quantity/" + object.Id + "/"
+                                + itemTypes[answerIndex % itemTypes.length];
+                    });
     }
 }

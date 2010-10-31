@@ -127,6 +127,44 @@ function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
     return false;
 }
 
+function populateMultipleChoiceModel(listModel, data, choicesCount, answersPerChoiceCount,
+                                     imageSourceFunction)
+{
+    var listModelItems = Array(choicesCount);
+    for (var i = 0; i < choicesCount; i++) {
+        var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
+        var currentDataIndex;
+        do {
+            currentDataIndex = Math.floor(Math.random() * data.length);
+        } while (previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, listModelItems, i)
+                 || previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), listModelItems, i));
+        var object = data[currentDataIndex];
+        var answers = Array(answersPerChoiceCount);
+        answers[correctAnswerIndex] = object;
+        for (var j = 0; j < answersPerChoiceCount; j++) {
+            if (j != correctAnswerIndex) {
+                var wrongAnswerDataIndex;
+                do {
+                    wrongAnswerDataIndex = Math.floor(Math.random() * data.length);
+                } while (wrongAnswerDataIndex === currentDataIndex
+                         || previousExerciseHasSameAnswerOnIndex(wrongAnswerDataIndex, j, listModelItems, i)
+                         || currentAnswersContainObjectIndex(wrongAnswerDataIndex, j, answers))
+                answers[j] = data[wrongAnswerDataIndex];
+            }
+        }
+        for (var a = 0; a < answers.length; a++)
+            answers[a].ImageSource = imageSourceFunction(answers[a], i);
+        var listItem = {
+            Index: object.Index,
+            ImageSource: answers[correctAnswerIndex].ImageSource,
+            Answers: answers,
+            CorrectAnswerIndex: correctAnswerIndex};
+        listModelItems[i] = listItem;
+        listModel.append(listItem);
+    }
+//    dumpLesson(listModel);
+}
+
 function dumpLesson(lesson)
 {
     console.log("** Lesson (count: " + lesson.count + ")");

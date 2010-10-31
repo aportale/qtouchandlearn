@@ -28,6 +28,7 @@ Item {
     signal closePressed
     id: nameTerms
     ImageMultipleChoice {
+        id: multipleChoice
         width: parent.width
         height: parent.height
         backgroundImage: "image://imageprovider/background/background_01"
@@ -38,42 +39,15 @@ Item {
         onClosePressed: nameTerms.closePressed()
     }
 
+    function imageSourceFunction(object, answerIndex) {
+        return "image://imageprovider/object/" + object.Id;
+    }
+
     function createReadingListModel()
     {
-        var objects = Database.objects();
-        var answersPerChoiceCount = 3;
-        var listModelItems = Array(choicesCount);
-        for (var i = 0; i < choicesCount; i++) {
-            var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
-            var currentObjectIndex;
-            do {
-                currentObjectIndex = Math.floor(Math.random() * objects.length);
-            } while (Database.previousExerciseHasSameAnswerOnIndex(currentObjectIndex, correctAnswerIndex, listModelItems, i)
-                     || Database.previousExercisesHaveSameCorrectAnswer(currentObjectIndex, Math.round(objects.length * 0.5), listModelItems, i));
-            var object = objects[currentObjectIndex];
-            var answers = Array(answersPerChoiceCount);
-            answers[correctAnswerIndex] = object;
-            for (var j = 0; j < answersPerChoiceCount; j++) {
-                if (j != correctAnswerIndex) {
-                    var wrongAnswerObjectIndex;
-                    do {
-                        wrongAnswerObjectIndex = Math.floor(Math.random() * objects.length);
-                    } while (wrongAnswerObjectIndex == currentObjectIndex
-                             || Database.previousExerciseHasSameAnswerOnIndex(wrongAnswerObjectIndex, j, listModelItems, i)
-                             || Database.currentAnswersContainObjectIndex(wrongAnswerObjectIndex, j, answers))
-                    answers[j] = objects[wrongAnswerObjectIndex];
-                }
-            }
-            for (var a = 0; a < answers.length; a++)
-                answers[a].ImageSource = "image://imageprovider/object/" + answers[a].Id;
-            var listItem = {
-                Index: object.Index,
-                ImageSource: answers[correctAnswerIndex].ImageSource,
-                Answers: answers,
-                CorrectAnswerIndex: correctAnswerIndex};
-            listModelItems[i] = listItem;
-            listModel.append(listItem);
-        }
-//        Database.dumpLesson(listModel)
+        Database.populateMultipleChoiceModel(
+                    listModel, Database.objects(),
+                    choicesCount, multipleChoice.answersCount,
+                    imageSourceFunction);
     }
 }
