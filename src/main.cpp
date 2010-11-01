@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
-    viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/MainNavigation.qml"));
     viewer.setOrientation(QmlApplicationViewer::LockPortrait);
 
 #ifdef Q_OS_SYMBIAN
