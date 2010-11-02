@@ -20,18 +20,15 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef IMAGEPROVIDER_H
-#define IMAGEPROVIDER_H
+// Load this file in the QmlViewer. It imports the TouchAndLearnPlugin.
 
-#include <QDeclarativeImageProvider>
+import Qt 4.7
+import TouchAndLearnPlugin 1.0
 
-class ImageProvider : public QDeclarativeImageProvider
-{
-public:
-    ImageProvider();
-
-    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
-    static void setDataPath(const QString &path);
-};
-
-#endif // IMAGEPROVIDER_H
+Rectangle {
+    width: 360
+    height: 640
+    MainNavigation {
+        anchors.fill: parent;
+    }
+}

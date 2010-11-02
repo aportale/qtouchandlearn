@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/data">
+        <file alias="countables.svg">../data/countables.svg</file>
+        <file alias="design.svg">../data/design.svg</file>
+        <file alias="objects.svg">../data/objects.svg</file>
+        <file alias="particle.svg">../data/particle.svg</file>
+    </qresource>
+</RCC>

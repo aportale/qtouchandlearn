@@ -20,18 +20,19 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef IMAGEPROVIDER_H
-#define IMAGEPROVIDER_H
+#ifndef TOUCHANDLEARNPLUGIN_H
+#define TOUCHANDLEARNPLUGIN_H
 
-#include <QDeclarativeImageProvider>
+#include <QtDeclarative/qdeclarative.h>
+#include <QtDeclarative/QDeclarativeExtensionPlugin>
 
-class ImageProvider : public QDeclarativeImageProvider
+class TouchAndLearnPlugin : public QDeclarativeExtensionPlugin
 {
-public:
-    ImageProvider();
+    Q_OBJECT
 
-    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
-    static void setDataPath(const QString &path);
+public:
+    void registerTypes(const char *uri);
+    void initializeEngine(QDeclarativeEngine *engine, const char *uri);
 };
 
-#endif // IMAGEPROVIDER_H
+#endif // TOUCHANDLEARNPLUGIN_H

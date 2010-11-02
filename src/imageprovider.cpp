@@ -29,17 +29,18 @@
 
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
+static QString dataPath = QLatin1String("data");
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
-    x->load(QLatin1String("data/design.svg"));
+    x->load(dataPath + QLatin1String("/design.svg"));
 });
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, objectRenderer, {
-    x->load(QLatin1String("data/objects.svg"));
+    x->load(dataPath + QLatin1String("/objects.svg"));
 });
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, countablesRenderer, {
-    x->load(QLatin1String("data/countables.svg"));
+    x->load(dataPath + QLatin1String("/countables.svg"));
 });
 
 struct ElementVariations
@@ -190,4 +191,9 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
         return quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
     }
     return QPixmap();
+}
+
+void ImageProvider::setDataPath(const QString &path)
+{
+    dataPath = path;
 }
