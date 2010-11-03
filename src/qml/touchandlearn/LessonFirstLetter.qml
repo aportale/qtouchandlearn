@@ -24,9 +24,11 @@ import Qt 4.7
 import "database.js" as Database
 
 Item {
-    property alias answersPerChoiceCount: choice.answersCount
-    property int choicesCount: 50
     signal closePressed
+    property int choicesCount: 50
+    property alias answersPerChoiceCount: choice.answersCount
+    property alias exitButtonVisible: choice.exitButtonVisible
+
     id: nameTerms
     ImageMultipleChoice {
         id: choice

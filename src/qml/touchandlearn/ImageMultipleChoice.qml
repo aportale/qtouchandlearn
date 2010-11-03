@@ -29,6 +29,7 @@ Item {
     property alias showCorrectionImageOnButton: choice.showCorrectionImage
     property alias answersCount: choice.buttonsCount
     property alias answersColumsCount: choice.columsCount
+    property bool exitButtonVisible: true
     property real viewHeightRatio: 0.45
 
     signal closePressed
@@ -46,6 +47,7 @@ Item {
     }
 
     Item {
+        opacity: exitButtonVisible ? 1 : 0
         property real exitButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
         width: exitButtonSize
         height: exitButtonSize

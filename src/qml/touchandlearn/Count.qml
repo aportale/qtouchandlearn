@@ -33,6 +33,7 @@ Item {
     property alias viewHeightRatio: choice.viewHeightRatio
     property alias showCorrectionImageOnButton: choice.showCorrectionImageOnButton
     property alias answersColumsCount: choice.answersColumsCount
+    property alias exitButtonVisible: choice.exitButtonVisible
 
     id: nameQuantities
     ImageMultipleChoice {

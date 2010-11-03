@@ -24,11 +24,14 @@ import Qt 4.7
 import "database.js" as Database
 
 Item {
-    property int choicesCount: 50
     signal closePressed
+    property int choicesCount: 50
+    property alias answersPerChoiceCount: choice.answersCount
+    property alias exitButtonVisible: choice.exitButtonVisible
+
     id: nameTerms
     ImageMultipleChoice {
-        id: multipleChoice
+        id: choice
         width: parent.width
         height: parent.height
         backgroundImage: "image://imageprovider/background/background_01"
@@ -47,7 +50,7 @@ Item {
     {
         Database.populateMultipleChoiceModel(
                     listModel, Database.objects(),
-                    choicesCount, multipleChoice.answersCount,
+                    choicesCount, answersPerChoiceCount,
                     imageSourceFunction);
     }
 }
