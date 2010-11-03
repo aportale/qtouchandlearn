@@ -24,8 +24,8 @@ folder_01.target = qml
 folder_02.source = data
 DEPLOYMENTFOLDERS = folder_01 folder_02
 
-# Additional import path used to resolve Qml modules in Creator's code model
-QML_IMPORT_PATH =
+# Additional import path used to resolve QML modules in Creator's code model
+#QML_IMPORT_PATH =
 
 # Avoid auto screen rotation
 #DEFINES += ORIENTATIONLOCK
@@ -35,10 +35,15 @@ QML_IMPORT_PATH =
 
 symbian:TARGET.UID3 = 0xE10d63ca
 
-# Define QMLJSDEBUGGER to enable basic debugging (setting breakpoints etc)
-# Define QMLOBSERVER for advanced features (requires experimental QmlInspector plugin!)
-#DEFINES += QMLJSDEBUGGER
-#DEFINES += QMLOBSERVER
+# Define QMLJSDEBUGGER to allow debugging of QML in debug builds
+# (This might significantly increase build time)
+# DEFINES += QMLJSDEBUGGER
+
+# If your application uses the Qt Mobility libraries, uncomment
+# the following lines and add the respective components to the
+# MOBILITY variable.
+# CONFIG += mobility
+# MOBILITY +=
 
 SOURCES += main.cpp \
     imageprovider.cpp

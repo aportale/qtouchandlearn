@@ -46,19 +46,15 @@ int main(int argc, char *argv[])
     QmlApplicationViewer viewer;
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
-    viewer.setOrientation(QmlApplicationViewer::LockPortrait);
+    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
-#ifdef Q_OS_SYMBIAN
-    viewer.showFullScreen();
-#elif defined(Q_WS_MAEMO_5) || defined(Q_WS_MAEMO_6)
-    viewer.showMaximized();
-#else
+#if !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN)
     if (false)
         viewer.setGeometry(100, 100, 480, 800); // N900
     else
         viewer.setGeometry(100, 100, 360, 640); // NHD
-    viewer.show();
 #endif
+    viewer.showExpanded();
 
     return app.exec();
 }
