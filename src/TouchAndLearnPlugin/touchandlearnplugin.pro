@@ -22,7 +22,7 @@ TEMPLATE = lib
 TARGET  = TouchAndLearnPlugin
 QT += svg declarative
 CONFIG += qt plugin
-DESTDIR = ./
+DESTDIR = ./TouchAndLearn
 
 TARGET = $$qtLibraryTarget($$TARGET)
 

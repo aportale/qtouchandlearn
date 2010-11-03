@@ -22,8 +22,11 @@
 
 import Qt 4.7
 import "database.js" as Database
+import TouchAndLearn 1.0
 
 Rectangle {
+    width: 360
+    height: 640
     anchors.fill: parent
     id: mainWindow
     color: "#000"

@@ -25,6 +25,7 @@
 #include <QtGui/QApplication>
 #include <QtDeclarative/QDeclarativeEngine>
 #include <QtDeclarative/QDeclarativeContext>
+#include <QtDeclarative/QDeclarativeComponent>
 
 #include "qmlapplicationviewer.h"
 #include "imageprovider.h"
@@ -39,9 +40,12 @@ int main(int argc, char *argv[])
     translator.load(translation, QLatin1String("data"));
     QApplication::installTranslator(&translator);
 
+    // Registering dummy type to allow QML import of TouchAndLearn 1.0
+    qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
+
     QmlApplicationViewer viewer;
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
-    viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/MainNavigation.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
     viewer.setOrientation(QmlApplicationViewer::LockPortrait);
 
 #ifdef Q_OS_SYMBIAN
@@ -58,4 +62,3 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
-

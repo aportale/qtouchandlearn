@@ -26,11 +26,12 @@
 
 void TouchAndLearnPlugin::registerTypes(const char *uri)
 {
-    qmlRegisterType<QObject>(uri, 1, 0, "TouchAndLearnPlugin");
+    qmlRegisterType<QObject>(uri, 1, 0, "TouchAndLearn");
 }
 
 void TouchAndLearnPlugin::initializeEngine(QDeclarativeEngine *engine, const char *uri)
 {
+    Q_UNUSED(uri)
     ImageProvider::setDataPath(QLatin1String(":/data"));
     engine->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
 }
