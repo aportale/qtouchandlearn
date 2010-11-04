@@ -1,1 +1,2 @@
-for %%i in (data\*.ts) do lupdate.exe -no-obsolete -locations none qml\qmlparalax\database.js -ts %%i
+@echo off
+for %%i in (data\*.ts) do call lupdate.exe -no-obsolete -locations none qml\touchandlearn\database.js qml\touchandlearn\LessonMenu.qml -ts  %%i

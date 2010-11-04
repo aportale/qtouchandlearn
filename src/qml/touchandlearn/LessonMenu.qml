@@ -34,12 +34,48 @@ Rectangle {
 
     ListModel {
         id: lessonModel
-        ListElement { name: QT_TR_NOOP("Read the first letter");    component: "LessonFirstLetter";     button: "read_initial_letters" }
-        ListElement { name: QT_TR_NOOP("Read words");               component: "LessonNameTerms";       button: "read_words" }
-        ListElement { name: QT_TR_NOOP("Count to 5");               component: "LessonCountEasy";       button: "count_easy" }
-        ListElement { name: QT_TR_NOOP("Count and read to 5");      component: "LessonCountReadEasy";   button: "count_and_read_easy" }
-        ListElement { name: QT_TR_NOOP("Count to 20");              component: "LessonCountHard";       button: "count_hard" }
-        ListElement { name: QT_TR_NOOP("Count and read to 20");     component: "LessonCountReadHard";   button: "count_and_read_hard" }
+        ListElement {
+            name: QT_TR_NOOP("Read the first letter")
+            imageLabel: "robot"
+            imageLabelFunction: 1
+            component: "LessonFirstLetter"
+            button: "read_initial_letters"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Read words")
+            imageLabel: "robot"
+            imageLabelFunction: 2
+            component: "LessonNameTerms"
+            button: "read_words"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Count to 5")
+            imageLabel: "3"
+            imageLabelFunction: 0
+            component: "LessonCountEasy"
+            button: "count_easy"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Count and read to 5")
+            imageLabel: "3"
+            imageLabelFunction: 0
+            component: "LessonCountReadEasy"
+            button: "count_and_read_easy"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Count to 20")
+            imageLabel: "16"
+            imageLabelFunction: 0
+            component: "LessonCountHard"
+            button: "count_hard"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Count and read to 20")
+            imageLabel: "16"
+            imageLabelFunction: 0
+            component: "LessonCountReadHard"
+            button: "count_and_read_hard"
+        }
     }
 
     Component {
@@ -57,6 +93,20 @@ Rectangle {
                 source: "image://imageprovider/specialbutton/" + button
                 sourceSize.width: parent.width
                 sourceSize.height: parent.height
+            }
+
+            Text {
+                text: (imageLabelFunction == 1) ? qsTranslate("Objects", imageLabel)
+                    : (imageLabelFunction == 2) ? qsTranslate("Objects", imageLabel)[0]
+                    : imageLabel;
+                styleColor: "#ffffff"
+                style: Text.Outline
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: parent.height * 0.2
+                width: Math.round(parent.width * 0.27)
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.margins: Math.round(parent.width * 0.055)
             }
 
             Text {

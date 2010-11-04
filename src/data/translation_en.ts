@@ -2,6 +2,33 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US" sourcelanguage="en_US">
 <context>
+    <name>Lesson Menu</name>
+    <message>
+        <source>Read the first letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count to 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count and read to 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count to 20</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count and read to 20</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Numbers</name>
     <message>
         <source>zero</source>
