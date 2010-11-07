@@ -37,42 +37,42 @@ Rectangle {
         ListElement {
             name: QT_TR_NOOP("Read the first letter")
             imageLabel: "robot"
-            imageLabelFunction: 1
+            imageLabelFunction: 2
             component: "LessonFirstLetter"
             button: "read_initial_letters"
         }
         ListElement {
             name: QT_TR_NOOP("Read words")
             imageLabel: "robot"
-            imageLabelFunction: 2
+            imageLabelFunction: 1
             component: "LessonNameTerms"
             button: "read_words"
         }
         ListElement {
             name: QT_TR_NOOP("Count to 5")
-            imageLabel: "3"
+            imageLabel: 3
             imageLabelFunction: 0
             component: "LessonCountEasy"
             button: "count_easy"
         }
         ListElement {
             name: QT_TR_NOOP("Count and read to 5")
-            imageLabel: "3"
-            imageLabelFunction: 0
+            imageLabel: "three"
+            imageLabelFunction: 3
             component: "LessonCountReadEasy"
             button: "count_and_read_easy"
         }
         ListElement {
             name: QT_TR_NOOP("Count to 20")
-            imageLabel: "16"
+            imageLabel: 9
             imageLabelFunction: 0
             component: "LessonCountHard"
             button: "count_hard"
         }
         ListElement {
             name: QT_TR_NOOP("Count and read to 20")
-            imageLabel: "16"
-            imageLabelFunction: 0
+            imageLabel: "nine"
+            imageLabelFunction: 3
             component: "LessonCountReadHard"
             button: "count_and_read_hard"
         }
@@ -98,9 +98,8 @@ Rectangle {
             Text {
                 text: (imageLabelFunction == 1) ? qsTranslate("Objects", imageLabel)
                     : (imageLabelFunction == 2) ? qsTranslate("Objects", imageLabel)[0]
+                    : (imageLabelFunction == 3) ? qsTranslate("Numbers", imageLabel)
                     : imageLabel;
-                styleColor: "#ffffff"
-                style: Text.Outline
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.2
                 width: Math.round(parent.width * 0.27)
@@ -114,7 +113,7 @@ Rectangle {
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.2
-                width: Math.round(parent.width * 0.5)
+                width: Math.round(parent.width * 0.51)
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: Math.round(parent.width * 0.1)
