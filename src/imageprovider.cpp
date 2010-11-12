@@ -130,6 +130,8 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
         return QPixmap();
     }
     QSize pixmapSize = rect.size().toSize();
+    if (size)
+        *size = pixmapSize;
     pixmapSize.scale(requestedSize, aspectRatioMode);
     if (pixmapSize.width() < 1 || pixmapSize.height() < 1) {
         qDebug() << "****************** pixmapSize is NULL!" << pixmapSize << requestedSize << elementId;
@@ -141,8 +143,6 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
     renderer->render(&p, elementId, QRect(QPoint(), pixmapSize));
-    if (size)
-        *size = pixmapSize;
     return pixmap;
 }
 
