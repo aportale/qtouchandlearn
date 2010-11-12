@@ -46,11 +46,15 @@ Item {
             color: "#fff"
         }
         Image {
-            id: image
-            sourceSize.height: Math.round(imageview.height * 0.3);
+            property real heightToWidthRatio: 6.0
+            property real sourceSizeHeight: Math.round(imageview.height * 0.3)
+            property real imageWidth: sourceSizeHeight * heightToWidthRatio
             fillMode: Image.TileHorizontally
-            width: 1000000
-            x: -width *.5 - listview.contentX * 0.3
+            id: image
+            sourceSize.height: sourceSizeHeight
+            sourceSize.width: sourceSizeHeight * heightToWidthRatio
+            width: (Math.ceil(imageview.width / imageWidth) + 1) * imageWidth
+            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % imageWidth
             y: 0
         }
         Rectangle {
