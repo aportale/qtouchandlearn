@@ -157,5 +157,9 @@
         <source>key</source>
         <translation>Schlüssel</translation>
     </message>
+    <message>
+        <source>horse</source>
+        <translation>Pferd</translation>
+    </message>
 </context>
 </TS>

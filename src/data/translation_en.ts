@@ -157,5 +157,9 @@
         <source>key</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>horse</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
