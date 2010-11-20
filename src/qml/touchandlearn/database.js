@@ -24,6 +24,7 @@
 var previousScreen = null;
 var currentScreen = null;
 var lessonData = null;
+var lessonDataLength = 100;
 
 function addIndicesToDict(dict)
 {
@@ -158,11 +159,12 @@ function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
 
 function exercise(i, exerciseFunction, answersCount)
 {
+    var index = i % lessonDataLength
     if (lessonData == null)
         lessonData = [];
-    if (lessonData[i] === undefined)
-        eval(exerciseFunction + "(i, answersCount)");
-    return lessonData[i];
+    if (lessonData[index] === undefined)
+        eval(exerciseFunction + "(index, answersCount)");
+    return lessonData[index];
 }
 
 function createExercise(i, data, answersPerChoiceCount, imageSourceFunction)
