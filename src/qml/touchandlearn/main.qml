@@ -31,14 +31,11 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
-    Item {
-        anchors.fill: parent
-        Connections {
-            id: connection
-            ignoreUnknownSignals: true
-            onSelecedLessonChanged: switchToScreen(Database.currentScreen.selecedLesson)
-            onClosePressed: switchToScreen("LessonMenu")
-        }
+    Connections {
+        id: connection
+        ignoreUnknownSignals: true
+        onSelecedLessonChanged: switchToScreen(Database.currentScreen.selecedLesson)
+        onClosePressed: switchToScreen("LessonMenu")
     }
 
     Rectangle {
@@ -94,6 +91,6 @@ Rectangle {
         // Need to create the first with minimal delay for valid initial parent.width/height
         interval: 1
         running: true
-        onTriggered: switchToScreen("Count")
+        onTriggered: switchToScreen("LessonMenu")
     }
 }
