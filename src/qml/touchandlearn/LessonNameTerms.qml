@@ -21,36 +21,17 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Item {
     signal closePressed
-    property int choicesCount: 50
-    property alias answersPerChoiceCount: choice.answersCount
     property alias exitButtonVisible: choice.exitButtonVisible
 
-    id: nameTerms
     ImageMultipleChoice {
         id: choice
         width: parent.width
         height: parent.height
         backgroundImage: "image://imageprovider/background/background_01"
-        exercisesModel: ListModel {
-            id: listModel
-            Component.onCompleted: createReadingListModel()
-        }
-        onClosePressed: nameTerms.closePressed()
-    }
-
-    function imageSourceFunction(object, answerIndex) {
-        return "image://imageprovider/object/" + object.Id;
-    }
-
-    function createReadingListModel()
-    {
-        Database.populateMultipleChoiceModel(
-                    listModel, Database.objects(),
-                    choicesCount, answersPerChoiceCount,
-                    imageSourceFunction);
+        onClosePressed: parent.closePressed()
+        exerciseFunction: "nameTermsExerciseFunction"
     }
 }

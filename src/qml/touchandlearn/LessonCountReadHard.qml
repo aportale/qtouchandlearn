@@ -1,4 +1,4 @@
-    /*
+/*
     Touch'n'learn - Fun and easy mobile lessons for kids
     Copyright (C) 2010 by Alessandro Portale
     http://touchandlearn.sourceforge.net
@@ -21,10 +21,7 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Count {
-    rangeFrom: 5
-    rangeTo: 20
-    numbersAsWords: true
+    exerciseFunction: "countReadHardExerciseFunction"
 }

@@ -51,6 +51,7 @@ Rectangle {
 
     function createScreen(screen)
     {
+        Database.lessonData = null;
         return Qt.createQmlObject("import Qt 4.7; " + screen + " { width: " + mainWindow.width + "; height: " + mainWindow.height + "; anchors.fill: parent; opacity: 0 }", mainWindow);
     }
 
@@ -93,6 +94,6 @@ Rectangle {
         // Need to create the first with minimal delay for valid initial parent.width/height
         interval: 1
         running: true
-        onTriggered: switchToScreen("LessonMenu")
+        onTriggered: switchToScreen("Count")
     }
 }

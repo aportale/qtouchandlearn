@@ -25,7 +25,8 @@ import "database.js" as Database
 
 Item {
     id: choice
-    property QtObject exercise
+    property int exerciseIndex
+    property string exerciseFunction
     property bool showCorrectionImage: true
     property int buttonsCount: 3
     property alias columsCount: grid.columns
@@ -36,15 +37,16 @@ Item {
         color: "#000000"
     }
 
-    onExerciseChanged: {
+    onExerciseIndexChanged: {
         if (grid.resources.length > 1)
             setButtonData();
     }
 
     function setButtonData() {
+        var exercise = Database.exercise(exerciseIndex, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
             var button = grid.resources[i + 1];
-            var answer = exercise.Answers.get(i);
+            var answer = exercise.Answers[i];
             button.text = answer.DisplayName;
             if (showCorrectionImage)
                 button.correctionImageSource = answer.ImageSource;

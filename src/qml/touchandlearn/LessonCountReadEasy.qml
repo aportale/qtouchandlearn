@@ -21,13 +21,10 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Count {
-    rangeFrom: 1
-    rangeTo: 5
     answersPerChoiceCount: 2
     viewHeightRatio: 0.55
-    numbersAsWords: true
+    exerciseFunction: "countReadEasyExerciseFunction"
     showCorrectionImageOnButton: true
 }

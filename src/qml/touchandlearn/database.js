@@ -19,9 +19,11 @@
     along with Touch'n'learn; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
+.pragma library
 
 var previousScreen = null;
 var currentScreen = null;
+var lessonData = null;
 
 function addIndicesToDict(dict)
 {
@@ -71,11 +73,11 @@ function firstLetters()
     return cachedFirstLetters;
 }
 
-var cachedNumbers = null;
-function numbers(from, to)
+var cachedNumbersAsWords = null;
+function numbersAsWords()
 {
-    if (cachedNumbers == null) {
-        cachedNumbers = [
+    if (cachedNumbersAsWords == null) {
+        cachedNumbersAsWords = [
             { Id:  0,   DisplayName: qsTranslate("Numbers", "zero")},
             { Id:  1,   DisplayName: qsTranslate("Numbers", "one") },
             { Id:  2,   DisplayName: qsTranslate("Numbers", "two") },
@@ -99,23 +101,49 @@ function numbers(from, to)
             { Id: 20,   DisplayName: qsTranslate("Numbers", "twenty") }
         ];
     }
-    var result = [];
-    for (var i = from; i <= to; ++i)
-        result.push(cachedNumbers[i]);
-    return addIndicesToDict(result);
+    return cachedNumbersAsWords;
 }
 
-function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index, listModelItems, listModelItemsLength)
+var cachedNumbersAsWordsRange = null;
+function numbersAsWordsRange(from, to)
+{
+    if (cachedNumbersAsWordsRange == null || cachedNumbersAsWordsRange.from != from || cachedNumbersAsWordsRange.to != to) {
+        cachedNumbersAsWordsRange = [];
+        numbersAsWords(); // initializing 'cachedNumbers'
+        for (var i = from; i <= to; ++i)
+            cachedNumbersAsWordsRange.push(cachedNumbersAsWords[i]);
+        cachedNumbersAsWordsRange.from = from;
+        cachedNumbersAsWordsRange.to = to;
+        addIndicesToDict(cachedNumbersAsWordsRange);
+    }
+    return cachedNumbersAsWordsRange;
+}
+
+var cachedNumbersRange = null;
+function numbersRange(from, to)
+{
+    if (cachedNumbersRange == null || cachedNumbersRange.from != from || cachedNumbersRange.to != to) {
+        cachedNumbersRange = [];
+        for (var i = from; i <= to; ++i)
+            cachedNumbersRange.push({Id: i, DisplayName: String(i)});
+        cachedNumbersRange.from = from;
+        cachedNumbersRange.to = to;
+        addIndicesToDict(cachedNumbersRange);
+    }
+    return cachedNumbersRange;
+}
+
+function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
 {
     if (listModelItemsLength < 1)
         return false;
-    return listModelItems[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
+    return lessonData[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
 }
 
-function previousExercisesHaveSameCorrectAnswer(answerObjectIndex, uniqueAnswers, listModelItems, listModelItemsLength)
+function previousExercisesHaveSameCorrectAnswer(answerObjectIndex, uniqueAnswers, listModelItemsLength)
 {
     for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++)
-        if (listModelItems[i].Index === answerObjectIndex)
+        if (lessonData[i].Index === answerObjectIndex)
             return true;
     return false;
 }
@@ -128,41 +156,45 @@ function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
     return false;
 }
 
-function populateMultipleChoiceModel(listModel, data, choicesCount, answersPerChoiceCount,
-                                     imageSourceFunction)
+function exercise(i, exerciseFunction, answersCount)
 {
-    var listModelItems = Array(choicesCount);
-    for (var i = 0; i < choicesCount; i++) {
-        var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
-        var currentDataIndex;
-        do {
-            currentDataIndex = Math.floor(Math.random() * data.length);
-        } while (previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, listModelItems, i)
-                 || previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), listModelItems, i));
-        var object = data[currentDataIndex];
-        var answers = Array(answersPerChoiceCount);
-        answers[correctAnswerIndex] = object;
-        for (var j = 0; j < answersPerChoiceCount; j++) {
-            if (j != correctAnswerIndex) {
-                var wrongAnswerDataIndex;
-                do {
-                    wrongAnswerDataIndex = Math.floor(Math.random() * data.length);
-                } while (wrongAnswerDataIndex === currentDataIndex
-                         || previousExerciseHasSameAnswerOnIndex(wrongAnswerDataIndex, j, listModelItems, i)
-                         || currentAnswersContainObjectIndex(wrongAnswerDataIndex, j, answers))
-                answers[j] = data[wrongAnswerDataIndex];
-            }
+    if (lessonData == null)
+        lessonData = [];
+    if (lessonData[i] === undefined)
+        eval(exerciseFunction + "(i, answersCount)");
+    return lessonData[i];
+}
+
+function createExercise(i, data, answersPerChoiceCount, imageSourceFunction)
+{
+    var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
+    var currentDataIndex;
+    do {
+        currentDataIndex = Math.floor(Math.random() * data.length);
+    } while (previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, i)
+             || previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), i));
+    var object = data[currentDataIndex];
+    var answers = Array(answersPerChoiceCount);
+    answers[correctAnswerIndex] = object;
+    for (var j = 0; j < answersPerChoiceCount; j++) {
+        if (j != correctAnswerIndex) {
+            var wrongAnswerDataIndex;
+            do {
+                wrongAnswerDataIndex = Math.floor(Math.random() * data.length);
+            } while (wrongAnswerDataIndex === currentDataIndex
+                     || previousExerciseHasSameAnswerOnIndex(wrongAnswerDataIndex, j, i)
+                     || currentAnswersContainObjectIndex(wrongAnswerDataIndex, j, answers))
+            answers[j] = data[wrongAnswerDataIndex];
         }
-        for (var a = 0; a < answers.length; a++)
-            answers[a].ImageSource = imageSourceFunction(answers[a], i);
-        var listItem = {
-            Index: object.Index,
-            ImageSource: answers[correctAnswerIndex].ImageSource,
-            Answers: answers,
-            CorrectAnswerIndex: correctAnswerIndex};
-        listModelItems[i] = listItem;
-        listModel.append(listItem);
     }
+    for (var a = 0; a < answers.length; a++)
+        answers[a].ImageSource = imageSourceFunction(answers[a], i);
+    var listItem = {
+        Index: object.Index,
+        ImageSource: answers[correctAnswerIndex].ImageSource,
+        Answers: answers,
+        CorrectAnswerIndex: correctAnswerIndex};
+    lessonData[i] = listItem;
 //    dumpLesson(listModel);
 }
 
@@ -183,4 +215,61 @@ function dumpExcercise(exercise)
         output += " " + answer
     }
     console.log(output + "  " + exercise.Answers.get(exercise.CorrectAnswerIndex).ImageSource);
+}
+
+function firstLetterImageSourceFunction(object, answerIndex)
+{
+    var answerObjects = object.Objects;
+    return "image://imageprovider/object/"
+            + answerObjects[Math.floor(Math.random() * answerObjects.length)].Id;
+}
+
+function firstLetterExerciseFunction(i, answersCount)
+{
+    createExercise(i, firstLetters(), answersCount, firstLetterImageSourceFunction);
+}
+
+function nameTermsImageSourceFunction(object, answerIndex)
+{
+    return "image://imageprovider/object/" + object.Id;
+}
+
+function nameTermsExerciseFunction(i, answersCount)
+{
+    createExercise(i, objects(), answersCount, nameTermsImageSourceFunction);
+}
+
+var countImages = ["fish", "apple"];
+function countImageSourceFunction(object, answerIndex)
+{
+    return "image://imageprovider/quantity/" + object.Id + "/"
+            + countImages[answerIndex % countImages.length];
+}
+
+function countExerciseFunction(i, answersCount, rangeFrom, rangeTo, numbersAsWords)
+{
+
+    var numbers = numbersAsWords ? numbersAsWordsRange(rangeFrom, rangeTo)
+                                 : numbersRange(rangeFrom, rangeTo);
+    createExercise(i, numbers, answersCount, countImageSourceFunction);
+}
+
+function countEasyExerciseFunction(i, answersCount)
+{
+    countExerciseFunction(i, answersCount, 1, 5, false);
+}
+
+function countReadEasyExerciseFunction(i, answersCount)
+{
+    countExerciseFunction(i, answersCount, 1, 5, true);
+}
+
+function countHardExerciseFunction(i, answersCount)
+{
+    countExerciseFunction(i, answersCount, 5, 20, false);
+}
+
+function countReadHardExerciseFunction(i, answersCount)
+{
+    countExerciseFunction(i, answersCount, 5, 20, true);
 }

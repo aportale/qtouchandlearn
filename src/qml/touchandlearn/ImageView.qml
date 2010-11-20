@@ -25,8 +25,9 @@ import "database.js" as Database
 
 Item {
     property alias backgroundImage: image.source
-    property QtObject currentExercise: listview.model.get(listview.currentIndex)
-    property alias exercisesModel: listview.model
+    property alias currentExerciseIndex: listview.currentIndex
+    property string exerciseFunction
+    property int answersCount
     property real imageSizeFactor: 0.61
     function goForward() {
         listview.incrementCurrentIndex();
@@ -72,6 +73,8 @@ Item {
         boundsBehavior: Flickable.DragOverBounds
         highlightRangeMode: ListView.StrictlyEnforceRange
         maximumFlickVelocity: 200
+        model: 100000
+
         delegate: Item {
             width: listview.width // Must not be parent.height/width since those are 0 in the beginning
             height: listview.height
@@ -79,7 +82,7 @@ Item {
                 function sourceSizeWidthHeight() {
                     return Math.min(parent.width, parent.height) * imageSizeFactor;
                 }
-                source: ImageSource
+                source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 anchors.centerIn: parent
                 sourceSize.width: sourceSizeWidthHeight()
                 sourceSize.height: sourceSizeWidthHeight()

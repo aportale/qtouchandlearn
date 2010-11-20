@@ -21,49 +21,24 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Item {
     signal closePressed
-    property int rangeFrom: 1
-    property int rangeTo: 20
-    property int choicesCount: 50
-    property bool numbersAsWords: false
     property alias answersPerChoiceCount: choice.answersCount
     property alias viewHeightRatio: choice.viewHeightRatio
     property alias showCorrectionImageOnButton: choice.showCorrectionImageOnButton
     property alias answersColumsCount: choice.answersColumsCount
     property alias exitButtonVisible: choice.exitButtonVisible
+    property alias exerciseFunction: choice.exerciseFunction
 
-    id: nameQuantities
     ImageMultipleChoice {
         id: choice
         width: parent.width
         height: parent.height
         backgroundImage: "image://imageprovider/background/background_01"
-        exercisesModel: ListModel {
-            id: listModel
-            Component.onCompleted: createQuantitiesModel()
-        }
         imageSizeFactor: 0.95
-        onClosePressed: nameQuantities.closePressed()
-        answersCount: answersPerChoiceCount
+        onClosePressed: parent.closePressed()
+        exerciseFunction: "countEasyExerciseFunction"
         showCorrectionImageOnButton: false
-    }
-
-    function createQuantitiesModel()
-    {
-        var numbers = Database.numbers(rangeFrom, rangeTo);
-        if (!numbersAsWords)
-            for (var i = 0; i < numbers.length; ++i)
-                numbers[i].DisplayName = String(numbers[i].Id);
-        var itemTypes = ["fish", "apple"];
-        Database.populateMultipleChoiceModel(
-                    listModel, numbers,
-                    choicesCount, answersPerChoiceCount,
-                    function (object, answerIndex) { // imageSourceFunction
-                        return "image://imageprovider/quantity/" + object.Id + "/"
-                                + itemTypes[answerIndex % itemTypes.length];
-                    });
     }
 }

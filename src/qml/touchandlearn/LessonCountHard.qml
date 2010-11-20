@@ -21,11 +21,9 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Count {
-    rangeFrom: 5
-    rangeTo: 20
+    exerciseFunction: "countHardExerciseFunction"
     answersPerChoiceCount: 4
     answersColumsCount: 2
     viewHeightRatio: 0.6

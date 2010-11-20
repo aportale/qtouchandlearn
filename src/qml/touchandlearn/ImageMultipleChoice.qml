@@ -24,8 +24,8 @@ import Qt 4.7
 
 Item {
     property alias backgroundImage: imageView.backgroundImage
-    property alias exercisesModel: imageView.exercisesModel
     property alias imageSizeFactor: imageView.imageSizeFactor
+    property alias exerciseFunction: imageView.exerciseFunction
     property alias showCorrectionImageOnButton: choice.showCorrectionImage
     property alias answersCount: choice.buttonsCount
     property alias answersColumsCount: choice.columsCount
@@ -40,6 +40,7 @@ Item {
         anchors.right: parent.right
         anchors.left: parent.left
         height: Math.round(parent.height * viewHeightRatio)
+        answersCount: choice.buttonsCount
 
         // Theoretically unneeded, since the anchors above should do the job.
         // But without width, we get 0-values at construction time
@@ -78,7 +79,8 @@ Item {
         height: parent.height - imageView.height
         width: parent.width
 
-        exercise: imageView.currentExercise
+        exerciseIndex: imageView.currentExerciseIndex
+        exerciseFunction: imageView.exerciseFunction
         onCorrectlyAnswered: imageView.goForward();
     }
 }
