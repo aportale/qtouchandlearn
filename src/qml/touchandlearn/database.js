@@ -167,7 +167,8 @@ function excerciseFunctionsDict()
                 countEasyExerciseFunction: countEasyExerciseFunction,
                 countReadEasyExerciseFunction: countReadEasyExerciseFunction,
                 countHardExerciseFunction: countHardExerciseFunction,
-                countReadHardExerciseFunction: countReadHardExerciseFunction
+                countReadHardExerciseFunction: countReadHardExerciseFunction,
+                mixedExercisesFunction: mixedExercisesFunction
         };
     }
     return cachedExcerciseFunctionsDict;
@@ -287,4 +288,16 @@ function countHardExerciseFunction(i, answersCount)
 function countReadHardExerciseFunction(i, answersCount)
 {
     countExerciseFunction(i, answersCount, 5, 20, true);
+}
+
+function mixedExercisesFunction(i, answersCount)
+{
+    var lessonsCount = 4;
+    switch (((i + 1) % lessonsCount) - 1) {
+        case 0: countExerciseFunction(i, answersCount, 1, 16, false); break;
+        case 1: firstLetterExerciseFunction(i, answersCount); break;
+        case 2: countExerciseFunction(i, answersCount, 1, 16, true); break;
+        default:
+        case 3: nameTermsExerciseFunction(i, answersCount); break;
+    }
 }

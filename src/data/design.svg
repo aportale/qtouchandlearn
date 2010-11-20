@@ -918,6 +918,41 @@
        y="0"
        x="0" />
   </g>
+  <g
+     id="mixed">
+    <use
+       height="360"
+       width="640"
+       transform="matrix(0.62311999,0.0986925,-0.0986925,0.62311999,400.02623,436.07568)"
+       id="use4617"
+       xlink:href="#g4274"
+       y="0"
+       x="0" />
+    <use
+       height="360"
+       width="640"
+       transform="matrix(0.71252115,-0.05607662,0.05607662,0.71252115,243.24569,358.747)"
+       id="use4611"
+       xlink:href="#layer1"
+       y="0"
+       x="0" />
+    <use
+       height="360"
+       width="640"
+       transform="matrix(-0.98460115,-0.01374852,-0.01374852,0.98460115,1967.5676,172.27366)"
+       id="use4614"
+       xlink:href="#answerlabel"
+       y="0"
+       x="0" />
+    <use
+       transform="matrix(0.98684211,0,0,1.3571429,-915,589.64285)"
+       height="360"
+       width="640"
+       id="use4626"
+       xlink:href="#answerbutton_wide_1"
+       y="0"
+       x="0" />
+  </g>
   <path
      id="exitbutton"
      fill-rule="evenodd"

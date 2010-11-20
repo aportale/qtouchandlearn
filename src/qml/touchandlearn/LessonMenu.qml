@@ -35,6 +35,13 @@ Rectangle {
     ListModel {
         id: lessonModel
         ListElement {
+            name: QT_TR_NOOP("Mixed exercises")
+            imageLabel: "?"
+            imageLabelFunction: 1
+            component: "LessonMixed"
+            button: "mixed"
+        }
+        ListElement {
             name: QT_TR_NOOP("Read the first letter")
             imageLabel: "robot"
             imageLabelFunction: 2
