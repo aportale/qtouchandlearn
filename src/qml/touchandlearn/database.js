@@ -195,26 +195,23 @@ function createExercise(i, data, answersPerChoiceCount, imageSourceFunction)
         Answers: answers,
         CorrectAnswerIndex: correctAnswerIndex};
     lessonData[i] = listItem;
-//    dumpLesson(listModel);
+//    dumpLessonData();
 }
 
-function dumpLesson(lesson)
+function dumpLessonData()
 {
-    console.log("** Lesson (count: " + lesson.count + ")");
-    for (var i = 0; i < lesson.count; i++)
-        dumpExcercise(lesson.get(i));
-}
-
-function dumpExcercise(exercise)
-{
-    var output = "  ";
-    for (var i = 0; i < exercise.Answers.count; i++) {
-        var answer = exercise.Answers.get(i).DisplayName;
-        if (i === exercise.CorrectAnswerIndex)
-            answer = "_" + answer + "_";
-        output += " " + answer
+    console.log("** lessonData (count: " + lessonData.length + ")");
+    for (var i = 0; i < lessonData.length; i++) {
+        var exercise = lessonData[i];
+        var output = "  ";
+        for (var j = 0; j < exercise.Answers.length; j++) {
+            var answer = exercise.Answers[j].DisplayName;
+            if (j === exercise.CorrectAnswerIndex)
+                answer = ">" + answer + "<";
+            output += " " + answer;
+        }
+        console.log(output + "  " + exercise.Answers[exercise.CorrectAnswerIndex].ImageSource);
     }
-    console.log(output + "  " + exercise.Answers.get(exercise.CorrectAnswerIndex).ImageSource);
 }
 
 function firstLetterImageSourceFunction(object, answerIndex)
