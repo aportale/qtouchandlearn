@@ -34,5 +34,6 @@ Item {
         onClosePressed: parent.closePressed()
         exerciseFunction: "mixedExercisesFunction"
         imageSizeFactor: 0.8
+        showCorrectionImageOnButton: false
     }
 }
