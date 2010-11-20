@@ -157,13 +157,29 @@ function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
     return false;
 }
 
+var cachedExcerciseFunctionsDict = null;
+function excerciseFunctionsDict()
+{
+    if (cachedExcerciseFunctionsDict == null) {
+        cachedExcerciseFunctionsDict = {
+                firstLetterExerciseFunction: firstLetterExerciseFunction,
+                nameTermsExerciseFunction: nameTermsExerciseFunction,
+                countEasyExerciseFunction: countEasyExerciseFunction,
+                countReadEasyExerciseFunction: countReadEasyExerciseFunction,
+                countHardExerciseFunction: countHardExerciseFunction,
+                countReadHardExerciseFunction: countReadHardExerciseFunction
+        };
+    }
+    return cachedExcerciseFunctionsDict;
+}
+
 function exercise(i, exerciseFunction, answersCount)
 {
     var index = i % lessonDataLength
     if (lessonData == null)
         lessonData = [];
     if (lessonData[index] === undefined)
-        eval(exerciseFunction + "(index, answersCount)");
+        excerciseFunctionsDict()[exerciseFunction](index, answersCount);
     return lessonData[index];
 }
 
