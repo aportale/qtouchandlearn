@@ -28,7 +28,7 @@ DEPLOYMENTFOLDERS = folder_01 folder_02
 #QML_IMPORT_PATH =
 
 # Avoid auto screen rotation
-#DEFINES += ORIENTATIONLOCK
+DEFINES += ORIENTATIONLOCK
 
 # Needs to be defined for Symbian
 #DEFINES += NETWORKACCESS
@@ -56,3 +56,5 @@ QT += svg
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
+
+symbian:contains(DEFINES, ORIENTATIONLOCK):LIBS -= -leiksrv
