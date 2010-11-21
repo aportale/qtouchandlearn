@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
-#if !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN)
+#if !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(Q_WS_SIMULATOR)
     if (false)
         viewer.setGeometry(100, 100, 480, 800); // N900
     else
