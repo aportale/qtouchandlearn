@@ -161,5 +161,9 @@
         <source>horse</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>dog</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

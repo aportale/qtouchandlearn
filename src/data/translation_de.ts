@@ -161,5 +161,9 @@
         <source>horse</source>
         <translation>Pferd</translation>
     </message>
+    <message>
+        <source>dog</source>
+        <translation>Hund</translation>
+    </message>
 </context>
 </TS>
