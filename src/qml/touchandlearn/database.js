@@ -49,7 +49,8 @@ function objects()
             { Id: "scissors",       DisplayName: qsTranslate("Objects", "scissors") },
             { Id: "key",            DisplayName: qsTranslate("Objects", "key") },
             { Id: "horse",          DisplayName: qsTranslate("Objects", "horse") },
-            { Id: "dog",            DisplayName: qsTranslate("Objects", "dog") }
+            { Id: "dog",            DisplayName: qsTranslate("Objects", "dog") },
+            { Id: "cat",            DisplayName: qsTranslate("Objects", "cat") }
         ]);
     }
     return cachedObjects;

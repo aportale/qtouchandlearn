@@ -165,5 +165,9 @@
         <source>dog</source>
         <translation>Hund</translation>
     </message>
+    <message>
+        <source>cat</source>
+        <translation>Katze</translation>
+    </message>
 </context>
 </TS>
