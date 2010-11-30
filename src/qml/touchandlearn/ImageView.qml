@@ -93,6 +93,6 @@ Item {
     Image {
         sourceSize.height: parent.height
         sourceSize.width: parent.width
-        source: "image://imageprovider/frame/portraitmutilplechoice"
+        source: "image://imageprovider/frame/0"
     }
 }

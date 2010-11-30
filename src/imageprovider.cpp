@@ -176,11 +176,12 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     const QString &elementId = idSegments.at(1);
     if (idSegments.first() == QLatin1String("background")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::KeepAspectRatioByExpanding, size, requestedSize);
-    } else if (idSegments.first() == frameString
-               || idSegments.first() == QLatin1String("specialbutton")) {
+    } else if (idSegments.first() == QLatin1String("specialbutton")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
-        return renderedDesignElement(buttonVariations(),idSegments.at(1).toInt(), size, requestedSize);
+        return renderedDesignElement(buttonVariations(), elementId.toInt(), size, requestedSize);
+    } else if (idSegments.first() == frameString) {
+        return renderedDesignElement(frameVariations(), 0, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("object")) {
         return renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
