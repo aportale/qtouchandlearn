@@ -22,6 +22,10 @@
 folder_01.source = ../data
 DEPLOYMENTFOLDERS = folder_01
 
+DEFINES += \
+    QT_USE_FAST_CONCATENATION \
+    QT_USE_FAST_OPERATOR_PLUS
+
 SOURCES += test.cpp \
     ../imageprovider.cpp
 

@@ -27,8 +27,10 @@ DEPLOYMENTFOLDERS = folder_01 folder_02
 # Additional import path used to resolve QML modules in Creator's code model
 #QML_IMPORT_PATH =
 
-# Avoid auto screen rotation
-DEFINES += ORIENTATIONLOCK
+DEFINES += \
+    ORIENTATIONLOCK \
+    QT_USE_FAST_CONCATENATION \
+    QT_USE_FAST_OPERATOR_PLUS
 
 # Needs to be defined for Symbian
 #DEFINES += NETWORKACCESS
