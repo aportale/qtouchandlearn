@@ -186,7 +186,7 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
     return pixmap;
 }
 
-inline static QPixmap renderedDesignElement(const ElementVariationList *elements, int variant, QSize *size, const QSize &requestedSize)
+inline static QPixmap renderedDesignElement(const ElementVariationList *elements, int variation, QSize *size, const QSize &requestedSize)
 {
     const qreal requestedRatio = requestedSize.width() / qreal(requestedSize.height());
     const ElementVariations *elementWithNearestRatio = &elements->last();
@@ -198,7 +198,7 @@ inline static QPixmap renderedDesignElement(const ElementVariationList *elements
             break;
         }
     }
-    return renderedSvgElement(elementWithNearestRatio->elementIds.at(variant % elementWithNearestRatio->elementIds.count()),
+    return renderedSvgElement(elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count()),
                               designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
 }
 
