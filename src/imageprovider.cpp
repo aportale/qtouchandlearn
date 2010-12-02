@@ -109,7 +109,7 @@ inline static QPixmap quantity(int quantity, const QString &item, QSize *size, c
         for (int column = 0; column < columns; column++) {
             if (columns * row + column >= quantity)
                 break;
-            const QString itemId = (item + QLatin1String("_%1")).arg((qrand() % 8 + 1), 2, 10, QLatin1Char('0'));
+            const QString itemId = item + QLatin1Char('_') + QString::number((qrand() % 8 + 1));
             const QRect itemRect(column * itemSize + (row == rows-1 ? (columns - columnsInLastRow) * itemSize / 2 : 0),
                                  row * itemSize, itemSize, itemSize);
             renderer->render(&p, itemId, itemRect);
