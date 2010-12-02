@@ -29,6 +29,7 @@
 
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
+const QString clockBackgroundString = QLatin1String("background");
 static QString dataPath = QLatin1String("data");
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
@@ -41,6 +42,10 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, objectRenderer, {
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, countablesRenderer, {
     x->load(dataPath + QLatin1String("/countables.svg"));
+});
+
+Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, clocksRenderer, {
+    x->load(dataPath + QLatin1String("/clocks.svg"));
 });
 
 struct ElementVariations
@@ -120,6 +125,41 @@ inline static QPixmap quantity(int quantity, const QString &item, QSize *size, c
     return result;
 }
 
+inline static int clockVariationsCount()
+{
+    int count = 0;
+    QSvgRenderer *renderer = clocksRenderer();
+    const QString elementIdBase = clockBackgroundString + QLatin1Char('_');
+    Q_FOREVER {
+        const QString elementId = elementIdBase + QString::number(count + 1);
+        if (renderer->elementExists(elementId))
+            count++;
+        else
+            break;
+    }
+    return count;
+}
+
+inline static QPixmap clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
+{
+    const static int variationsCount = clockVariationsCount();
+    QSvgRenderer *renderer = clocksRenderer();
+    const QString variationNumber = QLatin1Char('_') + QString::number(variation);
+    const QString backgroundElementId = clockBackgroundString + variationNumber;
+    const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
+    QSize pixmapSize = renderer->boundsOnElement(backgroundElementId).size().toSize();
+    if (size)
+        *size = pixmapSize;
+    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
+    QPixmap pixmap(pixmapSize);
+    if (pixmap.isNull())
+        qDebug() << "****************** clock pixmap is NULL! Variation:" << variation;
+    pixmap.fill(Qt::transparent);
+    QPainter p(&pixmap);
+    renderer->render(&p, backgroundElementId, QRect(QPoint(), pixmapSize));
+    return pixmap;
+}
+
 inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
                                          QSize *size, const QSize &requestedSize)
 {
@@ -184,6 +224,12 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
         return renderedDesignElement(frameVariations(), 0, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("object")) {
         return renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+    } else if (idSegments.first() == QLatin1String("clock")) {
+        if (idSegments.count() != 4) {
+            qDebug() << "Wrong number of parameters for clock images:" << id;
+            return QPixmap();
+        }
+        return clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for quantity images:" << id;
