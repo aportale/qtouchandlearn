@@ -143,12 +143,13 @@ inline static int clockVariationsCount()
 inline static void renderIndicator(const QString &indicatorId, int rotation, const QRectF &background,
                                    qreal scaleFactor, QSvgRenderer *renderer, QPainter *p)
 {
+    const QPointF bgCenter = background.center();
     QTransform transform;
     transform
             .scale(scaleFactor, scaleFactor)
-            .translate(background.width() / 2, background.height() / 2)
+            .translate(bgCenter.x() - background.x(), bgCenter.y() - background.y())
             .rotate(rotation)
-            .translate(-background.width() / 2 - background.left(), - background.height() / 2 -background.top());
+            .translate(-bgCenter.x(), -bgCenter.y());
     p->setTransform(transform);
     renderer->render(p, indicatorId, renderer->boundsOnElement(indicatorId));
 }
@@ -170,7 +171,7 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     QPixmap pixmap(pixmapSize);
     if (pixmap.isNull())
         qDebug() << "****************** clock pixmap is NULL! Variation:" << variation;
-    pixmap.fill(Qt::green);
+    pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
     const qreal scaleFactor = pixmapSize.width() / backgroundRect.width();
     QTransform mainTransform;
