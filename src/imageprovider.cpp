@@ -162,8 +162,6 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
     const QRectF backgroundRect = renderer->boundsOnElement(backgroundElementId);
-    const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
-    const QRectF foregroundRect = renderer->boundsOnElement(foregroundElementId);
     QSize pixmapSize = backgroundRect.size().toSize();
     if (size)
         *size = pixmapSize;
@@ -181,15 +179,19 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     p.setTransform(mainTransform);
     renderer->render(&p, backgroundElementId, backgroundRect);
 
-    renderIndicator(QLatin1String("minute") + variationNumber, (minute * 6) % 360,
+    const int minuteRotation = (minute * 6) % 360;
+    renderIndicator(QLatin1String("minute") + variationNumber, minuteRotation,
                     backgroundRect, scaleFactor, renderer, &p);
 
     const int hoursSkew = 6; // Initial position of hour in the SVG is 6
-    renderIndicator(QLatin1String("hour") + variationNumber, ((hour + hoursSkew) * 360 / 12) % 360,
+    renderIndicator(QLatin1String("hour") + variationNumber, (((hour + hoursSkew) * 360 + minuteRotation) / 12) % 360,
                     backgroundRect, scaleFactor, renderer, &p);
 
-    p.setTransform(mainTransform);
-    renderer->render(&p, foregroundElementId, foregroundRect);
+    const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
+    if (renderer->elementExists(foregroundElementId)) {
+        p.setTransform(mainTransform);
+        renderer->render(&p, foregroundElementId, renderer->boundsOnElement(foregroundElementId));
+    }
     return pixmap;
 }
 
