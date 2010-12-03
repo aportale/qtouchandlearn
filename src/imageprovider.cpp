@@ -140,23 +140,55 @@ inline static int clockVariationsCount()
     return count;
 }
 
+inline static void renderIndicator(const QString &indicatorId, int rotation, const QRectF &background,
+                                   qreal scaleFactor, QSvgRenderer *renderer, QPainter *p)
+{
+    QTransform transform;
+    transform
+            .scale(scaleFactor, scaleFactor)
+            .translate(background.width() / 2, background.height() / 2)
+            .rotate(rotation)
+            .translate(-background.width() / 2 - background.left(), - background.height() / 2 -background.top());
+    p->setTransform(transform);
+    renderer->render(p, indicatorId, renderer->boundsOnElement(indicatorId));
+}
+
 inline static QPixmap clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
 {
     const static int variationsCount = clockVariationsCount();
+    const int actualVariation = (variation % variationsCount) + 1;
     QSvgRenderer *renderer = clocksRenderer();
-    const QString variationNumber = QLatin1Char('_') + QString::number(variation);
+    const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
+    const QRectF backgroundRect = renderer->boundsOnElement(backgroundElementId);
     const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
-    QSize pixmapSize = renderer->boundsOnElement(backgroundElementId).size().toSize();
+    const QRectF foregroundRect = renderer->boundsOnElement(foregroundElementId);
+    QSize pixmapSize = backgroundRect.size().toSize();
     if (size)
         *size = pixmapSize;
     pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
     QPixmap pixmap(pixmapSize);
     if (pixmap.isNull())
         qDebug() << "****************** clock pixmap is NULL! Variation:" << variation;
-    pixmap.fill(Qt::transparent);
+    pixmap.fill(Qt::green);
     QPainter p(&pixmap);
-    renderer->render(&p, backgroundElementId, QRect(QPoint(), pixmapSize));
+    const qreal scaleFactor = pixmapSize.width() / backgroundRect.width();
+    QTransform mainTransform;
+    mainTransform
+            .scale(scaleFactor, scaleFactor)
+            .translate(-backgroundRect.left(), -backgroundRect.top());
+    p.setTransform(mainTransform);
+    renderer->render(&p, backgroundElementId, backgroundRect);
+
+    renderIndicator(QLatin1String("minute") + variationNumber, (minute * 6) % 360,
+                    backgroundRect, scaleFactor, renderer, &p);
+
+    const int hoursSkew = 6; // Initial position of hour in the SVG is 6
+    renderIndicator(QLatin1String("hour") + variationNumber, ((hour + hoursSkew) * 360 / 12) % 360,
+                    backgroundRect, scaleFactor, renderer, &p);
+
+    p.setTransform(mainTransform);
+    renderer->render(&p, foregroundElementId, foregroundRect);
     return pixmap;
 }
 
