@@ -22,9 +22,9 @@
 
 import Qt 4.7
 
-Count {
-    answersPerChoiceCount: 2
-    viewHeightRatio: 0.55
+ImageMultipleChoice {
     exerciseFunction: "countReadEasyExerciseFunction"
-    showCorrectionImageOnButton: true
+    answersCount: 2
+    viewHeightRatio: 0.55
+    imageSizeFactor: 0.95
 }

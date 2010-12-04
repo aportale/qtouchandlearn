@@ -22,9 +22,10 @@
 
 import Qt 4.7
 
-Count {
+ImageMultipleChoice {
     exerciseFunction: "countEasyExerciseFunction"
-    answersPerChoiceCount: 2
+    answersCount: 2
     answersColumsCount: 2
     viewHeightRatio: 0.6
+    imageSizeFactor: 0.95
 }

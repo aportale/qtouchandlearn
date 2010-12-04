@@ -22,16 +22,6 @@
 
 import Qt 4.7
 
-Item {
-    signal closePressed
-    property alias exitButtonVisible: choice.exitButtonVisible
-
-    ImageMultipleChoice {
-        id: choice
-        width: parent.width
-        height: parent.height
-        backgroundImage: "image://imageprovider/background/background_01"
-        onClosePressed: parent.closePressed()
-        exerciseFunction: "nameTermsExerciseFunction"
-    }
+ImageMultipleChoice {
+    exerciseFunction: "nameTermsExerciseFunction"
 }

@@ -22,6 +22,7 @@
 
 import Qt 4.7
 
-Count {
+ImageMultipleChoice {
     exerciseFunction: "countReadHardExerciseFunction"
+    showCorrectionImageOnButton: false
 }
