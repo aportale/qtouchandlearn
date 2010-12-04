@@ -2,7 +2,11 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US" sourcelanguage="en_US">
 <context>
-    <name>Lesson Menu</name>
+    <name>LessonMenu</name>
+    <message>
+        <source>Mixed exercises</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Read the first letter</source>
         <translation type="unfinished"></translation>
