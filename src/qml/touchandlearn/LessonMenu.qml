@@ -83,6 +83,27 @@ Rectangle {
             component: "LessonCountReadHard"
             button: "count_and_read_hard"
         }
+        ListElement {
+            name: QT_TR_NOOP("Read the clock, full hours")
+            imageLabel: "5:00"
+            imageLabelFunction: 0
+            component: "LessonClockEasy"
+            button: "clock_easy"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Read the clock, half hours")
+            imageLabel: "8:30"
+            imageLabelFunction: 0
+            component: "LessonClockMedium"
+            button: "clock_medium"
+        }
+        ListElement {
+            name: QT_TR_NOOP("Read the clock")
+            imageLabel: "1:20"
+            imageLabelFunction: 0
+            component: "LessonClockHard"
+            button: "clock_hard"
+        }
     }
 
     Component {
@@ -119,7 +140,7 @@ Rectangle {
                 text: name
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.2
+                font.pixelSize: parent.height * 0.175
                 width: Math.round(parent.width * 0.51)
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter

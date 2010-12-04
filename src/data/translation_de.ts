@@ -31,6 +31,18 @@
         <source>Count and read to 20</source>
         <translation>Bis 20 zählen und lesen</translation>
     </message>
+    <message>
+        <source>Read the clock, full hours</source>
+        <translation>Uhrzeit lesen, volle Stunden</translation>
+    </message>
+    <message>
+        <source>Read the clock, half hours</source>
+        <translation>Uhrzeit lesen, halbe Stunden</translation>
+    </message>
+    <message>
+        <source>Read the clock</source>
+        <translation>Uhrzeit lesen</translation>
+    </message>
 </context>
 <context>
     <name>Numbers</name>

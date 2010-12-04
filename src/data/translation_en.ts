@@ -31,6 +31,18 @@
         <source>Count and read to 20</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Read the clock, full hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read the clock, half hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read the clock</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Numbers</name>
