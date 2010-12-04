@@ -136,6 +136,23 @@ function numbersRange(from, to)
     return cachedNumbersRange;
 }
 
+var cachedTimes = null;
+function times(minutesIntervals)
+{
+    if (cachedTimes == null || cachedTimes.minutesIntervals != minutesIntervals) {
+        cachedTimes = [];
+        var index = 0;
+        for (var hour = 1; hour <= 12; hour++) {
+            for (var minute = 0; minute <= 59; minute += minutesIntervals) {
+                cachedTimes.push({ Index: index, Id: index, Hour: hour, Minute: minute, DisplayName: hour + ":" + (minute < 10 ? "0":"") + minute});
+                index++;
+            }
+        }
+        cachedTimes.minutesIntervals = minutesIntervals;
+    }
+    return cachedTimes;
+}
+
 function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
 {
     if (listModelItemsLength < 1)
@@ -170,6 +187,9 @@ function excerciseFunctionsDict()
                 countReadEasyExerciseFunction: countReadEasyExerciseFunction,
                 countHardExerciseFunction: countHardExerciseFunction,
                 countReadHardExerciseFunction: countReadHardExerciseFunction,
+                clockEasyExerciseFunction: clockEasyExerciseFunction,
+                clockMediumExerciseFunction: clockMediumExerciseFunction,
+                clockHardExerciseFunction: clockHardExerciseFunction,
                 mixedExercisesFunction: mixedExercisesFunction
         };
     }
@@ -292,14 +312,35 @@ function countReadHardExerciseFunction(i, answersCount)
     countExerciseFunction(i, answersCount, 5, 20, true);
 }
 
+function clockImageSourceFunction(object, answerIndex)
+{
+    return "image://imageprovider/clock/" + object.Hour + "/" + object.Minute + "/" + answerIndex;
+}
+
+function clockEasyExerciseFunction(i, answersCount)
+{
+    createExercise(i, times(60), answersCount, clockImageSourceFunction);
+}
+
+function clockMediumExerciseFunction(i, answersCount)
+{
+    createExercise(i, times(30), answersCount, clockImageSourceFunction);
+}
+
+function clockHardExerciseFunction(i, answersCount)
+{
+    createExercise(i, times(5), answersCount, clockImageSourceFunction);
+}
+
 function mixedExercisesFunction(i, answersCount)
 {
-    var lessonsCount = 4;
+    var lessonsCount = 5;
     switch (((i + 1) % lessonsCount) - 1) {
         case 0: countExerciseFunction(i, answersCount, 1, 16, false); break;
         case 1: firstLetterExerciseFunction(i, answersCount); break;
         case 2: countExerciseFunction(i, answersCount, 1, 16, true); break;
+        case 3: clockMediumExerciseFunction(i, answersCount); break;
         default:
-        case 3: nameTermsExerciseFunction(i, answersCount); break;
+        case 4: nameTermsExerciseFunction(i, answersCount); break;
     }
 }
