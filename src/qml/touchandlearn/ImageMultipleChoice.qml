@@ -41,6 +41,7 @@ Item {
         anchors.left: parent.left
         height: Math.round(parent.height * viewHeightRatio)
         answersCount: choice.buttonsCount
+        backgroundImage: "image://imageprovider/background/background_01"
 
         // Theoretically unneeded, since the anchors above should do the job.
         // But without width, we get 0-values at construction time
