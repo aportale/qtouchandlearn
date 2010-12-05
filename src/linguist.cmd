@@ -1,6 +1,6 @@
 @ECHO OFF
 SET TSFILES=
-FOR %%i IN (data\*.ts) DO call :addtotsfilelist %%i
+FOR %%i IN (ts\*.ts) DO call :addtotsfilelist %%i
 
 linguist.exe %TSFILES%
 
