@@ -63,7 +63,7 @@ function firstLetters()
         var firstLettersMap = new Array();
         objects(); // initializing 'cachedObjects'
         for (var i = 0; i < cachedObjects.length; i++) {
-            var firstLetter = cachedObjects[i].Id[0].toUpperCase();
+            var firstLetter = cachedObjects[i].DisplayName[0].toUpperCase();
             if (firstLettersMap[firstLetter] === undefined)
                 firstLettersMap[firstLetter] = new Array();
             firstLettersMap[firstLetter].push(cachedObjects[i]);

@@ -137,7 +137,7 @@ Rectangle {
             }
 
             Text {
-                text: name
+                text: qsTr(name)
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.175
