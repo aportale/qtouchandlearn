@@ -26,7 +26,6 @@ import "database.js" as Database
 Rectangle {
     width: 360
     height: 640
-    anchors.fill: parent
     id: mainWindow
     color: "#000"
 
