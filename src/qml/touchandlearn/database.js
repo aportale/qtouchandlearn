@@ -165,6 +165,8 @@ function notes()
            { Id: "D sharp", Key:  4, DisplayName: qsTranslate("Notes", "D sharp")},
            { Id: "E flat",  Key:  4, DisplayName: qsTranslate("Notes", "E flat")},
            { Id: "E",       Key:  5, DisplayName: qsTranslate("Notes", "E")},
+           { Id: "F flat",  Key:  5, DisplayName: qsTranslate("Notes", "F flat")},
+           { Id: "E sharp", Key:  6, DisplayName: qsTranslate("Notes", "E sharp")},
            { Id: "F",       Key:  6, DisplayName: qsTranslate("Notes", "F")},
            { Id: "F sharp", Key:  7, DisplayName: qsTranslate("Notes", "F sharp")},
            { Id: "G flat",  Key:  7, DisplayName: qsTranslate("Notes", "G flat")},
@@ -174,7 +176,8 @@ function notes()
            { Id: "A",       Key: 10, DisplayName: qsTranslate("Notes", "A")},
            { Id: "A sharp", Key: 11, DisplayName: qsTranslate("Notes", "A sharp")},
            { Id: "B flat",  Key: 11, DisplayName: qsTranslate("Notes", "B flat")},
-           { Id: "B",       Key: 12, DisplayName: qsTranslate("Notes", "B")}
+           { Id: "B",       Key: 12, DisplayName: qsTranslate("Notes", "B")},
+           { Id: "C flat",  Key: 12, DisplayName: qsTranslate("Notes", "C flat")}
     ]);
     }
     return cachedNotes;
