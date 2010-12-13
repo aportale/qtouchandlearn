@@ -153,6 +153,33 @@ function times(minutesIntervals)
     return cachedTimes;
 }
 
+var cachedNotes = null;
+function notes()
+{
+    if (cachedNotes == null) {
+        cachedNotes = addIndicesToDict([
+           { Id: "C",       Key:  1, DisplayName: qsTranslate("Notes", "C")},
+           { Id: "C sharp", Key:  2, DisplayName: qsTranslate("Notes", "C sharp")},
+           { Id: "D flat",  Key:  2, DisplayName: qsTranslate("Notes", "D flat")},
+           { Id: "D",       Key:  3, DisplayName: qsTranslate("Notes", "D")},
+           { Id: "D sharp", Key:  4, DisplayName: qsTranslate("Notes", "D sharp")},
+           { Id: "E flat",  Key:  4, DisplayName: qsTranslate("Notes", "E flat")},
+           { Id: "E",       Key:  5, DisplayName: qsTranslate("Notes", "E")},
+           { Id: "F",       Key:  6, DisplayName: qsTranslate("Notes", "F")},
+           { Id: "F sharp", Key:  7, DisplayName: qsTranslate("Notes", "F sharp")},
+           { Id: "G flat",  Key:  7, DisplayName: qsTranslate("Notes", "G flat")},
+           { Id: "G",       Key:  8, DisplayName: qsTranslate("Notes", "G")},
+           { Id: "G sharp", Key:  9, DisplayName: qsTranslate("Notes", "G sharp")},
+           { Id: "A flat",  Key:  9, DisplayName: qsTranslate("Notes", "A flat")},
+           { Id: "A",       Key: 10, DisplayName: qsTranslate("Notes", "A")},
+           { Id: "A sharp", Key: 11, DisplayName: qsTranslate("Notes", "A sharp")},
+           { Id: "B flat",  Key: 11, DisplayName: qsTranslate("Notes", "B flat")},
+           { Id: "B",       Key: 12, DisplayName: qsTranslate("Notes", "B")}
+    ]);
+    }
+    return cachedNotes;
+}
+
 function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
 {
     if (listModelItemsLength < 1)
