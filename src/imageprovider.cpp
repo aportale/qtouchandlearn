@@ -201,12 +201,24 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
 
 inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
 {
+    enum Symbol {
+        SymbolNone,
+        SymbolFlat,
+        SymbolSharp
+    };
+
     QSvgRenderer *renderer = notesRenderer();
     static const QString clefId = QLatin1String("clef");
     static const QRectF clefRect = renderer->boundsOnElement(clefId);
     static const QString staffLinesId = QLatin1String("stafflines");
-    static const QRectF staffLinesRect = renderer->boundsOnElement(staffLinesId);
-    QSize pixmapSize = clefRect.size().toSize();
+    static const QRectF staffLinesOriginalRect = renderer->boundsOnElement(staffLinesId);
+    static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
+    const qreal linesSpaceForNotes = notes.count() * clefRect.width() * 2;
+    QRectF staffLinesRect = staffLinesOriginalRect;
+    staffLinesRect.setWidth(clefRightY + linesSpaceForNotes);
+    const qreal heightAdjustment = clefRect.height() / 2.5;
+    const QRectF pixmapRect = staffLinesRect.adjusted(0, -heightAdjustment, 0, heightAdjustment);
+    QSize pixmapSize = pixmapRect.size().toSize();
     if (size)
         *size = pixmapSize;
     pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
@@ -215,8 +227,12 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
         qDebug() << "****************** notes pixmap is NULL! Notes:" << notes;
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
+    const qreal scaleFactor = pixmapSize.width() / pixmapRect.width();
+    p.scale(scaleFactor, scaleFactor);
+    p.translate(-pixmapRect.topLeft());
 
-    renderer->render(&p, clefId, pixmap.rect());
+    renderer->render(&p, clefId, clefRect);
+    renderer->render(&p, staffLinesId, staffLinesRect);
 
     return pixmap;
 }
