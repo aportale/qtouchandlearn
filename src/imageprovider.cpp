@@ -48,6 +48,10 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, clocksRenderer, {
     x->load(dataPath + QLatin1String("/clocks.svg"));
 });
 
+Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
+    x->load(dataPath + QLatin1String("/notes.svg"));
+});
+
 struct ElementVariations
 {
     QStringList elementIds;
@@ -195,6 +199,28 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     return pixmap;
 }
 
+inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
+{
+    QSvgRenderer *renderer = notesRenderer();
+    static const QString clefId = QLatin1String("clef");
+    static const QRectF clefRect = renderer->boundsOnElement(clefId);
+    static const QString staffLinesId = QLatin1String("stafflines");
+    static const QRectF staffLinesRect = renderer->boundsOnElement(staffLinesId);
+    QSize pixmapSize = clefRect.size().toSize();
+    if (size)
+        *size = pixmapSize;
+    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
+    QPixmap pixmap(pixmapSize);
+    if (pixmap.isNull())
+        qDebug() << "****************** notes pixmap is NULL! Notes:" << notes;
+    pixmap.fill(Qt::transparent);
+    QPainter p(&pixmap);
+
+    renderer->render(&p, clefId, pixmap.rect());
+
+    return pixmap;
+}
+
 inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
                                          QSize *size, const QSize &requestedSize)
 {
@@ -265,6 +291,8 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
             return QPixmap();
         }
         return clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
+    } else if (idSegments.first() == QLatin1String("notes")) {
+        return notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for quantity images:" << id;
