@@ -201,19 +201,14 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
 
 inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
 {
-    enum Symbol {
-        SymbolNone,
-        SymbolFlat,
-        SymbolSharp
-    };
-
     QSvgRenderer *renderer = notesRenderer();
     static const QString clefId = QLatin1String("clef");
     static const QRectF clefRect = renderer->boundsOnElement(clefId);
     static const QString staffLinesId = QLatin1String("stafflines");
     static const QRectF staffLinesOriginalRect = renderer->boundsOnElement(staffLinesId);
     static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
-    const qreal linesSpaceForNotes = notes.count() * clefRect.width() * 2;
+    static const qreal linesSpacePerNote = clefRect.width() * 1.75;
+    const qreal linesSpaceForNotes = notes.count() * linesSpacePerNote;
     QRectF staffLinesRect = staffLinesOriginalRect;
     staffLinesRect.setWidth(clefRightY + linesSpaceForNotes);
     const qreal heightAdjustment = clefRect.height() / 2.5;
@@ -233,6 +228,20 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
 
     renderer->render(&p, clefId, clefRect);
     renderer->render(&p, staffLinesId, staffLinesRect);
+
+    int currentNote = 0;
+    foreach(const QString &note, notes) {
+        const QString trimmedNote = note.trimmed();
+        const QString noteID = QLatin1String("note_") + trimmedNote.at(0).toLower();
+        QRectF noteRect = renderer->boundsOnElement(noteID);
+        QString noteSign;
+        if (trimmedNote.length() == 2)
+            noteSign = trimmedNote.at(1) == QLatin1Char('#') ? QLatin1String("sharp") : QLatin1String("flat");
+        const qreal noteCenterX = clefRightY + (currentNote + 0.125) * linesSpacePerNote + noteRect.width();
+        currentNote++;
+        noteRect.translate(noteCenterX - noteRect.center().x(), 0);
+        renderer->render(&p, noteID, noteRect);
+    }
 
     return pixmap;
 }
