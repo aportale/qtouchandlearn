@@ -211,7 +211,7 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     const qreal linesSpaceForNotes = notes.count() * linesSpacePerNote;
     QRectF staffLinesRect = staffLinesOriginalRect;
     staffLinesRect.setWidth(clefRightY + linesSpaceForNotes);
-    const qreal heightAdjustment = clefRect.height() / 2.5;
+    const qreal heightAdjustment = clefRect.height() / 3.1;
     const QRectF pixmapRect = staffLinesRect.adjusted(0, -heightAdjustment, 0, heightAdjustment);
     QSize pixmapSize = pixmapRect.size().toSize();
     if (size)
@@ -229,18 +229,29 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     renderer->render(&p, clefId, clefRect);
     renderer->render(&p, staffLinesId, staffLinesRect);
 
-    int currentNote = 0;
-    foreach(const QString &note, notes) {
-        const QString trimmedNote = note.trimmed();
-        const QString noteID = QLatin1String("note_") + trimmedNote.at(0).toLower();
+    int currentNoteIndex = 0;
+    foreach(const QString &currentNote, notes) {
+        const QString trimmedNote = currentNote.trimmed();
+        const QString note = trimmedNote.at(0).toLower();
+        const QString noteID = QLatin1String("note_") + note;
         QRectF noteRect = renderer->boundsOnElement(noteID);
-        QString noteSign;
-        if (trimmedNote.length() == 2)
-            noteSign = trimmedNote.at(1) == QLatin1Char('#') ? QLatin1String("sharp") : QLatin1String("flat");
-        const qreal noteCenterX = clefRightY + (currentNote + 0.125) * linesSpacePerNote + noteRect.width();
-        currentNote++;
-        noteRect.translate(noteCenterX - noteRect.center().x(), 0);
+        const qreal noteCenterX = clefRightY + (currentNoteIndex + 0.125) * linesSpacePerNote + noteRect.width();
+        currentNoteIndex++;
+        const qreal noteXTranslate = noteCenterX - noteRect.center().x();
+        noteRect.translate(noteXTranslate, 0);
         renderer->render(&p, noteID, noteRect);
+        if (trimmedNote.length() == 2) {
+            static const QString sharpId = QLatin1String("sharp");
+            static const QString flatId = QLatin1String("flat");
+            static const QRectF noteCHeadRect = renderer->boundsOnElement(QLatin1String("note_c_head"));
+            const bool sharp = trimmedNote.at(1) == QLatin1Char('#');
+            const QString &noteSign = sharp ? sharpId : flatId;
+            const QRectF noteHeadRect = renderer->boundsOnElement(QLatin1String("note_") + note + QLatin1String("_head"));
+            const QRectF signRect = renderer->boundsOnElement(noteSign)
+                    .translated(noteXTranslate, 0)
+                    .translated(noteHeadRect.topLeft() - noteCHeadRect.topLeft());
+            renderer->render(&p, noteSign, signRect);
+        }
     }
 
     return pixmap;

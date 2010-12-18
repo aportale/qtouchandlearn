@@ -20,19 +20,32 @@
 </g>
 <g id="note_c" fill="#000">
 <path id="path2997-4" d="m195.4,238.9c18.71,0.4981,34.48-0.8416,51.96,0.1947,0.018,1.212,0.0607,2.47-0.0148,3.505-18.28-0.2788-34.32-0.1456-52.04-0.2552,0.0374-0.8916,0.002-1.608,0.0953-3.444z"/>
-<g id="note_up" transform="translate(-16.868635,0)">
-<path id="note_head" d="m218.8,245.2c-0.1428-8.19,12.34-19.59,26.07-19.29,6.41,0.1427,13.26,2.798,13.04,10.89-0.2226,8.095-11.91,18.21-25.71,18.57-6.659,0.1721-13.25-1.988-13.39-10.18z"/>
-<path id="note_stem" d="m253.9,236c0.5345-16.48-1.22-33.08,0.119-46.68,0.2144-18.1-0.5544-29.99,0.1191-46.68,1.482-0.0323,3.02-0.1091,4.286,0.0267,0.557,15.48-0.2021,32.65-0.3198,46.67,0.1218,17.2,0.092,29.99-0.3198,46.67-1.09-0.0673-1.638,0.1575-3.884-0.011z"/>
+<path id="note_c_head" d="m201.9,245.2c-0.1428-8.19,12.34-19.59,26.07-19.29,6.41,0.1427,13.26,2.798,13.04,10.89-0.2226,8.095-11.91,18.21-25.71,18.57-6.659,0.1721-13.25-1.988-13.39-10.18z"/>
+<path id="note_stem" d="m237,236c0.5345-16.48-1.22-33.08,0.119-46.68,0.2144-18.1-0.5544-29.99,0.1191-46.68,1.482-0.0323,3.02-0.1091,4.286,0.0267,0.557,15.48-0.2021,32.65-0.3198,46.67,0.1218,17.2,0.092,29.99-0.3198,46.67-1.09-0.0673-1.638,0.1575-3.884-0.011z"/>
 </g>
+<g id="note_d">
+<use id="use3074" xlink:href="#note_stem" transform="translate(74.441149,-14.107132)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_d_head" xlink:href="#note_c_head" transform="translate(74.226859,-14)" height="1052.3622" width="744.09448" y="0" x="0"/>
 </g>
-<use id="note_d" xlink:href="#note_up" transform="translate(77.145434,-14)" height="1052.3622" width="744.09448" y="0" x="0"/>
-<use id="note_e" xlink:href="#note_up" transform="translate(154.77534,-28)" height="1052.3622" width="744.09448" y="0" x="0"/>
-<use id="note_f" xlink:href="#note_up" transform="translate(232.40523,-41.495437)" height="1052.3622" width="744.09448" y="0" x="0"/>
-<use id="note_g" xlink:href="#note_up" transform="translate(310.03514,-55.982935)" height="1052.3622" width="744.09448" y="0" x="0"/>
-<use id="note_a" xlink:href="#note_up" transform="translate(387.66506,-69.798086)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<g id="note_e">
+<use id="use3088" xlink:href="#note_stem" transform="translate(149.14173,-28.04064)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_e_head" xlink:href="#note_c_head" transform="translate(149.16321,-28)" height="1052.3622" width="744.09448" y="0" x="0"/>
+</g>
+<g id="note_f">
+<use id="use3098" xlink:href="#note_stem" transform="translate(224.00025,-41.494924)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_f_head" xlink:href="#note_c_head" transform="translate(223.94162,-41.55357)" height="1052.3622" width="744.09448" y="0" x="0"/>
+</g>
+<g id="note_g">
+<use id="use3108" xlink:href="#note_stem" transform="translate(298.87869,-55.964281)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_g_head" xlink:href="#note_c_head" transform="translate(298.70012,-56)" height="1052.3622" width="744.09448" y="0" x="0"/>
+</g>
+<g id="note_a">
+<use id="use3118" xlink:href="#note_stem" transform="translate(373.63451,-69.78572)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_a_head" xlink:href="#note_c_head" transform="translate(373.58132,-69.821428)" height="1052.3622" width="744.09448" y="0" x="0"/>
+</g>
 <g id="note_b">
-<use id="use3891" xlink:href="#note_head" transform="translate(449.10525,-84.040717)" height="1052.3622" width="744.09448" y="0" x="0"/>
-<use id="use3895" xlink:href="#note_stem" transform="translate(413.7565,17.785705)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="use3895" xlink:href="#note_stem" transform="translate(413.75653,17.785705)" height="1052.3622" width="744.09448" y="0" x="0"/>
+<use id="note_b_head" xlink:href="#note_c_head" transform="translate(449.10528,-84.040717)" height="1052.3622" width="744.09448" y="0" x="0"/>
 </g>
 <path id="sharp" d="m180,252,0-20.17,7.666-2.228,0,20.06zm16.04-4.878-5.745,1.689,0-20.06,5.745-1.646,0-8.334-5.745,1.646,0-20.5-2.629,0.1381,0,21.12-7.666,2.327,0-19.93-2.633,0,0,20.69-5.745,1.65,0,8.351,5.745-1.646,0,20.02-5.745,1.642,0,8.316,5.745-1.646,0,20.38,2.633,0,0-21.11,7.666-2.22,0,19.83,2.629-0.1381,0-20.58,5.745-1.65z" fill="#000"/>
 <path id="flat" d="m175.8,254.1v-14.47c6.851-10.55,13.36-10.11,14.51-5.445,1.152,4.665-2.274,13.17-14.51,19.92zm0-21.61,0-40.56-3.141,0,0,64.81c0,1.964,0.5355,2.945,1.607,2.945,9.745-5.2,23.94-19.3,20.41-27.51-3.527-8.211-13.74-4.714-18.88,0.322z" fill="#000"/>

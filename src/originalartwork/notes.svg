@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="17.319797"
-     inkscape:cy="872.16993"
+     inkscape:zoom="1.4"
+     inkscape:cx="649.95933"
+     inkscape:cy="999.20109"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -126,79 +126,130 @@
          id="path2997-4"
          d="m 195.37308,238.91147 c 18.71351,0.49807 34.48136,-0.84163 51.96066,0.19472 0.018,1.21168 0.0607,2.47013 -0.0148,3.50488 -18.27668,-0.27877 -34.31807,-0.14559 -52.04126,-0.25523 0.0374,-0.89155 0.002,-1.60777 0.0953,-3.44437 z"
          style="fill:#000000;fill-opacity:1;stroke:none" />
-      <g
-         transform="translate(-16.868635,0)"
-         id="note_up">
-        <path
-           style="fill:#000000;fill-opacity:1;stroke:none"
-           d="m 218.75,245.21934 c -0.14276,-8.19045 12.34103,-19.59135 26.07143,-19.28572 6.40997,0.14268 13.25828,2.79758 13.03571,10.89286 -0.22257,8.09528 -11.90899,18.21472 -25.71428,18.57142 -6.65908,0.17206 -13.25009,-1.98812 -13.39286,-10.17856 z"
-           id="note_head"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="zszsz" />
-        <path
-           style="fill:#000000;fill-opacity:1;stroke:none"
-           d="m 253.87143,235.95491 c 0.53446,-16.47577 -1.2204,-33.0799 0.11904,-46.68085 0.21443,-18.10224 -0.55438,-29.99021 0.11908,-46.68086 1.48161,-0.0323 3.02044,-0.1091 4.28571,0.0267 0.55699,15.47555 -0.20212,32.6457 -0.31983,46.67305 0.12185,17.19907 0.092,29.98767 -0.31979,46.67305 -1.09018,-0.0673 -1.63843,0.15754 -3.88421,-0.011 z"
-           id="note_stem"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccccccc" />
-      </g>
+      <path
+         sodipodi:nodetypes="zszsz"
+         inkscape:connector-curvature="0"
+         id="note_c_head"
+         d="m 201.88136,245.21934 c -0.14276,-8.19045 12.34103,-19.59135 26.07143,-19.28572 6.40997,0.14268 13.25828,2.79758 13.03571,10.89286 -0.22257,8.09528 -11.90898,18.21472 -25.71428,18.57142 -6.65908,0.17206 -13.25009,-1.98812 -13.39286,-10.17856 z"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="note_stem"
+         d="m 237.00279,235.95491 c 0.53446,-16.47577 -1.2204,-33.0799 0.11904,-46.68085 0.21443,-18.10224 -0.55438,-29.99021 0.11908,-46.68086 1.48161,-0.0323 3.02044,-0.1091 4.28571,0.0267 0.55699,15.47555 -0.20211,32.6457 -0.31983,46.67305 0.12185,17.19907 0.092,29.98767 -0.31979,46.67305 -1.09018,-0.0673 -1.63843,0.15754 -3.88421,-0.011 z"
+         style="fill:#000000;fill-opacity:1;stroke:none" />
     </g>
-    <use
-       x="0"
-       y="0"
-       xlink:href="#note_up"
-       id="note_d"
-       transform="translate(77.145434,-14)"
-       width="744.09448"
-       height="1052.3622" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#note_up"
-       id="note_e"
-       transform="translate(154.77534,-28)"
-       width="744.09448"
-       height="1052.3622" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#note_up"
-       id="note_f"
-       transform="translate(232.40523,-41.495437)"
-       width="744.09448"
-       height="1052.3622" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#note_up"
-       id="note_g"
-       transform="translate(310.03514,-55.982935)"
-       width="744.09448"
-       height="1052.3622" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#note_up"
-       id="note_a"
-       transform="translate(387.66506,-69.798086)"
-       width="744.09448"
-       height="1052.3622" />
     <g
-       id="note_b">
+       id="note_d">
       <use
          height="1052.3622"
          width="744.09448"
-         transform="translate(449.10525,-84.040717)"
-         id="use3891"
-         xlink:href="#note_head"
+         transform="translate(74.441149,-14.107132)"
+         id="use3074"
+         xlink:href="#note_stem"
          y="0"
          x="0" />
       <use
          height="1052.3622"
          width="744.09448"
-         transform="translate(413.7565,17.785705)"
+         transform="translate(74.226859,-14)"
+         id="note_d_head"
+         xlink:href="#note_c_head"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="note_e">
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(149.14173,-28.04064)"
+         id="use3088"
+         xlink:href="#note_stem"
+         y="0"
+         x="0" />
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(149.16321,-28)"
+         id="note_e_head"
+         xlink:href="#note_c_head"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="note_f">
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(224.00025,-41.494924)"
+         id="use3098"
+         xlink:href="#note_stem"
+         y="0"
+         x="0" />
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(223.94162,-41.55357)"
+         id="note_f_head"
+         xlink:href="#note_c_head"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="note_g">
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(298.87869,-55.964281)"
+         id="use3108"
+         xlink:href="#note_stem"
+         y="0"
+         x="0" />
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(298.70012,-56)"
+         id="note_g_head"
+         xlink:href="#note_c_head"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="note_a">
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(373.63451,-69.78572)"
+         id="use3118"
+         xlink:href="#note_stem"
+         y="0"
+         x="0" />
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(373.58132,-69.821428)"
+         id="note_a_head"
+         xlink:href="#note_c_head"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="note_b">
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(413.75653,17.785705)"
          id="use3895"
          xlink:href="#note_stem"
+         y="0"
+         x="0" />
+      <use
+         height="1052.3622"
+         width="744.09448"
+         transform="translate(449.10528,-84.040717)"
+         id="note_b_head"
+         xlink:href="#note_c_head"
          y="0"
          x="0" />
     </g>
