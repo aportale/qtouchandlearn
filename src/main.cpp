@@ -26,7 +26,6 @@
 #include <QtDeclarative/QDeclarativeEngine>
 #include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeComponent>
-#include <QGLWidget>
 
 #include "qmlapplicationviewer.h"
 #include "imageprovider.h"
@@ -45,7 +44,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
     QmlApplicationViewer viewer;
-    viewer.setViewport(new QGLWidget);
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
