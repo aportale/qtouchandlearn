@@ -24,6 +24,6 @@ import Qt 4.7
 
 ImageMultipleChoice {
     answersCount: 2
-    viewHeightRatio: 0.6
+    viewHeightRatio: 0.55
     exerciseFunction: "clockMediumExerciseFunction"
 }
