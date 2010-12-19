@@ -45,6 +45,89 @@
     </message>
 </context>
 <context>
+    <name>Notes</name>
+    <message>
+        <source>C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>G flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>G sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A sharp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>B flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Numbers</name>
     <message>
         <source>zero</source>

@@ -226,8 +226,8 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     p.scale(scaleFactor, scaleFactor);
     p.translate(-pixmapRect.topLeft());
 
-    renderer->render(&p, clefId, clefRect);
     renderer->render(&p, staffLinesId, staffLinesRect);
+    renderer->render(&p, clefId, clefRect);
 
     int currentNoteIndex = 0;
     foreach(const QString &currentNote, notes) {
@@ -240,11 +240,11 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
         const qreal noteXTranslate = noteCenterX - noteRect.center().x();
         noteRect.translate(noteXTranslate, 0);
         renderer->render(&p, noteID, noteRect);
-        if (trimmedNote.length() == 2) {
+        if (trimmedNote.length() > 1) {
             static const QString sharpId = QLatin1String("sharp");
             static const QString flatId = QLatin1String("flat");
             static const QRectF noteCHeadRect = renderer->boundsOnElement(QLatin1String("note_c_head"));
-            const bool sharp = trimmedNote.at(1) == QLatin1Char('#');
+            const bool sharp = trimmedNote.endsWith(QLatin1String("sharp"));
             const QString &noteSign = sharp ? sharpId : flatId;
             const QRectF noteHeadRect = renderer->boundsOnElement(QLatin1String("note_") + note + QLatin1String("_head"));
             const QRectF signRect = renderer->boundsOnElement(noteSign)

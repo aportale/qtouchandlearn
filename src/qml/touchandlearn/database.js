@@ -183,6 +183,22 @@ function notes()
     return cachedNotes;
 }
 
+var cachedNaturalNotes = null;
+function naturalNotes()
+{
+    if (cachedNaturalNotes == null) {
+        cachedNaturalNotes = [];
+        notes(); // initializing 'cachedNotes'
+        for (var i = 0; i < cachedNotes.length; i++) {
+            var note = cachedNotes[i];
+            if (note.Id.length == 1)
+                cachedNaturalNotes.push({ Id: note.Id, Key: note.Key, DisplayName: note.DisplayName});
+        }
+        addIndicesToDict(cachedNaturalNotes);
+    }
+    return cachedNaturalNotes;
+}
+
 function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
 {
     if (listModelItemsLength < 1)
@@ -220,7 +236,9 @@ function excerciseFunctionsDict()
                 clockEasyExerciseFunction: clockEasyExerciseFunction,
                 clockMediumExerciseFunction: clockMediumExerciseFunction,
                 clockHardExerciseFunction: clockHardExerciseFunction,
-                mixedExercisesFunction: mixedExercisesFunction
+                notesReadEasyExerciseFunction: notesReadEasyExerciseFunction,
+                notesReadHardExerciseFunction: notesReadHardExerciseFunction,
+                mixedExercisesFunction: mixedExercisesFunction,
         };
     }
     return cachedExcerciseFunctionsDict;
@@ -362,15 +380,31 @@ function clockHardExerciseFunction(i, answersCount)
     createExercise(i, times(5), answersCount, clockImageSourceFunction);
 }
 
+function notesReadImageSourceFunction(object, answerIndex)
+{
+    return "image://imageprovider/notes/" + object.Id;
+}
+
+function notesReadEasyExerciseFunction(i, answersCount)
+{
+    createExercise(i, naturalNotes(), answersCount, notesReadImageSourceFunction);
+}
+
+function notesReadHardExerciseFunction(i, answersCount)
+{
+    createExercise(i, notes(), answersCount, notesReadImageSourceFunction);
+}
+
 function mixedExercisesFunction(i, answersCount)
 {
-    var lessonsCount = 5;
+    var lessonsCount = 6;
     switch (((i + 1) % lessonsCount) - 1) {
         case 0: countExerciseFunction(i, answersCount, 1, 16, false); break;
         case 1: firstLetterExerciseFunction(i, answersCount); break;
         case 2: countExerciseFunction(i, answersCount, 1, 16, true); break;
         case 3: clockMediumExerciseFunction(i, answersCount); break;
+        case 4: notesReadHardExerciseFunction(i, answersCount); break;
         default:
-        case 4: nameTermsExerciseFunction(i, answersCount); break;
+        case 5: nameTermsExerciseFunction(i, answersCount); break;
     }
 }

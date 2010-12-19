@@ -45,6 +45,89 @@
     </message>
 </context>
 <context>
+    <name>Notes</name>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>C sharp</source>
+        <translation>Cis</translation>
+    </message>
+    <message>
+        <source>D flat</source>
+        <translation>Des</translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation>D</translation>
+    </message>
+    <message>
+        <source>D sharp</source>
+        <translation>Dis</translation>
+    </message>
+    <message>
+        <source>E flat</source>
+        <translation>Es</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>E</translation>
+    </message>
+    <message>
+        <source>F flat</source>
+        <translation>Fes</translation>
+    </message>
+    <message>
+        <source>E sharp</source>
+        <translation>Eis</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <translation>F</translation>
+    </message>
+    <message>
+        <source>F sharp</source>
+        <translation>Fis</translation>
+    </message>
+    <message>
+        <source>G flat</source>
+        <translation>Ges</translation>
+    </message>
+    <message>
+        <source>G</source>
+        <translation>G</translation>
+    </message>
+    <message>
+        <source>G sharp</source>
+        <translation>Gis</translation>
+    </message>
+    <message>
+        <source>A flat</source>
+        <translation>As</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>A sharp</source>
+        <translation>Ais</translation>
+    </message>
+    <message>
+        <source>B flat</source>
+        <translation>Bb</translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation>H</translation>
+    </message>
+    <message>
+        <source>C flat</source>
+        <translation>Ces</translation>
+    </message>
+</context>
+<context>
     <name>Numbers</name>
     <message>
         <source>zero</source>
