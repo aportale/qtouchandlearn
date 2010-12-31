@@ -32,8 +32,9 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
     QApplication::setStartDragDistance(15);
+    QApplication::setStyle(QLatin1String("windows"));
+    QApplication app(argc, argv);
 
     const QString translation = QLatin1String("translation_") + QLocale::system().name();
     QTranslator translator;
