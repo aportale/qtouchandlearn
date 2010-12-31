@@ -29,8 +29,8 @@ Item {
     property alias showCorrectionImageOnButton: choice.showCorrectionImage
     property alias answersCount: choice.buttonsCount
     property alias answersColumsCount: choice.columsCount
-    property bool exitButtonVisible: true
     property real viewHeightRatio: 0.45
+    property string selectedLesson
 
     signal closePressed
 
@@ -49,10 +49,10 @@ Item {
     }
 
     Item {
-        opacity: exitButtonVisible ? 1 : 0
-        property real exitButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
-        width: exitButtonSize
-        height: exitButtonSize
+        id: menuButton
+        property real menuButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
+        width: menuButtonSize
+        height: menuButtonSize
         anchors.top: parent.top
         anchors.right: parent.right
         Image {
@@ -60,11 +60,30 @@ Item {
             sourceSize.width: exitImageSize
             sourceSize.height: exitImageSize
             anchors.centerIn: parent
-            source: "image://imageprovider/specialbutton/exitbutton"
+            source: "image://imageprovider/specialbutton/menubutton"
         }
         MouseArea {
             anchors.fill: parent
             onPressed: closePressed()
+        }
+    }
+
+    Item {
+        width: menuButton.menuButtonSize
+        height: menuButton.menuButtonSize * 0.75
+        anchors.top: menuButton.bottom
+        anchors.right: parent.right
+        Image {
+            property real optionsButtonSize: Math.round(parent.width * 0.5)
+            sourceSize.width: optionsButtonSize
+            sourceSize.height: optionsButtonSize
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            source: "image://imageprovider/specialbutton/optionsbutton"
+        }
+        MouseArea {
+            anchors.fill: parent
+            onPressed: selectedLesson = "LessonOptions"
         }
     }
 

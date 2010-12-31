@@ -23,6 +23,7 @@
 
 var previousScreen = null;
 var currentScreen = null;
+var currentLessonGroup = null;
 var lessonData = null;
 var lessonDataLength = 100;
 
@@ -238,7 +239,9 @@ function excerciseFunctionsDict()
                 clockHardExerciseFunction: clockHardExerciseFunction,
                 notesReadEasyExerciseFunction: notesReadEasyExerciseFunction,
                 notesReadHardExerciseFunction: notesReadHardExerciseFunction,
-                mixedExercisesFunction: mixedExercisesFunction,
+                mixedEasyExercisesFunction: mixedEasyExercisesFunction,
+                mixedMediumExercisesFunction: mixedMediumExercisesFunction,
+                mixedHardExercisesFunction: mixedHardExercisesFunction
         };
     }
     return cachedExcerciseFunctionsDict;
@@ -395,16 +398,119 @@ function notesReadHardExerciseFunction(i, answersCount)
     createExercise(i, notes(), answersCount, notesReadImageSourceFunction);
 }
 
-function mixedExercisesFunction(i, answersCount)
+function mixedEasyExercisesFunction(i, answersCount)
+{
+    var lessonsCount = 4;
+    switch (((i + 1) % lessonsCount) - 1) {
+        case 0: countExerciseFunction(i, answersCount, 1, 5, false); break;
+        case 1: firstLetterExerciseFunction(i, answersCount); break;
+        case 2: clockEasyExerciseFunction(i, answersCount); break;
+        default:
+        case 3: notesReadEasyExerciseFunction(i, answersCount); break;
+    }
+}
+
+function mixedMediumExercisesFunction(i, answersCount)
 {
     var lessonsCount = 6;
     switch (((i + 1) % lessonsCount) - 1) {
-        case 0: countExerciseFunction(i, answersCount, 1, 16, false); break;
+        case 0: countExerciseFunction(i, answersCount, 4, 16, false); break;
         case 1: firstLetterExerciseFunction(i, answersCount); break;
-        case 2: countExerciseFunction(i, answersCount, 1, 16, true); break;
+        case 2: countExerciseFunction(i, answersCount, 4, 16, true); break;
         case 3: clockMediumExerciseFunction(i, answersCount); break;
-        case 4: notesReadHardExerciseFunction(i, answersCount); break;
+        case 4: notesReadEasyExerciseFunction(i, answersCount); break;
         default:
         case 5: nameTermsExerciseFunction(i, answersCount); break;
     }
+}
+
+function mixedHardExercisesFunction(i, answersCount)
+{
+    var lessonsCount = 5;
+    switch (((i + 1) % lessonsCount) - 1) {
+        case 0: countExerciseFunction(i, answersCount, 8, 20, false); break;
+        case 1: clockHardExerciseFunction(i, answersCount); break;
+        case 2: countExerciseFunction(i, answersCount, 8, 20, true); break;
+        case 3: notesReadHardExerciseFunction(i, answersCount); break;
+        default:
+        case 4: nameTermsExerciseFunction(i, answersCount); break;
+    }
+}
+
+var dbName = "LessonOfGroup";
+function createDb(transaction)
+{
+    transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + dbName + '(lessonGroup TEXT, lesson TEXT)');
+}
+
+function database()
+{
+    return openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
+}
+
+function currentLessonOfGroup(lessonGroup, defaultLesson)
+{
+    var result = defaultLesson;
+    database().transaction(function(transaction) {
+        createDb(transaction);
+        var rs = transaction.executeSql('SELECT * FROM ' + dbName + ' WHERE lessonGroup = "' + lessonGroup + '"');
+        if (rs.rows.length == 1)
+            result = rs.rows.item(0).lesson;
+    });
+    return result;
+}
+
+function setCurrentLessonOfGroup(lessonGroup, lesson)
+{
+    database().transaction(function(transaction) {
+        createDb(transaction);
+        transaction.executeSql('DELETE FROM ' + dbName + ' WHERE lessonGroup = "' + lessonGroup + '"');
+        transaction.executeSql('INSERT INTO ' + dbName + ' VALUES(?, ?)', [lessonGroup, lesson]);
+    });
+}
+
+var cachedLessonMenu = null;
+function lessonMenu()
+{
+    if (cachedLessonMenu == null) {
+        cachedLessonMenu = [ {
+            Id: "Read",                 DisplayName: qsTranslate("LessonMenu", "Read"),                         ImageLabel: qsTranslate("Objects", "robot"),    DefaultLesson: 1,
+            Lessons: [
+                { Id: "FirstLetter",    DisplayName: qsTranslate("LessonMenu", "Read the first letter"),        ImageLabel: qsTranslate("Objects", "robot")[0] },
+                { Id: "NameTerms",      DisplayName: qsTranslate("LessonMenu", "Read words"),                   ImageLabel: qsTranslate("Objects", "robot") }
+            ] }, {
+            Id: "Count",                DisplayName: qsTranslate("LessonMenu", "Count"),                        ImageLabel: "3",                                DefaultLesson: 0,
+            Lessons: [
+                { Id: "CountEasy",      DisplayName: qsTranslate("LessonMenu", "Count to 5"),                   ImageLabel: "3" },
+                { Id: "CountReadEasy",  DisplayName: qsTranslate("LessonMenu", "Count and read to 5"),          ImageLabel: "3" },
+                { Id: "CountHard",      DisplayName: qsTranslate("LessonMenu", "Count to 20"),                  ImageLabel: "9" },
+                { Id: "CountReadHard",  DisplayName: qsTranslate("LessonMenu", "Count and read to 20"),         ImageLabel: "9" }
+            ] }, {
+            Id: "Clock",                DisplayName: qsTranslate("LessonMenu", "Clock"),                        ImageLabel: "5:00",                             DefaultLesson: 1,
+            Lessons: [
+                { Id: "ClockEasy",      DisplayName: qsTranslate("LessonMenu", "Read the clock, full hours"),   ImageLabel: "5:00" },
+                { Id: "ClockMedium",    DisplayName: qsTranslate("LessonMenu", "Read the clock, half hours"),   ImageLabel: "8:30" },
+                { Id: "ClockHard",      DisplayName: qsTranslate("LessonMenu", "Read the clock"),               ImageLabel: "1:20" }
+            ] }, {
+            Id: "Music",                DisplayName: qsTranslate("LessonMenu", "Music"),                        ImageLabel: qsTranslate("Notes", "A"),          DefaultLesson: 1,
+            Lessons: [
+                { Id: "NotesReadEasy",  DisplayName: qsTranslate("LessonMenu", "Read notes, whole step"),       ImageLabel: qsTranslate("Notes", "A") },
+                { Id: "NotesReadHard",  DisplayName: qsTranslate("LessonMenu", "Read notes, half-step"),        ImageLabel: qsTranslate("Notes", "A sharp") }
+            ] }, {
+            Id: "Mixed",                DisplayName: qsTranslate("LessonMenu", "Mixed"),                        ImageLabel: "?",                                DefaultLesson: 0,
+            Lessons: [
+                { Id: "MixedEasy",      DisplayName: qsTranslate("LessonMenu", "Mixed lessons, easy"),          ImageLabel: "?" },
+                { Id: "MixedMedium",    DisplayName: qsTranslate("LessonMenu", "Mixed lessons, medium"),        ImageLabel: "??" },
+                { Id: "MixedHard",      DisplayName: qsTranslate("LessonMenu", "Mixed lessons, hard"),          ImageLabel: "???" }
+            ] }
+        ];
+    }
+    return cachedLessonMenu;
+}
+
+function lessonsOfCurrentGroup()
+{
+    if (currentLessonGroup === null)
+        currentLessonGroup = lessonMenu()[4];
+    return currentLessonGroup.Lessons;
 }

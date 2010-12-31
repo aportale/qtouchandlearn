@@ -52,6 +52,10 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
     x->load(dataPath + QLatin1String("/notes.svg"));
 });
 
+Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, lessonIconsRenderer, {
+    x->load(dataPath + QLatin1String("/lessonIcons.svg"));
+});
+
 struct ElementVariations
 {
     QStringList elementIds;
@@ -299,6 +303,26 @@ inline static QPixmap renderedDesignElement(const ElementVariationList *elements
                               designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
 }
 
+inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
+{
+    QPixmap icon(requestedSize);
+    icon.fill(Qt::transparent);
+    QPainter p(&icon);
+    QSvgRenderer *renderer = lessonIconsRenderer();
+    const QRectF iconRectOriginal = renderer->boundsOnElement(iconId);
+    QSizeF iconSize = iconRectOriginal.size();
+    iconSize.scale(requestedSize, Qt::KeepAspectRatio);
+    QRectF iconRect(QPointF(), iconSize);
+    if (requestedSize.height() > requestedSize.width())
+        iconRect.moveBottom(requestedSize.height());
+    else
+        iconRect.moveTop((requestedSize.height() - iconSize.height()) / 2);
+    renderer->render(&p, iconId, iconRect);
+    const QPixmap button = renderedDesignElement(buttonVariations(), buttonVariation, size, requestedSize);
+    p.drawPixmap(QPointF(), button);
+    return icon;
+}
+
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
     const QStringList idSegments = id.split(QLatin1Char('/'));
@@ -335,6 +359,12 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
             return QPixmap();
         }
         return quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
+    } else if (idSegments.first() == QLatin1String("lessonicon")) {
+        if (idSegments.count() != 3) {
+            qDebug() << "Wrong number of parameters for lessonicon:" << id;
+            return QPixmap();
+        }
+        return renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
     }
     return QPixmap();
 }

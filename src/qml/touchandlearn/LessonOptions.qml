@@ -35,8 +35,8 @@ Rectangle {
     Component {
         id: delegate
         Item {
-            width: menu.width/2
-            height: Math.round(width * 1.5)
+            height: Math.round(menu.width * 0.4)
+            width: menu.width
 
             Rectangle {
                 id: rectangle
@@ -44,25 +44,30 @@ Rectangle {
             }
 
             Image {
-                source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
+                source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[index].Id + "/" + index
                 sourceSize.width: parent.width
                 sourceSize.height: parent.height
             }
 
             Text {
-                text: Database.cachedLessonMenu[index].ImageLabel
+                text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.07
-                width: parent.width
-                y: parent.height * 0.7
+                font.pixelSize: parent.height * 0.14
+                width: Math.round(parent.width * 0.3)
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.margins: Math.round(parent.height * 0.18)
             }
 
             Text {
-                text: Database.cachedLessonMenu[index].DisplayName
+                text: Database.lessonsOfCurrentGroup()[index].DisplayName
+                wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.115
-                width: parent.width
-                y: parent.height * 0.19
+                font.pixelSize: parent.height * 0.175
+                width: Math.round(parent.width * 0.51)
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.margins: Math.round(parent.width * 0.1)
             }
 
             MouseArea {
@@ -70,19 +75,9 @@ Rectangle {
                 onCanceled: rectangle.color = normalStateColor;
                 onClicked: {
                     rectangle.color = pressedStateColor;
-                    Database.currentLessonGroup = Database.cachedLessonMenu[index];
-                    var lessons = Database.currentLessonGroup.Lessons;
-
-                    var currentLesson = Database.currentLessonOfGroup(Database.currentLessonGroup.Id,
-                                                                      "Lesson" + lessons[Database.currentLessonGroup.DefaultLesson].Id);
-                    for (var i = 0; i < lessons.length; i++) {
-                        if ("Lesson" + lessons[i].Id == currentLesson) {
-                            selectedLesson = currentLesson;
-                            break;
-                        }
-                    }
-                    if (selectedLesson == "")
-                        selectedLesson = "Lesson" + lessons[Database.currentLessonGroup.DefaultLesson].Id;
+                    var theLesson = "Lesson" + Database.lessonsOfCurrentGroup()[index].Id;
+                    Database.setCurrentLessonOfGroup(Database.currentLessonGroup.Id, theLesson);
+                    selectedLesson = theLesson;
                 }
                 anchors.fill: parent
             }
@@ -96,13 +91,12 @@ Rectangle {
 
         Column {
             id: column
-            Grid {
-                columns: 2
+            Column {
                 id: list
                 anchors.left: parent.left
                 anchors.right: parent.right
                 Repeater {
-                    model: Database.lessonMenu().length
+                    model: Database.lessonsOfCurrentGroup().length
                     delegate: delegate
                 }
             }

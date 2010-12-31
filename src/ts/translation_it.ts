@@ -4,10 +4,6 @@
 <context>
     <name>LessonMenu</name>
     <message>
-        <source>Mixed exercises</source>
-        <translation>Esercizi misti</translation>
-    </message>
-    <message>
         <source>Read the first letter</source>
         <translation>Leggere la prima lettera</translation>
     </message>
@@ -43,88 +39,128 @@
         <source>Read the clock</source>
         <translation>Leggere l&apos;orologio</translation>
     </message>
+    <message>
+        <source>Read</source>
+        <translation>Leggere</translation>
+    </message>
+    <message>
+        <source>Count</source>
+        <translation>Contare</translation>
+    </message>
+    <message>
+        <source>Clock</source>
+        <translation>L&apos;orologio</translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation>Musica</translation>
+    </message>
+    <message>
+        <source>Read notes, whole step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read notes, half-step</source>
+        <translation>Leggere note, semitoni</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, easy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, hard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Notes</name>
     <message>
         <source>C</source>
-        <translation type="unfinished"></translation>
+        <translation>Do</translation>
     </message>
     <message>
         <source>C sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>Do#</translation>
     </message>
     <message>
         <source>D flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Reb</translation>
     </message>
     <message>
         <source>D</source>
-        <translation type="unfinished"></translation>
+        <translation>Re</translation>
     </message>
     <message>
         <source>D sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>Re#</translation>
     </message>
     <message>
         <source>E flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Mib</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi</translation>
     </message>
     <message>
         <source>F flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Fab</translation>
     </message>
     <message>
         <source>E sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi#</translation>
     </message>
     <message>
         <source>F</source>
-        <translation type="unfinished"></translation>
+        <translation>Fa</translation>
     </message>
     <message>
         <source>F sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>Fa#</translation>
     </message>
     <message>
         <source>G flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Solb</translation>
     </message>
     <message>
         <source>G</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol</translation>
     </message>
     <message>
         <source>G sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol#</translation>
     </message>
     <message>
         <source>A flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Lab</translation>
     </message>
     <message>
         <source>A</source>
-        <translation type="unfinished"></translation>
+        <translation>La</translation>
     </message>
     <message>
         <source>A sharp</source>
-        <translation type="unfinished"></translation>
+        <translation>La#</translation>
     </message>
     <message>
         <source>B flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Sib</translation>
     </message>
     <message>
         <source>B</source>
-        <translation type="unfinished"></translation>
+        <translation>Si</translation>
     </message>
     <message>
         <source>C flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Dob</translation>
     </message>
 </context>
 <context>

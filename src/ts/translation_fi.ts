@@ -4,10 +4,6 @@
 <context>
     <name>LessonMenu</name>
     <message>
-        <source>Mixed exercises</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Read the first letter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -41,6 +37,46 @@
     </message>
     <message>
         <source>Read the clock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read notes, whole step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read notes, half-step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, easy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mixed lessons, hard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -23,7 +23,9 @@
 import Qt 4.7
 
 ImageMultipleChoice {
-    exerciseFunction: "mixedExercisesFunction"
+    exerciseFunction: "mixedEasyExercisesFunction"
+    answersCount: 2
+    viewHeightRatio: 0.55
     imageSizeFactor: 0.8
     showCorrectionImageOnButton: false
 }

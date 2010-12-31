@@ -32,7 +32,7 @@ Rectangle {
     Connections {
         id: connection
         ignoreUnknownSignals: true
-        onSelecedLessonChanged: switchToScreen(Database.currentScreen.selecedLesson)
+        onSelectedLessonChanged: switchToScreen(Database.currentScreen.selectedLesson)
         onClosePressed: switchToScreen("LessonMenu")
     }
 

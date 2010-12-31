@@ -4,10 +4,6 @@
 <context>
     <name>LessonMenu</name>
     <message>
-        <source>Mixed exercises</source>
-        <translation>Gemischte Übungen</translation>
-    </message>
-    <message>
         <source>Read the first letter</source>
         <translation>Den ersten Buchstaben lesen</translation>
     </message>
@@ -42,6 +38,46 @@
     <message>
         <source>Read the clock</source>
         <translation>Uhrzeit lesen</translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <translation>Lesen</translation>
+    </message>
+    <message>
+        <source>Count</source>
+        <translation>Zählen</translation>
+    </message>
+    <message>
+        <source>Clock</source>
+        <translation>Uhrzeit</translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation>Musik</translation>
+    </message>
+    <message>
+        <source>Read notes, whole step</source>
+        <translation>Noten lesen, Ganztöne</translation>
+    </message>
+    <message>
+        <source>Read notes, half-step</source>
+        <translation>Noten lesen, Halbtöne</translation>
+    </message>
+    <message>
+        <source>Mixed</source>
+        <translation>Gemischt</translation>
+    </message>
+    <message>
+        <source>Mixed lessons, easy</source>
+        <translation>Gemischt, einfach</translation>
+    </message>
+    <message>
+        <source>Mixed lessons, medium</source>
+        <translation>Gemischt, mittel</translation>
+    </message>
+    <message>
+        <source>Mixed lessons, hard</source>
+        <translation>Gemischt, schwer</translation>
     </message>
 </context>
 <context>
