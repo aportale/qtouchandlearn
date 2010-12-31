@@ -484,22 +484,25 @@
   <g
      id="CountReadEasy"
      transform="translate(-107.59102,0)">
-    <use
-       height="360"
-       width="640"
-       transform="matrix(0.99353371,0.11353755,-0.11353755,0.99353371,374.52498,11.002587)"
-       id="use4214"
-       xlink:href="#three_apples"
-       y="0"
-       x="0" />
-    <use
-       height="360"
-       width="640"
-       transform="matrix(-1,0,0,1,190.05551,106.86198)"
-       id="use4278"
-       xlink:href="#answerlabel"
-       y="0"
-       x="0" />
+    <g
+       id="g3179">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#three_apples"
+         id="use4214"
+         transform="matrix(0.99353371,0.11353755,-0.11353755,0.99353371,374.52498,11.002587)"
+         width="640"
+         height="360" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#answerlabel"
+         id="use4278"
+         transform="matrix(-1,0,0,1,190.05551,106.86198)"
+         width="640"
+         height="360" />
+    </g>
     <rect
        y="60"
        x="202.59102"
@@ -569,13 +572,13 @@
   <g
      id="Count">
     <use
-       height="360"
-       width="640"
-       transform="matrix(0.75824236,0,0,0.75824236,-275.92855,21.096357)"
-       id="use4547"
-       xlink:href="#g4312"
+       x="0"
        y="0"
-       x="0" />
+       xlink:href="#g3179"
+       id="use3183"
+       transform="matrix(0.75970825,0,0,0.75970825,-154.5731,20.543558)"
+       width="640"
+       height="360" />
     <rect
        y="60"
        x="0"

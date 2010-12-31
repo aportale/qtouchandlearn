@@ -88,8 +88,10 @@
 <rect id="rect4284" height="50" width="55" y="60" x="40" fill="none"/>
 </g>
 <g id="CountReadEasy" transform="translate(-107.59102,0)">
+<g id="g3179">
 <use id="use4214" xlink:href="#three_apples" transform="matrix(0.99353371,0.11353755,-0.11353755,0.99353371,374.52498,11.002587)" height="360" width="640" y="0" x="0"/>
 <use id="use4278" xlink:href="#answerlabel" transform="matrix(-1,0,0,1,190.05551,106.86198)" height="360" width="640" y="0" x="0"/>
+</g>
 <rect id="rect4291" height="50" width="55" y="60" x="202.6" fill="none"/>
 </g>
 <g id="CountHard" transform="translate(-212.35355,0)">
@@ -105,7 +107,7 @@
 <rect id="rect4305" height="50" width="55" y="60" x="523.7" fill="none"/>
 </g>
 <g id="Count">
-<use id="use4547" xlink:href="#g4312" transform="matrix(0.75824236,0,0,0.75824236,-275.92855,21.096357)" height="360" width="640" y="0" x="0"/>
+<use id="use3183" xlink:href="#g3179" transform="matrix(0.75970825,0,0,0.75970825,-154.5731,20.543558)" height="360" width="640" y="0" x="0"/>
 <rect id="rect4549" height="50" width="40" y="60" x="0" fill="none"/>
 </g>
 <g id="ClockEasy">
