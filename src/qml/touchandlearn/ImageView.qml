@@ -34,9 +34,10 @@ Item {
     }
     id: imageview
     Rectangle {
+        property int hueOffset: Math.random() * 4000
         id: rect
         anchors.fill: parent
-        color: Qt.hsla((Math.abs(listview.contentX) % 4000) / 4000, 0.4, 0.8, 1)
+        color: Qt.hsla(((listview.contentX + hueOffset) % 4000) / 4000, 0.4, 0.8, 1)
     }
 
     Column {
