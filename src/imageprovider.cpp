@@ -53,7 +53,7 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
 });
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, lessonIconsRenderer, {
-    x->load(dataPath + QLatin1String("/lessonIcons.svg"));
+    x->load(dataPath + QLatin1String("/lessonicons.svg"));
 });
 
 struct ElementVariations
