@@ -60,8 +60,16 @@ Item {
     }
     Text {
         id: label
-        anchors.centerIn: parent
+        property int shakeAmplitude: rect.width * 0.18
+        anchors.verticalCenter: parent.verticalCenter
+        // We need to manually horizonally center the text, because in wrongAnswerAnimation,
+        // the x of the text is changed, which would not work if we use an anchor layout.
+        x: horizontallyCenteredX();
         font.pixelSize: parent.height * 0.33
+        function horizontallyCenteredX()
+        {
+            return rect.x + (rect.width - width) >> 1; // Bit shift any faster than /2 or *0.5?
+        }
     }
     Item {
         id: correctionImageItem
@@ -146,46 +154,72 @@ Item {
             script: correctlyPressed()
         }
     }
-    SequentialAnimation {
+    ParallelAnimation {
         id: wrongAnswerAnimation
-        PropertyAction {
-            target: rect
-            property: "color"
-            value: wrongStateColor
-        }
-        PropertyAnimation {
-            target: rect
-            property: "color"
-            to: normalStateColor
-            duration: 400
-        }
-        ScriptAction {
-            script: {
-                if (correctionImageSource != "") {
-                    correctionImage.sourceSize.height = correctionImageItem.height
-                    correctionImage.sourceSize.width = correctionImageItem.width
-                    correctionImage.source = correctionImageSource
+        SequentialAnimation {
+            PropertyAction {
+                target: rect
+                property: "color"
+                value: wrongStateColor
+            }
+            PropertyAnimation {
+                target: rect
+                property: "color"
+                to: normalStateColor
+                duration: 400
+            }
+            ScriptAction {
+                script: {
+                    if (correctionImageSource != "") {
+                        correctionImage.sourceSize.height = correctionImageItem.height
+                        correctionImage.sourceSize.width = correctionImageItem.width
+                        correctionImage.source = correctionImageSource
+                    }
+                }
+            }
+            PropertyAnimation {
+                target: correctionImage
+                property: "opacity"
+                to: 1
+                duration: correctionImageSource != "" ? 150 : 0
+            }
+            PauseAnimation {
+                duration: correctionImageSource != "" ? 1000 : 0
+            }
+            PropertyAnimation {
+                target: correctionImage
+                property: "opacity"
+                to: 0
+            }
+            ScriptAction {
+                script: {
+                    correctionImage.source = ""
+                    incorrectlyPressed()
                 }
             }
         }
-        PropertyAnimation {
-            target: correctionImage
-            property: "opacity"
-            to: 1
-            duration: correctionImageSource != "" ? 150 : 0
-        }
-        PauseAnimation {
-            duration: correctionImageSource != "" ? 1000 : 0
-        }
-        PropertyAnimation {
-            target: correctionImage
-            property: "opacity"
-            to: 0
-        }
-        ScriptAction {
-            script: {
-                correctionImage.source = ""
-                incorrectlyPressed()
+        SequentialAnimation {
+            PropertyAnimation {
+                target: label
+                property: "x"
+                to: label.horizontallyCenteredX() - label.shakeAmplitude
+                easing.type: Easing.InCubic
+                duration: 120
+            }
+            PropertyAnimation {
+                target: label
+                property: "x"
+                to: label.horizontallyCenteredX() + label.shakeAmplitude
+                easing.type: Easing.InOutCubic
+                duration: 220
+            }
+            PropertyAnimation {
+                target: label
+                property: "x"
+                to: label.horizontallyCenteredX()
+                easing.type: Easing.OutBack
+                easing.overshoot: 3
+                duration: 180
             }
         }
     }
