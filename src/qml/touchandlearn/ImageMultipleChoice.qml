@@ -36,9 +36,7 @@ Item {
 
     ImageView {
         id: imageView
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.left: parent.left
+        anchors { top: parent.top; right: parent.right; left: parent.left }
         height: Math.round(parent.height * viewHeightRatio)
         answersCount: choice.buttonsCount
         backgroundImage: "image://imageprovider/background/background_01"
@@ -53,12 +51,10 @@ Item {
         property real menuButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
         width: menuButtonSize
         height: menuButtonSize
-        anchors.top: parent.top
-        anchors.right: parent.right
+        anchors { top: parent.top; right: parent.right }
         Image {
             property real exitImageSize: Math.round(parent.width * 0.5)
-            sourceSize.width: exitImageSize
-            sourceSize.height: exitImageSize
+            sourceSize { width: exitImageSize; height: exitImageSize }
             anchors.centerIn: parent
             source: "image://imageprovider/specialbutton/menubutton"
         }
@@ -71,14 +67,11 @@ Item {
     Item {
         width: menuButton.menuButtonSize
         height: menuButton.menuButtonSize * 0.75
-        anchors.top: menuButton.bottom
-        anchors.right: parent.right
+        anchors { top: menuButton.bottom; right: parent.right }
         Image {
             property real optionsButtonSize: Math.round(parent.width * 0.5)
-            sourceSize.width: optionsButtonSize
-            sourceSize.height: optionsButtonSize
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
+            sourceSize { width: optionsButtonSize; height: optionsButtonSize }
+            anchors { horizontalCenter: parent.horizontalCenter; top: parent.top }
             source: "image://imageprovider/specialbutton/optionsbutton"
         }
         MouseArea {
@@ -89,10 +82,7 @@ Item {
 
     AnswerChoice {
         id: choice
-        anchors.top: imageView.bottom
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.left: parent.left
+        anchors { top: imageView.bottom; bottom: parent.bottom; right: parent.right; left: parent.left }
 
         // Theoretically unneeded, since the anchors above should do the job.
         // But without width/height, we get 0-values at construction time
@@ -104,4 +94,3 @@ Item {
         onCorrectlyAnswered: imageView.goForward();
     }
 }
-

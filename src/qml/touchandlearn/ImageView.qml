@@ -53,8 +53,7 @@ Item {
             property real imageWidth: sourceSizeHeight * heightToWidthRatio
             fillMode: Image.TileHorizontally
             id: image
-            sourceSize.height: sourceSizeHeight
-            sourceSize.width: sourceSizeHeight * heightToWidthRatio
+            sourceSize { height: sourceSizeHeight; width: sourceSizeHeight * heightToWidthRatio }
             width: (Math.ceil(imageview.width / imageWidth) + 1) * imageWidth
             x: ((-listview.contentX - 10 * imageview.width) * 0.3) % imageWidth
             y: 0
@@ -85,15 +84,13 @@ Item {
                 }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 anchors.centerIn: parent
-                sourceSize.width: sourceSizeWidthHeight()
-                sourceSize.height: sourceSizeWidthHeight()
+                sourceSize { width: sourceSizeWidthHeight(); height: sourceSizeWidthHeight() }
             }
         }
     }
 
     Image {
-        sourceSize.height: parent.height
-        sourceSize.width: parent.width
+        sourceSize { height: parent.height; width: parent.width }
         source: "image://imageprovider/frame/0"
     }
 }

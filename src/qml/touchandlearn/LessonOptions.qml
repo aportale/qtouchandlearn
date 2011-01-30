@@ -45,8 +45,7 @@ Rectangle {
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[index].Id + "/" + index
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
+                sourceSize { width: parent.width; height: parent.height }
             }
 
             Text {
@@ -54,9 +53,7 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
                 width: Math.round(parent.width * 0.3)
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                anchors.margins: Math.round(parent.height * 0.18)
+                anchors { left: parent.left; bottom: parent.bottom; margins: Math.round(parent.height * 0.18) }
             }
 
             Text {
@@ -65,9 +62,7 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.175
                 width: Math.round(parent.width * 0.51)
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.margins: Math.round(parent.width * 0.1)
+                anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: Math.round(parent.width * 0.1) }
             }
 
             MouseArea {
@@ -93,8 +88,7 @@ Rectangle {
             id: column
             Column {
                 id: list
-                anchors.left: parent.left
-                anchors.right: parent.right
+                anchors { left: parent.left; right: parent.right }
                 Repeater {
                     model: Database.lessonsOfCurrentGroup().length
                     delegate: delegate

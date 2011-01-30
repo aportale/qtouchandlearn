@@ -45,8 +45,7 @@ Rectangle {
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
-                sourceSize.width: parent.width
-                sourceSize.height: parent.height
+                sourceSize { width: parent.width; height: parent.height }
             }
 
             Text {
@@ -99,8 +98,7 @@ Rectangle {
             Grid {
                 columns: 2
                 id: list
-                anchors.left: parent.left
-                anchors.right: parent.right
+                anchors { left: parent.left; right: parent.right }
                 Repeater {
                     model: Database.lessonMenu().length
                     delegate: delegate

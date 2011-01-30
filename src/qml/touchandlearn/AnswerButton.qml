@@ -53,8 +53,7 @@ Item {
     }
     Image {
         source: "image://imageprovider/button/" + String(index)
-        sourceSize.height: parent.height
-        sourceSize.width: parent.width
+        sourceSize { height: parent.height; width: parent.width }
         width: sourceSize.width
         height: sourceSize.height
     }
@@ -217,8 +216,7 @@ Item {
                 target: label
                 property: "x"
                 to: label.horizontallyCenteredX()
-                easing.type: Easing.OutBack
-                easing.overshoot: 3
+                easing { type: Easing.OutBack; overshoot: 3 }
                 duration: 180
             }
         }
