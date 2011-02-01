@@ -30,7 +30,8 @@ Item {
     property bool isCorrectAnswer: false
     property color normalStateColor: "#fff"
     property color correctStateColor: "#ffa"
-    property color wrongStateColor: "#faa"
+    property color wrongStateColor: "#f66"
+    property color correctionStateColor: "#fbb"
 
     signal correctlyPressed
     signal incorrectlyPressed
@@ -167,89 +168,94 @@ Item {
             }
         }
     }
-    ParallelAnimation {
+    SequentialAnimation {
         id: wrongAnswerAnimation
-        SequentialAnimation {
-            PropertyAction {
-                target: rect
-                property: "color"
-                value: wrongStateColor
-            }
-            ScriptAction {
-                script: {
-                    if (correctionImageSource.length) {
-                        correctionImage.sourceSize.height = correctionImageItem.height
-                        correctionImage.sourceSize.width = correctionImageItem.width
-                        correctionImage.source = correctionImageSource
+        ParallelAnimation {
+            SequentialAnimation {
+                PropertyAction {
+                    target: rect
+                    property: "color"
+                    value: wrongStateColor
+                }
+                ScriptAction {
+                    script: {
+                        if (correctionImageSource.length) {
+                            correctionImage.sourceSize.height = correctionImageItem.height
+                            correctionImage.sourceSize.width = correctionImageItem.width
+                            correctionImage.source = correctionImageSource
+                        }
                     }
                 }
-            }
-            PauseAnimation {
-                duration: 450
-            }
-            ParallelAnimation {
                 PropertyAnimation {
-                    target: correctionImage
-                    property: "opacity"
-                    to: 1
-                    duration: correctionImageSource.length ? 200 : 0
+                    target: rect
+                    property: "color"
+                    to: correctionImageSource.length ? correctionStateColor : normalStateColor
+                    duration: correctionImageSource.length ? 450 : 600
+                }
+            }
+            SequentialAnimation {
+                PropertyAnimation {
+                    target: label
+                    property: "x"
+                    to: label.horizontallyCenteredX() - label.shakeAmplitude
+                    easing.type: Easing.InCubic
+                    duration: 120
                 }
                 PropertyAnimation {
                     target: label
-                    property: "opacity"
-                    to: correctionImageSource.length ? 0 : 1
-                    duration: correctionImageSource.length ? 200 : 0
-                }
-            }
-            PauseAnimation {
-                duration: correctionImageSource.length ? 1400 : 0
-            }
-            ParallelAnimation {
-                PropertyAnimation {
-                    target: correctionImage
-                    property: "opacity"
-                    to: 0
+                    property: "x"
+                    to: label.horizontallyCenteredX() + label.shakeAmplitude
+                    easing.type: Easing.InOutCubic
+                    duration: 220
                 }
                 PropertyAnimation {
                     target: label
-                    property: "opacity"
-                    to: 1
-                }
-            }
-            PropertyAnimation {
-                target: rect
-                property: "color"
-                to: normalStateColor
-                duration: 450
-            }
-            ScriptAction {
-                script: {
-                    correctionImage.source = ""
-                    incorrectlyPressed()
+                    property: "x"
+                    to: label.horizontallyCenteredX()
+                    easing { type: Easing.OutBack; overshoot: 3 }
+                    duration: 180
                 }
             }
         }
-        SequentialAnimation {
+        ParallelAnimation {
             PropertyAnimation {
-                target: label
-                property: "x"
-                to: label.horizontallyCenteredX() - label.shakeAmplitude
-                easing.type: Easing.InCubic
-                duration: 120
+                target: correctionImage
+                property: "opacity"
+                to: 1
+                duration: correctionImageSource.length ? 200 : 0
             }
             PropertyAnimation {
                 target: label
-                property: "x"
-                to: label.horizontallyCenteredX() + label.shakeAmplitude
-                easing.type: Easing.InOutCubic
-                duration: 220
+                property: "opacity"
+                to: correctionImageSource.length ? 0 : 1
+                duration: correctionImageSource.length ? 200 : 0
+            }
+        }
+        PauseAnimation {
+            duration: correctionImageSource.length ? 1400 : 0
+        }
+        ParallelAnimation {
+            PropertyAnimation {
+                target: correctionImage
+                property: "opacity"
+                to: 0
             }
             PropertyAnimation {
                 target: label
-                property: "x"
-                to: label.horizontallyCenteredX()
-                easing { type: Easing.OutBack; overshoot: 3 }
-                duration: 180
+                property: "opacity"
+                to: 1
+            }
+        }
+        PropertyAnimation {
+            target: rect
+            property: "color"
+            to: normalStateColor
+            duration: 450
+        }
+        ScriptAction {
+            script: {
+                correctionImage.source = "";
+                incorrectlyPressed();
             }
         }
     }
