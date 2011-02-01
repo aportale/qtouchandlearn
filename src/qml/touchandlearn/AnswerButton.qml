@@ -72,8 +72,8 @@ Item {
     }
     Item {
         id: correctionImageItem
-        height: Math.min(parent.height, parent.width)
-        width: Math.min(parent.height, parent.width)
+        height: Math.min(parent.height, parent.width) * 0.9
+        width: Math.min(parent.height, parent.width) * 0.9
         anchors.centerIn: parent
         Image {
             id: correctionImage
