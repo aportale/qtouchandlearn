@@ -59,7 +59,7 @@ Item {
     }
     Text {
         id: label
-        property int shakeAmplitude: rect.width * 0.18
+        property int shakeAmplitude: Math.min(rect.width * 0.2, 45)
         anchors.verticalCenter: parent.verticalCenter
         // We need to manually horizonally center the text, because in wrongAnswerAnimation,
         // the x of the text is changed, which would not work if we use an anchor layout.
