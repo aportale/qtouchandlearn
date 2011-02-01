@@ -30,7 +30,7 @@ Item {
     property bool isCorrectAnswer: false
     property color normalStateColor: "#fff"
     property color correctStateColor: "#ffa"
-    property color wrongStateColor: "#f77"
+    property color wrongStateColor: "#faa"
 
     signal correctlyPressed
     signal incorrectlyPressed
@@ -72,9 +72,9 @@ Item {
     }
     Item {
         id: correctionImageItem
-        height: parent.height
-        width: parent.height * 0.8
-        anchors.right: parent.right
+        height: Math.min(parent.height, parent.width)
+        width: Math.min(parent.height, parent.width)
+        anchors.centerIn: parent
         Image {
             id: correctionImage
             anchors.centerIn: parent
@@ -95,7 +95,7 @@ Item {
     onTextChanged: {
         wrongAnswerAnimation.complete();
         correctAnswerAnimation.complete();
-        if (label.text.length == 0) {
+        if (label.text.length === 0) {
             label.text = text;
         } else {
             contentChangeAnimation.complete();
@@ -161,34 +161,52 @@ Item {
                 property: "color"
                 value: wrongStateColor
             }
-            PropertyAnimation {
-                target: rect
-                property: "color"
-                to: normalStateColor
-                duration: 400
-            }
             ScriptAction {
                 script: {
-                    if (correctionImageSource != "") {
+                    if (correctionImageSource.length) {
                         correctionImage.sourceSize.height = correctionImageItem.height
                         correctionImage.sourceSize.width = correctionImageItem.width
                         correctionImage.source = correctionImageSource
                     }
                 }
             }
-            PropertyAnimation {
-                target: correctionImage
-                property: "opacity"
-                to: 1
-                duration: correctionImageSource != "" ? 150 : 0
+            PauseAnimation {
+                duration: 450
+            }
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: correctionImage
+                    property: "opacity"
+                    to: 1
+                    duration: correctionImageSource.length ? 200 : 0
+                }
+                PropertyAnimation {
+                    target: label
+                    property: "opacity"
+                    to: correctionImageSource.length ? 0 : 1
+                    duration: correctionImageSource.length ? 200 : 0
+                }
             }
             PauseAnimation {
-                duration: correctionImageSource != "" ? 1000 : 0
+                duration: correctionImageSource.length ? 1400 : 0
+            }
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: correctionImage
+                    property: "opacity"
+                    to: 0
+                }
+                PropertyAnimation {
+                    target: label
+                    property: "opacity"
+                    to: 1
+                }
             }
             PropertyAnimation {
-                target: correctionImage
-                property: "opacity"
-                to: 0
+                target: rect
+                property: "color"
+                to: normalStateColor
+                duration: 450
             }
             ScriptAction {
                 script: {
