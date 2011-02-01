@@ -62,7 +62,7 @@ Item {
         x: Math.round(parent.width * 0.025) // Poor man's margins
         y: Math.round(parent.height * 0.025)
         width: Math.round(parent.width * 0.95)
-        height: Math.round(parent.height * 0.95)
+        height: Math.round(parent.height * 0.98)
 
         Repeater {
             id: repeater
