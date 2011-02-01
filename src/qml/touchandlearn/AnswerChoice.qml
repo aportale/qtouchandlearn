@@ -31,6 +31,7 @@ Item {
     property int buttonsCount: 3
     property alias columsCount: grid.columns
     signal correctlyAnswered
+    property bool blockClicks: false
 
     Rectangle {
         anchors.fill: parent

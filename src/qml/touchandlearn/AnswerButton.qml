@@ -85,10 +85,12 @@ Item {
     MouseArea {
         anchors.fill: parent
         onPressed: {
-            if (isCorrectAnswer)
-                correctAnswerAnimation.start();
-            else
-                wrongAnswerAnimation.start();
+            if (!blockClicks) {
+                if (isCorrectAnswer)
+                    correctAnswerAnimation.start();
+                else
+                    wrongAnswerAnimation.start();
+            }
         }
     }
 
@@ -105,6 +107,9 @@ Item {
 
     SequentialAnimation {
         id: contentChangeAnimation
+        ScriptAction {
+            script: blockClicks = true
+        }
         PauseAnimation {
             duration: 250 + index * 85
         }
@@ -129,16 +134,22 @@ Item {
             to: 1
             easing.type: Easing.OutBack
         }
+        ScriptAction {
+            script: blockClicks = false;
+        }
     }
     SequentialAnimation {
         id: correctAnswerAnimation
+        ScriptAction {
+            script: {
+                blockClicks = true;
+                particles.burst(20);
+            }
+        }
         PropertyAction {
             target: rect
             property: "color"
             value: correctStateColor
-        }
-        ScriptAction {
-            script: particles.burst(20);
         }
         PropertyAnimation {
             target: rect
@@ -150,7 +161,10 @@ Item {
             duration: 300 // Wait for particles to finish
         }
         ScriptAction {
-            script: correctlyPressed()
+            script: {
+                blockClicks = false;
+                correctlyPressed();
+            }
         }
     }
     ParallelAnimation {
