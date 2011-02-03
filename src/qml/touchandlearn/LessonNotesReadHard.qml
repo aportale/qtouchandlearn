@@ -23,6 +23,5 @@
 import Qt 4.7
 
 ImageMultipleChoice {
-    imageSizeFactor: 0.85
     exerciseFunction: "notesReadHardExerciseFunction"
 }
