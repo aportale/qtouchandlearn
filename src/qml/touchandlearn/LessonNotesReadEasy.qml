@@ -25,6 +25,6 @@ import Qt 4.7
 ImageMultipleChoice {
     answersCount: 2
     viewHeightRatio: 0.55
-    imageSizeFactor: 0.95
+    imageSizeFactor: 0.85
     exerciseFunction: "notesReadEasyExerciseFunction"
 }

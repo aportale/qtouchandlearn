@@ -213,10 +213,8 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
     static const qreal linesSpacePerNote = clefRect.width() * 1.75;
     const qreal linesSpaceForNotes = notes.count() * linesSpacePerNote;
-    QRectF staffLinesRect = staffLinesOriginalRect;
-    staffLinesRect.setWidth(clefRightY + linesSpaceForNotes);
-    const qreal heightAdjustment = clefRect.height() / 3.1;
-    const QRectF pixmapRect = staffLinesRect.adjusted(0, -heightAdjustment, 0, heightAdjustment);
+    QRectF pixmapRect = staffLinesOriginalRect;
+    pixmapRect.setWidth(clefRightY + linesSpaceForNotes);
     QSize pixmapSize = pixmapRect.size().toSize();
     if (size)
         *size = pixmapSize;
@@ -230,7 +228,7 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     p.scale(scaleFactor, scaleFactor);
     p.translate(-pixmapRect.topLeft());
 
-    renderer->render(&p, staffLinesId, staffLinesRect);
+    renderer->render(&p, staffLinesId, pixmapRect);
     renderer->render(&p, clefId, clefRect);
 
     int currentNoteIndex = 0;
