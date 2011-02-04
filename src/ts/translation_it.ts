@@ -304,5 +304,9 @@
         <source>cat</source>
         <translation>gatto</translation>
     </message>
+    <message>
+        <source>camel</source>
+        <translation></translation>
+    </message>
 </context>
 </TS>
