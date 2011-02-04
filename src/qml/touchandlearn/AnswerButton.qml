@@ -144,7 +144,8 @@ Item {
         ScriptAction {
             script: {
                 blockClicks = true;
-                particles.burst(20);
+                if (typeof(particles) === "object")
+                    particles.burst(20);
             }
         }
         PropertyAction {
