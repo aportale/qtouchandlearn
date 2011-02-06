@@ -264,21 +264,14 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
 {
     const QString rectId = elementId + QLatin1String("_rect");
     const QRectF rect = renderer->boundsOnElement(renderer->elementExists(rectId) ? rectId : elementId);
-    if (rect.width() < 1 || rect.height() < 1) {
-        qDebug() << "****************** SVG bounding rect is NULL!" << rect << elementId;
-        return QPixmap();
-    }
+    Q_ASSERT_X(rect.width() > 0 && rect.height() > 0, "renderedSvgElement", "SVG bounding rect is NULL");
     QSize pixmapSize = rect.size().toSize();
     if (size)
         *size = pixmapSize;
     pixmapSize.scale(requestedSize, aspectRatioMode);
-    if (pixmapSize.width() < 1 || pixmapSize.height() < 1) {
-        qDebug() << "****************** pixmapSize is NULL!" << pixmapSize << requestedSize << elementId;
-        return QPixmap();
-    }
+    Q_ASSERT_X(pixmapSize.width() > 0 && pixmapSize.height() > 0, "renderedSvgElement", "pixmapSize is NULL");
     QPixmap pixmap(pixmapSize);
-    if (pixmap.isNull())
-        qDebug() << "****************** pixmap is NULL!" << elementId;
+    Q_ASSERT_X(!pixmap.isNull(), "renderedSvgElement", "pixmap is NULL");
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
     renderer->render(&p, elementId, QRect(QPoint(), pixmapSize));
