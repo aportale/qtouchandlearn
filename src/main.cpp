@@ -33,6 +33,7 @@
 
 int main(int argc, char *argv[])
 {
+    qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
     QApplication::setStartDragDistance(15);
     QApplication::setStyle(QLatin1String("windows"));
     QApplication app(argc, argv);
