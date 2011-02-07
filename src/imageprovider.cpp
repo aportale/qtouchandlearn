@@ -360,6 +360,16 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     return QPixmap();
 }
 
+void ImageProvider::init()
+{
+    designRenderer()->boundsOnElement(QString());
+    objectRenderer()->boundsOnElement(QString());;
+    countablesRenderer()->boundsOnElement(QString());;
+    clocksRenderer()->boundsOnElement(QString());;
+    notesRenderer()->boundsOnElement(QString());;
+    lessonIconsRenderer()->boundsOnElement(QString());;
+}
+
 void ImageProvider::setDataPath(const QString &path)
 {
     dataPath = path;
