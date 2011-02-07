@@ -13,6 +13,7 @@ Feedback::Feedback(QObject *parent)
 
 void Feedback::playCorrectSound() const
 {
+    correctSound()->stop();
     correctSound()->play();
 }
 
