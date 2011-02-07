@@ -29,6 +29,7 @@
 
 #include "qmlapplicationviewer.h"
 #include "imageprovider.h"
+#include "feedback.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,8 @@ int main(int argc, char *argv[])
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
+    Feedback feedback;
+    viewer.rootContext()->setContextProperty("feedback", &feedback);
 
 #if !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(Q_WS_SIMULATOR)
     if (false)
@@ -56,6 +59,8 @@ int main(int argc, char *argv[])
         viewer.setGeometry(100, 100, 360, 640); // NHD
 #endif
     viewer.showExpanded();
+
+    Feedback::init();
 
     return app.exec();
 }

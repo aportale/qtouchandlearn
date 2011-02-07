@@ -143,6 +143,7 @@ Item {
         id: correctAnswerAnimation
         ScriptAction {
             script: {
+                feedback.playCorrectSound();
                 blockClicks = true;
                 if (typeof(particles) === "object")
                     particles.burst(20);

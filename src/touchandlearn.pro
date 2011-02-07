@@ -48,10 +48,12 @@ symbian:TARGET.UID3 = 0xE10d63ca
 # MOBILITY +=
 
 SOURCES += main.cpp \
-    imageprovider.cpp
+    imageprovider.cpp \
+    feedback.cpp
 
 HEADERS += \
-    imageprovider.h
+    imageprovider.h \
+    feedback.h
 
 QT += svg
 
