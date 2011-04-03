@@ -55,7 +55,7 @@ Rectangle {
         Database.previousScreen = Database.currentScreen;
         Database.currentScreen = createScreen(screen);
         connection.target = Database.currentScreen;
-        if (Database.previousScreen == null)
+        if (Database.previousScreen === null)
             Database.currentScreen.opacity = 1;
         else
             screenBlender.start();

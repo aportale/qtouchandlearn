@@ -37,7 +37,7 @@ function addIndicesToDict(dict)
 var cachedObjects = null;
 function objects()
 {
-    if (cachedObjects == null) {
+    if (cachedObjects === null) {
         cachedObjects = addIndicesToDict([
             { Id: "banana",         DisplayName: qsTranslate("Objects", "banana")},
             { Id: "elephant",       DisplayName: qsTranslate("Objects", "elephant") },
@@ -61,7 +61,7 @@ function objects()
 var cachedFirstLetters = null;
 function firstLetters()
 {
-    if (cachedFirstLetters == null) {
+    if (cachedFirstLetters === null) {
         var firstLettersMap = new Array();
         objects(); // initializing 'cachedObjects'
         for (var i = 0; i < cachedObjects.length; i++) {
@@ -81,7 +81,7 @@ function firstLetters()
 var cachedNumbersAsWords = null;
 function numbersAsWords()
 {
-    if (cachedNumbersAsWords == null) {
+    if (cachedNumbersAsWords === null) {
         cachedNumbersAsWords = [
             { Id:  0,   DisplayName: qsTranslate("Numbers", "zero")},
             { Id:  1,   DisplayName: qsTranslate("Numbers", "one") },
@@ -112,7 +112,7 @@ function numbersAsWords()
 var cachedNumbersAsWordsRange = null;
 function numbersAsWordsRange(from, to)
 {
-    if (cachedNumbersAsWordsRange == null || cachedNumbersAsWordsRange.from != from || cachedNumbersAsWordsRange.to != to) {
+    if (cachedNumbersAsWordsRange === null || cachedNumbersAsWordsRange.from != from || cachedNumbersAsWordsRange.to != to) {
         cachedNumbersAsWordsRange = [];
         numbersAsWords(); // initializing 'cachedNumbers'
         for (var i = from; i <= to; ++i)
@@ -127,7 +127,7 @@ function numbersAsWordsRange(from, to)
 var cachedNumbersRange = null;
 function numbersRange(from, to)
 {
-    if (cachedNumbersRange == null || cachedNumbersRange.from != from || cachedNumbersRange.to != to) {
+    if (cachedNumbersRange === null || cachedNumbersRange.from != from || cachedNumbersRange.to != to) {
         cachedNumbersRange = [];
         for (var i = from; i <= to; ++i)
             cachedNumbersRange.push({Id: i, DisplayName: String(i)});
@@ -141,7 +141,7 @@ function numbersRange(from, to)
 var cachedTimes = null;
 function times(minutesIntervals)
 {
-    if (cachedTimes == null || cachedTimes.minutesIntervals != minutesIntervals) {
+    if (cachedTimes === null || cachedTimes.minutesIntervals != minutesIntervals) {
         cachedTimes = [];
         var index = 0;
         for (var hour = 1; hour <= 12; hour++) {
@@ -158,7 +158,7 @@ function times(minutesIntervals)
 var cachedNotes = null;
 function notes()
 {
-    if (cachedNotes == null) {
+    if (cachedNotes === null) {
         cachedNotes = addIndicesToDict([
            { Id: "C",       Key:  1, DisplayName: qsTranslate("Notes", "C")},
            { Id: "C sharp", Key:  2, DisplayName: qsTranslate("Notes", "C sharp")},
@@ -188,7 +188,7 @@ function notes()
 var cachedNaturalNotes = null;
 function naturalNotes()
 {
-    if (cachedNaturalNotes == null) {
+    if (cachedNaturalNotes === null) {
         cachedNaturalNotes = [];
         notes(); // initializing 'cachedNotes'
         for (var i = 0; i < cachedNotes.length; i++) {
@@ -227,7 +227,7 @@ function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
 var cachedExcerciseFunctionsDict = null;
 function excerciseFunctionsDict()
 {
-    if (cachedExcerciseFunctionsDict == null) {
+    if (cachedExcerciseFunctionsDict === null) {
         cachedExcerciseFunctionsDict = {
                 firstLetterExerciseFunction: firstLetterExerciseFunction,
                 nameTermsExerciseFunction: nameTermsExerciseFunction,
@@ -251,7 +251,7 @@ function excerciseFunctionsDict()
 function exercise(i, exerciseFunction, answersCount)
 {
     var index = i % lessonDataLength
-    if (lessonData == null)
+    if (lessonData === null)
         lessonData = [];
     if (lessonData[index] === undefined)
         excerciseFunctionsDict()[exerciseFunction](index, answersCount);
@@ -473,7 +473,7 @@ function setCurrentLessonOfGroup(lessonGroup, lesson)
 var cachedLessonMenu = null;
 function lessonMenu()
 {
-    if (cachedLessonMenu == null) {
+    if (cachedLessonMenu === null) {
         cachedLessonMenu = [ {
             Id: "Read",                 DisplayName: qsTranslate("LessonMenu", "Read"),                         ImageLabel: qsTranslate("Objects", "robot"),    DefaultLesson: 1,
             Lessons: [
