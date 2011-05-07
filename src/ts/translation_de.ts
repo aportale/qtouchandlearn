@@ -308,5 +308,9 @@
         <source>camel</source>
         <translation>Kamel</translation>
     </message>
+    <message>
+        <source>crocodile</source>
+        <translation>Krokodil</translation>
+    </message>
 </context>
 </TS>
