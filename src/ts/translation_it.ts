@@ -312,5 +312,9 @@
         <source>crocodile</source>
         <translation>coccodrillo</translation>
     </message>
+    <message>
+        <source>pig</source>
+        <translation>maiale</translation>
+    </message>
 </context>
 </TS>

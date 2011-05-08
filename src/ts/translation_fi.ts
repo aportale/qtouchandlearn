@@ -312,5 +312,9 @@
         <source>crocodile</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>pig</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

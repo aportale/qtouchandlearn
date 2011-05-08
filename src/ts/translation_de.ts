@@ -312,5 +312,9 @@
         <source>crocodile</source>
         <translation>Krokodil</translation>
     </message>
+    <message>
+        <source>pig</source>
+        <translation>Schwein</translation>
+    </message>
 </context>
 </TS>
