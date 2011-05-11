@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     viewer.showExpanded();
 
     ImageProvider::init();
-    Feedback::init();
+    feedback.init();
 
     return app.exec();
 }
