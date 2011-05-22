@@ -1,7 +1,9 @@
 #ifndef FEEDBACK_H
 #define FEEDBACK_H
 
-#include <QtGui/QSound>
+#include <QtCore/QObject>
+
+class QMediaPlayer;
 
 class Feedback : public QObject
 {
@@ -16,8 +18,9 @@ public:
     static void setDataPath(const QString &path);
 
 private:
-    QList<QSound*> m_correctSounds;
-    QList<QSound*> m_incorrectSounds;
+    QList<QMediaPlayer*> m_correctSounds;
+    QList<QMediaPlayer*> m_incorrectSounds;
+    int audioVolume;
 };
 
 #endif // FEEDBACK_H

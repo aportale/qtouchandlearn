@@ -41,11 +41,10 @@ symbian:TARGET.UID3 = 0xE10d63ca
 # (This might significantly increase build time)
 # DEFINES += QMLJSDEBUGGER
 
-# If your application uses the Qt Mobility libraries, uncomment
-# the following lines and add the respective components to the
-# MOBILITY variable.
-# CONFIG += mobility
-# MOBILITY +=
+symbian {
+    CONFIG += mobility
+    MOBILITY += multimedia
+}
 
 SOURCES += main.cpp \
     imageprovider.cpp \
