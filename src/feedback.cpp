@@ -2,15 +2,57 @@
 #include <QtDebug>
 #include <QtCore/QDir>
 
+static QString dataPath = QLatin1String("data");
+
 #if defined(Q_OS_SYMBIAN)
 #include <QMediaPlayer>
+#include <remconcoreapitargetobserver.h>    // link against RemConCoreApi.lib
+#include <remconcoreapitarget.h>            // and
+#include <remconinterfaceselector.h>        // RemConInterfaceBase.lib
 
-static QString dataPath = QLatin1String("data");
+class VolumeKeyListener : public QObject, public MRemConCoreApiTargetObserver
+{
+public:
+    VolumeKeyListener(Feedback *feedback);
+    virtual void MrccatoCommand(TRemConCoreApiOperationId aOperationId,
+                                TRemConCoreApiButtonAction aButtonAct);
+
+private:
+    QScopedPointer <CRemConInterfaceSelector> m_iInterfaceSelector;
+    QScopedPointer <CRemConCoreApiTarget> m_iCoreTarget;
+    Feedback *m_feedback;
+};
+
+VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
+    : QObject(feedback)
+    , m_feedback(feedback)
+{
+    QT_TRAP_THROWING(m_iInterfaceSelector.reset(CRemConInterfaceSelector::NewL()));
+    QT_TRAP_THROWING(m_iCoreTarget.reset(CRemConCoreApiTarget::NewL(*m_iInterfaceSelector, *this)));
+    m_iInterfaceSelector->OpenTargetL();
+}
+
+void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
+                                       TRemConCoreApiButtonAction aButtonAct)
+{
+    Q_UNUSED(aButtonAct)
+    switch(aOperationId) {
+    case ERemConCoreApiVolumeUp:
+        m_feedback->setAudioVolume(m_feedback->audioVolume() + 20);
+        break;
+    case ERemConCoreApiVolumeDown:
+        m_feedback->setAudioVolume(m_feedback->audioVolume() - 20);
+        break;
+    default:
+        break;
+    }
+}
 
 Feedback::Feedback(QObject *parent)
     : QObject(parent)
-    , audioVolume(100)
+    , m_audioVolume(100)
 {
+    VolumeKeyListener *listener = new VolumeKeyListener(this);
 }
 
 Feedback::~Feedback()
@@ -24,6 +66,7 @@ void Feedback::playCorrectSound() const
     Q_ASSERT(!m_correctSounds.isEmpty());
     const int index = qrand() % m_correctSounds.count();
     QMediaPlayer *player = m_correctSounds.at(index);
+    player->setVolume(m_audioVolume);
     player->stop();
     player->play();
 }
@@ -47,16 +90,11 @@ void Feedback::init()
     }
 }
 
-void Feedback::setDataPath(const QString &path)
-{
-    dataPath = path;
-}
-
 #else // Q_OS_SYMBIAN
 
 Feedback::Feedback(QObject *parent)
     : QObject(parent)
-    , audioVolume(100)
+    , m_audioVolume(100)
 {
 }
 
@@ -71,9 +109,20 @@ void Feedback::playCorrectSound() const
 void Feedback::init()
 {
 }
+#endif // Q_OS_SYMBIAN
 
 void Feedback::setDataPath(const QString &path)
 {
+    dataPath = path;
 }
 
-#endif // Q_OS_SYMBIAN
+int Feedback::audioVolume() const
+{
+    return m_audioVolume;
+}
+
+void Feedback::setAudioVolume(int volume)
+{
+    m_audioVolume = qBound(0, volume, 100);
+    emit volumeChanged(m_audioVolume);
+}

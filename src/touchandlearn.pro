@@ -44,6 +44,7 @@ symbian:TARGET.UID3 = 0xE10d63ca
 symbian {
     CONFIG += mobility
     MOBILITY += multimedia
+    LIBS += -lremconcoreapi -lremconinterfacebase
 }
 
 SOURCES += main.cpp \

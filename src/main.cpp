@@ -23,6 +23,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
 #include <QtGui/QApplication>
+#include <QtGui/QGraphicsObject>
 #include <QtDeclarative/QDeclarativeEngine>
 #include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeComponent>
@@ -50,8 +51,11 @@ int main(int argc, char *argv[])
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
+
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
+    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
+    QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
 
 #if defined(Q_WS_SIMULATOR)
     viewer.showFullScreen();

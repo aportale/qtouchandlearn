@@ -29,6 +29,11 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
+    function handleVolumeChange(volume)
+    {
+        console.log('Audio volume: ' + volume);
+    }
+
     Connections {
         id: connection
         ignoreUnknownSignals: true
