@@ -12,16 +12,16 @@ V:1
 C2x5/2
 V:2
 %%MIDI program 11
-%%MIDI control 10 60
-%%MIDI control 7 20
-% Track 2
-x/2E2x2
-V:3
-%%MIDI program 11
 %%MIDI control 10 40
 %%MIDI control 7 20
+% Track 2
+x/2G2x2
+V:3
+%%MIDI program 11
+%%MIDI control 10 60
+%%MIDI control 7 20
 % Track 3
-xG2x3/2
+xE2x3/2
 V:4
 %%MIDI program 11
 %%MIDI control 10 20
