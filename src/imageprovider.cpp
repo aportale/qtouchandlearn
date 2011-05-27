@@ -34,27 +34,27 @@ static QString dataPath = QLatin1String("data");
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
     x->load(dataPath + QLatin1String("/design.svg"));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, objectRenderer, {
     x->load(dataPath + QLatin1String("/objects.svg"));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, countablesRenderer, {
     x->load(dataPath + QLatin1String("/countables.svg"));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, clocksRenderer, {
     x->load(dataPath + QLatin1String("/clocks.svg"));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
     x->load(dataPath + QLatin1String("/notes.svg"));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, lessonIconsRenderer, {
     x->load(dataPath + QLatin1String("/lessonicons.svg"));
-});
+})
 
 struct ElementVariations
 {
@@ -96,11 +96,11 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, buttonVariations, {
     x->append(elementsWithSizes(buttonString));
-});
+})
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, frameVariations, {
     x->append(elementsWithSizes(frameString));
-});
+})
 
 ImageProvider::ImageProvider()
     : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap)
