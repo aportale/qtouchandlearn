@@ -26,6 +26,7 @@ var currentScreen = null;
 var currentLessonGroup = null;
 var lessonData = null;
 var lessonDataLength = 100;
+var volumeDisplay = null;
 
 function addIndicesToDict(dict)
 {

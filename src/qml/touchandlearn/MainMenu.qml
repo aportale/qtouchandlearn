@@ -1,4 +1,4 @@
-/*
+ /*
     Touch'n'learn - Fun and easy mobile lessons for kids
     Copyright (C) 2010 by Alessandro Portale
     http://touchandlearn.sourceforge.net
@@ -31,7 +31,9 @@ Rectangle {
 
     function handleVolumeChange(volume)
     {
-        console.log('Audio volume: ' + volume);
+        if (Database.volumeDisplay === null)
+            Database.volumeDisplay = Qt.createQmlObject("import Qt 4.7; VolumeDisplay { width: " + mainWindow.width + "; height: " + mainWindow.height + "; anchors.fill: parent; }", mainWindow);
+        Database.volumeDisplay.volume = volume
     }
 
     Connections {
