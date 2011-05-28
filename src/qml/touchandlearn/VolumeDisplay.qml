@@ -74,7 +74,8 @@ Rectangle {
         fadeout.start();
     }
 
-    onVolumeChanged: {
+    function displayVolume()
+    {
         fadeout.stop();
         opacity = 1;
         fadeout.start();

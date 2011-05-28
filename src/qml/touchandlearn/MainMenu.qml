@@ -33,7 +33,8 @@ Rectangle {
     {
         if (Database.volumeDisplay === null)
             Database.volumeDisplay = Qt.createQmlObject("import Qt 4.7; VolumeDisplay { width: " + mainWindow.width + "; height: " + mainWindow.height + "; anchors.fill: parent; }", mainWindow);
-        Database.volumeDisplay.volume = volume
+        Database.volumeDisplay.volume = volume;
+        Database.volumeDisplay.displayVolume();
     }
 
     Connections {
