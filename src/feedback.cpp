@@ -92,10 +92,58 @@ void Feedback::init()
 
 #else // Q_OS_SYMBIAN
 
+#include <QtGui/QShortcut>
+#include <QtGui/QApplication>
+#include <QtCore/QTimer>
+
+class VolumeKeyListener : public QObject
+{
+    Q_OBJECT
+
+public:
+    VolumeKeyListener(Feedback *feedback);
+
+private slots:
+    void setupShortcuts();
+    void volumeUp();
+    void volumeDown();
+
+private:
+    Feedback *m_feedback;
+};
+
+VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
+    : QObject(feedback)
+    , m_feedback(feedback)
+{
+    // Using a timer because shortcuts need a widget pointer, which may not yet exist at this moment.
+    QTimer::singleShot(0, this, SLOT(setupShortcuts()));
+}
+
+void VolumeKeyListener::setupShortcuts()
+{
+    QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
+    connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
+
+    QShortcut *volumeDown = new QShortcut(QKeySequence(Qt::Key_Minus), qApp->activeWindow());
+    connect(volumeDown, SIGNAL(activated()), SLOT(volumeDown()));
+}
+
+void VolumeKeyListener::volumeUp()
+{
+    m_feedback->setAudioVolume(m_feedback->audioVolume() + 20);
+}
+
+void VolumeKeyListener::volumeDown()
+{
+    m_feedback->setAudioVolume(m_feedback->audioVolume() - 20);
+}
+
 Feedback::Feedback(QObject *parent)
     : QObject(parent)
     , m_audioVolume(100)
 {
+    new VolumeKeyListener(this);
 }
 
 Feedback::~Feedback()
@@ -109,6 +157,9 @@ void Feedback::playCorrectSound() const
 void Feedback::init()
 {
 }
+
+#include "feedback.moc"
+
 #endif // Q_OS_SYMBIAN
 
 void Feedback::setDataPath(const QString &path)
