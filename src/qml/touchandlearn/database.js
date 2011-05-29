@@ -486,9 +486,9 @@ function lessonMenu()
             Id: "Count",                DisplayName: qsTranslate("LessonMenu", "Count"),                        ImageLabel: "3",                                DefaultLesson: 0,
             Lessons: [
                 { Id: "CountEasy",      DisplayName: qsTranslate("LessonMenu", "Count to 5"),                   ImageLabel: "3" },
-                { Id: "CountReadEasy",  DisplayName: qsTranslate("LessonMenu", "Count and read to 5"),          ImageLabel: "3" },
+                { Id: "CountReadEasy",  DisplayName: qsTranslate("LessonMenu", "Count and read to 5"),          ImageLabel: qsTranslate("Numbers", "three") },
                 { Id: "CountHard",      DisplayName: qsTranslate("LessonMenu", "Count to 20"),                  ImageLabel: "9" },
-                { Id: "CountReadHard",  DisplayName: qsTranslate("LessonMenu", "Count and read to 20"),         ImageLabel: "9" }
+                { Id: "CountReadHard",  DisplayName: qsTranslate("LessonMenu", "Count and read to 20"),         ImageLabel: qsTranslate("Numbers", "nine") }
             ] }, {
             Id: "Clock",                DisplayName: qsTranslate("LessonMenu", "Clock"),                        ImageLabel: "5:00",                             DefaultLesson: 1,
             Lessons: [
