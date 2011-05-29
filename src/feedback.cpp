@@ -14,12 +14,13 @@ class VolumeKeyListener : public QObject, public MRemConCoreApiTargetObserver
 {
 public:
     VolumeKeyListener(Feedback *feedback);
+    ~VolumeKeyListener();
     virtual void MrccatoCommand(TRemConCoreApiOperationId aOperationId,
                                 TRemConCoreApiButtonAction aButtonAct);
 
 private:
-    QScopedPointer <CRemConInterfaceSelector> m_iInterfaceSelector;
-    QScopedPointer <CRemConCoreApiTarget> m_iCoreTarget;
+    CRemConCoreApiTarget *m_iCoreTarget;
+    CRemConInterfaceSelector *m_iInterfaceSelector;
     Feedback *m_feedback;
 };
 
@@ -27,9 +28,14 @@ VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
     : QObject(feedback)
     , m_feedback(feedback)
 {
-    QT_TRAP_THROWING(m_iInterfaceSelector.reset(CRemConInterfaceSelector::NewL()));
-    QT_TRAP_THROWING(m_iCoreTarget.reset(CRemConCoreApiTarget::NewL(*m_iInterfaceSelector, *this)));
+    QT_TRAP_THROWING(m_iInterfaceSelector = CRemConInterfaceSelector::NewL());
+    QT_TRAP_THROWING(m_iCoreTarget = CRemConCoreApiTarget::NewL(*m_iInterfaceSelector, *this));
     m_iInterfaceSelector->OpenTargetL();
+}
+
+VolumeKeyListener::~VolumeKeyListener()
+{
+    delete m_iInterfaceSelector;
 }
 
 void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
