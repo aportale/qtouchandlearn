@@ -52,7 +52,7 @@ Feedback::Feedback(QObject *parent)
     : QObject(parent)
     , m_audioVolume(100)
 {
-    VolumeKeyListener *listener = new VolumeKeyListener(this);
+    new VolumeKeyListener(this);
 }
 
 Feedback::~Feedback()
