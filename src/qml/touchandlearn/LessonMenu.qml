@@ -91,10 +91,36 @@ Rectangle {
     Flickable {
         anchors.fill: parent
         contentHeight: column.height
+        contentY: controls.height * 0.75 // Only show a part of it. As a hint.
         width: parent.width
 
         Column {
             id: column
+            anchors { left: parent.left; right: parent.right }
+
+            Item {
+                id: controls
+                anchors { left: parent.left; right: parent.right }
+                height: exitButton.height
+                Item {
+                    id: exitButton
+                    property int exitButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.18)
+                    width: exitButtonSize
+                    height: Math.round(exitButtonSize * 0.75)
+                    anchors { top: parent.top; right: parent.right }
+                    Image {
+                        property real exitImageSize: Math.round(parent.width * 0.5)
+                        sourceSize { width: exitImageSize; height: exitImageSize }
+                        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
+                        source: "image://imageprovider/specialbutton/exitbutton"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: Qt.quit()
+                    }
+                }
+            }
+
             Grid {
                 columns: 2
                 id: list
