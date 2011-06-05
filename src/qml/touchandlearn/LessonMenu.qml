@@ -121,6 +121,22 @@ Rectangle {
                 }
             }
 
+            Item {
+                Image {
+                    source: "image://imageprovider/title/spectrum"
+                    sourceSize { width: titleImage.width; height: titleImage.height }
+                    width: titleImage.width
+                    fillMode: Image.Tile
+                }
+                Image {
+                    id: titleImage
+                    source: "image://imageprovider/title/textmask"
+                    sourceSize { width: menu.width; height: menu.height }
+                }
+                height: titleImage.height
+                anchors { left: parent.left; right: parent.right }
+            }
+
             Grid {
                 columns: 2
                 id: list

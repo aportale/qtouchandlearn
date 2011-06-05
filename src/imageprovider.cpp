@@ -314,6 +314,18 @@ inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariat
     return icon;
 }
 
+inline static QPixmap spectrum(QSize *size, const QSize &requestedSize)
+{
+    const QSize resultSize(360, requestedSize.height());
+    QImage result(resultSize.width(), 1, QImage::Format_ARGB32);
+    QRgb *bits = reinterpret_cast<QRgb*>(result.bits());
+    for (int i = 0; i < resultSize.width(); ++i)
+        *(bits++) = QColor::fromHsl(i, 40, 180).rgb();
+    if (size)
+        *size = result.size();
+    return QPixmap::fromImage(result.scaled(resultSize));
+}
+
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
     const QStringList idSegments = id.split(QLatin1Char('/'));
@@ -328,6 +340,11 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     const QString &elementId = idSegments.at(1);
     if (idSegments.first() == QLatin1String("background")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::KeepAspectRatioByExpanding, size, requestedSize);
+    } else if (idSegments.first() == QLatin1String("title")) {
+        if (elementId == QLatin1String("textmask"))
+            return renderedSvgElement(idSegments.first(), designRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+        else
+            return spectrum(size, requestedSize);
     } else if (idSegments.first() == QLatin1String("specialbutton")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
