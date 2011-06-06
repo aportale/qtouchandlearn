@@ -125,8 +125,14 @@ Rectangle {
                 Image {
                     source: "image://imageprovider/title/spectrum"
                     sourceSize { width: titleImage.width; height: titleImage.height }
-                    width: titleImage.width
+                    width: (Math.ceil(titleImage.width / 360.0) + 1) * 360
                     fillMode: Image.Tile
+                    NumberAnimation on x {
+                        from: 0
+                        to: -360
+                        duration: 2500
+                        loops: Animation.Infinite
+                    }
                 }
                 Image {
                     id: titleImage
