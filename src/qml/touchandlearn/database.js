@@ -21,8 +21,7 @@
 */
 .pragma library
 
-var previousScreen = null;
-var currentScreen = null;
+var currentScreen = "";
 var currentLessonGroup = null;
 var lessonData = null;
 var lessonDataLength = 100;

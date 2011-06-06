@@ -38,9 +38,10 @@ Rectangle {
     }
 
     Connections {
+        target: stage.item
         id: connection
         ignoreUnknownSignals: true
-        onSelectedLessonChanged: switchToScreen(Database.currentScreen.selectedLesson)
+        onSelectedLessonChanged: switchToScreen(stage.item.selectedLesson)
         onClosePressed: switchToScreen("LessonMenu")
     }
 
@@ -48,31 +49,31 @@ Rectangle {
         anchors.fill: parent
         id: courtain
         color: "#000"
-        opacity:  0
+        opacity: 1
         z: 1
     }
 
-    function createScreen(screen)
-    {
-        Database.lessonData = null;
-        return Qt.createQmlObject("import Qt 4.7; " + screen + " { width: " + mainWindow.width + "; height: " + mainWindow.height + "; anchors.fill: parent; opacity: 0 }", mainWindow);
+    Loader {
+        id: stage
+        anchors.fill: parent
+        onLoaded: {
+            screenBlendIn.start();
+        }
     }
 
     function switchToScreen(screen)
     {
-        Database.previousScreen = Database.currentScreen;
-        Database.currentScreen = createScreen(screen);
-        connection.target = Database.currentScreen;
-        if (Database.previousScreen === null)
-            Database.currentScreen.opacity = 1;
+        Database.lessonData = null;
+        Database.currentScreen = screen + '.qml';
+        if (stage.source == '')
+            stage.source = Database.currentScreen;
         else
-            screenBlender.start();
+            screenBlendOut.start();
     }
 
     SequentialAnimation {
-        id: screenBlender
+        id: screenBlendOut
         PropertyAnimation {
-            id: fadein
             target: courtain
             property: "opacity"
             to: 1
@@ -80,11 +81,13 @@ Rectangle {
         }
         ScriptAction {
             script: {
-                if (Database.previousScreen)
-                    Database.previousScreen.destroy();
-                Database.currentScreen.opacity = 1
+                stage.source = Database.currentScreen;
             }
         }
+    }
+
+    SequentialAnimation {
+        id: screenBlendIn
         PropertyAnimation {
             target: courtain
             property: "opacity"

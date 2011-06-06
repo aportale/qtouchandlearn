@@ -25,8 +25,6 @@ import "database.js" as Database
 
 Rectangle {
     id: menu
-    width: parent.width
-    height: parent.height
     color: "#000"
     property color normalStateColor: "#fff"
     property color pressedStateColor: "#ee8"
