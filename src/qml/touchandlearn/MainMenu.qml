@@ -31,10 +31,11 @@ Rectangle {
 
     function handleVolumeChange(volume)
     {
-        if (Database.volumeDisplay === null)
-            Database.volumeDisplay = Qt.createQmlObject("import Qt 4.7; VolumeDisplay { width: " + mainWindow.width + "; height: " + mainWindow.height + "; anchors.fill: parent; }", mainWindow);
-        Database.volumeDisplay.volume = volume;
-        Database.volumeDisplay.displayVolume();
+        Database.currentVolume = volume;
+        if (volumeDisplay.source == '')
+            volumeDisplay.source = 'VolumeDisplay.qml';
+        else
+            volumeDisplay.displayCurrentVolume();
     }
 
     Connections {
@@ -58,6 +59,40 @@ Rectangle {
         anchors.fill: parent
         onLoaded: {
             screenBlendIn.start();
+        }
+    }
+
+    Loader {
+        id: volumeDisplay
+        anchors.fill: parent
+
+        onLoaded: {
+            displayCurrentVolume();
+        }
+
+        function displayCurrentVolume()
+        {
+            item.volume = Database.currentVolume;
+            volumeDisplayBlendOut.stop();
+            opacity = 1;
+            volumeDisplayBlendOut.start();
+        }
+
+        SequentialAnimation {
+            id: volumeDisplayBlendOut
+            PauseAnimation {
+                duration: 850
+            }
+            PropertyAnimation {
+                property: "opacity"
+                target: volumeDisplay
+                to: 0
+            }
+            ScriptAction {
+                script: {
+                    volumeDisplay.source = '';
+                }
+            }
         }
     }
 

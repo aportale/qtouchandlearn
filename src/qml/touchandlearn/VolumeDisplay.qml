@@ -51,33 +51,4 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
     }
-
-    SequentialAnimation {
-        id: fadeout
-        PauseAnimation {
-            duration: 850
-        }
-        PropertyAnimation {
-            property: "opacity"
-            target: volumeDisplay
-            to: 0
-        }
-        ScriptAction {
-            script: {
-                Database.volumeDisplay = null;
-                volumeDisplay.destroy();
-            }
-        }
-    }
-
-    Component.onCompleted: {
-        fadeout.start();
-    }
-
-    function displayVolume()
-    {
-        fadeout.stop();
-        opacity = 1;
-        fadeout.start();
-    }
 }
