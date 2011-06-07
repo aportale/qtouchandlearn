@@ -28,7 +28,9 @@ signals:
 
 private:
     QList<QMediaPlayer*> m_correctSounds;
+    mutable QMediaPlayer *m_previousCorrectSound;
     QList<QMediaPlayer*> m_incorrectSounds;
+    mutable QMediaPlayer *m_previousIncorrectSound;
     int m_audioVolume;
 };
 

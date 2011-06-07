@@ -56,6 +56,8 @@ void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
 
 Feedback::Feedback(QObject *parent)
     : QObject(parent)
+    , m_previousCorrectSound(0)
+    , m_previousIncorrectSound(0)
     , m_audioVolume(100)
 {
     new VolumeKeyListener(this);
@@ -69,12 +71,22 @@ Feedback::~Feedback()
 
 void Feedback::playCorrectSound() const
 {
-    Q_ASSERT(!m_correctSounds.isEmpty());
-    const int index = qrand() % m_correctSounds.count();
-    QMediaPlayer *player = m_correctSounds.at(index);
-    player->setVolume(m_audioVolume);
-    player->stop();
-    player->play();
+    if (m_correctSounds.isEmpty())
+        return;
+
+    QMediaPlayer *currentCorrectSound = 0;
+    if (m_correctSounds.count() == 1) {
+        currentCorrectSound = m_correctSounds.first();
+    } else {
+        do {
+            const int index = qrand() % m_correctSounds.count();
+            currentCorrectSound = m_correctSounds.at(index);
+        } while (currentCorrectSound == m_previousCorrectSound);
+        m_previousCorrectSound = currentCorrectSound;
+    }
+    currentCorrectSound->setVolume(m_audioVolume);
+    currentCorrectSound->stop();
+    currentCorrectSound->play();
 }
 
 static QMediaPlayer *player(const QString &file)
