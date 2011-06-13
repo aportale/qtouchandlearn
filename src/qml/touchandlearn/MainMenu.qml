@@ -91,6 +91,7 @@ Rectangle {
             ScriptAction {
                 script: {
                     volumeDisplay.source = '';
+                    Database.setPersistentVolume(Database.currentVolume);
                 }
             }
         }
@@ -132,9 +133,11 @@ Rectangle {
     }
 
     Timer {
-        // Need to create the first with minimal delay for valid initial parent.width/height
         interval: 1
         running: true
-        onTriggered: switchToScreen("LessonMenu")
+        onTriggered: {
+            feedback.setAudioVolume(Database.persistentVolume(), false);
+            switchToScreen("LessonMenu");
+        }
     }
 }

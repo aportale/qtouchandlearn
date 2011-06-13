@@ -190,8 +190,9 @@ int Feedback::audioVolume() const
     return m_audioVolume;
 }
 
-void Feedback::setAudioVolume(int volume)
+void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
 {
     m_audioVolume = qBound(0, volume, 100);
-    emit volumeChanged(m_audioVolume);
+    if (emitChangedSignal)
+        emit volumeChanged(m_audioVolume);
 }

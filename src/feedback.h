@@ -18,10 +18,8 @@ public:
 
     void init();
     int audioVolume() const;
+    Q_INVOKABLE void setAudioVolume(int volume, bool emitChangedSignal = true);
     static void setDataPath(const QString &path);
-
-public slots:
-    void setAudioVolume(int volume);
 
 signals:
     void volumeChanged(QVariant volume);
