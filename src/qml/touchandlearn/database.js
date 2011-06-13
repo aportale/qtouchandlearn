@@ -457,8 +457,20 @@ function currentLessonOfGroup(lessonGroup, defaultLesson)
     database().transaction(function(transaction) {
         createLessonOfGroupTable(transaction);
         var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroup + '"');
-        if (rs.rows.length == 1)
-            result = rs.rows.item(0).lesson;
+        if (rs.rows.length == 1) {
+            var dbResult = rs.rows.item(0).lesson;
+            for (var group in cachedLessonMenu) {
+                group = cachedLessonMenu[group];
+                if (group.Id == lessonGroup) {
+                    for (var lesson in group.Lessons) {
+                        if (dbResult == group.Lessons[lesson].Id) {
+                            result = dbResult;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     });
     return result;
 }
