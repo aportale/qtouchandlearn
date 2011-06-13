@@ -68,18 +68,16 @@ Rectangle {
                 onClicked: {
                     rectangle.color = pressedStateColor;
                     Database.currentLessonGroup = Database.cachedLessonMenu[index];
+                    var currentLesson = Database.currentLessonOfCurrentGroup();
                     var lessons = Database.currentLessonGroup.Lessons;
-
-                    var currentLesson = Database.currentLessonOfGroup(Database.currentLessonGroup.Id,
-                                                                      "Lesson" + lessons[Database.currentLessonGroup.DefaultLesson].Id);
                     for (var i = 0; i < lessons.length; i++) {
-                        if ("Lesson" + lessons[i].Id == currentLesson) {
+                        if (lessons[i].Id == currentLesson) {
                             selectedLesson = currentLesson;
                             break;
                         }
                     }
                     if (selectedLesson == "")
-                        selectedLesson = "Lesson" + lessons[Database.currentLessonGroup.DefaultLesson].Id;
+                        selectedLesson = lessons[Database.currentLessonGroup.DefaultLesson].Id;
                 }
                 anchors.fill: parent
             }

@@ -76,7 +76,7 @@ Item {
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: selectedLesson = "LessonOptions"
+            onPressed: selectedLesson = "Options"
         }
     }
 

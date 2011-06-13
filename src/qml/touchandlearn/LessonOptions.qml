@@ -29,7 +29,7 @@ Rectangle {
     property color normalStateColor: "#fff"
     property color pressedStateColor: "#ee8"
     property string selectedLesson
-    property string currentLesson: Database.currentLessonOfGroup(Database.currentLessonGroup.Id)
+    property string currentLesson: Database.currentLessonOfCurrentGroup()
 
     Component {
         id: delegate
@@ -46,7 +46,7 @@ Rectangle {
             Image {
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15; }
-                opacity: 'Lesson' + Database.lessonsOfCurrentGroup()[index].Id == currentLesson ? 1 : 0;
+                opacity: Database.lessonsOfCurrentGroup()[index].Id == currentLesson ? 1 : 0;
                 anchors { right: parent.right; top:  parent.top; margins: parent.height * 0.15; }
             }
 
@@ -76,7 +76,7 @@ Rectangle {
                 id: mouseArea
                 onClicked: {
                     rectangle.color = pressedStateColor;
-                    var theLesson = "Lesson" + Database.lessonsOfCurrentGroup()[index].Id;
+                    var theLesson = Database.lessonsOfCurrentGroup()[index].Id;
                     Database.setCurrentLessonOfGroup(Database.currentLessonGroup.Id, theLesson);
                     selectedLesson = theLesson;
                 }

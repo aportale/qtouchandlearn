@@ -517,3 +517,8 @@ function lessonsOfCurrentGroup()
         currentLessonGroup = lessonMenu()[4];
     return currentLessonGroup.Lessons;
 }
+
+function currentLessonOfCurrentGroup()
+{
+    return currentLessonOfGroup(currentLessonGroup.Id, currentLessonGroup.Lessons[currentLessonGroup.DefaultLesson].Id);
+}
