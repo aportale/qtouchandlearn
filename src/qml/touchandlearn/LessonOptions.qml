@@ -92,6 +92,31 @@ Rectangle {
 
         Column {
             id: column
+            anchors { left: parent.left; right: parent.right }
+
+            Item {
+                id: controls
+                anchors { left: parent.left; right: parent.right }
+                height: backButton.height
+                Item {
+                    id: backButton
+                    property int backButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.18)
+                    width: backButtonSize
+                    height: Math.round(backButtonSize * 0.75)
+                    anchors { top: parent.top; right: parent.right }
+                    Image {
+                        property real exitImageSize: Math.round(parent.width * 0.5)
+                        sourceSize { width: exitImageSize; height: exitImageSize }
+                        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
+                        source: "image://imageprovider/specialbutton/backbutton"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: selectedLesson = currentLesson
+                    }
+                }
+            }
+
             Column {
                 id: list
                 anchors { left: parent.left; right: parent.right }

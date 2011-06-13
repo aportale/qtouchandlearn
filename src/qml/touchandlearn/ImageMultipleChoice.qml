@@ -32,8 +32,6 @@ Item {
     property real viewHeightRatio: 0.45
     property string selectedLesson
 
-    signal closePressed
-
     ImageView {
         id: imageView
         anchors { top: parent.top; right: parent.right; left: parent.left }
@@ -47,27 +45,27 @@ Item {
     }
 
     Item {
-        id: menuButton
-        property real menuButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
-        width: menuButtonSize
-        height: menuButtonSize
+        id: backButton
+        property real backButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
+        width: backButtonSize
+        height: backButtonSize
         anchors { top: parent.top; right: parent.right }
         Image {
             property real exitImageSize: Math.round(parent.width * 0.5)
             sourceSize { width: exitImageSize; height: exitImageSize }
             anchors.centerIn: parent
-            source: "image://imageprovider/specialbutton/menubutton"
+            source: "image://imageprovider/specialbutton/backbutton"
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: closePressed()
+            onPressed: selectedLesson = "Menu"
         }
     }
 
     Item {
-        width: menuButton.menuButtonSize
-        height: menuButton.menuButtonSize * 0.75
-        anchors { top: menuButton.bottom; right: parent.right }
+        width: backButton.backButtonSize
+        height: backButton.backButtonSize * 0.75
+        anchors { top: backButton.bottom; right: parent.right }
         Image {
             property real optionsButtonSize: Math.round(parent.width * 0.5)
             sourceSize { width: optionsButtonSize; height: optionsButtonSize }

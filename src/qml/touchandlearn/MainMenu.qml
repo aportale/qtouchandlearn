@@ -43,7 +43,6 @@ Rectangle {
         id: connection
         ignoreUnknownSignals: true
         onSelectedLessonChanged: switchToScreen("Lesson" + stage.item.selectedLesson)
-        onClosePressed: switchToScreen("LessonMenu")
     }
 
     Rectangle {
