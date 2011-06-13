@@ -429,6 +429,15 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cccccccccccccscssssss" />
   <g
+     id="activemarker">
+    <path
+       sodipodi:nodetypes="czzz"
+       id="path2568"
+       d="m 757.93624,251.20492 c -2.63199,-4.7564 -9.32768,-5.71917 -12.16279,-2.20928 -2.81356,3.48321 -1.9604,9.10006 3.501,11.64839 5.44435,2.54037 11.27509,-4.7165 8.66179,-9.43911 z"
+       style="fill:#52ea22;fill-opacity:0.63297874;fill-rule:evenodd"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
      id="background">
     <g
        id="background_01">
