@@ -320,7 +320,7 @@ inline static QPixmap spectrum(QSize *size, const QSize &requestedSize)
     QImage result(resultSize.width(), 1, QImage::Format_ARGB32);
     QRgb *bits = reinterpret_cast<QRgb*>(result.bits());
     for (int i = 0; i < resultSize.width(); ++i)
-        *(bits++) = QColor::fromHsl(i, 100, 200).rgb();
+        *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
     if (size)
         *size = result.size();
     return QPixmap::fromImage(result.scaled(resultSize));
