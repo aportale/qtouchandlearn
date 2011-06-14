@@ -60,7 +60,7 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
                 width: Math.round(parent.width * 0.3)
-                anchors { left: parent.left; bottom: parent.bottom; margins: Math.round(parent.height * 0.18) }
+                anchors { left: parent.left; bottom: parent.bottom; margins: Math.round(parent.height * 0.2) }
             }
 
             Text {
@@ -100,12 +100,12 @@ Rectangle {
                 height: backButton.height
                 Item {
                     id: backButton
-                    property int backButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.18)
+                    property int backButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.2)
                     width: backButtonSize
                     height: Math.round(backButtonSize * 0.75)
                     anchors { top: parent.top; right: parent.right }
                     Image {
-                        property real exitImageSize: Math.round(parent.width * 0.5)
+                        property real exitImageSize: Math.round(parent.width * 0.7)
                         sourceSize { width: exitImageSize; height: exitImageSize }
                         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
                         source: "image://imageprovider/specialbutton/backbutton"

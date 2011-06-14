@@ -46,12 +46,12 @@ Item {
 
     Item {
         id: backButton
-        property real backButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.18)
+        property real backButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.2)
         width: backButtonSize
         height: backButtonSize
         anchors { top: parent.top; right: parent.right }
         Image {
-            property real exitImageSize: Math.round(parent.width * 0.5)
+            property real exitImageSize: Math.round(parent.width * 0.7)
             sourceSize { width: exitImageSize; height: exitImageSize }
             anchors.centerIn: parent
             source: "image://imageprovider/specialbutton/backbutton"
@@ -67,7 +67,7 @@ Item {
         height: backButton.backButtonSize * 0.75
         anchors { top: backButton.bottom; right: parent.right }
         Image {
-            property real optionsButtonSize: Math.round(parent.width * 0.5)
+            property real optionsButtonSize: Math.round(parent.width * 0.7)
             sourceSize { width: optionsButtonSize; height: optionsButtonSize }
             anchors { horizontalCenter: parent.horizontalCenter; top: parent.top }
             source: "image://imageprovider/specialbutton/optionsbutton"

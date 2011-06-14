@@ -91,12 +91,12 @@ Rectangle {
                 height: exitButton.height
                 Item {
                     id: exitButton
-                    property int exitButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.18)
+                    property int exitButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.2)
                     width: exitButtonSize
                     height: Math.round(exitButtonSize * 0.75)
                     anchors { top: parent.top; right: parent.right }
                     Image {
-                        property real exitImageSize: Math.round(parent.width * 0.5)
+                        property real exitImageSize: Math.round(parent.width * 0.7)
                         sourceSize { width: exitImageSize; height: exitImageSize }
                         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
                         source: "image://imageprovider/specialbutton/exitbutton"
