@@ -18,11 +18,17 @@
 # along with Touch'n'learn; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-# Add more folders to ship with the application, here
-folder_01.source = qml/touchandlearn
-folder_01.target = qml
-folder_02.source = data
-DEPLOYMENTFOLDERS = folder_01 folder_02
+android:DEFINES += ASSETS_VIA_QRC
+
+contains(DEFINES, ASSETS_VIA_QRC) {
+    RESOURCES = touchandlearn.qrc
+} else {
+    # Add more folders to ship with the application, here
+    folder_01.source = qml/touchandlearn
+    folder_01.target = qml
+    folder_02.source = data
+    DEPLOYMENTFOLDERS = folder_01 folder_02
+}
 
 # Additional import path used to resolve QML modules in Creator's code model
 #QML_IMPORT_PATH =

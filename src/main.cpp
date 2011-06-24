@@ -38,10 +38,17 @@ int main(int argc, char *argv[])
     QApplication::setStartDragDistance(15);
     QApplication::setStyle(QLatin1String("windows"));
     QApplication app(argc, argv);
+    const QString assetsPrefix =
+#ifdef ASSETS_VIA_QRC
+            QLatin1String(":/");
+#else // ASSETS_VIA_QRC
+            QString();
+#endif // ASSETS_VIA_QRC
+    const QString dataPath = assetsPrefix + QLatin1String("data");
 
     const QString translation = QLatin1String("translation_") + QLocale::system().name();
     QTranslator translator;
-    translator.load(translation, QLatin1String("data"));
+    translator.load(translation, dataPath);
     QApplication::installTranslator(&translator);
 
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
@@ -49,7 +56,12 @@ int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
-    viewer.setMainQmlFile(QLatin1String("qml/touchandlearn/main.qml"));
+    const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
+#ifdef ASSETS_VIA_QRC
+    viewer.setSource(QUrl(QLatin1String("qrc:/") + mainQml));
+#else // ASSETS_VIA_QRC
+    viewer.setMainQmlFile(mainQml);
+#endif // ASSETS_VIA_QRC
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
     Feedback feedback;
@@ -67,7 +79,9 @@ int main(int argc, char *argv[])
 #endif
     viewer.showExpanded();
 
+    ImageProvider::setDataPath(dataPath);
     ImageProvider::init();
+    Feedback::setDataPath(dataPath);
     feedback.init();
 
     return app.exec();

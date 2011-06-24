@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file>data/</file>
+        <file>qml/touchandlearn</file>
+    </qresource>
+</RCC>
