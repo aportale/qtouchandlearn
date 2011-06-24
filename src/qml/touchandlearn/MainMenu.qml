@@ -55,7 +55,8 @@ Rectangle {
 
     Loader {
         id: stage
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
         onLoaded: {
             screenBlendIn.start();
         }
@@ -63,7 +64,8 @@ Rectangle {
 
     Loader {
         id: volumeDisplay
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height
 
         onLoaded: {
             displayCurrentVolume();
@@ -131,10 +133,28 @@ Rectangle {
         }
     }
 
+    function rotateItem(item)
+    {
+        item.width = height;
+        item.height = width;
+        item.y = height;
+        item.transformOrigin = Item.TopLeft;
+        item.rotation = 270;
+    }
+
+    function rotateItemsIfLandscape()
+    {
+        if (width > height) {
+            rotateItem(stage);
+            rotateItem(courtain);
+        }
+    }
+
     Timer {
         interval: 1
         running: true
         onTriggered: {
+            rotateItemsIfLandscape();
             feedback.setAudioVolume(Database.persistentVolume(), false);
             switchToScreen("LessonMenu");
         }
