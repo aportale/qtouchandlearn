@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
 #if defined(Q_WS_SIMULATOR)
     viewer.showFullScreen();
-#elif !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN)
+#elif !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(MEEGO_EDITION_HARMATTAN)
     if (false)
         viewer.setGeometry(100, 100, 480, 800); // N900
     else
