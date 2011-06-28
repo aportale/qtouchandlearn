@@ -23,31 +23,18 @@ android:DEFINES += ASSETS_VIA_QRC
 contains(DEFINES, ASSETS_VIA_QRC) {
     RESOURCES = touchandlearn.qrc
 } else {
-    # Add more folders to ship with the application, here
     folder_01.source = qml/touchandlearn
     folder_01.target = qml
     folder_02.source = data
     DEPLOYMENTFOLDERS = folder_01 folder_02
 }
 
-# Additional import path used to resolve QML modules in Creator's code model
-#QML_IMPORT_PATH =
-
 DEFINES += \
-    ORIENTATIONLOCK \
     QT_USE_FAST_CONCATENATION \
     QT_USE_FAST_OPERATOR_PLUS
 
-# Needs to be defined for Symbian
-#DEFINES += NETWORKACCESS
-
-symbian:TARGET.UID3 = 0xE10d63ca
-
-# Define QMLJSDEBUGGER to allow debugging of QML in debug builds
-# (This might significantly increase build time)
-# DEFINES += QMLJSDEBUGGER
-
 symbian {
+    TARGET.UID3 = 0xE10d63ca
     CONFIG += mobility
     MOBILITY += multimedia
     LIBS += -lremconcoreapi -lremconinterfacebase
