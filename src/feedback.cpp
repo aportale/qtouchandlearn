@@ -1,5 +1,4 @@
 #include "feedback.h"
-#include <QtDebug>
 #include <QtCore/QDir>
 
 static QString dataPath = QLatin1String("data");
