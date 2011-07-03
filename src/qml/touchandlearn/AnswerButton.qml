@@ -181,6 +181,7 @@ Item {
                 }
                 ScriptAction {
                     script: {
+                        feedback.playIncorrectSound();
                         if (correctionImageSource.length) {
                             correctionImage.sourceSize.height = correctionImageItem.height
                             correctionImage.sourceSize.width = correctionImageItem.width

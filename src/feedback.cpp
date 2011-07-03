@@ -69,24 +69,34 @@ Feedback::~Feedback()
     qDeleteAll(m_incorrectSounds);
 }
 
-void Feedback::playCorrectSound() const
+static void playSound(const QList<QMediaPlayer*> &sounds, QMediaPlayer* &previousSound, int volume)
 {
-    if (m_correctSounds.isEmpty())
+    if (sounds.isEmpty())
         return;
 
-    QMediaPlayer *currentCorrectSound = 0;
-    if (m_correctSounds.count() == 1) {
-        currentCorrectSound = m_correctSounds.first();
+    QMediaPlayer *currentSound = 0;
+    if (sounds.count() == 1) {
+        currentSound = sounds.first();
     } else {
         do {
-            const int index = qrand() % m_correctSounds.count();
-            currentCorrectSound = m_correctSounds.at(index);
-        } while (currentCorrectSound == m_previousCorrectSound);
-        m_previousCorrectSound = currentCorrectSound;
+            const int index = qrand() % sounds.count();
+            currentSound = sounds.at(index);
+        } while (currentSound == previousSound);
+        previousSound = currentSound;
     }
-    currentCorrectSound->setVolume(m_audioVolume);
-    currentCorrectSound->stop();
-    currentCorrectSound->play();
+    currentSound->setVolume(volume);
+    currentSound->stop();
+    currentSound->play();
+}
+
+void Feedback::playCorrectSound() const
+{
+    playSound(m_correctSounds, m_previousCorrectSound, m_audioVolume);
+}
+
+void Feedback::playIncorrectSound() const
+{
+    playSound(m_incorrectSounds, m_previousIncorrectSound, m_audioVolume);
 }
 
 static QMediaPlayer *player(const QString &file)

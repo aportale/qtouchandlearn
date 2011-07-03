@@ -1,0 +1,12 @@
+X:1
+T:Wrong Ansewr 1
+M:4/4
+L:1/8
+Q:1/4=200
+K:C % 0 sharps
+V:1
+%%MIDI program 57
+%%MIDI control 10 80
+%%MIDI control 7 20
+% Track 1
+A,^F,D,2x

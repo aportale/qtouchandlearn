@@ -15,6 +15,7 @@ public:
     ~Feedback();
 
     Q_INVOKABLE void playCorrectSound() const;
+    Q_INVOKABLE void playIncorrectSound() const;
 
     void init();
     int audioVolume() const;
