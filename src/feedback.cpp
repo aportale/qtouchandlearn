@@ -181,6 +181,10 @@ void Feedback::playCorrectSound() const
 {
 }
 
+void Feedback::playIncorrectSound() const
+{
+}
+
 void Feedback::init()
 {
 }
