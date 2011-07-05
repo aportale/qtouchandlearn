@@ -51,6 +51,13 @@ Rectangle {
         color: "#000"
         opacity: 1
         z: 1
+        Text {
+            id: loadingText
+            anchors.centerIn: parent
+            text: "..."
+            color: "#FFF"
+            font.pixelSize: 20
+        }
     }
 
     Loader {
@@ -130,6 +137,9 @@ Rectangle {
             property: "opacity"
             to: 0
             duration: 180
+        }
+        ScriptAction {
+            script: loadingText.text = '';
         }
     }
 
