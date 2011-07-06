@@ -41,6 +41,7 @@ symbian {
     MOBILITY += multimedia
     LIBS += -lremconcoreapi -lremconinterfacebase
 }
+VERSION = 1.0
 
 SOURCES += main.cpp \
     imageprovider.cpp \
