@@ -35,6 +35,8 @@ DEFINES += \
 
 symbian {
     TARGET.UID3 = 0xE10d63ca
+    # TARGET.UID3 = 0x20045CB7
+    # vendorinfo = "%{\"SolApps\"}" ":\"SolApps\""
     CONFIG += mobility
     MOBILITY += multimedia
     LIBS += -lremconcoreapi -lremconinterfacebase
