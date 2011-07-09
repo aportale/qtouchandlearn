@@ -30,6 +30,7 @@
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
 const QString clockBackgroundString = QLatin1String("background");
+const QString idPrefix = QLatin1String("id_");
 static QString dataPath = QLatin1String("data");
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
@@ -76,9 +77,9 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
     element.widthToHeightRatio = -1;
     for (int i = 1; ; i++) {
         const QString id = elementBase + QLatin1Char('_') + QString::number(i);
-        if (!renderer->elementExists(id))
+        if (!renderer->elementExists(idPrefix + id))
             break;
-        const QSizeF size = renderer->boundsOnElement(id).size();
+        const QSizeF size = renderer->boundsOnElement(idPrefix + id).size();
         const qreal widthToHeightRatio = size.width() / size.height();
         if (!qFuzzyCompare(widthToHeightRatio, element.widthToHeightRatio)) {
             if (element.widthToHeightRatio > 0) // Check, is it is the first element
@@ -125,7 +126,7 @@ inline static QPixmap quantity(int quantity, const QString &item, QSize *size, c
             const QString itemId = item + QLatin1Char('_') + QString::number((qrand() % 8 + 1));
             const QRect itemRect(column * itemSize + (row == rows-1 ? (columns - columnsInLastRow) * itemSize / 2 : 0),
                                  row * itemSize, itemSize, itemSize);
-            renderer->render(&p, itemId, itemRect);
+            renderer->render(&p, idPrefix + itemId, itemRect);
         }
     }
     if (size)
@@ -140,7 +141,7 @@ inline static int clockVariationsCount()
     const QString elementIdBase = clockBackgroundString + QLatin1Char('_');
     Q_FOREVER {
         const QString elementId = elementIdBase + QString::number(count + 1);
-        if (renderer->elementExists(elementId))
+        if (renderer->elementExists(idPrefix + elementId))
             count++;
         else
             break;
@@ -159,7 +160,7 @@ inline static void renderIndicator(const QString &indicatorId, int rotation, con
             .rotate(rotation)
             .translate(-bgCenter.x(), -bgCenter.y());
     p->setTransform(transform);
-    renderer->render(p, indicatorId, renderer->boundsOnElement(indicatorId));
+    renderer->render(p, idPrefix + indicatorId, renderer->boundsOnElement(idPrefix + indicatorId));
 }
 
 inline static QPixmap clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
@@ -169,7 +170,7 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     QSvgRenderer *renderer = clocksRenderer();
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
-    const QRectF backgroundRect = renderer->boundsOnElement(backgroundElementId);
+    const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + backgroundElementId);
     QSize pixmapSize = backgroundRect.size().toSize();
     if (size)
         *size = pixmapSize;
@@ -185,7 +186,7 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
             .scale(scaleFactor, scaleFactor)
             .translate(-backgroundRect.left(), -backgroundRect.top());
     p.setTransform(mainTransform);
-    renderer->render(&p, backgroundElementId, backgroundRect);
+    renderer->render(&p, idPrefix + backgroundElementId, backgroundRect);
 
     const int minuteRotation = (minute * 6) % 360;
     renderIndicator(QLatin1String("minute") + variationNumber, minuteRotation,
@@ -196,9 +197,9 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
                     backgroundRect, scaleFactor, renderer, &p);
 
     const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
-    if (renderer->elementExists(foregroundElementId)) {
+    if (renderer->elementExists(idPrefix + foregroundElementId)) {
         p.setTransform(mainTransform);
-        renderer->render(&p, foregroundElementId, renderer->boundsOnElement(foregroundElementId));
+        renderer->render(&p, idPrefix + foregroundElementId, renderer->boundsOnElement(idPrefix + foregroundElementId));
     }
     return pixmap;
 }
@@ -207,9 +208,9 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
 {
     QSvgRenderer *renderer = notesRenderer();
     static const QString clefId = QLatin1String("clef");
-    static const QRectF clefRect = renderer->boundsOnElement(clefId);
+    static const QRectF clefRect = renderer->boundsOnElement(idPrefix + clefId);
     static const QString staffLinesId = QLatin1String("stafflines");
-    static const QRectF staffLinesOriginalRect = renderer->boundsOnElement(staffLinesId);
+    static const QRectF staffLinesOriginalRect = renderer->boundsOnElement(idPrefix + staffLinesId);
     static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
     static const qreal linesSpacePerNote = clefRect.width() * 1.75;
     const qreal linesSpaceForNotes = notes.count() * linesSpacePerNote;
@@ -228,31 +229,31 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     p.scale(scaleFactor, scaleFactor);
     p.translate(-pixmapRect.topLeft());
 
-    renderer->render(&p, staffLinesId, pixmapRect);
-    renderer->render(&p, clefId, clefRect);
+    renderer->render(&p, idPrefix + staffLinesId, pixmapRect);
+    renderer->render(&p, idPrefix + clefId, clefRect);
 
     int currentNoteIndex = 0;
     foreach(const QString &currentNote, notes) {
         const QString trimmedNote = currentNote.trimmed();
         const QString note = trimmedNote.at(0).toLower();
         const QString noteID = QLatin1String("note_") + note;
-        QRectF noteRect = renderer->boundsOnElement(noteID);
+        QRectF noteRect = renderer->boundsOnElement(idPrefix + noteID);
         const qreal noteCenterX = clefRightY + (currentNoteIndex + 0.125) * linesSpacePerNote + noteRect.width();
         currentNoteIndex++;
         const qreal noteXTranslate = noteCenterX - noteRect.center().x();
         noteRect.translate(noteXTranslate, 0);
-        renderer->render(&p, noteID, noteRect);
+        renderer->render(&p, idPrefix + noteID, noteRect);
         if (trimmedNote.length() > 1) {
             static const QString sharpId = QLatin1String("sharp");
             static const QString flatId = QLatin1String("flat");
-            static const QRectF noteCHeadRect = renderer->boundsOnElement(QLatin1String("note_c_head"));
+            static const QRectF noteCHeadRect = renderer->boundsOnElement(idPrefix + QLatin1String("note_c_head"));
             const bool sharp = trimmedNote.endsWith(QLatin1String("sharp"));
             const QString &noteSign = sharp ? sharpId : flatId;
-            const QRectF noteHeadRect = renderer->boundsOnElement(QLatin1String("note_") + note + QLatin1String("_head"));
-            const QRectF signRect = renderer->boundsOnElement(noteSign)
+            const QRectF noteHeadRect = renderer->boundsOnElement(idPrefix + QLatin1String("note_") + note + QLatin1String("_head"));
+            const QRectF signRect = renderer->boundsOnElement(idPrefix + noteSign)
                     .translated(noteXTranslate, 0)
                     .translated(noteHeadRect.topLeft() - noteCHeadRect.topLeft());
-            renderer->render(&p, noteSign, signRect);
+            renderer->render(&p, idPrefix + noteSign, signRect);
         }
     }
 
@@ -263,7 +264,7 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
                                          QSize *size, const QSize &requestedSize)
 {
     const QString rectId = elementId + QLatin1String("_rect");
-    const QRectF rect = renderer->boundsOnElement(renderer->elementExists(rectId) ? rectId : elementId);
+    const QRectF rect = renderer->boundsOnElement(idPrefix + (renderer->elementExists(idPrefix + rectId) ? rectId : elementId));
     Q_ASSERT_X(rect.width() >= 1 && rect.height() >= 1, "renderedSvgElement", "SVG bounding rect is NULL");
     QSize pixmapSize = rect.size().toSize();
     if (size)
@@ -274,7 +275,7 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
     Q_ASSERT_X(!pixmap.isNull(), "renderedSvgElement", "pixmap is NULL");
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
-    renderer->render(&p, elementId, QRect(QPoint(), pixmapSize));
+    renderer->render(&p, idPrefix + elementId, QRect(QPoint(), pixmapSize));
     return pixmap;
 }
 
@@ -300,7 +301,7 @@ inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariat
     icon.fill(Qt::transparent);
     QPainter p(&icon);
     QSvgRenderer *renderer = lessonIconsRenderer();
-    const QRectF iconRectOriginal = renderer->boundsOnElement(iconId);
+    const QRectF iconRectOriginal = renderer->boundsOnElement(idPrefix + iconId);
     QSizeF iconSize = iconRectOriginal.size();
     iconSize.scale(requestedSize, Qt::KeepAspectRatio);
     QRectF iconRect(QPointF(), iconSize);
@@ -308,7 +309,7 @@ inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariat
         iconRect.moveBottom(requestedSize.height());
     else
         iconRect.moveTop((requestedSize.height() - iconSize.height()) / 2);
-    renderer->render(&p, iconId, iconRect);
+    renderer->render(&p, idPrefix + iconId, iconRect);
     const QPixmap button = renderedDesignElement(buttonVariations(), buttonVariation, size, requestedSize);
     p.drawPixmap(QPointF(), button);
     return icon;
@@ -380,11 +381,11 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
 void ImageProvider::init()
 {
     designRenderer()->boundsOnElement(QString());
-    objectRenderer()->boundsOnElement(QString());;
-    countablesRenderer()->boundsOnElement(QString());;
-    clocksRenderer()->boundsOnElement(QString());;
-    notesRenderer()->boundsOnElement(QString());;
-    lessonIconsRenderer()->boundsOnElement(QString());;
+    objectRenderer()->boundsOnElement(QString());
+    countablesRenderer()->boundsOnElement(QString());
+    clocksRenderer()->boundsOnElement(QString());
+    notesRenderer()->boundsOnElement(QString());
+    lessonIconsRenderer()->boundsOnElement(QString());
 }
 
 void ImageProvider::setDataPath(const QString &path)

@@ -1,141 +1,643 @@
-<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="100%" viewBox="0 0 744.09448819 1052.3622047" width="100%" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
- <metadata id="metadata7">
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:format>image/svg+xml</dc:format>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title/>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <rect id="rect3151" height="211.3" width="135.2" y="-9.488" x="-127.8" fill="#b3b3b3"/>
- <g id="layer1" stroke="#232323">
-  <g id="apples" transform="translate(-14.2857,-170)">
-   <path id="apple_red_1" fill="#c60000" d="m-37.63,235.4c3.92,15.66,6.525,20.57,15.44,15.37,7.912,5.627,10.15-1.926,14.61-14.88,4.468-12.95-5.078-21.65-15.28-14.76-5.452-6.069-18.7-1.39-14.78,14.27z"/>
-   <path id="apple_red_2" fill="#c60000" d="m-95.95,237c3.92,14.76,10.93,17.13,17.7,14.94,7.46,0.7818,12.63,2.706,15.97-14.47,3.337-17.18-9.598-16.78-16.86-14.14-5.678-3.007-20.73-1.084-16.81,13.68z"/>
-   <path id="apple_stem_1" fill="#a16121" d="m-23.3,201.6c0.6707-4.455,0.3357-7.628,3.38-10.25l1.646,1.135c-2.977,2.538-2.767,6.957-3.076,10.08z"/>
-   <path id="apple_reflection" fill="#FFF" stroke="none" d="m-54.99,265.6c-0.4967-0.8708-0.9086-4.814-0.125-6.159,1.269-2.172,4.139-3.241,4.823-1.808,0.7174,1.488-1.104,5.5-1.887,6.856-0.7836,1.334-2.315,1.949-2.811,1.111z"/>
-   <g id="apple_1">
-    <use xlink:href="#apple_stem_1" transform="translate(92.689512,22.201744)"/>
-    <use xlink:href="#apple_red_2" transform="translate(149.64726,-0.852582)"/>
-    <use xlink:href="#apple_reflection" transform="translate(111.78676,-32.235546)"/>
-    <path d="m38.69,263.8,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_2">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.98189861,-0.1894073,0.1894073,0.98189861,118.00276,22.138126)"/>
-    <use xlink:href="#apple_red_2" transform="matrix(-0.99684478,-0.07937564,-0.07937564,0.99684478,73.106336,-6.669655)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.99929108,-0.03764753,0.03764753,0.99929108,165.54926,-36.424006)"/>
-    <path d="m102.7,263.9,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_3">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.9705083,-0.2410677,0.2410677,0.9705083,166.4029,24.55362)"/>
-    <use xlink:href="#apple_red_2" transform="matrix(0.98850403,-0.15119455,0.15119455,0.98850403,237.54118,-9.670511)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.96592583,-0.22736782,0.25881905,0.84854825,166.74472,-2.798553)"/>
-    <path d="m166.6,263.8,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_4" transform="translate(24.2219,-30.2638)">
-    <use xlink:href="#apple_stem_1" transform="translate(258.31964,50)"/>
-    <use xlink:href="#apple_red_1" transform="translate(258.95892,30)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.74361928,0,0,1,265.5501,-5.278578)"/>
-    <path d="m207.5,294.1,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_5">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.99434844,-0.10616584,0.10616584,0.99434844,322.67315,19.742426)"/>
-    <use xlink:href="#apple_red_1" transform="matrix(1.0251515,-0.10616584,0.10945466,0.99434844,321.89025,-1.490993)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.73670185,0.10119298,-0.13608172,0.99069762,387.51628,-27.398627)"/>
-    <path d="m294.6,263.9,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_6">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.99446347,-0.10508288,0.10508288,0.99446347,390.0122,20.129886)"/>
-    <use xlink:href="#apple_red_1" transform="matrix(-1.0502438,-0.02543596,-0.02420621,0.96048913,370.70535,7.74591)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.72983226,0.14252895,-0.19166925,0.98145958,466.29461,-24.281655)"/>
-    <path d="m356.7,263.8,59.75,0,0-59.67-59.75,0,0,59.67z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_7">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.98879325,0.14929134,-0.13573929,0.89903469,502.03214,43.151919)"/>
-    <use xlink:href="#apple_red_1" transform="matrix(0.98879325,0.14929134,-0.13573929,0.89903469,505.37904,25.266664)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.73528573,0.11101592,-0.13573929,0.89903469,515.78094,-4.561896)"/>
-    <path d="m421.6,263.9,59.75,0,0-59.66-59.75,0,0,59.66z" fill="none" stroke="none"/>
-   </g>
-   <g id="apple_8">
-    <use xlink:href="#apple_stem_1" transform="matrix(0.99991961,-0.01267916,0.01267916,0.99991961,537.97627,23.831104)"/>
-    <use xlink:href="#apple_red_2" transform="matrix(0.99688036,0.07892757,-0.07892757,0.99688036,615.05699,6.786755)"/>
-    <use xlink:href="#apple_reflection" transform="matrix(0.99232489,-3.9071518e-4,0.05785738,0.88525361,543.2095,-2.265638)"/>
-    <path d="m485.9,263.9,59.75,0,0-59.66-59.75,0,0,59.66z" fill="none" stroke="none"/>
-   </g>
-  </g>
-  <g id="fishes" transform="translate(-17.14284,-217.1429)">
-   <g id="fish_sideways" stroke-linejoin="round" fill-rule="evenodd" transform="matrix(0.908876,0,0,0.908876,-3.25683,34.3123)">
-    <path d="m16.15,340.3c-4.734,6.995,1.89,8.205-1.906,12.15-3.796,3.94,3.355,6.01-0.1116,9.172s-0.212,7.247-0.561,10.49c-14.77-9.042-7.195-28.03,2.579-31.8z" fill="#800040"/>
-    <path d="m-33.15,346.1c0.2717-3.592,4.736-5.724,7.379-3.964s2.733,7.029-0.3936,7.694c-3.127,0.6654-7.257-0.1381-6.985-3.73z" fill="#FFF"/>
-    <path d="m5.182,350.6c8.047,7.63,0.6859,20.5-14.65,23.06-15.34,2.557-27.75-6.13-22.93-20.44,4.815-14.31,29.54-10.24,37.58-2.614z" fill="#ffc080"/>
-    <path d="m-20.69,342.3c-4.228-0.6149-7.454,2.052-6.628,6.333,0.8256,4.281,8.071,5.544,10.51,2.061,2.44-3.483,0.3458-7.779-3.883-8.394z" fill="#FFF"/>
-    <path d="m-2.83,351.2c-2.037,4.551,2.373,5.488,1.171,7.542-1.203,2.054-2.167,2.644,0.191,5.315-12.08,2.424-7.33-9.812-1.362-12.86z" fill="#800040"/>
-    <path d="m-32.56,364.6c-2.807-0.6873-2.698-3.12-1.728-3.428,0.9705-0.3082,12.37-0.4817,17.77-3.553-4.402,4.916-9.632,8.141-16.04,6.982z" fill="#F00"/>
-    <path d="m-25.26,358.5c5.072,1.978,8.831-0.7398,8.831-0.7398-3.701,4.555-16.92,5.106-18.76,2.542-2.101-3.783,4.852-3.78,9.924-1.802z" fill="#F00"/>
-   </g>
-   <g id="fish_1">
-    <path d="m44.1,389.4,56.41,0,0-56.41-56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="translate(84.79818,1.77165)"/>
-    <path d="m61.6,351.8c0,2.207-2.489,2.207-2.489,0,0-2.113,2.489-2.113,2.489,0z"/>
-    <path d="m54.84,350.8c0,1.843-2.125,1.843-2.125,0,0-1.737,2.125-1.737,2.125,0z"/>
-   </g>
-   <g id="fish_2">
-    <path d="m108.6,389.4,56.41,0,0-56.41-56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="matrix(0.97199,-0.235024,0.235024,0.97199,64.12932,10.4357)"/>
-    <path d="m123.9,354.7c0,2.207-2.489,2.207-2.489,0,0-2.113,2.489-2.113,2.489,0z"/>
-    <path d="m117.1,355.5c0,1.843-2.125,1.843-2.125,0,0-1.737,2.125-1.737,2.125,0z"/>
-   </g>
-   <g id="fish_3">
-    <path d="m173.1,389.5,56.41,0,0-56.41-56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="matrix(0.977676,0.210119,-0.210119,0.977676,288.208,12.05057)"/>
-    <path d="m191.1,350c0,2.207-2.489,2.207-2.489,0,0-2.113,2.489-2.113,2.489,0z"/>
-    <path d="m185,347.6c0,1.843-2.125,1.843-2.125,0,0-1.737,2.125-1.737,2.125,0z"/>
-   </g>
-   <g id="fish_4">
-    <path d="m237.7,389.4,56.41,0,0-56.41-56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <path d="m264.7,340.6c-2.459,0.0467-2.462,8.889-2.462,8.889l4.608-0.3223s0.3124-8.614-2.146-8.567z" fill="#800040"/>
-    <path d="m252.2,358.1s-6.881-3.66-7.007-1.547c-0.1258,2.114,3.008,1.779,0.4095,4.236-2.599,2.457,3.118,0.2546-0.0558,4.744-3.174,4.49,6.413-1.583,6.413-1.583z" fill="#800040"/>
-    <path d="m279.2,359.2c1.15-2.078,3.257-2.98,4.363-3.413s2.184,0.8635,0.5192,2.487c-1.665,1.623,3.217,1.775,0.7409,3.383-2.476,1.607,2.397,2.474,0.8225,3.802-1.575,1.328-5.058-0.2415-5.846-1.338-1.197-1.749-1.796-2.806-0.5987-4.919" fill="#800040"/>
-    <path d="m251.8,353.8c6.728-10.93,24.29-7.88,27.6,3.228,3.312,11.11-1.928,24.64-14.65,25.32-12.72,0.6838-19.68-17.61-12.95-28.55z" fill="#ffc080"/>
-    <path d="m257.8,352.9c-3.584,0.1219-6.505,3.482-5.074,7.191s6.88,4.179,9.439,0.8857-0.7809-8.198-4.365-8.076z" fill="#FFF"/>
-    <path d="m276.6,362c2.48-3.698-0.1124-7.928-3.309-8.449-3.197-0.5204-6.175,1.45-5.907,5.615,0.2672,4.165,6.737,6.532,9.216,2.833z" fill="#FFF"/>
-    <path stroke-linejoin="round" d="m277.8,368.5c0.2348-1.291-0.7959,8.718-12.34,8.574-11.55-0.1442-11.04-4.851-14.64-9.034,9.977,5.601,17.61,3.976,26.99,0.4602z" fill="#F00"/>
-    <path stroke-linejoin="round" d="m251,368.2c5.54,2.448,7.688,0.9608,13.83,1.016,6.144,0.0556,7.646,1.519,13.24-0.7913-13.02,13.38-27.08-0.2251-27.08-0.2251z" fill="#F00"/>
-    <path d="m259.6,357.5c-0.0152,1.948-2.942,1.823-2.853,0,0.0885-1.823,2.868-1.948,2.853,0z"/>
-    <path d="m273.6,357.9c0.002,2.21-2.84,1.943-2.934,0-0.0936-1.943,2.932-2.21,2.934,0z"/>
-   </g>
-   <g id="fish_5">
-    <path fill="#800040" d="m309.6,365c-2.729-1.289,1.901-2.496-0.7506-5.246s3.81-1.597,0.9589-5.031,6.789-1.033,6.789-1.033l-0.2975,8.707s-3.971,3.891-6.7,2.603z"/>
-    <path d="m302.2,389.4,56.41,0,0-56.41-56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <path d="m331,339.4c-1.92,0.026-1.943,5.059-1.943,5.059l3.726,0.2295s0.1368-5.315-1.783-5.289z" fill="#800040"/>
-    <path d="m351.6,352.8c2.649,1.009-2.66,2.696,0.7506,5.246,3.411,2.551-4.569,1.956-0.7991,5.591,3.77,3.634-6.949,0.4733-6.949,0.4733l0.2975-8.707s4.051-3.612,6.7-2.603z" fill="#800040"/>
-    <path d="m330.2,378.4c-15.08-0.1216-18.91-21.33-12.87-29.19,6.036-7.861,16.09-12.03,25.04-1.74s2.913,31.05-12.16,30.93z" fill="#ffc080"/>
-    <path d="m327.7,344.2c-2.176-2.209-8.666-1.616-9.524,3.232-0.8585,4.848,4.631,7.707,8.511,5.528,3.879-2.179,3.189-6.552,1.014-8.76z" fill="#FFF"/>
-    <path d="m333.5,350.5c1.288,3.904,5.699,5.519,9.248,2.069s0.7218-8.759-3.217-9.426c-3.939-0.6662-7.319,3.453-6.031,7.357z" fill="#FFF"/>
-    <path d="m322.3,349.8c-0.178-2.179,3.061-2.865,3.362-0.3955,0.3008,2.47-3.184,2.574-3.362,0.3955z"/>
-    <path d="m338.7,349.9c-0.1624,2.087-2.987,1.892-2.934,0,0.0531-1.892,3.096-2.087,2.934,0z"/>
-    <path stroke-linejoin="round" fill="#F00" d="m344.2,359.9c0.2348-1.291-3.513,8.718-12.34,8.574-8.83-0.1442-11.04-4.851-14.64-9.034,9.977,5.601,17.61,3.976,26.99,0.4602z"/>
-    <path stroke-linejoin="round" fill="#F00" d="m317.3,359.4c5.301,0.9298,7.448,0.721,13.59,0.7766,6.144,0.0556,8.285,0.88,13.96-0.4717-13.81,11.8-27.56-0.305-27.56-0.305z"/>
-   </g>
-   <g id="fish_6">
-    <path d="m423.1,389.4-56.41,0,0-56.41,56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="matrix(-1,0,0,1,382.41082,1.77165)"/>
-    <path d="m405.6,351.8c0,2.207,2.489,2.207,2.489,0,0-2.113-2.489-2.113-2.489,0z"/>
-    <path d="m412.4,350.8c0,1.843,2.125,1.843,2.125,0,0-1.737-2.125-1.737-2.125,0z"/>
-   </g>
-   <g id="fish_7">
-    <path d="m487.7,389.4-56.41,0,0-56.41,56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="matrix(-0.97199,-0.235024,-0.235024,0.97199,532.12368,10.4357)"/>
-    <path d="m472.4,354.7c0,2.207,2.489,2.207,2.489,0,0-2.113-2.489-2.113-2.489,0z"/>
-    <path d="m479.2,355.5c0,1.843,2.125,1.843,2.125,0,0-1.737-2.125-1.737-2.125,0z"/>
-   </g>
-   <g id="fish_8">
-    <path d="m552.2,389.5-56.41,0,0-56.41,56.41,0,0,56.41z" fill="none" stroke="none"/>
-    <use xlink:href="#fish_sideways" transform="matrix(-0.977676,0.210119,0.210119,0.977676,437.089,12.05057)"/>
-    <path d="m534.2,350c0,2.207,2.489,2.207,2.489,0,0-2.113-2.489-2.113-2.489,0z"/>
-    <path d="m540.3,347.6c0,1.843,2.125,1.843,2.125,0,0-1.737-2.125-1.737-2.125,0z"/>
-   </g>
-  </g>
- </g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   height="100%"
+   viewBox="0 0 744.09448819 1052.3622047"
+   width="100%"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="countables.svg">
+  <defs
+     id="defs4124">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.1811 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09449 : 526.1811 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.7874 : 1"
+       id="perspective2930" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="957"
+     inkscape:window-height="483"
+     id="namedview4122"
+     showgrid="false"
+     inkscape:zoom="0.24801347"
+     inkscape:cx="-256.95085"
+     inkscape:cy="526.1811"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     id="rect3151"
+     height="211.3"
+     width="135.2"
+     y="-9.488"
+     x="-127.8"
+     fill="#b3b3b3" />
+  <g
+     id="layer1"
+     stroke="#232323">
+    <g
+       id="apples"
+       transform="translate(-14.2857,-170)">
+      <path
+         id="apple_red_1"
+         fill="#c60000"
+         d="m-37.63,235.4c3.92,15.66,6.525,20.57,15.44,15.37,7.912,5.627,10.15-1.926,14.61-14.88,4.468-12.95-5.078-21.65-15.28-14.76-5.452-6.069-18.7-1.39-14.78,14.27z" />
+      <path
+         id="apple_red_2"
+         fill="#c60000"
+         d="m-95.95,237c3.92,14.76,10.93,17.13,17.7,14.94,7.46,0.7818,12.63,2.706,15.97-14.47,3.337-17.18-9.598-16.78-16.86-14.14-5.678-3.007-20.73-1.084-16.81,13.68z" />
+      <path
+         id="apple_stem_1"
+         fill="#a16121"
+         d="m-23.3,201.6c0.6707-4.455,0.3357-7.628,3.38-10.25l1.646,1.135c-2.977,2.538-2.767,6.957-3.076,10.08z" />
+      <path
+         id="apple_reflection"
+         fill="#FFF"
+         stroke="none"
+         d="m-54.99,265.6c-0.4967-0.8708-0.9086-4.814-0.125-6.159,1.269-2.172,4.139-3.241,4.823-1.808,0.7174,1.488-1.104,5.5-1.887,6.856-0.7836,1.334-2.315,1.949-2.811,1.111z" />
+      <g
+         id="id_apple_1">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="translate(92.689512,22.201744)"
+           id="use3935"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_2"
+           transform="translate(149.64726,-0.852582)"
+           id="use3937"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="translate(111.78676,-32.235546)"
+           id="use3939"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 38.69,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3941"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_2">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.98189861,-0.1894073,0.1894073,0.98189861,118.00276,22.138126)"
+           id="use3944"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_2"
+           transform="matrix(-0.99684478,-0.07937564,-0.07937564,0.99684478,73.106336,-6.669655)"
+           id="use3946"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.99929108,-0.03764753,0.03764753,0.99929108,165.54926,-36.424006)"
+           id="use3948"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 102.7,263.9 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3950"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_3">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.9705083,-0.2410677,0.2410677,0.9705083,166.4029,24.55362)"
+           id="use3953"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_2"
+           transform="matrix(0.98850403,-0.15119455,0.15119455,0.98850403,237.54118,-9.670511)"
+           id="use3955"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.96592583,-0.22736782,0.25881905,0.84854825,166.74472,-2.798553)"
+           id="use3957"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 166.6,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3959"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_4"
+         transform="translate(24.2219,-30.2638)">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="translate(258.31964,50)"
+           id="use3962"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_1"
+           transform="translate(258.95892,30)"
+           id="use3964"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.74361928,0,0,1,265.5501,-5.278578)"
+           id="use3966"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 207.5,294.1 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3968"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_5">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.99434844,-0.10616584,0.10616584,0.99434844,322.67315,19.742426)"
+           id="use3971"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_1"
+           transform="matrix(1.0251515,-0.10616584,0.10945466,0.99434844,321.89025,-1.490993)"
+           id="use3973"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.73670185,0.10119298,-0.13608172,0.99069762,387.51628,-27.398627)"
+           id="use3975"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 294.6,263.9 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3977"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_6">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.99446347,-0.10508288,0.10508288,0.99446347,390.0122,20.129886)"
+           id="use3980"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_1"
+           transform="matrix(-1.0502438,-0.02543596,-0.02420621,0.96048913,370.70535,7.74591)"
+           id="use3982"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.72983226,0.14252895,-0.19166925,0.98145958,466.29461,-24.281655)"
+           id="use3984"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 356.7,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3986"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_7">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.98879325,0.14929134,-0.13573929,0.89903469,502.03214,43.151919)"
+           id="use3989"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_1"
+           transform="matrix(0.98879325,0.14929134,-0.13573929,0.89903469,505.37904,25.266664)"
+           id="use3991"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.73528573,0.11101592,-0.13573929,0.89903469,515.78094,-4.561896)"
+           id="use3993"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 421.6,263.9 59.75,0 0,-59.66 -59.75,0 0,59.66 z"
+           id="path3995"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_apple_8">
+        <use
+           xlink:href="#apple_stem_1"
+           transform="matrix(0.99991961,-0.01267916,0.01267916,0.99991961,537.97627,23.831104)"
+           id="use3998"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_red_2"
+           transform="matrix(0.99688036,0.07892757,-0.07892757,0.99688036,615.05699,6.786755)"
+           id="use4000"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#apple_reflection"
+           transform="matrix(0.99232489,-3.9071518e-4,0.05785738,0.88525361,543.2095,-2.265638)"
+           id="use4002"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 485.9,263.9 59.75,0 0,-59.66 -59.75,0 0,59.66 z"
+           id="path4004"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+    </g>
+    <g
+       id="fishes"
+       transform="translate(-17.14284,-217.1429)">
+      <g
+         id="fish_sideways"
+         stroke-linejoin="round"
+         fill-rule="evenodd"
+         transform="matrix(0.908876,0,0,0.908876,-3.25683,34.3123)">
+        <path
+           d="m16.15,340.3c-4.734,6.995,1.89,8.205-1.906,12.15-3.796,3.94,3.355,6.01-0.1116,9.172s-0.212,7.247-0.561,10.49c-14.77-9.042-7.195-28.03,2.579-31.8z"
+           fill="#800040"
+           id="path4008" />
+        <path
+           d="m-33.15,346.1c0.2717-3.592,4.736-5.724,7.379-3.964s2.733,7.029-0.3936,7.694c-3.127,0.6654-7.257-0.1381-6.985-3.73z"
+           fill="#FFF"
+           id="path4010" />
+        <path
+           d="m5.182,350.6c8.047,7.63,0.6859,20.5-14.65,23.06-15.34,2.557-27.75-6.13-22.93-20.44,4.815-14.31,29.54-10.24,37.58-2.614z"
+           fill="#ffc080"
+           id="path4012" />
+        <path
+           d="m-20.69,342.3c-4.228-0.6149-7.454,2.052-6.628,6.333,0.8256,4.281,8.071,5.544,10.51,2.061,2.44-3.483,0.3458-7.779-3.883-8.394z"
+           fill="#FFF"
+           id="path4014" />
+        <path
+           d="m-2.83,351.2c-2.037,4.551,2.373,5.488,1.171,7.542-1.203,2.054-2.167,2.644,0.191,5.315-12.08,2.424-7.33-9.812-1.362-12.86z"
+           fill="#800040"
+           id="path4016" />
+        <path
+           d="m-32.56,364.6c-2.807-0.6873-2.698-3.12-1.728-3.428,0.9705-0.3082,12.37-0.4817,17.77-3.553-4.402,4.916-9.632,8.141-16.04,6.982z"
+           fill="#F00"
+           id="path4018" />
+        <path
+           d="m-25.26,358.5c5.072,1.978,8.831-0.7398,8.831-0.7398-3.701,4.555-16.92,5.106-18.76,2.542-2.101-3.783,4.852-3.78,9.924-1.802z"
+           fill="#F00"
+           id="path4020" />
+      </g>
+      <g
+         id="id_fish_1">
+        <use
+           xlink:href="#fish_sideways"
+           transform="translate(84.79818,1.77165)"
+           id="use4025"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 61.6,351.8 c 0,2.207 -2.489,2.207 -2.489,0 0,-2.113 2.489,-2.113 2.489,0 z"
+           id="path4027"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 54.84,350.8 c 0,1.843 -2.125,1.843 -2.125,0 0,-1.737 2.125,-1.737 2.125,0 z"
+           id="path4029"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 44.1,389.4 56.41,0 0,-56.41 -56.41,0 0,56.41 z"
+           id="path4023"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_2">
+        <use
+           xlink:href="#fish_sideways"
+           transform="matrix(0.97199,-0.235024,0.235024,0.97199,64.12932,10.4357)"
+           id="use4034"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 123.9,354.7 c 0,2.207 -2.489,2.207 -2.489,0 0,-2.113 2.489,-2.113 2.489,0 z"
+           id="path4036"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 117.1,355.5 c 0,1.843 -2.125,1.843 -2.125,0 0,-1.737 2.125,-1.737 2.125,0 z"
+           id="path4038"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 108.6,389.4 56.41,0 0,-56.41 -56.41,0 0,56.41 z"
+           id="path4032"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_3">
+        <use
+           xlink:href="#fish_sideways"
+           transform="matrix(0.977676,0.210119,-0.210119,0.977676,288.208,12.05057)"
+           id="use4043"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 191.1,350 c 0,2.207 -2.489,2.207 -2.489,0 0,-2.113 2.489,-2.113 2.489,0 z"
+           id="path4045"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 185,347.6 c 0,1.843 -2.125,1.843 -2.125,0 0,-1.737 2.125,-1.737 2.125,0 z"
+           id="path4047"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 173.1,389.5 56.41,0 0,-56.41 -56.41,0 0,56.41 z"
+           id="path4041"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_4">
+        <path
+           d="m 264.7,340.6 c -2.459,0.0467 -2.462,8.889 -2.462,8.889 l 4.608,-0.3223 c 0,0 0.3124,-8.614 -2.146,-8.567 z"
+           id="path4052"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 252.2,358.1 c 0,0 -6.881,-3.66 -7.007,-1.547 -0.1258,2.114 3.008,1.779 0.4095,4.236 -2.599,2.457 3.118,0.2546 -0.0558,4.744 -3.174,4.49 6.413,-1.583 6.413,-1.583 z"
+           id="path4054"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 279.2,359.2 c 1.15,-2.078 3.257,-2.98 4.363,-3.413 1.106,-0.433 2.184,0.8635 0.5192,2.487 -1.665,1.623 3.217,1.775 0.7409,3.383 -2.476,1.607 2.397,2.474 0.8225,3.802 -1.575,1.328 -5.058,-0.2415 -5.846,-1.338 -1.197,-1.749 -1.796,-2.806 -0.5987,-4.919"
+           id="path4056"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 251.8,353.8 c 6.728,-10.93 24.29,-7.88 27.6,3.228 3.312,11.11 -1.928,24.64 -14.65,25.32 -12.72,0.6838 -19.68,-17.61 -12.95,-28.55 z"
+           id="path4058"
+           inkscape:connector-curvature="0"
+           style="fill:#ffc080" />
+        <path
+           d="m 257.8,352.9 c -3.584,0.1219 -6.505,3.482 -5.074,7.191 1.431,3.709 6.88,4.179 9.439,0.8857 2.559,-3.2933 -0.7809,-8.198 -4.365,-8.076 z"
+           id="path4060"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff" />
+        <path
+           d="m 276.6,362 c 2.48,-3.698 -0.1124,-7.928 -3.309,-8.449 -3.197,-0.5204 -6.175,1.45 -5.907,5.615 0.2672,4.165 6.737,6.532 9.216,2.833 z"
+           id="path4062"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff" />
+        <path
+           d="m 277.8,368.5 c 0.2348,-1.291 -0.7959,8.718 -12.34,8.574 -11.55,-0.1442 -11.04,-4.851 -14.64,-9.034 9.977,5.601 17.61,3.976 26.99,0.4602 z"
+           id="path4064"
+           inkscape:connector-curvature="0"
+           style="fill:#ff0000;stroke-linejoin:round" />
+        <path
+           d="m 251,368.2 c 5.54,2.448 7.688,0.9608 13.83,1.016 6.144,0.0556 7.646,1.519 13.24,-0.7913 -13.02,13.38 -27.08,-0.2251 -27.08,-0.2251 z"
+           id="path4066"
+           inkscape:connector-curvature="0"
+           style="fill:#ff0000;stroke-linejoin:round" />
+        <path
+           d="m 259.6,357.5 c -0.0152,1.948 -2.942,1.823 -2.853,0 0.0885,-1.823 2.868,-1.948 2.853,0 z"
+           id="path4068"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 273.6,357.9 c 0.002,2.21 -2.84,1.943 -2.934,0 -0.0936,-1.943 2.932,-2.21 2.934,0 z"
+           id="path4070"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 237.7,389.4 56.41,0 0,-56.41 -56.41,0 0,56.41 z"
+           id="path4050"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_5">
+        <path
+           d="m 309.6,365 c -2.729,-1.289 1.901,-2.496 -0.7506,-5.246 -2.6516,-2.75 3.81,-1.597 0.9589,-5.031 -2.8511,-3.434 6.789,-1.033 6.789,-1.033 l -0.2975,8.707 c 0,0 -3.971,3.891 -6.7,2.603 z"
+           id="path4073"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 331,339.4 c -1.92,0.026 -1.943,5.059 -1.943,5.059 l 3.726,0.2295 c 0,0 0.1368,-5.315 -1.783,-5.289 z"
+           id="path4077"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 351.6,352.8 c 2.649,1.009 -2.66,2.696 0.7506,5.246 3.411,2.551 -4.569,1.956 -0.7991,5.591 3.77,3.634 -6.949,0.4733 -6.949,0.4733 l 0.2975,-8.707 c 0,0 4.051,-3.612 6.7,-2.603 z"
+           id="path4079"
+           inkscape:connector-curvature="0"
+           style="fill:#800040" />
+        <path
+           d="m 330.2,378.4 c -15.08,-0.1216 -18.91,-21.33 -12.87,-29.19 6.036,-7.861 16.09,-12.03 25.04,-1.74 8.95,10.29 2.913,31.05 -12.16,30.93 z"
+           id="path4081"
+           inkscape:connector-curvature="0"
+           style="fill:#ffc080" />
+        <path
+           d="m 327.7,344.2 c -2.176,-2.209 -8.666,-1.616 -9.524,3.232 -0.8585,4.848 4.631,7.707 8.511,5.528 3.879,-2.179 3.189,-6.552 1.014,-8.76 z"
+           id="path4083"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff" />
+        <path
+           d="m 333.5,350.5 c 1.288,3.904 5.699,5.519 9.248,2.069 3.549,-3.45 0.7218,-8.759 -3.217,-9.426 -3.939,-0.6662 -7.319,3.453 -6.031,7.357 z"
+           id="path4085"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff" />
+        <path
+           d="m 322.3,349.8 c -0.178,-2.179 3.061,-2.865 3.362,-0.3955 0.3008,2.47 -3.184,2.574 -3.362,0.3955 z"
+           id="path4087"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 338.7,349.9 c -0.1624,2.087 -2.987,1.892 -2.934,0 0.0531,-1.892 3.096,-2.087 2.934,0 z"
+           id="path4089"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 344.2,359.9 c 0.2348,-1.291 -3.513,8.718 -12.34,8.574 -8.83,-0.1442 -11.04,-4.851 -14.64,-9.034 9.977,5.601 17.61,3.976 26.99,0.4602 z"
+           id="path4091"
+           inkscape:connector-curvature="0"
+           style="fill:#ff0000;stroke-linejoin:round" />
+        <path
+           d="m 317.3,359.4 c 5.301,0.9298 7.448,0.721 13.59,0.7766 6.144,0.0556 8.285,0.88 13.96,-0.4717 -13.81,11.8 -27.56,-0.305 -27.56,-0.305 z"
+           id="path4093"
+           inkscape:connector-curvature="0"
+           style="fill:#ff0000;stroke-linejoin:round" />
+        <path
+           d="m 302.2,389.4 56.41,0 0,-56.41 -56.41,0 0,56.41 z"
+           id="path4075"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_6">
+        <use
+           xlink:href="#fish_sideways"
+           transform="matrix(-1,0,0,1,382.41082,1.77165)"
+           id="use4098"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 405.6,351.8 c 0,2.207 2.489,2.207 2.489,0 0,-2.113 -2.489,-2.113 -2.489,0 z"
+           id="path4100"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 412.4,350.8 c 0,1.843 2.125,1.843 2.125,0 0,-1.737 -2.125,-1.737 -2.125,0 z"
+           id="path4102"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 423.1,389.4 -56.41,0 0,-56.41 56.41,0 0,56.41 z"
+           id="path4096"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_7">
+        <use
+           xlink:href="#fish_sideways"
+           transform="matrix(-0.97199,-0.235024,-0.235024,0.97199,532.12368,10.4357)"
+           id="use4107"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 472.4,354.7 c 0,2.207 2.489,2.207 2.489,0 0,-2.113 -2.489,-2.113 -2.489,0 z"
+           id="path4109"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 479.2,355.5 c 0,1.843 2.125,1.843 2.125,0 0,-1.737 -2.125,-1.737 -2.125,0 z"
+           id="path4111"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 487.7,389.4 -56.41,0 0,-56.41 56.41,0 0,56.41 z"
+           id="path4105"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+      <g
+         id="id_fish_8">
+        <use
+           xlink:href="#fish_sideways"
+           transform="matrix(-0.977676,0.210119,0.210119,0.977676,437.089,12.05057)"
+           id="use4116"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 534.2,350 c 0,2.207 2.489,2.207 2.489,0 0,-2.113 -2.489,-2.113 -2.489,0 z"
+           id="path4118"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 540.3,347.6 c 0,1.843 2.125,1.843 2.125,0 0,-1.737 -2.125,-1.737 -2.125,0 z"
+           id="path4120"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 552.2,389.5 -56.41,0 0,-56.41 56.41,0 0,56.41 z"
+           id="path4114"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:none;opacity:0" />
+      </g>
+    </g>
+  </g>
+</svg>

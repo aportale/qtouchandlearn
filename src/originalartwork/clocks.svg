@@ -75,7 +75,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="background_1">
+       id="id_background_1">
       <path
          sodipodi:type="arc"
          style="fill:#9191af;fill-opacity:0.627451;fill-rule:evenodd;stroke:none"
@@ -228,7 +228,7 @@
          style="fill:#bfd0ea;fill-opacity:1;fill-rule:evenodd;stroke:none" />
     </g>
     <g
-       id="minute_1">
+       id="id_minute_1">
       <path
          sodipodi:nodetypes="ccczcccc"
          inkscape:connector-curvature="0"
@@ -243,7 +243,7 @@
          style="fill:#4343bb;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="hour_1">
+       id="id_hour_1">
       <path
          sodipodi:nodetypes="ccczcccc"
          inkscape:connector-curvature="0"
@@ -258,7 +258,7 @@
          style="fill:#4343bb;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="foreground_1">
+       id="id_foreground_1">
       <path
          sodipodi:nodetypes="zzzz"
          inkscape:connector-curvature="0"
@@ -273,7 +273,7 @@
          style="fill:#c4d1e5;fill-opacity:1;fill-rule:evenodd;stroke:none" />
     </g>
     <g
-       id="background_2">
+       id="id_background_2">
       <path
          sodipodi:type="arc"
          style="fill:#ffe680;fill-opacity:0.50196081;fill-rule:evenodd;stroke:none"
@@ -420,7 +420,7 @@
          x="0" />
     </g>
     <g
-       id="minute_2">
+       id="id_minute_2">
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
@@ -435,7 +435,7 @@
          style="fill:#c8ab37;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="hour_2">
+       id="id_hour_2">
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
@@ -450,7 +450,7 @@
          sodipodi:nodetypes="sccccszzzz" />
     </g>
     <g
-       id="background_3"
+       id="id_background_3"
        transform="translate(0,-0.25253814)">
       <path
          sodipodi:type="arc"
@@ -599,7 +599,7 @@
          style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:none" />
     </g>
     <g
-       id="minute_3">
+       id="id_minute_3">
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
@@ -614,7 +614,7 @@
          style="fill:#5c5c5c;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="hour_3">
+       id="id_hour_3">
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
@@ -629,7 +629,7 @@
          style="fill:#5c5c5c;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="foreground_3">
+       id="id_foreground_3">
       <path
          sodipodi:nodetypes="zzzz"
          inkscape:connector-curvature="0"

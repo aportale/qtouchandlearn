@@ -115,7 +115,7 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccccc" />
   <g
-     id="FirstLetter"
+     id="id_FirstLetter"
      transform="translate(6,0)">
     <g
        id="g4123"
@@ -326,7 +326,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="NameTerms"
+     id="id_NameTerms"
      transform="translate(-129.59102,0)">
     <use
        x="0"
@@ -353,7 +353,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="Read">
+     id="id_Read">
     <use
        height="360"
        width="640"
@@ -456,7 +456,7 @@
        x="0" />
   </g>
   <g
-     id="CountEasy">
+     id="id_CountEasy">
     <use
        height="360"
        width="640"
@@ -482,7 +482,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="CountReadEasy"
+     id="id_CountReadEasy"
      transform="translate(-107.59102,0)">
     <g
        id="g3179">
@@ -512,7 +512,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="CountHard"
+     id="id_CountHard"
      transform="translate(-212.35355,0)">
     <g
        id="g4312"
@@ -543,7 +543,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="CountReadHard"
+     id="id_CountReadHard"
      transform="translate(-318.7071,0)">
     <use
        height="360"
@@ -570,7 +570,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="Count">
+     id="id_Count">
     <use
        x="0"
        y="0"
@@ -588,7 +588,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="ClockEasy">
+     id="id_ClockEasy">
     <g
        id="g4474"
        transform="translate(2.9194174,-0.17677669)">
@@ -809,7 +809,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="ClockMedium"
+     id="id_ClockMedium"
      transform="translate(-107.59102,0)">
     <g
        id="g3265">
@@ -855,7 +855,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="ClockHard"
+     id="id_ClockHard"
      transform="translate(-212,0)">
     <g
        id="g3316">
@@ -901,7 +901,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="Clock">
+     id="id_Clock">
     <use
        height="360"
        width="640"
@@ -919,7 +919,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="NotesReadEasy">
+     id="id_NotesReadEasy">
     <g
        id="g4683"
        transform="translate(2.5658641,-0.17677671)">
@@ -993,7 +993,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="NotesReadHard"
+     id="id_NotesReadHard"
      transform="translate(-107.59102,0)">
     <use
        height="360"
@@ -1029,7 +1029,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="Music">
+     id="id_Music">
     <use
        height="360"
        width="640"
@@ -1047,7 +1047,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="Mixed">
+     id="id_Mixed">
     <use
        height="360"
        width="640"
@@ -1097,7 +1097,7 @@
        style="fill:none;stroke:none" />
   </g>
   <g
-     id="MixedEasy">
+     id="id_MixedEasy">
     <use
        x="0"
        y="0"
@@ -1147,7 +1147,7 @@
        y="210" />
   </g>
   <g
-     id="MixedMedium">
+     id="id_MixedMedium">
     <use
        x="0"
        y="0"
@@ -1198,7 +1198,7 @@
   </g>
   <g
      transform="translate(55,0)"
-     id="MixedHard">
+     id="id_MixedHard">
     <use
        x="0"
        y="0"
