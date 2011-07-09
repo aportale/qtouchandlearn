@@ -59,8 +59,9 @@ Rectangle {
                 text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
-                width: Math.round(parent.width * 0.3)
-                anchors { left: parent.left; bottom: parent.bottom; margins: Math.round(parent.height * 0.2) }
+                width: Math.round(parent.width * 0.28)
+                x: Math.round(parent.height * 0.21)
+                y: Math.round(parent.height * 0.65)
             }
 
             Text {
