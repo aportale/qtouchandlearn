@@ -109,7 +109,7 @@ static QMediaPlayer *player(const QString &file)
 void Feedback::init()
 {
     QDir path(dataPath);
-    foreach (const QFileInfo &midiFile, path.entryInfoList(QStringList(QLatin1String("*.mid")), QDir::Files)) {
+    foreach (const QFileInfo &midiFile, path.entryInfoList(QDir::Files)) {
         if (midiFile.fileName().startsWith(QLatin1String("correct")))
             m_correctSounds.append(player(midiFile.absoluteFilePath()));
         else if (midiFile.fileName().startsWith(QLatin1String("incorrect")))

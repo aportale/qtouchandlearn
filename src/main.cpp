@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
 #endif // ASSETS_VIA_QRC
     const QString dataPath = assetsPrefix + QLatin1String("data");
 
-    const QString translation = QLatin1String("translation_") + QLocale::system().name();
+    const QString translation = QLocale::system().name();
     QTranslator translator;
-    translator.load(translation, dataPath);
+    translator.load(translation, dataPath + QLatin1String("/translations"));
     QApplication::installTranslator(&translator);
 
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
@@ -79,9 +79,9 @@ int main(int argc, char *argv[])
 #endif
     viewer.showExpanded();
 
-    ImageProvider::setDataPath(dataPath);
+    ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
-    Feedback::setDataPath(dataPath);
+    Feedback::setDataPath(dataPath + QLatin1String("/audio"));
     feedback.init();
 
     return app.exec();

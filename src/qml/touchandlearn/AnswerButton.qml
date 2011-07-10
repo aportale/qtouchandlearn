@@ -49,7 +49,7 @@ Item {
         lifeSpan: 800; lifeSpanDeviation: 400
         angle: 0; angleDeviation: 360;
         velocity: 80; velocityDeviation: 30
-        source:  "../../data/particle.svg" // Gets this image cached?
+        source:  "../../data/graphics/particle.svg" // Gets this image cached?
         clip: true
     }
     Image {
