@@ -1,6 +1,6 @@
- /*
+/*
     Touch'n'learn - Fun and easy mobile lessons for kids
-    Copyright (C) 2010 by Alessandro Portale
+    Copyright (C) 2010, 2011 by Alessandro Portale
     http://touchandlearn.sourceforge.net
 
     This file is part of Touch'n'learn
