@@ -21,7 +21,6 @@
 */
 
 import Qt 4.7
-import "database.js" as Database
 
 Rectangle {
     property int volume: 75
