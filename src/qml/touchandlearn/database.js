@@ -331,7 +331,7 @@ function nameTermsExerciseFunction(i, answersCount)
     createExercise(i, objects(), answersCount, nameTermsImageSourceFunction);
 }
 
-var countImages = ["fish", "apple"];
+var countImages = ["fish", "apple", "balloon"];
 function countImageSourceFunction(object, answerIndex)
 {
     return "image://imageprovider/quantity/" + object.Id + "/"

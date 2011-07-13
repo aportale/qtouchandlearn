@@ -59,11 +59,11 @@
   </metadata>
   <rect
      id="rect3151"
-     height="211.3"
+     height="1060.0442"
      width="135.2"
-     y="-9.488"
+     y="-9.4879999"
      x="-127.8"
-     fill="#b3b3b3" />
+     style="fill:#b3b3b3" />
   <g
      id="layer1"
      stroke="#232323">
@@ -72,12 +72,12 @@
        transform="translate(-14.2857,-170)">
       <path
          id="apple_red_1"
-         fill="#c60000"
-         d="m-37.63,235.4c3.92,15.66,6.525,20.57,15.44,15.37,7.912,5.627,10.15-1.926,14.61-14.88,4.468-12.95-5.078-21.65-15.28-14.76-5.452-6.069-18.7-1.39-14.78,14.27z" />
+         d="m-37.63,235.4c3.92,15.66,6.525,20.57,15.44,15.37,7.912,5.627,10.15-1.926,14.61-14.88,4.468-12.95-5.078-21.65-15.28-14.76-5.452-6.069-18.7-1.39-14.78,14.27z"
+         style="fill:#db2424;fill-opacity:1" />
       <path
          id="apple_red_2"
-         fill="#c60000"
-         d="m-95.95,237c3.92,14.76,10.93,17.13,17.7,14.94,7.46,0.7818,12.63,2.706,15.97-14.47,3.337-17.18-9.598-16.78-16.86-14.14-5.678-3.007-20.73-1.084-16.81,13.68z" />
+         d="m-95.95,237c3.92,14.76,10.93,17.13,17.7,14.94,7.46,0.7818,12.63,2.706,15.97-14.47,3.337-17.18-9.598-16.78-16.86-14.14-5.678-3.007-20.73-1.084-16.81,13.68z"
+         style="fill:#d82d2d;fill-opacity:1" />
       <path
          id="apple_stem_1"
          fill="#a16121"
@@ -86,6 +86,7 @@
          id="apple_reflection"
          fill="#FFF"
          stroke="none"
+         opacity="0.9"
          d="m-54.99,265.6c-0.4967-0.8708-0.9086-4.814-0.125-6.159,1.269-2.172,4.139-3.241,4.823-1.808,0.7174,1.488-1.104,5.5-1.887,6.856-0.7836,1.334-2.315,1.949-2.811,1.111z" />
       <g
          id="id_apple_1">
@@ -637,6 +638,222 @@
            id="path4114"
            inkscape:connector-curvature="0"
            style="fill:none;stroke:none;opacity:0" />
+      </g>
+    </g>
+    <g
+       id="balloons"
+       transform="translate(-12.835639,-13.80935)">
+      <path
+         style="fill:#4f7ad1;fill-opacity:1;stroke-width:1.15847229999999990"
+         inkscape:connector-curvature="0"
+         id="apple_red_1-7"
+         d="m -25.792338,255.22563 c 6.501955,0.0872 4.821042,-0.46099 1.659742,-3.00254 25.8510372,-9.69976 18.2123794,-40.65499 0.825486,-40.03402 -17.386892,0.62096 -24.210068,25.73051 -3.658397,39.89176 -2.052029,1.74174 -5.328785,3.05758 1.173169,3.1448 z"
+         sodipodi:nodetypes="zczcz" />
+      <path
+         style="fill:#4b77cf;fill-opacity:1;stroke-width:1.12972629000000000"
+         inkscape:connector-curvature="0"
+         id="apple_red_2-4"
+         d="m -79.916046,254.18825 c 3.156294,-0.16873 4.245446,-0.41543 1.108412,-3.56921 17.309934,-9.16184 20.110531,-37.79359 -1.385793,-39.12323 -21.496323,-1.32964 -19.966393,31.08261 -1.087305,39.25177 -2.678894,3.13142 -1.791607,3.60941 1.364686,3.44067 z"
+         sodipodi:nodetypes="zczcz" />
+      <path
+         fill="#FFF"
+         stroke="none"
+         opacity="0.75"
+         inkscape:connector-curvature="0"
+         id="balloon_reflection"
+         d="m -54.99,265.6 c -0.4967,-0.8708 -0.9086,-4.814 -0.125,-6.159 1.269,-2.172 4.139,-3.241 4.823,-1.808 0.7174,1.488 -1.104,5.5 -1.887,6.856 -0.7836,1.334 -2.315,1.949 -2.811,1.111 z" />
+      <g
+         id="id_balloon_1">
+        <use
+           xlink:href="#apple_red_2-4"
+           transform="translate(149.64726,2.1714474)"
+           id="use3937-8"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="translate(114.01154,-38.278233)"
+           id="use3939-2"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 38.69,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3941-4"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_2">
+        <use
+           xlink:href="#apple_red_2-4"
+           transform="matrix(-0.99684478,-0.07937564,-0.07937564,0.99684478,71.92538,-4.6536354)"
+           id="use3946-1"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.99929108,-0.03764753,0.03764753,0.99929108,168.04396,-39.63148)"
+           id="use3948-7"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 102.7,263.9 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3950-1"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_3">
+        <use
+           xlink:href="#apple_red_2-4"
+           transform="matrix(0.98850403,-0.15119455,0.15119455,0.98850403,243.24334,-5.3938874)"
+           id="use3955-2"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.9914423,-0.04184499,0.09478856,0.88206381,216.97618,-6.7563984)"
+           id="use3957-7"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 166.6,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3959-6"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_4"
+         transform="translate(24.2219,-30.2638)">
+        <use
+           xlink:href="#apple_red_1-7"
+           transform="translate(261.09723,30)"
+           id="use3964-2"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.73384946,0.12014412,-0.16156671,0.98686179,309.41882,0.58502554)"
+           id="use3966-3"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 207.5,294.1 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3968-2"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_5">
+        <use
+           xlink:href="#apple_red_1-7"
+           transform="matrix(1.0251515,-0.10616584,0.10945466,0.99434844,323.31579,-1.490993)"
+           id="use3973-6"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.73670185,0.10119298,-0.13608172,0.99069762,389.65459,-31.675253)"
+           id="use3975-8"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 294.6,263.9 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3977-5"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_6">
+        <use
+           xlink:href="#apple_red_1-7"
+           transform="matrix(-1.0502438,-0.02543596,-0.02420621,0.96048913,367.17735,8.7539198)"
+           id="use3982-1"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.72983226,0.14252895,-0.19166925,0.98145958,465.28661,-26.80168)"
+           id="use3984-8"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 356.7,263.8 59.75,0 0,-59.67 -59.75,0 0,59.67 z"
+           id="path3986-9"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_7">
+        <use
+           xlink:href="#apple_red_1-7"
+           transform="matrix(0.98879325,0.14929134,-0.13573929,0.89903469,506.89104,27.786689)"
+           id="use3991-9"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.69986772,0.25130621,-0.30727238,0.85572905,560.7787,12.139268)"
+           id="use3993-5"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 421.6,263.9 59.75,0 0,-59.66 -59.75,0 0,59.66 z"
+           id="path3995-4"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
+      </g>
+      <g
+         id="id_balloon_8">
+        <use
+           xlink:href="#apple_red_2-4"
+           transform="matrix(0.99688036,0.07892757,-0.07892757,0.99688036,615.05699,8.8027746)"
+           id="use4000-2"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <use
+           xlink:href="#balloon_reflection"
+           transform="matrix(0.99232489,-3.9071518e-4,0.05785738,0.88525361,545.47752,-7.8096918)"
+           id="use4002-3"
+           x="0"
+           y="0"
+           width="744.09448"
+           height="1052.3622" />
+        <path
+           d="m 485.9,263.9 59.75,0 0,-59.66 -59.75,0 0,59.66 z"
+           id="path4004-3"
+           inkscape:connector-curvature="0"
+           style="opacity:0;fill:none;stroke:none" />
       </g>
     </g>
   </g>
