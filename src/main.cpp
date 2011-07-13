@@ -84,7 +84,6 @@ int main(int argc, char *argv[])
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
     Feedback::setDataPath(dataPath + QLatin1String("/audio"));
-    feedback.init();
 
     return app.exec();
 }

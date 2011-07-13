@@ -81,7 +81,7 @@ Feedback::Feedback(QObject *parent)
     , m_previousIncorrectSound(0)
     , m_audioVolume(100)
 {
-    new VolumeKeyListener(this);
+    QTimer::singleShot(0, this, SLOT(init()));
 }
 
 Feedback::~Feedback()
@@ -130,6 +130,7 @@ static QMediaPlayer *player(const QString &file)
 
 void Feedback::init()
 {
+    new VolumeKeyListener(this);
     QDir path(dataPath);
     foreach (const QFileInfo &midiFile, path.entryInfoList(QDir::Files)) {
         if (midiFile.fileName().startsWith(QLatin1String("correct")))
@@ -153,7 +154,6 @@ public:
     VolumeKeyListener(Feedback *feedback);
 
 private slots:
-    void setupShortcuts();
     void volumeUp();
     void volumeDown();
 
@@ -164,12 +164,6 @@ private:
 VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
     : QObject(feedback)
     , m_feedback(feedback)
-{
-    // Using a timer because shortcuts need a widget pointer, which may not yet exist at this moment.
-    QTimer::singleShot(0, this, SLOT(setupShortcuts()));
-}
-
-void VolumeKeyListener::setupShortcuts()
 {
     QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
     connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
@@ -192,7 +186,8 @@ Feedback::Feedback(QObject *parent)
     : QObject(parent)
     , m_audioVolume(100)
 {
-    new VolumeKeyListener(this);
+    // Create QShortcuts after the ui has been created
+    QTimer::singleShot(1, this, SLOT(init()));
 }
 
 Feedback::~Feedback()
@@ -209,6 +204,7 @@ void Feedback::playIncorrectSound() const
 
 void Feedback::init()
 {
+    new VolumeKeyListener(this);
 }
 
 #include "feedback.moc"

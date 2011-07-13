@@ -39,13 +39,15 @@ public:
     Q_INVOKABLE void playCorrectSound() const;
     Q_INVOKABLE void playIncorrectSound() const;
 
-    void init();
     int audioVolume() const;
     Q_INVOKABLE void setAudioVolume(int volume, bool emitChangedSignal = true);
     static void setDataPath(const QString &path);
 
 signals:
     void volumeChanged(QVariant volume);
+
+private slots:
+    void init();
 
 private:
     QList<QMediaPlayer*> m_correctSounds;
