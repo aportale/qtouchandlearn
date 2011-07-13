@@ -39,8 +39,10 @@ int main(int argc, char *argv[])
     QApplication::setStyle(QLatin1String("windows"));
     QApplication app(argc, argv);
     const QString assetsPrefix =
-#ifdef ASSETS_VIA_QRC
+#if defined(ASSETS_VIA_QRC)
             QLatin1String(":/");
+#elif defined(Q_OS_MAC) // ASSETS_VIA_QRC
+            QCoreApplication::applicationDirPath() + QLatin1String("/../Resources/");
 #else // ASSETS_VIA_QRC
             QString();
 #endif // ASSETS_VIA_QRC
