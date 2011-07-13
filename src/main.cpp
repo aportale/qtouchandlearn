@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
 #endif // ASSETS_VIA_QRC
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
+    Feedback::setDataPath(dataPath + QLatin1String("/audio"));
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
@@ -83,7 +84,6 @@ int main(int argc, char *argv[])
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
-    Feedback::setDataPath(dataPath + QLatin1String("/audio"));
 
     return app.exec();
 }

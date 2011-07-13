@@ -22,6 +22,7 @@
 
 #include "feedback.h"
 #include <QtCore/QDir>
+#include <QtCore/QTimer>
 
 static QString dataPath = QLatin1String("data");
 
@@ -81,6 +82,7 @@ Feedback::Feedback(QObject *parent)
     , m_previousIncorrectSound(0)
     , m_audioVolume(100)
 {
+    new VolumeKeyListener(this);
     QTimer::singleShot(0, this, SLOT(init()));
 }
 
@@ -130,7 +132,6 @@ static QMediaPlayer *player(const QString &file)
 
 void Feedback::init()
 {
-    new VolumeKeyListener(this);
     QDir path(dataPath);
     foreach (const QFileInfo &midiFile, path.entryInfoList(QDir::Files)) {
         if (midiFile.fileName().startsWith(QLatin1String("correct")))
@@ -144,7 +145,6 @@ void Feedback::init()
 
 #include <QtGui/QShortcut>
 #include <QtGui/QApplication>
-#include <QtCore/QTimer>
 
 class VolumeKeyListener : public QObject
 {
