@@ -206,6 +206,14 @@ var data = {
         return this.cachedNaturalNotes;
     },
 
+    cachedMathEasy: null,
+    mathEasy: function()
+    {
+        if (cachedMathEasy === null)
+            appendAdditionExercises(cachedMathEasy, 2, 8)
+        return cachedMathEasy;
+    },
+
     cachedColors: null,
     colors: function()
     {
@@ -349,6 +357,11 @@ var exercises = {
     countReadHardExerciseFunction: function(i, answersCount)
     {
         this.countExerciseFunction(i, answersCount, 5, 20, true);
+    },
+
+    mathEasyExerciseFunction: function(i, answersCount)
+    {
+        this.createExercise(i, numbers, answersCount, countImageSourceFunction);
     },
 
     clockImageSourceFunction: function(object, answerIndex)

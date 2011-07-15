@@ -169,7 +169,7 @@ Rectangle {
                 Database.currentVolume = Database.persistence.readVolume();
                 feedback.setAudioVolume(Database.currentVolume, false);
             }
-            switchToScreen("LessonMenu");
+            switchToScreen("LessonMathEasy");
         }
     }
 
