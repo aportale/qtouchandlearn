@@ -31,7 +31,7 @@ const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
 const QString clockBackgroundString = QLatin1String("background");
 const QString idPrefix = QLatin1String("id_");
-static QString dataPath = QLatin1String("data");
+static QString dataPath = QLatin1String("data/graphics");
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
     x->load(dataPath + QLatin1String("/design.svg"));
