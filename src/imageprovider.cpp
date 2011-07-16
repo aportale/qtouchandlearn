@@ -29,7 +29,6 @@
 
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
-const QString clockBackgroundString = QLatin1String("background");
 const QString idPrefix = QLatin1String("id_");
 static QString dataPath = QLatin1String("data/graphics");
 
@@ -134,11 +133,10 @@ inline static QPixmap quantity(int quantity, const QString &item, QSize *size, c
     return result;
 }
 
-inline static int clockVariationsCount()
+inline static int variationsCount(const QSvgRenderer *renderer, const QString &baseName)
 {
     int count = 0;
-    QSvgRenderer *renderer = clocksRenderer();
-    const QString elementIdBase = clockBackgroundString + QLatin1Char('_');
+    const QString elementIdBase = baseName + QLatin1Char('_');
     Q_FOREVER {
         const QString elementId = elementIdBase + QString::number(count + 1);
         if (renderer->elementExists(idPrefix + elementId))
@@ -165,9 +163,10 @@ inline static void renderIndicator(const QString &indicatorId, int rotation, con
 
 inline static QPixmap clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
 {
-    const static int variationsCount = clockVariationsCount();
-    const int actualVariation = (variation % variationsCount) + 1;
     QSvgRenderer *renderer = clocksRenderer();
+    const static QString clockBackgroundString = QLatin1String("background");
+    const static int variationsCount(variationsCount(renderer, clockBackgroundString));
+    const int actualVariation = (variation % variationsCount) + 1;
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
     const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + backgroundElementId);
