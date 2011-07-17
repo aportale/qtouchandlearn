@@ -165,8 +165,8 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
 {
     QSvgRenderer *renderer = clocksRenderer();
     const static QString clockBackgroundString = QLatin1String("background");
-    const static int variationsCount(variationsCount(renderer, clockBackgroundString));
-    const int actualVariation = (variation % variationsCount) + 1;
+    const static int variationsCnt = variationsCount(renderer, clockBackgroundString);
+    const int actualVariation = (variation % variationsCnt) + 1;
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
     const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + backgroundElementId);
