@@ -208,15 +208,15 @@ function colors()
 {
     if (cachedColors === null) {
         cachedColors = addIndicesToDict([
-            { Id: "#E00A0A", DisplayName: qsTranslate("Colors", "red")},
-            { Id: "#0AE00A", DisplayName: qsTranslate("Colors", "green")},
-            { Id: "#0A0AE0", DisplayName: qsTranslate("Colors", "blue")},
-            { Id: "#F0F0F0", DisplayName: qsTranslate("Colors", "white")},
+            { Id: "#FF3030", DisplayName: qsTranslate("Colors", "red")},
+            { Id: "#0AC00A", DisplayName: qsTranslate("Colors", "green")},
+            { Id: "#3030FF", DisplayName: qsTranslate("Colors", "blue")},
+            { Id: "#FAFAFA", DisplayName: qsTranslate("Colors", "white")},
             { Id: "#808080", DisplayName: qsTranslate("Colors", "grey")},
             { Id: "#000000", DisplayName: qsTranslate("Colors", "black")},
-            { Id: "#F0F000", DisplayName: qsTranslate("Colors", "yellow")},
+            { Id: "#FFE800", DisplayName: qsTranslate("Colors", "yellow")},
             { Id: "#FF8C00", DisplayName: qsTranslate("Colors", "orange")},
-            { Id: "#8B4513", DisplayName: qsTranslate("Colors", "brown")},
+            { Id: "#AD5113", DisplayName: qsTranslate("Colors", "brown")},
             { Id: "#9F00C5", DisplayName: qsTranslate("Colors", "purple")},
             { Id: "#FF1493", DisplayName: qsTranslate("Colors", "pink")}
     ]);
