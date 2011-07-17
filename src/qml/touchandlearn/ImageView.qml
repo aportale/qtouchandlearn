@@ -26,6 +26,7 @@ import "database.js" as Database
 Item {
     property alias backgroundImage: image.source
     property alias currentExerciseIndex: listview.currentIndex
+    property bool grayBackground
     property string exerciseFunction
     property int answersCount
     property real imageSizeFactor: 0.61
@@ -37,7 +38,8 @@ Item {
         property int hueOffset: Math.random() * 4000
         id: rect
         anchors.fill: parent
-        color: Qt.hsla(((listview.contentX + hueOffset) % 4000) / 4000, 0.4, 0.8, 1)
+        color: grayBackground ? "#E0E0E0"
+                              : Qt.hsla(((listview.contentX + hueOffset) % 4000) / 4000, 0.4, 0.8, 1);
     }
 
     Column {

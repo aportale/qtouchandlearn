@@ -28,6 +28,7 @@ Item {
     property int exerciseIndex
     property string exerciseFunction
     property bool showCorrectionImage: true
+    property bool grayBackground
     property int buttonsCount: 3
     property alias columsCount: grid.columns
     signal correctlyAnswered
@@ -71,6 +72,7 @@ Item {
                 height: Math.round(grid.height / grid.rows)
                 width: Math.round(grid.width / choice.columsCount)
                 index: modelData
+                grayBackground: choice.grayBackground
                 onCorrectlyPressed: correctlyAnswered();
             }
             Component.onCompleted: setButtonData();

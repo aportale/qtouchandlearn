@@ -24,7 +24,9 @@ import Qt 4.7
 import "database.js" as Database
 
 Item {
+    id: main
     property alias backgroundImage: imageView.backgroundImage
+    property bool grayBackground
     property alias imageSizeFactor: imageView.imageSizeFactor
     property alias exerciseFunction: imageView.exerciseFunction
     property alias showCorrectionImageOnButton: choice.showCorrectionImage
@@ -39,6 +41,7 @@ Item {
         height: Math.round(parent.height * viewHeightRatio)
         answersCount: choice.buttonsCount
         backgroundImage: "image://imageprovider/background/background_01"
+        grayBackground: main.grayBackground
 
         // Theoretically unneeded, since the anchors above should do the job.
         // But without width, we get 0-values at construction time
@@ -92,5 +95,6 @@ Item {
         exerciseIndex: imageView.currentExerciseIndex
         exerciseFunction: imageView.exerciseFunction
         onCorrectlyAnswered: imageView.goForward();
+        grayBackground: main.grayBackground
     }
 }

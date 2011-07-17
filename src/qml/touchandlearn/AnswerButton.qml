@@ -28,10 +28,11 @@ Item {
     property string text
     property string correctionImageSource
     property bool isCorrectAnswer: false
+    property bool grayBackground: false
     property color normalStateColor: "#fff"
     property color correctStateColor: "#ffa"
     property color wrongStateColor: "#f66"
-    property color correctionStateColor: "#fbb"
+    property color correctionStateColor: grayBackground ? "#ccc" : "#fbb"
 
     signal correctlyPressed
     signal incorrectlyPressed
