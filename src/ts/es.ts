@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="es" sourcelanguage="en_US">
 <context>
+    <name>Colors</name>
+    <message>
+        <source>red</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>green</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>white</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>grey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>black</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>yellow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>orange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>brown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>purple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pink</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LessonMenu</name>
     <message>
         <source>Read the first letter</source>
@@ -77,6 +124,14 @@
     </message>
     <message>
         <source>Mixed lessons, hard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recognize the color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

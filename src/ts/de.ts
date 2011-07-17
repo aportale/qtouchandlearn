@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE" sourcelanguage="en_US">
 <context>
+    <name>Colors</name>
+    <message>
+        <source>red</source>
+        <translation>Rot</translation>
+    </message>
+    <message>
+        <source>green</source>
+        <translation>Grün</translation>
+    </message>
+    <message>
+        <source>blue</source>
+        <translation>Blau</translation>
+    </message>
+    <message>
+        <source>white</source>
+        <translation>Weiß</translation>
+    </message>
+    <message>
+        <source>grey</source>
+        <translation>Grau</translation>
+    </message>
+    <message>
+        <source>black</source>
+        <translation>Schwarz</translation>
+    </message>
+    <message>
+        <source>yellow</source>
+        <translation>Gelb</translation>
+    </message>
+    <message>
+        <source>orange</source>
+        <translation>Orange</translation>
+    </message>
+    <message>
+        <source>brown</source>
+        <translation>Braun</translation>
+    </message>
+    <message>
+        <source>purple</source>
+        <translation>Purpur</translation>
+    </message>
+    <message>
+        <source>pink</source>
+        <translation>Rosa</translation>
+    </message>
+</context>
+<context>
     <name>LessonMenu</name>
     <message>
         <source>Read the first letter</source>
@@ -78,6 +125,14 @@
     <message>
         <source>Mixed lessons, hard</source>
         <translation>Gemischt, schwer</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Farbe</translation>
+    </message>
+    <message>
+        <source>Recognize the color</source>
+        <translation>Farben bestimmen</translation>
     </message>
 </context>
 <context>

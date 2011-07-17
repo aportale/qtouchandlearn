@@ -203,6 +203,27 @@ function naturalNotes()
     return cachedNaturalNotes;
 }
 
+var cachedColors = null;
+function colors()
+{
+    if (cachedColors === null) {
+        cachedColors = addIndicesToDict([
+            { Id: "#E00A0A", DisplayName: qsTranslate("Colors", "red")},
+            { Id: "#0AE00A", DisplayName: qsTranslate("Colors", "green")},
+            { Id: "#0A0AE0", DisplayName: qsTranslate("Colors", "blue")},
+            { Id: "#F0F0F0", DisplayName: qsTranslate("Colors", "white")},
+            { Id: "#808080", DisplayName: qsTranslate("Colors", "grey")},
+            { Id: "#000000", DisplayName: qsTranslate("Colors", "black")},
+            { Id: "#F0F000", DisplayName: qsTranslate("Colors", "yellow")},
+            { Id: "#FF8C00", DisplayName: qsTranslate("Colors", "orange")},
+            { Id: "#8B4513", DisplayName: qsTranslate("Colors", "brown")},
+            { Id: "#9F00C5", DisplayName: qsTranslate("Colors", "purple")},
+            { Id: "#FF1493", DisplayName: qsTranslate("Colors", "pink")}
+    ]);
+    }
+    return cachedColors;
+}
+
 function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
 {
     if (listModelItemsLength < 1)
@@ -242,6 +263,7 @@ function excerciseFunctionsDict()
                 clockHardExerciseFunction: clockHardExerciseFunction,
                 notesReadEasyExerciseFunction: notesReadEasyExerciseFunction,
                 notesReadHardExerciseFunction: notesReadHardExerciseFunction,
+                colorExerciseFunction: colorExerciseFunction,
                 mixedEasyExercisesFunction: mixedEasyExercisesFunction,
                 mixedMediumExercisesFunction: mixedMediumExercisesFunction,
                 mixedHardExercisesFunction: mixedHardExercisesFunction
@@ -401,6 +423,16 @@ function notesReadHardExerciseFunction(i, answersCount)
     createExercise(i, notes(), answersCount, notesReadImageSourceFunction);
 }
 
+function colorImageSourceFunction(object, answerIndex)
+{
+    return "image://imageprovider/color/" + object.Id + "/" + answerIndex;
+}
+
+function colorExerciseFunction(i, answersCount)
+{
+    createExercise(i, colors(), answersCount, colorImageSourceFunction);
+}
+
 function mixedEasyExercisesFunction(i, answersCount)
 {
     var lessonsCount = 4;
@@ -539,6 +571,10 @@ function lessonMenu()
             Lessons: [
                 { Id: "NotesReadEasy",  DisplayName: qsTranslate("LessonMenu", "Read notes, whole step"),       ImageLabel: qsTranslate("Notes", "A") },
                 { Id: "NotesReadHard",  DisplayName: qsTranslate("LessonMenu", "Read notes, half-step"),        ImageLabel: qsTranslate("Notes", "A sharp") }
+            ] }, {
+            Id: "Color",                DisplayName: qsTranslate("LessonMenu", "Color"),                        ImageLabel: qsTranslate("Colors", "blue"),      DefaultLesson: 0,
+            Lessons: [
+                { Id: "ColorEasy",      DisplayName: qsTranslate("LessonMenu", "Recognize the color"),          ImageLabel: qsTranslate("Colors", "blue") }
             ] }, {
             Id: "Mixed",                DisplayName: qsTranslate("LessonMenu", "Mixed"),                        ImageLabel: "?",                                DefaultLesson: 0,
             Lessons: [

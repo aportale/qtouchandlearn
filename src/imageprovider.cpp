@@ -326,6 +326,39 @@ inline static QPixmap spectrum(QSize *size, const QSize &requestedSize)
     return QPixmap::fromImage(result.scaled(resultSize));
 }
 
+inline static QPixmap colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
+{
+    QSvgRenderer *renderer = designRenderer();
+    const static QString elementIdBase = QLatin1String("colorblot");
+    const static int variationsCnt = variationsCount(renderer, elementIdBase);
+    const int actualVariation = (blotVariation % variationsCnt) + 1;
+    const QString elementId = elementIdBase + QLatin1Char('_') + QString::number(actualVariation);
+    const QString maskElementId = elementId + QLatin1String("_mask");
+    const QString highlightElementId = elementId + QLatin1String("_highlight");
+    const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + elementId);
+    QSize pixmapSize = backgroundRect.size().toSize();
+    if (size)
+        *size = pixmapSize;
+    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
+    const qreal scaleFactor = pixmapSize.width() / backgroundRect.width();
+    QTransform transform =
+            QTransform::fromScale(scaleFactor, scaleFactor);
+    transform.translate(-backgroundRect.topLeft().x(), -backgroundRect.topLeft().y());
+    QImage image(pixmapSize, QImage::Format_ARGB32);
+    if (image.isNull())
+        qDebug() << "****************** clock pixmap is NULL! Variation:" << blotVariation;
+    image.fill(0);
+    QPainter p(&image);
+    p.setTransform(transform);
+    renderer->render(&p, idPrefix + maskElementId, renderer->boundsOnElement(idPrefix + maskElementId));
+    p.save();
+    p.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    p.fillRect(backgroundRect, color);
+    p.restore();
+    renderer->render(&p, idPrefix + highlightElementId, renderer->boundsOnElement(idPrefix + highlightElementId));
+    return QPixmap::fromImage(image);
+}
+
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
     const QStringList idSegments = id.split(QLatin1Char('/'));
@@ -373,6 +406,15 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
             return QPixmap();
         }
         return renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
+    } else if (idSegments.first() == QLatin1String("color")) {
+        if (idSegments.count() != 3) {
+            qDebug() << "Wrong number of parameters for color:" << id;
+            return QPixmap();
+        }
+        const QColor color(idSegments.at(1));
+        return colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
+    } else {
+        qDebug() << "invalid image Id:" << id;
     }
     return QPixmap();
 }

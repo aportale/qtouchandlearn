@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it" sourcelanguage="en_US">
 <context>
+    <name>Colors</name>
+    <message>
+        <source>red</source>
+        <translation>rosso</translation>
+    </message>
+    <message>
+        <source>green</source>
+        <translation>verde</translation>
+    </message>
+    <message>
+        <source>blue</source>
+        <translation>blu</translation>
+    </message>
+    <message>
+        <source>white</source>
+        <translation>bianco</translation>
+    </message>
+    <message>
+        <source>grey</source>
+        <translation>grigio</translation>
+    </message>
+    <message>
+        <source>black</source>
+        <translation>nero</translation>
+    </message>
+    <message>
+        <source>yellow</source>
+        <translation>giallo</translation>
+    </message>
+    <message>
+        <source>orange</source>
+        <translation>arancione</translation>
+    </message>
+    <message>
+        <source>brown</source>
+        <translation>bruno</translation>
+    </message>
+    <message>
+        <source>purple</source>
+        <translation>porpora</translation>
+    </message>
+    <message>
+        <source>pink</source>
+        <translation>rosa</translation>
+    </message>
+</context>
+<context>
     <name>LessonMenu</name>
     <message>
         <source>Read the first letter</source>
@@ -78,6 +125,14 @@
     <message>
         <source>Mixed lessons, hard</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Colore</translation>
+    </message>
+    <message>
+        <source>Recognize the color</source>
+        <translation>Individuare colori</translation>
     </message>
 </context>
 <context>
