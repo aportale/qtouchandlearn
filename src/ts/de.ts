@@ -40,12 +40,12 @@
         <translation>Braun</translation>
     </message>
     <message>
-        <source>purple</source>
-        <translation>Purpur</translation>
-    </message>
-    <message>
         <source>pink</source>
         <translation>Rosa</translation>
+    </message>
+    <message>
+        <source>violet</source>
+        <translation>Violett</translation>
     </message>
 </context>
 <context>

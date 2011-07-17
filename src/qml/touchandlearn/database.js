@@ -216,9 +216,9 @@ function colors()
             { Id: "#000000", DisplayName: qsTranslate("Colors", "black")},
             { Id: "#FFE800", DisplayName: qsTranslate("Colors", "yellow")},
             { Id: "#FF8C00", DisplayName: qsTranslate("Colors", "orange")},
-            { Id: "#AD5113", DisplayName: qsTranslate("Colors", "brown")},
-            { Id: "#9F00C5", DisplayName: qsTranslate("Colors", "purple")},
-            { Id: "#FF1493", DisplayName: qsTranslate("Colors", "pink")}
+            { Id: "#905020", DisplayName: qsTranslate("Colors", "brown")},
+            { Id: "#9F00FF", DisplayName: qsTranslate("Colors", "violet")},
+            { Id: "#FFA0C0", DisplayName: qsTranslate("Colors", "pink")}
     ]);
     }
     return cachedColors;

@@ -40,11 +40,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>purple</source>
+        <source>pink</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>pink</source>
+        <source>violet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
