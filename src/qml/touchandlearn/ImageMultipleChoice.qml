@@ -21,6 +21,7 @@
 */
 
 import Qt 4.7
+import "database.js" as Database
 
 Item {
     property alias backgroundImage: imageView.backgroundImage
@@ -76,6 +77,7 @@ Item {
             anchors.fill: parent
             onPressed: selectedLesson = "Options"
         }
+        visible: Database.lessonsOfCurrentGroup().length > 1
     }
 
     AnswerChoice {
