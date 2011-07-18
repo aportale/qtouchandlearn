@@ -57,7 +57,7 @@ Rectangle {
             Text {
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.115
+                font.pixelSize: parent.height * 0.1
                 width: parent.width
                 y: parent.height * 0.19
             }
