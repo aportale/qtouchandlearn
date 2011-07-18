@@ -450,12 +450,12 @@ function mixedMediumExercisesFunction(i, answersCount)
     var lessonsCount = 6;
     switch (((i + 1) % lessonsCount) - 1) {
         case 0: countExerciseFunction(i, answersCount, 4, 16, false); break;
-        case 1: firstLetterExerciseFunction(i, answersCount); break;
-        case 2: countExerciseFunction(i, answersCount, 4, 16, true); break;
-        case 3: clockMediumExerciseFunction(i, answersCount); break;
-        case 4: notesReadEasyExerciseFunction(i, answersCount); break;
+        case 1: countExerciseFunction(i, answersCount, 4, 16, true); break;
+        case 2: clockMediumExerciseFunction(i, answersCount); break;
+        case 3: notesReadEasyExerciseFunction(i, answersCount); break;
+        case 4: nameTermsExerciseFunction(i, answersCount); break;
         default:
-        case 5: nameTermsExerciseFunction(i, answersCount); break;
+        case 5: colorExerciseFunction(i, answersCount); break;
     }
 }
 
