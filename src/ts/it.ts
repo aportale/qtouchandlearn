@@ -104,7 +104,7 @@
     </message>
     <message>
         <source>Read notes, whole step</source>
-        <translation type="unfinished"></translation>
+        <translation>Leggere note, toni</translation>
     </message>
     <message>
         <source>Read notes, half-step</source>
@@ -112,19 +112,19 @@
     </message>
     <message>
         <source>Mixed</source>
-        <translation type="unfinished"></translation>
+        <translation>Misto</translation>
     </message>
     <message>
         <source>Mixed lessons, easy</source>
-        <translation type="unfinished"></translation>
+        <translation>Lezioni miste facili</translation>
     </message>
     <message>
         <source>Mixed lessons, medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Lezioni miste</translation>
     </message>
     <message>
         <source>Mixed lessons, hard</source>
-        <translation type="unfinished"></translation>
+        <translation>Lezioni miste difficili</translation>
     </message>
     <message>
         <source>Color</source>
@@ -361,7 +361,7 @@
     </message>
     <message>
         <source>camel</source>
-        <translation></translation>
+        <translation>cammello</translation>
     </message>
     <message>
         <source>crocodile</source>
