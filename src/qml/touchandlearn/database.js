@@ -212,7 +212,7 @@ function colors()
             { Id: "#0AC00A", DisplayName: qsTranslate("Colors", "green")},
             { Id: "#3030FF", DisplayName: qsTranslate("Colors", "blue")},
             { Id: "#FAFAFA", DisplayName: qsTranslate("Colors", "white")},
-            { Id: "#808080", DisplayName: qsTranslate("Colors", "grey")},
+            { Id: "#808080", DisplayName: qsTranslate("Colors", "gray")},
             { Id: "#000000", DisplayName: qsTranslate("Colors", "black")},
             { Id: "#FFE800", DisplayName: qsTranslate("Colors", "yellow")},
             { Id: "#FF8C00", DisplayName: qsTranslate("Colors", "orange")},

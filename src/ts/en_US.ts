@@ -20,7 +20,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>grey</source>
+        <source>gray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

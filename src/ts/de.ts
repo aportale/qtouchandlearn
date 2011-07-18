@@ -20,7 +20,7 @@
         <translation>Weiß</translation>
     </message>
     <message>
-        <source>grey</source>
+        <source>gray</source>
         <translation>Grau</translation>
     </message>
     <message>
