@@ -39,11 +39,16 @@ symbian {
     TARGET.UID3 = 0xE10d63ca
     # TARGET.UID3 = 0x20045CB7
     # vendorinfo = "%{\"SolApps\"}" ":\"SolApps\""
-    CONFIG += mobility
-    MOBILITY += multimedia
     LIBS += -lremconcoreapi -lremconinterfacebase
 }
 VERSION = 1.1
+
+load(mobilityconfig, true)
+contains(MOBILITY_CONFIG, multimedia) {
+    CONFIG += mobility
+    MOBILITY += multimedia
+    DEFINES += USING_QT_MOBILITY
+}
 
 SOURCES += main.cpp \
     imageprovider.cpp \

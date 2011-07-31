@@ -24,10 +24,13 @@
 #include <QtCore/QDir>
 #include <QtCore/QTimer>
 
+#ifdef USING_QT_MOBILITY
+#include <QMediaPlayer>
+#endif // USING_QT_MOBILITY
+
 static QString dataPath = QLatin1String("data");
 
 #if defined(Q_OS_SYMBIAN)
-#include <QMediaPlayer>
 #include <remconcoreapitargetobserver.h>    // link against RemConCoreApi.lib
 #include <remconcoreapitarget.h>            // and
 #include <remconinterfaceselector.h>        // RemConInterfaceBase.lib
@@ -39,6 +42,9 @@ public:
     ~VolumeKeyListener();
     virtual void MrccatoCommand(TRemConCoreApiOperationId aOperationId,
                                 TRemConCoreApiButtonAction aButtonAct);
+
+    void volumeUp();
+    void volumeDown();
 
 private:
     CRemConCoreApiTarget *m_iCoreTarget;
@@ -66,15 +72,45 @@ void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
     Q_UNUSED(aButtonAct)
     switch(aOperationId) {
     case ERemConCoreApiVolumeUp:
-        m_feedback->setAudioVolume(m_feedback->audioVolume() + 20);
+        volumeUp();
         break;
     case ERemConCoreApiVolumeDown:
-        m_feedback->setAudioVolume(m_feedback->audioVolume() - 20);
+        volumeDown();
         break;
     default:
         break;
     }
 }
+#else // Q_OS_SYMBIAN
+#include <QtGui/QShortcut>
+#include <QtGui/QApplication>
+
+class VolumeKeyListener : public QObject
+{
+    Q_OBJECT
+
+public:
+    VolumeKeyListener(Feedback *feedback);
+
+private slots:
+    void volumeUp();
+    void volumeDown();
+
+private:
+    Feedback *m_feedback;
+};
+
+VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
+    : QObject(feedback)
+    , m_feedback(feedback)
+{
+    QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
+    connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
+
+    QShortcut *volumeDown = new QShortcut(QKeySequence(Qt::Key_Minus), qApp->activeWindow());
+    connect(volumeDown, SIGNAL(activated()), SLOT(volumeDown()));
+}
+#endif // Q_OS_SYMBIAN
 
 Feedback::Feedback(QObject *parent)
     : QObject(parent)
@@ -82,10 +118,27 @@ Feedback::Feedback(QObject *parent)
     , m_previousIncorrectSound(0)
     , m_audioVolume(100)
 {
-    new VolumeKeyListener(this);
-    QTimer::singleShot(0, this, SLOT(init()));
+    QTimer::singleShot(1, this, SLOT(init()));
 }
 
+void Feedback::setDataPath(const QString &path)
+{
+    dataPath = path;
+}
+
+int Feedback::audioVolume() const
+{
+    return m_audioVolume;
+}
+
+void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
+{
+    m_audioVolume = qBound(0, volume, 100);
+    if (emitChangedSignal)
+        emit volumeChanged(m_audioVolume);
+}
+
+#ifdef USING_QT_MOBILITY
 Feedback::~Feedback()
 {
     qDeleteAll(m_correctSounds);
@@ -132,7 +185,8 @@ static QMediaPlayer *player(const QString &file)
 
 void Feedback::init()
 {
-    QDir path(dataPath);
+    new VolumeKeyListener(this);
+    const QDir path(dataPath);
     foreach (const QFileInfo &midiFile, path.entryInfoList(QDir::Files)) {
         if (midiFile.fileName().startsWith(QLatin1String("correct")))
             m_correctSounds.append(player(midiFile.absoluteFilePath()));
@@ -140,56 +194,7 @@ void Feedback::init()
             m_incorrectSounds.append(player(midiFile.absoluteFilePath()));
     }
 }
-
-#else // Q_OS_SYMBIAN
-
-#include <QtGui/QShortcut>
-#include <QtGui/QApplication>
-
-class VolumeKeyListener : public QObject
-{
-    Q_OBJECT
-
-public:
-    VolumeKeyListener(Feedback *feedback);
-
-private slots:
-    void volumeUp();
-    void volumeDown();
-
-private:
-    Feedback *m_feedback;
-};
-
-VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
-    : QObject(feedback)
-    , m_feedback(feedback)
-{
-    QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
-    connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
-
-    QShortcut *volumeDown = new QShortcut(QKeySequence(Qt::Key_Minus), qApp->activeWindow());
-    connect(volumeDown, SIGNAL(activated()), SLOT(volumeDown()));
-}
-
-void VolumeKeyListener::volumeUp()
-{
-    m_feedback->setAudioVolume(m_feedback->audioVolume() + 20);
-}
-
-void VolumeKeyListener::volumeDown()
-{
-    m_feedback->setAudioVolume(m_feedback->audioVolume() - 20);
-}
-
-Feedback::Feedback(QObject *parent)
-    : QObject(parent)
-    , m_audioVolume(100)
-{
-    // Create QShortcuts after the ui has been created
-    QTimer::singleShot(1, this, SLOT(init()));
-}
-
+#else // USING_QT_MOBILITY
 Feedback::~Feedback()
 {
 }
@@ -206,24 +211,16 @@ void Feedback::init()
 {
     new VolumeKeyListener(this);
 }
+#endif // USING_QT_MOBILITY
+
+void VolumeKeyListener::volumeUp()
+{
+    m_feedback->setAudioVolume(m_feedback->audioVolume() + 20);
+}
+
+void VolumeKeyListener::volumeDown()
+{
+    m_feedback->setAudioVolume(m_feedback->audioVolume() - 20);
+}
 
 #include "feedback.moc"
-
-#endif // Q_OS_SYMBIAN
-
-void Feedback::setDataPath(const QString &path)
-{
-    dataPath = path;
-}
-
-int Feedback::audioVolume() const
-{
-    return m_audioVolume;
-}
-
-void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
-{
-    m_audioVolume = qBound(0, volume, 100);
-    if (emitChangedSignal)
-        emit volumeChanged(m_audioVolume);
-}
