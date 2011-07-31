@@ -18,6 +18,8 @@
 # along with Touch'n'learn; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
+DEPLOYMENT.display_name = "Touch'n'Learn"
+
 android:DEFINES += ASSETS_VIA_QRC
 
 contains(DEFINES, ASSETS_VIA_QRC) {
