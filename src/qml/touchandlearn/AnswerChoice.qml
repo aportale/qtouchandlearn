@@ -60,17 +60,21 @@ Item {
         id: grid
         columns: 1
         rows: Math.ceil(choice.buttonsCount / columns)
-        x: Math.round(parent.width * 0.025) // Poor man's margins
-        y: Math.round(parent.height * 0.025)
-        width: Math.round(parent.width * 0.95)
-        height: Math.round(parent.height * 0.98)
+        property int buttonSpacing: Math.round(parent.height * 0.035)
+        width: Math.round(parent.width - 2 * buttonSpacing)
+        height: Math.round(parent.height)
+        property int buttonWidth: Math.round((width - buttonSpacing) / choice.columsCount) - buttonSpacing
+        property int buttonHeight: Math.round(height / rows) - buttonSpacing
+        spacing: buttonSpacing
+        x: 2 * buttonSpacing
+        y: buttonSpacing
 
         Repeater {
             id: repeater
             model: buttonsCount
             AnswerButton {
-                height: Math.round(grid.height / grid.rows)
-                width: Math.round(grid.width / choice.columsCount)
+                height: grid.buttonHeight
+                width: grid.buttonWidth
                 index: modelData
                 grayBackground: choice.grayBackground
                 onCorrectlyPressed: correctlyAnswered();
