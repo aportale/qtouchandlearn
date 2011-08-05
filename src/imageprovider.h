@@ -23,7 +23,7 @@
 #ifndef IMAGEPROVIDER_H
 #define IMAGEPROVIDER_H
 
-#include <QDeclarativeImageProvider>
+#include <QtDeclarative/QDeclarativeImageProvider>
 
 class ImageProvider : public QDeclarativeImageProvider
 {

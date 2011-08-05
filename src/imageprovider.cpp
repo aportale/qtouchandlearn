@@ -21,11 +21,11 @@
 */
 
 #include "imageprovider.h"
-#include "qglobal.h"
+#include "QtCore/qglobal.h"
 #include <math.h>
-#include <QSvgRenderer>
-#include <QPainter>
-#include <QtDebug>
+#include <QtSvg/QSvgRenderer>
+#include <QtGui/QPainter>
+#include <QtCore/QDebug>
 
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
