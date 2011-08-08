@@ -34,7 +34,7 @@ Rectangle {
         id: delegate
         Item {
             width: menu.width/2
-            height: Math.round(width * 1.5)
+            height: Math.round(width * 1.15)
 
             Rectangle {
                 id: rectangle
@@ -49,17 +49,17 @@ Rectangle {
             Text {
                 text: Database.cachedLessonMenu[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.07
+                font.pixelSize: Math.ceil(parent.height * 0.085)
                 width: parent.width
-                y: parent.height * 0.7
+                y: Math.round(parent.height * 0.83)
             }
 
             Text {
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: parent.height * 0.1
+                font.pixelSize: Math.ceil(parent.height * 0.1)
                 width: parent.width
-                y: parent.height * 0.19
+                y: Math.round(parent.height * 0.14)
             }
 
             MouseArea {
