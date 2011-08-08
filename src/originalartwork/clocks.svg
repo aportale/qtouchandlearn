@@ -76,6 +76,13 @@
      id="layer1">
     <g
        id="id_background_1">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3066"
+         width="182.72321"
+         height="180.98216"
+         x="9.8660707"
+         y="8.6121836" />
       <path
          sodipodi:type="arc"
          style="fill:#9191af;fill-opacity:0.627451;fill-rule:evenodd;stroke:none"
@@ -274,6 +281,13 @@
     </g>
     <g
        id="id_background_2">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3066-1"
+         width="180.75893"
+         height="182.94644"
+         x="259.32382"
+         y="8.2490387" />
       <path
          sodipodi:type="arc"
          style="fill:#ffe680;fill-opacity:0.50196081;fill-rule:evenodd;stroke:none"
@@ -452,6 +466,13 @@
     <g
        id="id_background_3"
        transform="translate(0,-0.25253814)">
+      <rect
+         style="fill:none;stroke:none"
+         id="rect3066-8"
+         width="182.90176"
+         height="181.69644"
+         x="508.81696"
+         y="8.7461157" />
       <path
          sodipodi:type="arc"
          style="fill:#a0a0a0;fill-opacity:0.62745098;fill-rule:evenodd;stroke:none"
