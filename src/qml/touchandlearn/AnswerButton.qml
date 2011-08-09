@@ -21,7 +21,6 @@
 */
 
 import Qt 4.7
-import Qt.labs.particles 1.0
 
 Item {
     property int index: 0
@@ -42,16 +41,6 @@ Item {
         id: rect
         anchors.fill: parent
         color: normalStateColor
-    }
-    Particles {
-        id: particles
-        anchors.fill: parent
-        emissionRate: 0
-        lifeSpan: 800; lifeSpanDeviation: 400
-        angle: 0; angleDeviation: 360;
-        velocity: 80; velocityDeviation: 30
-        source:  "../../data/graphics/particle.svg" // Gets this image cached?
-        clip: true
     }
     Image {
         source: "image://imageprovider/button/" + String(index)

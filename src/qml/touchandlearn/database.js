@@ -485,6 +485,7 @@ function createLessonOfGroupTable(transaction)
 
 function currentLessonOfGroup(lessonGroup, defaultLesson)
 {
+    return defaultLesson;
     var result = defaultLesson;
     database().transaction(function(transaction) {
         createLessonOfGroupTable(transaction);
@@ -509,6 +510,7 @@ function currentLessonOfGroup(lessonGroup, defaultLesson)
 
 function setCurrentLessonOfGroup(lessonGroup, lesson)
 {
+    return;
     database().transaction(function(transaction) {
         createLessonOfGroupTable(transaction);
         transaction.executeSql('DELETE FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroup + '"');

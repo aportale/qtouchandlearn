@@ -1,0 +1,487 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		8254F59813F0053C0077E60C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F59713F0053C0077E60C /* OpenGLES.framework */; };
+		8254F5B213F005A90077E60C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		8254F5B313F005A90077E60C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		8254F5B413F005A90077E60C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		8254F5B513F005A90077E60C /* libphonon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F55F13F0051E0077E60C /* libphonon.a */; };
+		8254F5B613F005A90077E60C /* libQtCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56013F0051E0077E60C /* libQtCore.a */; };
+		8254F5B713F005A90077E60C /* libQtDeclarative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56113F0051E0077E60C /* libQtDeclarative.a */; };
+		8254F5B813F005A90077E60C /* libQtGui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56213F0051E0077E60C /* libQtGui.a */; };
+		8254F5B913F005A90077E60C /* libQtNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56313F0051E0077E60C /* libQtNetwork.a */; };
+		8254F5BA13F005A90077E60C /* libQtOpenGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56413F0051E0077E60C /* libQtOpenGL.a */; };
+		8254F5BB13F005A90077E60C /* libQtScript.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56513F0051E0077E60C /* libQtScript.a */; };
+		8254F5BC13F005A90077E60C /* libQtSql.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56613F0051E0077E60C /* libQtSql.a */; };
+		8254F5BD13F005A90077E60C /* libQtSvg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56713F0051E0077E60C /* libQtSvg.a */; };
+		8254F5BE13F005A90077E60C /* libQtTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56813F0051E0077E60C /* libQtTest.a */; };
+		8254F5BF13F005A90077E60C /* libQtXml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56913F0051E0077E60C /* libQtXml.a */; };
+		8254F5C013F005A90077E60C /* libQtXmlPatterns.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F56A13F0051E0077E60C /* libQtXmlPatterns.a */; };
+		8254F5C113F005A90077E60C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F59713F0053C0077E60C /* OpenGLES.framework */; };
+		8254F5CD13F0067E0077E60C /* libquikit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F5CC13F0067E0077E60C /* libquikit.a */; };
+		8254F5D113F006D70077E60C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5CE13F006D70077E60C /* main.mm */; };
+		8254F5D213F006D70077E60C /* moc_feedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5CF13F006D70077E60C /* moc_feedback.cpp */; };
+		8254F5D313F006D70077E60C /* moc_qmlapplicationviewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D013F006D70077E60C /* moc_qmlapplicationviewer.cpp */; };
+		8254F5D413F006D70077E60C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5CE13F006D70077E60C /* main.mm */; };
+		8254F5D513F006D70077E60C /* moc_feedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5CF13F006D70077E60C /* moc_feedback.cpp */; };
+		8254F5D613F006D70077E60C /* moc_qmlapplicationviewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D013F006D70077E60C /* moc_qmlapplicationviewer.cpp */; };
+		8254F5DC13F006F10077E60C /* feedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D713F006F10077E60C /* feedback.cpp */; };
+		8254F5DD13F006F10077E60C /* imageprovider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D913F006F10077E60C /* imageprovider.cpp */; };
+		8254F5DF13F006F10077E60C /* feedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D713F006F10077E60C /* feedback.cpp */; };
+		8254F5E013F006F10077E60C /* imageprovider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F5D913F006F10077E60C /* imageprovider.cpp */; };
+		8254F63E13F00A110077E60C /* touchandlearn-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* touchandlearn-Info.plist */; };
+		8254F6C513F019B60077E60C /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F6C413F019B60077E60C /* libz.1.2.3.dylib */; };
+		8254F6C613F019B60077E60C /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F6C413F019B60077E60C /* libz.1.2.3.dylib */; };
+		8254F6FA13F019FD0077E60C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F6F913F019FD0077E60C /* QuartzCore.framework */; };
+		8254F6FB13F019FD0077E60C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8254F6F913F019FD0077E60C /* QuartzCore.framework */; };
+		8254F70013F01A5A0077E60C /* qmlapplicationviewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F6FE13F01A5A0077E60C /* qmlapplicationviewer.cpp */; };
+		8254F70113F01A5A0077E60C /* qmlapplicationviewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8254F6FE13F01A5A0077E60C /* qmlapplicationviewer.cpp */; };
+		8254F74313F01E770077E60C /* data in Resources */ = {isa = PBXBuildFile; fileRef = 8254F72713F01E770077E60C /* data */; };
+		8254F74413F01E770077E60C /* data in Resources */ = {isa = PBXBuildFile; fileRef = 8254F72713F01E770077E60C /* data */; };
+		8254F76213F01E8C0077E60C /* qml in Resources */ = {isa = PBXBuildFile; fileRef = 8254F74513F01E8C0077E60C /* qml */; };
+		8254F76313F01E8C0077E60C /* qml in Resources */ = {isa = PBXBuildFile; fileRef = 8254F74513F01E8C0077E60C /* qml */; };
+		8254F76513F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
+		8254F76613F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
+		82A3700A13F0233000EC708B /* touchandlearn-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* touchandlearn-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* touchandlearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = touchandlearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		32CA4F630368D1EE00C91783 /* touchandlearn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = touchandlearn_Prefix.pch; sourceTree = "<group>"; };
+		8254F55F13F0051E0077E60C /* libphonon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphonon.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libphonon.a"; sourceTree = SOURCE_ROOT; };
+		8254F56013F0051E0077E60C /* libQtCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtCore.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtCore.a"; sourceTree = SOURCE_ROOT; };
+		8254F56113F0051E0077E60C /* libQtDeclarative.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtDeclarative.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtDeclarative.a"; sourceTree = SOURCE_ROOT; };
+		8254F56213F0051E0077E60C /* libQtGui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtGui.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtGui.a"; sourceTree = SOURCE_ROOT; };
+		8254F56313F0051E0077E60C /* libQtNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtNetwork.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtNetwork.a"; sourceTree = SOURCE_ROOT; };
+		8254F56413F0051E0077E60C /* libQtOpenGL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtOpenGL.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtOpenGL.a"; sourceTree = SOURCE_ROOT; };
+		8254F56513F0051E0077E60C /* libQtScript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtScript.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtScript.a"; sourceTree = SOURCE_ROOT; };
+		8254F56613F0051E0077E60C /* libQtSql.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtSql.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtSql.a"; sourceTree = SOURCE_ROOT; };
+		8254F56713F0051E0077E60C /* libQtSvg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtSvg.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtSvg.a"; sourceTree = SOURCE_ROOT; };
+		8254F56813F0051E0077E60C /* libQtTest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtTest.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtTest.a"; sourceTree = SOURCE_ROOT; };
+		8254F56913F0051E0077E60C /* libQtXml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXml.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtXml.a"; sourceTree = SOURCE_ROOT; };
+		8254F56A13F0051E0077E60C /* libQtXmlPatterns.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXmlPatterns.a; path = "../../../git/qt-lighthouse-ios-simulator/lib/libQtXmlPatterns.a"; sourceTree = SOURCE_ROOT; };
+		8254F59713F0053C0077E60C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		8254F5C513F005A90077E60C /* touchandlearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = touchandlearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8254F5CC13F0067E0077E60C /* libquikit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquikit.a; path = "../../../git/qt-lighthouse-ios-simulator/plugins/platforms/libquikit.a"; sourceTree = SOURCE_ROOT; };
+		8254F5CE13F006D70077E60C /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		8254F5CF13F006D70077E60C /* moc_feedback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_feedback.cpp; sourceTree = "<group>"; };
+		8254F5D013F006D70077E60C /* moc_qmlapplicationviewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = moc_qmlapplicationviewer.cpp; sourceTree = "<group>"; };
+		8254F5D713F006F10077E60C /* feedback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = feedback.cpp; path = ../src/feedback.cpp; sourceTree = SOURCE_ROOT; };
+		8254F5D813F006F10077E60C /* feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = feedback.h; path = ../src/feedback.h; sourceTree = SOURCE_ROOT; };
+		8254F5D913F006F10077E60C /* imageprovider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = imageprovider.cpp; path = ../src/imageprovider.cpp; sourceTree = SOURCE_ROOT; };
+		8254F5DA13F006F10077E60C /* imageprovider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageprovider.h; path = ../src/imageprovider.h; sourceTree = SOURCE_ROOT; };
+		8254F6C413F019B60077E60C /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		8254F6F913F019FD0077E60C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8254F6FE13F01A5A0077E60C /* qmlapplicationviewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = qmlapplicationviewer.cpp; path = ../src/qmlapplicationviewer/qmlapplicationviewer.cpp; sourceTree = SOURCE_ROOT; };
+		8254F6FF13F01A5A0077E60C /* qmlapplicationviewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = qmlapplicationviewer.h; path = ../src/qmlapplicationviewer/qmlapplicationviewer.h; sourceTree = SOURCE_ROOT; };
+		8254F72713F01E770077E60C /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../src/data; sourceTree = SOURCE_ROOT; };
+		8254F74513F01E8C0077E60C /* qml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = qml; path = ../src/qml; sourceTree = SOURCE_ROOT; };
+		8254F76413F01EAA0077E60C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = "../../../git/qt-fire-team/lib/fonts"; sourceTree = SOURCE_ROOT; };
+		8D1107310486CEB800E47090 /* touchandlearn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "touchandlearn-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				8254F59813F0053C0077E60C /* OpenGLES.framework in Frameworks */,
+				8254F6FB13F019FD0077E60C /* QuartzCore.framework in Frameworks */,
+				8254F6C613F019B60077E60C /* libz.1.2.3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8254F5B113F005A90077E60C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8254F5B213F005A90077E60C /* Foundation.framework in Frameworks */,
+				8254F5B313F005A90077E60C /* UIKit.framework in Frameworks */,
+				8254F5B413F005A90077E60C /* CoreGraphics.framework in Frameworks */,
+				8254F5C113F005A90077E60C /* OpenGLES.framework in Frameworks */,
+				8254F6FA13F019FD0077E60C /* QuartzCore.framework in Frameworks */,
+				8254F6C513F019B60077E60C /* libz.1.2.3.dylib in Frameworks */,
+				8254F5B513F005A90077E60C /* libphonon.a in Frameworks */,
+				8254F5B613F005A90077E60C /* libQtCore.a in Frameworks */,
+				8254F5B713F005A90077E60C /* libQtDeclarative.a in Frameworks */,
+				8254F5B813F005A90077E60C /* libQtGui.a in Frameworks */,
+				8254F5B913F005A90077E60C /* libQtNetwork.a in Frameworks */,
+				8254F5BA13F005A90077E60C /* libQtOpenGL.a in Frameworks */,
+				8254F5BB13F005A90077E60C /* libQtScript.a in Frameworks */,
+				8254F5BC13F005A90077E60C /* libQtSql.a in Frameworks */,
+				8254F5BD13F005A90077E60C /* libQtSvg.a in Frameworks */,
+				8254F5BE13F005A90077E60C /* libQtTest.a in Frameworks */,
+				8254F5BF13F005A90077E60C /* libQtXml.a in Frameworks */,
+				8254F5C013F005A90077E60C /* libQtXmlPatterns.a in Frameworks */,
+				8254F5CD13F0067E0077E60C /* libquikit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* touchandlearn.app */,
+				8254F5C513F005A90077E60C /* touchandlearn.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				29B97315FDCFA39411CA2CEA /* Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8254F6FE13F01A5A0077E60C /* qmlapplicationviewer.cpp */,
+				8254F6FF13F01A5A0077E60C /* qmlapplicationviewer.h */,
+				8254F5D713F006F10077E60C /* feedback.cpp */,
+				8254F5D813F006F10077E60C /* feedback.h */,
+				8254F5D913F006F10077E60C /* imageprovider.cpp */,
+				8254F5DA13F006F10077E60C /* imageprovider.h */,
+				8254F5CE13F006D70077E60C /* main.mm */,
+				8254F5CF13F006D70077E60C /* moc_feedback.cpp */,
+				8254F5D013F006D70077E60C /* moc_qmlapplicationviewer.cpp */,
+				32CA4F630368D1EE00C91783 /* touchandlearn_Prefix.pch */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8254F76413F01EAA0077E60C /* fonts */,
+				8254F74513F01E8C0077E60C /* qml */,
+				8254F72713F01E770077E60C /* data */,
+				8D1107310486CEB800E47090 /* touchandlearn-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8254F5C913F005CE0077E60C /* device */,
+				8254F5C813F005C80077E60C /* simulator */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				8254F59713F0053C0077E60C /* OpenGLES.framework */,
+				8254F6C413F019B60077E60C /* libz.1.2.3.dylib */,
+				8254F6F913F019FD0077E60C /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8254F5C813F005C80077E60C /* simulator */ = {
+			isa = PBXGroup;
+			children = (
+				8254F5CC13F0067E0077E60C /* libquikit.a */,
+				8254F55F13F0051E0077E60C /* libphonon.a */,
+				8254F56013F0051E0077E60C /* libQtCore.a */,
+				8254F56113F0051E0077E60C /* libQtDeclarative.a */,
+				8254F56213F0051E0077E60C /* libQtGui.a */,
+				8254F56313F0051E0077E60C /* libQtNetwork.a */,
+				8254F56413F0051E0077E60C /* libQtOpenGL.a */,
+				8254F56513F0051E0077E60C /* libQtScript.a */,
+				8254F56613F0051E0077E60C /* libQtSql.a */,
+				8254F56713F0051E0077E60C /* libQtSvg.a */,
+				8254F56813F0051E0077E60C /* libQtTest.a */,
+				8254F56913F0051E0077E60C /* libQtXml.a */,
+				8254F56A13F0051E0077E60C /* libQtXmlPatterns.a */,
+			);
+			name = simulator;
+			sourceTree = "<group>";
+		};
+		8254F5C913F005CE0077E60C /* device */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = device;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* touchandlearn device */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "touchandlearn device" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "touchandlearn device";
+			productName = touchandlearn;
+			productReference = 1D6058910D05DD3D006BFB54 /* touchandlearn.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8254F5AE13F005A90077E60C /* touchandlearn simulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8254F5C213F005A90077E60C /* Build configuration list for PBXNativeTarget "touchandlearn simulator" */;
+			buildPhases = (
+				8254F5AF13F005A90077E60C /* Resources */,
+				8254F5B013F005A90077E60C /* Sources */,
+				8254F5B113F005A90077E60C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "touchandlearn simulator";
+			productName = touchandlearn;
+			productReference = 8254F5C513F005A90077E60C /* touchandlearn.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "touchandlearn" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* touchandlearn device */,
+				8254F5AE13F005A90077E60C /* touchandlearn simulator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8254F74413F01E770077E60C /* data in Resources */,
+				8254F76313F01E8C0077E60C /* qml in Resources */,
+				8254F76613F01EAA0077E60C /* fonts in Resources */,
+				82A3700A13F0233000EC708B /* touchandlearn-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8254F5AF13F005A90077E60C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8254F74313F01E770077E60C /* data in Resources */,
+				8254F76213F01E8C0077E60C /* qml in Resources */,
+				8254F76513F01EAA0077E60C /* fonts in Resources */,
+				8254F63E13F00A110077E60C /* touchandlearn-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8254F5D413F006D70077E60C /* main.mm in Sources */,
+				8254F5D513F006D70077E60C /* moc_feedback.cpp in Sources */,
+				8254F5D613F006D70077E60C /* moc_qmlapplicationviewer.cpp in Sources */,
+				8254F5DF13F006F10077E60C /* feedback.cpp in Sources */,
+				8254F5E013F006F10077E60C /* imageprovider.cpp in Sources */,
+				8254F70113F01A5A0077E60C /* qmlapplicationviewer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8254F5B013F005A90077E60C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8254F5D113F006D70077E60C /* main.mm in Sources */,
+				8254F5D213F006D70077E60C /* moc_feedback.cpp in Sources */,
+				8254F5D313F006D70077E60C /* moc_qmlapplicationviewer.cpp in Sources */,
+				8254F5DC13F006F10077E60C /* feedback.cpp in Sources */,
+				8254F5DD13F006F10077E60C /* imageprovider.cpp in Sources */,
+				8254F70013F01A5A0077E60C /* qmlapplicationviewer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				INFOPLIST_FILE = "touchandlearn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+				);
+				PRODUCT_NAME = touchandlearn;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				INFOPLIST_FILE = "touchandlearn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+				);
+				PRODUCT_NAME = touchandlearn;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8254F5C313F005A90077E60C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				INFOPLIST_FILE = "touchandlearn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/platforms\"",
+				);
+				PRODUCT_NAME = touchandlearn;
+			};
+			name = Debug;
+		};
+		8254F5C413F005A90077E60C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				INFOPLIST_FILE = "touchandlearn-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/platforms\"",
+				);
+				PRODUCT_NAME = touchandlearn;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\" \"$(SRCROOT)/../src/qmlapplicationviewer\"";
+				VALID_ARCHS = armv7;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\" \"$(SRCROOT)/../src/qmlapplicationviewer\"";
+				VALID_ARCHS = armv7;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "touchandlearn device" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8254F5C213F005A90077E60C /* Build configuration list for PBXNativeTarget "touchandlearn simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8254F5C313F005A90077E60C /* Debug */,
+				8254F5C413F005A90077E60C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "touchandlearn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
