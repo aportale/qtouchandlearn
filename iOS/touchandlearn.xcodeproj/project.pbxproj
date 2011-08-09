@@ -51,6 +51,19 @@
 		8254F76313F01E8C0077E60C /* qml in Resources */ = {isa = PBXBuildFile; fileRef = 8254F74513F01E8C0077E60C /* qml */; };
 		8254F76513F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
 		8254F76613F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
+		828B17CF13F1511100389AC1 /* libphonon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C313F1511100389AC1 /* libphonon.a */; };
+		828B17D013F1511100389AC1 /* libQtCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C413F1511100389AC1 /* libQtCore.a */; };
+		828B17D113F1511100389AC1 /* libQtDeclarative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C513F1511100389AC1 /* libQtDeclarative.a */; };
+		828B17D213F1511100389AC1 /* libQtGui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C613F1511100389AC1 /* libQtGui.a */; };
+		828B17D313F1511100389AC1 /* libQtNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C713F1511100389AC1 /* libQtNetwork.a */; };
+		828B17D413F1511100389AC1 /* libQtOpenGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C813F1511100389AC1 /* libQtOpenGL.a */; };
+		828B17D513F1511100389AC1 /* libQtScript.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C913F1511100389AC1 /* libQtScript.a */; };
+		828B17D613F1511100389AC1 /* libQtSql.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CA13F1511100389AC1 /* libQtSql.a */; };
+		828B17D713F1511100389AC1 /* libQtSvg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CB13F1511100389AC1 /* libQtSvg.a */; };
+		828B17D813F1511100389AC1 /* libQtTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CC13F1511100389AC1 /* libQtTest.a */; };
+		828B17D913F1511100389AC1 /* libQtXml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CD13F1511100389AC1 /* libQtXml.a */; };
+		828B17DA13F1511100389AC1 /* libQtXmlPatterns.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CE13F1511100389AC1 /* libQtXmlPatterns.a */; };
+		828B17DC13F1513D00389AC1 /* libquikit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17DB13F1513D00389AC1 /* libquikit.a */; };
 		82A3700A13F0233000EC708B /* touchandlearn-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* touchandlearn-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +102,19 @@
 		8254F72713F01E770077E60C /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../src/data; sourceTree = SOURCE_ROOT; };
 		8254F74513F01E8C0077E60C /* qml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = qml; path = ../src/qml; sourceTree = SOURCE_ROOT; };
 		8254F76413F01EAA0077E60C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = "../../../git/qt-fire-team/lib/fonts"; sourceTree = SOURCE_ROOT; };
+		828B17C313F1511100389AC1 /* libphonon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphonon.a; path = "../../../git/qt-lighthouse-ios-device/lib/libphonon.a"; sourceTree = SOURCE_ROOT; };
+		828B17C413F1511100389AC1 /* libQtCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtCore.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtCore.a"; sourceTree = SOURCE_ROOT; };
+		828B17C513F1511100389AC1 /* libQtDeclarative.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtDeclarative.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtDeclarative.a"; sourceTree = SOURCE_ROOT; };
+		828B17C613F1511100389AC1 /* libQtGui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtGui.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtGui.a"; sourceTree = SOURCE_ROOT; };
+		828B17C713F1511100389AC1 /* libQtNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtNetwork.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtNetwork.a"; sourceTree = SOURCE_ROOT; };
+		828B17C813F1511100389AC1 /* libQtOpenGL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtOpenGL.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtOpenGL.a"; sourceTree = SOURCE_ROOT; };
+		828B17C913F1511100389AC1 /* libQtScript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtScript.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtScript.a"; sourceTree = SOURCE_ROOT; };
+		828B17CA13F1511100389AC1 /* libQtSql.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtSql.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtSql.a"; sourceTree = SOURCE_ROOT; };
+		828B17CB13F1511100389AC1 /* libQtSvg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtSvg.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtSvg.a"; sourceTree = SOURCE_ROOT; };
+		828B17CC13F1511100389AC1 /* libQtTest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtTest.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtTest.a"; sourceTree = SOURCE_ROOT; };
+		828B17CD13F1511100389AC1 /* libQtXml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXml.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtXml.a"; sourceTree = SOURCE_ROOT; };
+		828B17CE13F1511100389AC1 /* libQtXmlPatterns.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXmlPatterns.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtXmlPatterns.a"; sourceTree = SOURCE_ROOT; };
+		828B17DB13F1513D00389AC1 /* libquikit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquikit.a; path = "../../../git/qt-lighthouse-ios-device/plugins/platforms/libquikit.a"; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* touchandlearn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "touchandlearn-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +129,19 @@
 				8254F59813F0053C0077E60C /* OpenGLES.framework in Frameworks */,
 				8254F6FB13F019FD0077E60C /* QuartzCore.framework in Frameworks */,
 				8254F6C613F019B60077E60C /* libz.1.2.3.dylib in Frameworks */,
+				828B17CF13F1511100389AC1 /* libphonon.a in Frameworks */,
+				828B17D013F1511100389AC1 /* libQtCore.a in Frameworks */,
+				828B17D113F1511100389AC1 /* libQtDeclarative.a in Frameworks */,
+				828B17D213F1511100389AC1 /* libQtGui.a in Frameworks */,
+				828B17D313F1511100389AC1 /* libQtNetwork.a in Frameworks */,
+				828B17D413F1511100389AC1 /* libQtOpenGL.a in Frameworks */,
+				828B17D513F1511100389AC1 /* libQtScript.a in Frameworks */,
+				828B17D613F1511100389AC1 /* libQtSql.a in Frameworks */,
+				828B17D713F1511100389AC1 /* libQtSvg.a in Frameworks */,
+				828B17D813F1511100389AC1 /* libQtTest.a in Frameworks */,
+				828B17D913F1511100389AC1 /* libQtXml.a in Frameworks */,
+				828B17DA13F1511100389AC1 /* libQtXmlPatterns.a in Frameworks */,
+				828B17DC13F1513D00389AC1 /* libquikit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +260,19 @@
 		8254F5C913F005CE0077E60C /* device */ = {
 			isa = PBXGroup;
 			children = (
+				828B17C313F1511100389AC1 /* libphonon.a */,
+				828B17C413F1511100389AC1 /* libQtCore.a */,
+				828B17C513F1511100389AC1 /* libQtDeclarative.a */,
+				828B17C613F1511100389AC1 /* libQtGui.a */,
+				828B17C713F1511100389AC1 /* libQtNetwork.a */,
+				828B17C813F1511100389AC1 /* libQtOpenGL.a */,
+				828B17C913F1511100389AC1 /* libQtScript.a */,
+				828B17CA13F1511100389AC1 /* libQtSql.a */,
+				828B17CB13F1511100389AC1 /* libQtSvg.a */,
+				828B17CC13F1511100389AC1 /* libQtTest.a */,
+				828B17CD13F1511100389AC1 /* libQtXml.a */,
+				828B17CE13F1511100389AC1 /* libQtXmlPatterns.a */,
+				828B17DB13F1513D00389AC1 /* libquikit.a */,
 			);
 			name = device;
 			sourceTree = "<group>";
@@ -351,10 +403,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/include\"";
 				INFOPLIST_FILE = "touchandlearn-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/platforms\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 			};
@@ -367,10 +421,12 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/include\"";
 				INFOPLIST_FILE = "touchandlearn-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/lib\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/platforms\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 				VALIDATE_PRODUCT = YES;
@@ -386,6 +442,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
 				INFOPLIST_FILE = "touchandlearn-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -403,6 +460,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = touchandlearn_Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
 				INFOPLIST_FILE = "touchandlearn-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,11 +481,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\" \"$(SRCROOT)/../src/qmlapplicationviewer\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\"";
 				VALID_ARCHS = armv7;
 			};
 			name = Debug;
@@ -441,12 +498,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/include\"";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\" \"$(SRCROOT)/../src/qmlapplicationviewer\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\"";
 				VALID_ARCHS = armv7;
 			};
 			name = Release;
