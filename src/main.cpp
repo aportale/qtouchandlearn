@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
     else
         viewer.setGeometry(100, 100, 360, 640); // NHD
 #endif
+    viewer.setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     viewer.showExpanded();
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
