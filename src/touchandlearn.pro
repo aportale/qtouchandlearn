@@ -54,6 +54,11 @@ contains(MOBILITY_CONFIG, multimedia) {
     DEPLOYMENTFOLDERS += folder_03
 }
 
+!symbian:!maemo5:isEmpty(MEEGO_VERSION_MAJOR) {
+    QT += opengl
+    DEFINES += USING_OPENGL
+}
+
 SOURCES += main.cpp \
     imageprovider.cpp \
     feedback.cpp

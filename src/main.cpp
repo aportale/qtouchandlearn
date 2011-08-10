@@ -27,6 +27,9 @@
 #include <QtDeclarative/QDeclarativeEngine>
 #include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeComponent>
+#ifdef USING_OPENGL
+#include <QtOpenGL/QGLWidget>
+#endif // USING_OPENGL
 
 #include "qmlapplicationviewer.h"
 #include "imageprovider.h"
@@ -57,6 +60,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
     QmlApplicationViewer viewer;
+#ifdef USING_OPENGL
+    viewer.setViewport(new QGLWidget);
+#endif // USING_OPENGL
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
 #ifdef ASSETS_VIA_QRC
