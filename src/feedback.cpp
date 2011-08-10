@@ -26,6 +26,9 @@
 
 #ifdef USING_QT_MOBILITY
 #include <QMediaPlayer>
+#else // USING_QT_MOBILITY
+#include <phonon/MediaObject>
+#include <phonon/AudioOutput>
 #endif // USING_QT_MOBILITY
 
 static QString dataPath = QLatin1String("data");
@@ -121,6 +124,12 @@ Feedback::Feedback(QObject *parent)
     QTimer::singleShot(1, this, SLOT(init()));
 }
 
+Feedback::~Feedback()
+{
+    qDeleteAll(m_correctSounds);
+    qDeleteAll(m_incorrectSounds);
+}
+
 void Feedback::setDataPath(const QString &path)
 {
     dataPath = path;
@@ -139,12 +148,6 @@ void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
 }
 
 #ifdef USING_QT_MOBILITY
-Feedback::~Feedback()
-{
-    qDeleteAll(m_correctSounds);
-    qDeleteAll(m_incorrectSounds);
-}
-
 static void playSound(const QList<QMediaPlayer*> &sounds, QMediaPlayer* &previousSound, int volume)
 {
     if (sounds.isEmpty())
@@ -165,16 +168,6 @@ static void playSound(const QList<QMediaPlayer*> &sounds, QMediaPlayer* &previou
     currentSound->play();
 }
 
-void Feedback::playCorrectSound() const
-{
-    playSound(m_correctSounds, m_previousCorrectSound, m_audioVolume);
-}
-
-void Feedback::playIncorrectSound() const
-{
-    playSound(m_incorrectSounds, m_previousIncorrectSound, m_audioVolume);
-}
-
 static QMediaPlayer *player(const QString &file)
 {
     QMediaPlayer *result = new QMediaPlayer;
@@ -182,6 +175,36 @@ static QMediaPlayer *player(const QString &file)
     result->setMedia(content);
     return result;
 }
+#else // USING_QT_MOBILITY
+static void playSound(const QList<Phonon::MediaObject*> &sounds, Phonon::MediaObject* &previousSound, int volume)
+{
+    if (sounds.isEmpty())
+        return;
+
+    Phonon::MediaObject *currentSound = 0;
+    if (sounds.count() == 1) {
+        currentSound = sounds.first();
+    } else {
+        do {
+            const int index = qrand() % sounds.count();
+            currentSound = sounds.at(index);
+        } while (currentSound == previousSound);
+        previousSound = currentSound;
+    }
+    currentSound->stop();
+    currentSound->seek(0);
+    currentSound->play();
+}
+
+static Phonon::MediaObject *player(const QString &file)
+{
+    Phonon::MediaObject *result = new Phonon::MediaObject();
+    result->setCurrentSource(Phonon::MediaSource(file));
+    Phonon::AudioOutput *audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, result);
+    Phonon::createPath(result, audioOutput);
+    return result;
+}
+#endif // USING_QT_MOBILITY
 
 void Feedback::init()
 {
@@ -194,24 +217,16 @@ void Feedback::init()
             m_incorrectSounds.append(player(midiFile.absoluteFilePath()));
     }
 }
-#else // USING_QT_MOBILITY
-Feedback::~Feedback()
-{
-}
 
 void Feedback::playCorrectSound() const
 {
+    playSound(m_correctSounds, m_previousCorrectSound, m_audioVolume);
 }
 
 void Feedback::playIncorrectSound() const
 {
+    playSound(m_incorrectSounds, m_previousIncorrectSound, m_audioVolume);
 }
-
-void Feedback::init()
-{
-    new VolumeKeyListener(this);
-}
-#endif // USING_QT_MOBILITY
 
 void VolumeKeyListener::volumeUp()
 {

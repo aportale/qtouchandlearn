@@ -27,6 +27,10 @@
 #include <QtCore/QVariant>
 
 class QMediaPlayer;
+namespace Phonon {
+    class MediaObject;
+    class AudioOutput;
+}
 
 class Feedback : public QObject
 {
@@ -50,10 +54,17 @@ private slots:
     void init();
 
 private:
+#ifdef USING_QT_MOBILITY
     QList<QMediaPlayer*> m_correctSounds;
     mutable QMediaPlayer *m_previousCorrectSound;
     QList<QMediaPlayer*> m_incorrectSounds;
     mutable QMediaPlayer *m_previousIncorrectSound;
+#else
+    QList<Phonon::MediaObject*> m_correctSounds;
+    mutable Phonon::MediaObject *m_previousCorrectSound;
+    QList<Phonon::MediaObject*> m_incorrectSounds;
+    mutable Phonon::MediaObject *m_previousIncorrectSound;
+#endif // USING_QT_MOBILITY
     int m_audioVolume;
 };
 

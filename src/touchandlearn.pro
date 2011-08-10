@@ -48,6 +48,10 @@ contains(MOBILITY_CONFIG, multimedia) {
     CONFIG += mobility
     MOBILITY += multimedia
     DEFINES += USING_QT_MOBILITY
+} else {
+    QT += phonon
+    folder_03.source = mp3audio
+    DEPLOYMENTFOLDERS += folder_03
 }
 
 SOURCES += main.cpp \
