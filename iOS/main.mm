@@ -49,12 +49,14 @@
 #include <QtDeclarative/QDeclarativeEngine>
 #include <QtDeclarative/QDeclarativeContext>
 #include <QtDeclarative/QDeclarativeComponent>
+#include <phonon/private/factory_p.h>
 
 #include "../src/qmlapplicationviewer/qmlapplicationviewer.h"
 #include "imageprovider.h"
 #include "feedback.h"
 
 Q_IMPORT_PLUGIN(UIKit)
+Q_IMPORT_PLUGIN(phonon_av)
 
 static QString qStringFromNSString(NSString *nsstring)
 {
@@ -75,6 +77,8 @@ int main(int argc, char *argv[])
     QApplication::setStartDragDistance(15);
     QApplication app(argc, argv);
 
+    Phonon::Factory::setBackend(qt_plugin_instance_phonon_av());
+
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 
     const QString translation = QLocale::system().name();
@@ -91,7 +95,7 @@ int main(int argc, char *argv[])
     viewer.engine()->setOfflineStoragePath(documentsDirectory());
     viewer.setMainQmlFile(qStringFromNSString([resourcePath stringByAppendingPathComponent:@"qml/touchandlearn/main.qml"]));
 
-    Feedback::setDataPath(qStringFromNSString([resourcePath stringByAppendingPathComponent:@"data/audio"]));
+    Feedback::setDataPath(qStringFromNSString([resourcePath stringByAppendingPathComponent:@"mp3audio"]));
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());

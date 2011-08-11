@@ -51,6 +51,8 @@
 		8254F76313F01E8C0077E60C /* qml in Resources */ = {isa = PBXBuildFile; fileRef = 8254F74513F01E8C0077E60C /* qml */; };
 		8254F76513F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
 		8254F76613F01EAA0077E60C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8254F76413F01EAA0077E60C /* fonts */; };
+		82734A7413F45F3E004253C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82734A7313F45F3E004253C2 /* AVFoundation.framework */; };
+		82734A7513F45F3E004253C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82734A7313F45F3E004253C2 /* AVFoundation.framework */; };
 		828B17CF13F1511100389AC1 /* libphonon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C313F1511100389AC1 /* libphonon.a */; };
 		828B17D013F1511100389AC1 /* libQtCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C413F1511100389AC1 /* libQtCore.a */; };
 		828B17D113F1511100389AC1 /* libQtDeclarative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17C513F1511100389AC1 /* libQtDeclarative.a */; };
@@ -65,6 +67,10 @@
 		828B17DA13F1511100389AC1 /* libQtXmlPatterns.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17CE13F1511100389AC1 /* libQtXmlPatterns.a */; };
 		828B17DC13F1513D00389AC1 /* libquikit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B17DB13F1513D00389AC1 /* libquikit.a */; };
 		82A3700A13F0233000EC708B /* touchandlearn-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* touchandlearn-Info.plist */; };
+		82D4C50B13F45D4E008C435C /* mp3audio in Resources */ = {isa = PBXBuildFile; fileRef = 82D4C50013F45D4E008C435C /* mp3audio */; };
+		82D4C50C13F45D4E008C435C /* mp3audio in Resources */ = {isa = PBXBuildFile; fileRef = 82D4C50013F45D4E008C435C /* mp3audio */; };
+		82D4C51C13F45E2F008C435C /* libphonon_av.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D4C51B13F45E2F008C435C /* libphonon_av.a */; };
+		82D4C51E13F45E48008C435C /* libphonon_av.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D4C51D13F45E48008C435C /* libphonon_av.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +108,7 @@
 		8254F72713F01E770077E60C /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../src/data; sourceTree = SOURCE_ROOT; };
 		8254F74513F01E8C0077E60C /* qml */ = {isa = PBXFileReference; lastKnownFileType = folder; name = qml; path = ../src/qml; sourceTree = SOURCE_ROOT; };
 		8254F76413F01EAA0077E60C /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = "../../../git/qt-fire-team/lib/fonts"; sourceTree = SOURCE_ROOT; };
+		82734A7313F45F3E004253C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		828B17C313F1511100389AC1 /* libphonon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphonon.a; path = "../../../git/qt-lighthouse-ios-device/lib/libphonon.a"; sourceTree = SOURCE_ROOT; };
 		828B17C413F1511100389AC1 /* libQtCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtCore.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtCore.a"; sourceTree = SOURCE_ROOT; };
 		828B17C513F1511100389AC1 /* libQtDeclarative.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtDeclarative.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtDeclarative.a"; sourceTree = SOURCE_ROOT; };
@@ -115,6 +122,9 @@
 		828B17CD13F1511100389AC1 /* libQtXml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXml.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtXml.a"; sourceTree = SOURCE_ROOT; };
 		828B17CE13F1511100389AC1 /* libQtXmlPatterns.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQtXmlPatterns.a; path = "../../../git/qt-lighthouse-ios-device/lib/libQtXmlPatterns.a"; sourceTree = SOURCE_ROOT; };
 		828B17DB13F1513D00389AC1 /* libquikit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libquikit.a; path = "../../../git/qt-lighthouse-ios-device/plugins/platforms/libquikit.a"; sourceTree = SOURCE_ROOT; };
+		82D4C50013F45D4E008C435C /* mp3audio */ = {isa = PBXFileReference; lastKnownFileType = folder; name = mp3audio; path = ../src/mp3audio; sourceTree = SOURCE_ROOT; };
+		82D4C51B13F45E2F008C435C /* libphonon_av.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphonon_av.a; path = "../../../git/qt-lighthouse-ios-simulator/plugins/phonon_backend/libphonon_av.a"; sourceTree = SOURCE_ROOT; };
+		82D4C51D13F45E48008C435C /* libphonon_av.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphonon_av.a; path = "../../../git/qt-lighthouse-ios-device/plugins/phonon_backend/libphonon_av.a"; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* touchandlearn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "touchandlearn-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +152,8 @@
 				828B17D913F1511100389AC1 /* libQtXml.a in Frameworks */,
 				828B17DA13F1511100389AC1 /* libQtXmlPatterns.a in Frameworks */,
 				828B17DC13F1513D00389AC1 /* libquikit.a in Frameworks */,
+				82D4C51E13F45E48008C435C /* libphonon_av.a in Frameworks */,
+				82734A7513F45F3E004253C2 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +180,8 @@
 				8254F5BF13F005A90077E60C /* libQtXml.a in Frameworks */,
 				8254F5C013F005A90077E60C /* libQtXmlPatterns.a in Frameworks */,
 				8254F5CD13F0067E0077E60C /* libquikit.a in Frameworks */,
+				82D4C51C13F45E2F008C435C /* libphonon_av.a in Frameworks */,
+				82734A7413F45F3E004253C2 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +228,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82D4C50013F45D4E008C435C /* mp3audio */,
 				8254F76413F01EAA0077E60C /* fonts */,
 				8254F74513F01E8C0077E60C /* qml */,
 				8254F72713F01E770077E60C /* data */,
@@ -231,6 +246,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				8254F59713F0053C0077E60C /* OpenGLES.framework */,
+				82734A7313F45F3E004253C2 /* AVFoundation.framework */,
 				8254F6C413F019B60077E60C /* libz.1.2.3.dylib */,
 				8254F6F913F019FD0077E60C /* QuartzCore.framework */,
 			);
@@ -242,6 +258,7 @@
 			children = (
 				8254F5CC13F0067E0077E60C /* libquikit.a */,
 				8254F55F13F0051E0077E60C /* libphonon.a */,
+				82D4C51B13F45E2F008C435C /* libphonon_av.a */,
 				8254F56013F0051E0077E60C /* libQtCore.a */,
 				8254F56113F0051E0077E60C /* libQtDeclarative.a */,
 				8254F56213F0051E0077E60C /* libQtGui.a */,
@@ -261,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				828B17C313F1511100389AC1 /* libphonon.a */,
+				82D4C51D13F45E48008C435C /* libphonon_av.a */,
 				828B17C413F1511100389AC1 /* libQtCore.a */,
 				828B17C513F1511100389AC1 /* libQtDeclarative.a */,
 				828B17C613F1511100389AC1 /* libQtGui.a */,
@@ -347,6 +365,7 @@
 				8254F74413F01E770077E60C /* data in Resources */,
 				8254F76313F01E8C0077E60C /* qml in Resources */,
 				8254F76613F01EAA0077E60C /* fonts in Resources */,
+				82D4C50B13F45D4E008C435C /* mp3audio in Resources */,
 				82A3700A13F0233000EC708B /* touchandlearn-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +377,7 @@
 				8254F74313F01E770077E60C /* data in Resources */,
 				8254F76213F01E8C0077E60C /* qml in Resources */,
 				8254F76513F01EAA0077E60C /* fonts in Resources */,
+				82D4C50C13F45D4E008C435C /* mp3audio in Resources */,
 				8254F63E13F00A110077E60C /* touchandlearn-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +429,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/lib\"",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/platforms\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/phonon_backend\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 			};
@@ -427,6 +448,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/lib\"",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/platforms\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-device/plugins/phonon_backend\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 				VALIDATE_PRODUCT = YES;
@@ -448,6 +470,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/platforms\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/phonon_backend\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 			};
@@ -466,6 +489,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/lib\"",
 					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/platforms\"",
+					"\"$(SRCROOT)/../../../git/qt-lighthouse-ios-simulator/plugins/phonon_backend\"",
 				);
 				PRODUCT_NAME = touchandlearn;
 				VALIDATE_PRODUCT = YES;
