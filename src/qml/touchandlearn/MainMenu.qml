@@ -165,7 +165,8 @@ Rectangle {
         running: true
         onTriggered: {
             rotateItemsIfLandscape();
-            feedback.setAudioVolume(Database.persistentVolume(), false);
+            if (typeof(feedback) === "object")
+                feedback.setAudioVolume(Database.persistentVolume(), false);
             switchToScreen("LessonMenu");
         }
     }

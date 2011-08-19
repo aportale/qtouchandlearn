@@ -144,7 +144,8 @@ Item {
         id: correctAnswerAnimation
         ScriptAction {
             script: {
-                feedback.playCorrectSound();
+                if (typeof(feedback) === "object")
+                    feedback.playCorrectSound();
                 blockClicks = true;
                 if (typeof(particles) === "object")
                     particles.burst(20);
@@ -182,7 +183,8 @@ Item {
                 }
                 ScriptAction {
                     script: {
-                        feedback.playIncorrectSound();
+                        if (typeof(feedback) === "object")
+                            feedback.playIncorrectSound();
                         if (correctionImageSource.length) {
                             correctionImage.sourceSize.height = correctionImageItem.height
                             correctionImage.sourceSize.width = correctionImageItem.width
