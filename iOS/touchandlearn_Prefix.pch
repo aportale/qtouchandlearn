@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'flickrdemo' project
+// Prefix header for all source files of the 'touchandlearn' target in the 'touchandlearn' project
 //
 
 #ifdef __OBJC__
