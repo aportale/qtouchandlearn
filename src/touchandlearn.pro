@@ -59,6 +59,8 @@ contains(MOBILITY_CONFIG, multimedia) {
     DEFINES += USING_OPENGL
 }
 
+macx:ICON = touchandlearn.icns
+
 SOURCES += main.cpp \
     imageprovider.cpp \
     feedback.cpp
