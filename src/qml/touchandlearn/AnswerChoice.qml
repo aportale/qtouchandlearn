@@ -45,7 +45,7 @@ Item {
     }
 
     function setButtonData() {
-        var exercise = Database.exercise(exerciseIndex, buttonsCount);
+        var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
             var button = grid.resources[i + 1];
             var answer = exercise.Answers[i];
