@@ -52,7 +52,7 @@ Item {
             button.text = answer.DisplayName;
             if (showCorrectionImage)
                 button.correctionImageSource = answer.ImageSource;
-            button.isCorrectAnswer = exercise.CorrectAnswerIndex == i;
+            button.isCorrectAnswer = exercise.CorrectAnswerIndex === i;
         }
     }
 

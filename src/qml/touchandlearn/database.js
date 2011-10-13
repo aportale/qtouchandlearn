@@ -114,7 +114,7 @@ function numbersAsWords()
 var cachedNumbersAsWordsRange = null;
 function numbersAsWordsRange(from, to)
 {
-    if (cachedNumbersAsWordsRange === null || cachedNumbersAsWordsRange.from != from || cachedNumbersAsWordsRange.to != to) {
+    if (cachedNumbersAsWordsRange === null || cachedNumbersAsWordsRange.from !== from || cachedNumbersAsWordsRange.to !== to) {
         cachedNumbersAsWordsRange = [];
         numbersAsWords(); // initializing 'cachedNumbers'
         for (var i = from; i <= to; ++i)
@@ -129,10 +129,10 @@ function numbersAsWordsRange(from, to)
 var cachedNumbersRange = null;
 function numbersRange(from, to)
 {
-    if (cachedNumbersRange === null || cachedNumbersRange.from != from || cachedNumbersRange.to != to) {
+    if (cachedNumbersRange === null || cachedNumbersRange.from !== from || cachedNumbersRange.to !== to) {
         cachedNumbersRange = [];
         for (var i = from; i <= to; ++i)
-            cachedNumbersRange.push({Id: i, DisplayName: String(i)});
+            cachedNumbersRange.push({ Id: i, DisplayName: '' + i });
         cachedNumbersRange.from = from;
         cachedNumbersRange.to = to;
         addIndicesToDict(cachedNumbersRange);
@@ -143,7 +143,7 @@ function numbersRange(from, to)
 var cachedTimes = null;
 function times(minutesIntervals)
 {
-    if (cachedTimes === null || cachedTimes.minutesIntervals != minutesIntervals) {
+    if (cachedTimes === null || cachedTimes.minutesIntervals !== minutesIntervals) {
         cachedTimes = [];
         var index = 0;
         for (var hour = 1; hour <= 12; hour++) {
@@ -195,7 +195,7 @@ function naturalNotes()
         notes(); // initializing 'cachedNotes'
         for (var i = 0; i < cachedNotes.length; i++) {
             var note = cachedNotes[i];
-            if (note.Id.length == 1)
+            if (note.Id.length === 1)
                 cachedNaturalNotes.push({ Id: note.Id, Key: note.Key, DisplayName: note.DisplayName});
         }
         addIndicesToDict(cachedNaturalNotes);
@@ -291,7 +291,7 @@ function createExercise(i, data, answersPerChoiceCount, imageSourceFunction)
     } while (previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, i)
              || previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), i));
     var object = data[currentDataIndex];
-    var answers = Array(answersPerChoiceCount);
+    var answers = new Array(answersPerChoiceCount);
     answers[correctAnswerIndex] = object;
     for (var j = 0; j < answersPerChoiceCount; j++) {
         if (j != correctAnswerIndex) {
@@ -489,13 +489,13 @@ function currentLessonOfGroup(lessonGroup, defaultLesson)
     database().transaction(function(transaction) {
         createLessonOfGroupTable(transaction);
         var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroup + '"');
-        if (rs.rows.length == 1) {
+        if (rs.rows.length === 1) {
             var dbResult = rs.rows.item(0).lesson;
             for (var group in cachedLessonMenu) {
                 group = cachedLessonMenu[group];
-                if (group.Id == lessonGroup) {
+                if (group.Id === lessonGroup) {
                     for (var lesson in group.Lessons) {
-                        if (dbResult == group.Lessons[lesson].Id) {
+                        if (dbResult === group.Lessons[lesson].Id) {
                             result = dbResult;
                             return;
                         }
@@ -529,7 +529,7 @@ function persistentVolume()
     database().transaction(function(transaction) {
         createSettingsTable(transaction);
         var rs = transaction.executeSql('SELECT * FROM ' + settingsTableName + ' WHERE key = "' + volumeKeyName + '"');
-        if (rs.rows.length == 1)
+        if (rs.rows.length === 1)
             result = parseInt(rs.rows.item(0).value);
     });
     return result;

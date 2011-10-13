@@ -46,7 +46,7 @@ Rectangle {
             Image {
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15; }
-                opacity: Database.lessonsOfCurrentGroup()[index].Id == currentLesson ? 1 : 0;
+                opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
                 anchors { right: parent.right; top:  parent.top; margins: parent.height * 0.15; }
             }
 

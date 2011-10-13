@@ -54,7 +54,7 @@ Item {
         clip: true
     }
     Image {
-        source: "image://imageprovider/button/" + String(index)
+        source: "image://imageprovider/button/" + index
         sourceSize { height: parent.height; width: parent.width }
         width: sourceSize.width
         height: sourceSize.height
