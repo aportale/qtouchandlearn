@@ -38,6 +38,7 @@
 int main(int argc, char *argv[])
 {
     qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
+    QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
     QApplication::setStartDragDistance(15);
     QApplication::setStyle(QLatin1String("windows"));
     QApplication app(argc, argv);
