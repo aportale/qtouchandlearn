@@ -25,10 +25,15 @@ android:DEFINES += ASSETS_VIA_QRC
 contains(DEFINES, ASSETS_VIA_QRC) {
     RESOURCES = touchandlearn.qrc
 } else {
-    folder_01.source = qml/touchandlearn
-    folder_01.target = qml
-    folder_02.source = data
-    DEPLOYMENTFOLDERS = folder_01 folder_02
+    qml.source = qml/touchandlearn
+    qml.target = qml
+    audio.source = data/audio
+    autio.target = data
+    graphics.source = data/graphics
+    graphics.target = data
+    translations.source = data/translations
+    translations.target = data
+    DEPLOYMENTFOLDERS = qml audio graphics translations
 }
 
 DEFINES += \
@@ -50,8 +55,8 @@ contains(MOBILITY_CONFIG, multimedia) {
     DEFINES += USING_QT_MOBILITY
 } else {
     QT += phonon
-    folder_03.source = mp3audio
-    DEPLOYMENTFOLDERS += folder_03
+    mp3audio.source = mp3audio
+    DEPLOYMENTFOLDERS += mp3audio
 }
 
 !symbian:!maemo5:isEmpty(MEEGO_VERSION_MAJOR) {
