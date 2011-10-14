@@ -228,7 +228,7 @@ function Data()
     }
 }
 
-function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index,  listModelItemsLength)
+function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index, listModelItemsLength)
 {
     if (listModelItemsLength < 1)
         return false;
