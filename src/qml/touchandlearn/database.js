@@ -68,7 +68,7 @@ function Data()
     {
         if (this.cachedFirstLetters === null) {
             var firstLettersMap = [];
-            this.objects(); // initializing 'cachedObjects'
+            this.objects(); // initializing 'this.cachedObjects'
             for (var i = 0; i < this.cachedObjects.length; i++) {
                 var firstLetter = this.cachedObjects[i].DisplayName[0].toUpperCase();
                 if (firstLettersMap[firstLetter] === undefined)
@@ -119,7 +119,7 @@ function Data()
     {
         if (this.cachedNumbersAsWordsRange === null || this.cachedNumbersAsWordsRange.from !== from || this.cachedNumbersAsWordsRange.to !== to) {
             this.cachedNumbersAsWordsRange = [];
-            this.numbersAsWords(); // initializing 'cachedNumbers'
+            this.numbersAsWords(); // initializing 'this.cachedNumbersAsWords'
             for (var i = from; i <= to; ++i)
                 this.cachedNumbersAsWordsRange.push(this.cachedNumbersAsWords[i]);
             this.cachedNumbersAsWordsRange.from = from;
@@ -195,7 +195,7 @@ function Data()
     {
         if (this.cachedNaturalNotes === null) {
             this.cachedNaturalNotes = [];
-            this.notes(); // initializing 'cachedNotes'
+            this.notes(); // initializing 'this.cachedNotes'
             for (var i = 0; i < this.cachedNotes.length; i++) {
                 var note = this.cachedNotes[i];
                 if (note.Id.length === 1)
