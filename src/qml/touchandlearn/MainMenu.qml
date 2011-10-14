@@ -164,6 +164,7 @@ Rectangle {
         interval: 1
         running: true
         onTriggered: {
+            Database.data = new Database.Data;
             rotateItemsIfLandscape();
             if (typeof(feedback) === "object")
                 feedback.setAudioVolume(Database.persistentVolume(), false);
