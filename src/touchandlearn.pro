@@ -28,7 +28,7 @@ contains(DEFINES, ASSETS_VIA_QRC) {
     qml.source = qml/touchandlearn
     qml.target = qml
     audio.source = data/audio
-    autio.target = data
+    audio.target = data
     graphics.source = data/graphics
     graphics.target = data
     translations.source = data/translations
