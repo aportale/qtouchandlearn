@@ -26,19 +26,17 @@ var currentLessonGroup = null;
 var lessonData = null;
 var lessonDataLength = 100;
 var currentVolume = 0;
-var data = null;
 
-function Data()
-{
-    this.addIndicesToDict = function(dict)
+var data = {
+    addIndicesToDict: function(dict)
     {
         for (var i = 0; i < dict.length; i++)
             dict[i].Index = i;
         return dict;
-    }
+    },
 
-    this.cachedObjects = null;
-    this.objects = function()
+    cachedObjects: null,
+    objects: function()
     {
         if (this.cachedObjects === null) {
             this.cachedObjects = this.addIndicesToDict([
@@ -61,10 +59,10 @@ function Data()
             ]);
         }
         return this.cachedObjects;
-    }
+    },
 
-    this.cachedFirstLetters = null;
-    this.firstLetters = function()
+    cachedFirstLetters: null,
+    firstLetters: function()
     {
         if (this.cachedFirstLetters === null) {
             var firstLettersMap = [];
@@ -81,10 +79,10 @@ function Data()
             this.cachedFirstLetters = this.addIndicesToDict(firstLetters);
         }
         return this.cachedFirstLetters;
-    }
+    },
 
-    this.cachedNumbersAsWords = null;
-    this.numbersAsWords = function()
+    cachedNumbersAsWords: null,
+    numbersAsWords: function()
     {
         if (this.cachedNumbersAsWords === null) {
             this.cachedNumbersAsWords = [
@@ -112,10 +110,10 @@ function Data()
             ];
         }
         return this.cachedNumbersAsWords;
-    }
+    },
 
-    this.cachedNumbersAsWordsRange = null;
-    this.numbersAsWordsRange = function(from, to)
+    cachedNumbersAsWordsRange: null,
+    numbersAsWordsRange: function(from, to)
     {
         if (this.cachedNumbersAsWordsRange === null || this.cachedNumbersAsWordsRange.from !== from || this.cachedNumbersAsWordsRange.to !== to) {
             this.cachedNumbersAsWordsRange = [];
@@ -127,10 +125,10 @@ function Data()
             this.addIndicesToDict(this.cachedNumbersAsWordsRange);
         }
         return this.cachedNumbersAsWordsRange;
-    }
+    },
 
-    this.cachedNumbersRange = null;
-    this.numbersRange = function(from, to)
+    cachedNumbersRange: null,
+    numbersRange: function(from, to)
     {
         if (this.cachedNumbersRange === null || this.cachedNumbersRange.from !== from || this.cachedNumbersRange.to !== to) {
             this.cachedNumbersRange = [];
@@ -141,10 +139,10 @@ function Data()
             this.addIndicesToDict(this.cachedNumbersRange);
         }
         return this.cachedNumbersRange;
-    }
+    },
 
-    this.cachedTimes = null;
-    this.times = function(minutesIntervals)
+    cachedTimes: null,
+    times: function(minutesIntervals)
     {
         if (this.cachedTimes === null || this.cachedTimes.minutesIntervals !== minutesIntervals) {
             this.cachedTimes = [];
@@ -158,10 +156,10 @@ function Data()
             this.cachedTimes.minutesIntervals = minutesIntervals;
         }
         return this.cachedTimes;
-    }
+    },
 
-    this.cachedNotes = null;
-    this.notes = function()
+    cachedNotes: null,
+    notes: function()
     {
         if (this.cachedNotes === null) {
             this.cachedNotes = this.addIndicesToDict([
@@ -188,10 +186,10 @@ function Data()
         ]);
         }
         return this.cachedNotes;
-    }
+    },
 
-    this.cachedNaturalNotes = null;
-    this.naturalNotes = function()
+    cachedNaturalNotes: null,
+    naturalNotes: function()
     {
         if (this.cachedNaturalNotes === null) {
             this.cachedNaturalNotes = [];
@@ -204,10 +202,10 @@ function Data()
             this.addIndicesToDict(this.cachedNaturalNotes);
         }
         return this.cachedNaturalNotes;
-    }
+    },
 
-    this.cachedColors = null;
-    this.colors = function()
+    cachedColors: null,
+    colors: function()
     {
         if (this.cachedColors === null) {
             this.cachedColors = this.addIndicesToDict([
@@ -228,52 +226,209 @@ function Data()
     }
 }
 
-function previousExerciseHasSameAnswerOnIndex(answerObjectIndex, index, listModelItemsLength)
-{
-    if (listModelItemsLength < 1)
+var exercises = {
+    previousExerciseHasSameAnswerOnIndex: function(answerObjectIndex, index, listModelItemsLength)
+    {
+        if (listModelItemsLength < 1)
+            return false;
+        return lessonData[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
+    },
+
+    previousExercisesHaveSameCorrectAnswer: function(answerObjectIndex, uniqueAnswers, listModelItemsLength)
+    {
+        for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++)
+            if (lessonData[i].Index === answerObjectIndex)
+                return true;
         return false;
-    return lessonData[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
-}
+    },
 
-function previousExercisesHaveSameCorrectAnswer(answerObjectIndex, uniqueAnswers, listModelItemsLength)
-{
-    for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++)
-        if (lessonData[i].Index === answerObjectIndex)
-            return true;
-    return false;
-}
+    currentAnswersContainObjectIndex: function(answerObjectIndex, j, answers)
+    {
+        for (var i = 0; i < j; i++)
+            if (answers[i].Index === answerObjectIndex)
+                return true;
+        return false;
+    },
 
-function currentAnswersContainObjectIndex(answerObjectIndex, j, answers)
-{
-    for (var i = 0; i < j; i++)
-        if (answers[i].Index === answerObjectIndex)
-            return true;
-    return false;
-}
+    createExercise: function(i, data, answersPerChoiceCount, imageSourceFunction)
+    {
+        var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
+        var currentDataIndex;
+        do {
+            currentDataIndex = Math.floor(Math.random() * data.length);
+        } while (this.previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, i)
+                 || this.previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), i));
+        var object = data[currentDataIndex];
+        var answers = new Array(answersPerChoiceCount);
+        answers[correctAnswerIndex] = object;
+        for (var j = 0; j < answersPerChoiceCount; j++) {
+            if (j != correctAnswerIndex) {
+                var wrongAnswerDataIndex;
+                do {
+                    wrongAnswerDataIndex = Math.floor(Math.random() * data.length);
+                } while (wrongAnswerDataIndex === currentDataIndex
+                         || this.previousExerciseHasSameAnswerOnIndex(wrongAnswerDataIndex, j, i)
+                         || this.currentAnswersContainObjectIndex(wrongAnswerDataIndex, j, answers))
+                answers[j] = data[wrongAnswerDataIndex];
+            }
+        }
+        for (var a = 0; a < answers.length; a++)
+            answers[a].ImageSource = imageSourceFunction(answers[a], i);
+        var listItem = {
+            Index: object.Index,
+            ImageSource: answers[correctAnswerIndex].ImageSource,
+            Answers: answers,
+            CorrectAnswerIndex: correctAnswerIndex};
+        lessonData[i] = listItem;
+//        dumpLessonData();
+    },
 
-var cachedExcerciseFunctionsDict = null;
-function excerciseFunctionsDict()
-{
-    if (cachedExcerciseFunctionsDict === null) {
-        cachedExcerciseFunctionsDict = {
-                firstLetterExerciseFunction: firstLetterExerciseFunction,
-                nameTermsExerciseFunction: nameTermsExerciseFunction,
-                countEasyExerciseFunction: countEasyExerciseFunction,
-                countReadEasyExerciseFunction: countReadEasyExerciseFunction,
-                countHardExerciseFunction: countHardExerciseFunction,
-                countReadHardExerciseFunction: countReadHardExerciseFunction,
-                clockEasyExerciseFunction: clockEasyExerciseFunction,
-                clockMediumExerciseFunction: clockMediumExerciseFunction,
-                clockHardExerciseFunction: clockHardExerciseFunction,
-                notesReadEasyExerciseFunction: notesReadEasyExerciseFunction,
-                notesReadHardExerciseFunction: notesReadHardExerciseFunction,
-                colorExerciseFunction: colorExerciseFunction,
-                mixedEasyExercisesFunction: mixedEasyExercisesFunction,
-                mixedMediumExercisesFunction: mixedMediumExercisesFunction,
-                mixedHardExercisesFunction: mixedHardExercisesFunction
+    firstLetterImageSourceFunction: function(object, answerIndex)
+    {
+        var answerObjects = object.Objects;
+        return "image://imageprovider/object/"
+                + answerObjects[Math.floor(Math.random() * answerObjects.length)].Id;
+    },
+
+    firstLetterExerciseFunction: function(i, answersCount)
+    {
+        var firstLetters = data.firstLetters();
+        this.createExercise(i, firstLetters, answersCount, this.firstLetterImageSourceFunction);
+    },
+
+    nameTermsImageSourceFunction: function(object, answerIndex)
+    {
+        return "image://imageprovider/object/" + object.Id;
+    },
+
+    nameTermsExerciseFunction: function(i, answersCount)
+    {
+        var objects = data.objects();
+        this.createExercise(i, objects, answersCount, this.nameTermsImageSourceFunction);
+    },
+
+    countExerciseFunction: function(i, answersCount, rangeFrom, rangeTo, numbersAsWords)
+    {
+        var images = ["fish", "apple", "balloon"];
+        function countExeciseImageFunction(object, answerIndex)
+        {
+            return "image://imageprovider/quantity/" + object.Id + "/"
+                  + images[answerIndex % images.length];
         };
+        var numbers = numbersAsWords ? data.numbersAsWordsRange(rangeFrom, rangeTo)
+                                     : data.numbersRange(rangeFrom, rangeTo);
+        this.createExercise(i, numbers, answersCount, countExeciseImageFunction);
+    },
+
+    countEasyExerciseFunction: function(i, answersCount)
+    {
+        this.countExerciseFunction(i, answersCount, 1, 5, false);
+    },
+
+    countReadEasyExerciseFunction: function(i, answersCount)
+    {
+        this.countExerciseFunction(i, answersCount, 1, 5, true);
+    },
+
+    countHardExerciseFunction: function(i, answersCount)
+    {
+        this.countExerciseFunction(i, answersCount, 5, 20, false);
+    },
+
+    countReadHardExerciseFunction: function(i, answersCount)
+    {
+        this.countExerciseFunction(i, answersCount, 5, 20, true);
+    },
+
+    clockImageSourceFunction: function(object, answerIndex)
+    {
+        return "image://imageprovider/clock/" + object.Hour + "/" + object.Minute + "/" + answerIndex;
+    },
+
+    clockEasyExerciseFunction: function(i, answersCount)
+    {
+        var times = data.times(60);
+        this.createExercise(i, times, answersCount, this.clockImageSourceFunction);
+    },
+
+    clockMediumExerciseFunction: function(i, answersCount)
+    {
+        var times = data.times(30);
+        this.createExercise(i, times, answersCount, this.clockImageSourceFunction);
+    },
+
+    clockHardExerciseFunction: function(i, answersCount)
+    {
+        var times = data.times(5);
+        this.createExercise(i, times, answersCount, this.clockImageSourceFunction);
+    },
+
+    notesReadImageSourceFunction: function(object, answerIndex)
+    {
+        return "image://imageprovider/notes/" + object.Id;
+    },
+
+    notesReadEasyExerciseFunction: function(i, answersCount)
+    {
+        var naturalNotes = data.naturalNotes();
+        this.createExercise(i, naturalNotes, answersCount, this.notesReadImageSourceFunction);
+    },
+
+    notesReadHardExerciseFunction: function(i, answersCount)
+    {
+        var notes = data.notes();
+        this.createExercise(i, notes, answersCount, this.notesReadImageSourceFunction);
+    },
+
+    colorImageSourceFunction: function(object, answerIndex)
+    {
+        return "image://imageprovider/color/" + object.Id + "/" + answerIndex;
+    },
+
+    colorExerciseFunction: function(i, answersCount)
+    {
+        var colors = data.colors();
+        this.createExercise(i, colors, answersCount, this.colorImageSourceFunction);
+    },
+
+    mixedEasyExercisesFunction: function(i, answersCount)
+    {
+        var lessonsCount = 4;
+        switch (((i + 1) % lessonsCount) - 1) {
+            case 0: this.countExerciseFunction(i, answersCount, 1, 5, false); break;
+            case 1: this.firstLetterExerciseFunction(i, answersCount); break;
+            case 2: this.clockEasyExerciseFunction(i, answersCount); break;
+            default:
+            case 3: this.notesReadEasyExerciseFunction(i, answersCount); break;
+        }
+    },
+
+    mixedMediumExercisesFunction: function(i, answersCount)
+    {
+        var lessonsCount = 6;
+        switch (((i + 1) % lessonsCount) - 1) {
+            case 0: this.countExerciseFunction(i, answersCount, 4, 16, false); break;
+            case 1: this.countExerciseFunction(i, answersCount, 4, 16, true); break;
+            case 2: this.clockMediumExerciseFunction(i, answersCount); break;
+            case 3: this.notesReadEasyExerciseFunction(i, answersCount); break;
+            case 4: this.nameTermsExerciseFunction(i, answersCount); break;
+            default:
+            case 5: this.colorExerciseFunction(i, answersCount); break;
+        }
+    },
+
+    mixedHardExercisesFunction: function(i, answersCount)
+    {
+        var lessonsCount = 5;
+        switch (((i + 1) % lessonsCount) - 1) {
+            case 0: this.countExerciseFunction(i, answersCount, 8, 20, false); break;
+            case 1: this.clockHardExerciseFunction(i, answersCount); break;
+            case 2: this.countExerciseFunction(i, answersCount, 8, 20, true); break;
+            case 3: this.notesReadHardExerciseFunction(i, answersCount); break;
+            default:
+            case 4: this.nameTermsExerciseFunction(i, answersCount); break;
+        }
     }
-    return cachedExcerciseFunctionsDict;
 }
 
 function exercise(i, exerciseFunction, answersCount)
@@ -282,41 +437,8 @@ function exercise(i, exerciseFunction, answersCount)
     if (lessonData === null)
         lessonData = [];
     if (lessonData[index] === undefined)
-        excerciseFunctionsDict()[exerciseFunction](index, answersCount);
+        exercises[exerciseFunction](index, answersCount);
     return lessonData[index];
-}
-
-function createExercise(i, data, answersPerChoiceCount, imageSourceFunction)
-{
-    var correctAnswerIndex = Math.floor(Math.random() * answersPerChoiceCount);
-    var currentDataIndex;
-    do {
-        currentDataIndex = Math.floor(Math.random() * data.length);
-    } while (previousExerciseHasSameAnswerOnIndex(currentDataIndex, correctAnswerIndex, i)
-             || previousExercisesHaveSameCorrectAnswer(currentDataIndex, Math.round(data.length * 0.5), i));
-    var object = data[currentDataIndex];
-    var answers = new Array(answersPerChoiceCount);
-    answers[correctAnswerIndex] = object;
-    for (var j = 0; j < answersPerChoiceCount; j++) {
-        if (j != correctAnswerIndex) {
-            var wrongAnswerDataIndex;
-            do {
-                wrongAnswerDataIndex = Math.floor(Math.random() * data.length);
-            } while (wrongAnswerDataIndex === currentDataIndex
-                     || previousExerciseHasSameAnswerOnIndex(wrongAnswerDataIndex, j, i)
-                     || currentAnswersContainObjectIndex(wrongAnswerDataIndex, j, answers))
-            answers[j] = data[wrongAnswerDataIndex];
-        }
-    }
-    for (var a = 0; a < answers.length; a++)
-        answers[a].ImageSource = imageSourceFunction(answers[a], i);
-    var listItem = {
-        Index: object.Index,
-        ImageSource: answers[correctAnswerIndex].ImageSource,
-        Answers: answers,
-        CorrectAnswerIndex: correctAnswerIndex};
-    lessonData[i] = listItem;
-//    dumpLessonData();
 }
 
 function dumpLessonData()
@@ -332,154 +454,6 @@ function dumpLessonData()
             output += " " + answer;
         }
         console.log(output + "  " + exercise.Answers[exercise.CorrectAnswerIndex].ImageSource);
-    }
-}
-
-function firstLetterImageSourceFunction(object, answerIndex)
-{
-    var answerObjects = object.Objects;
-    return "image://imageprovider/object/"
-            + answerObjects[Math.floor(Math.random() * answerObjects.length)].Id;
-}
-
-function firstLetterExerciseFunction(i, answersCount)
-{
-    var firstLetters = data.firstLetters();
-    createExercise(i, firstLetters, answersCount, firstLetterImageSourceFunction);
-}
-
-function nameTermsImageSourceFunction(object, answerIndex)
-{
-    return "image://imageprovider/object/" + object.Id;
-}
-
-function nameTermsExerciseFunction(i, answersCount)
-{
-    var objects = data.objects();
-    createExercise(i, objects, answersCount, nameTermsImageSourceFunction);
-}
-
-var countImages = ["fish", "apple", "balloon"];
-function countImageSourceFunction(object, answerIndex)
-{
-    return "image://imageprovider/quantity/" + object.Id + "/"
-            + countImages[answerIndex % countImages.length];
-}
-
-function countExerciseFunction(i, answersCount, rangeFrom, rangeTo, numbersAsWords)
-{
-    var numbers = numbersAsWords ? data.numbersAsWordsRange(rangeFrom, rangeTo)
-                                 : data.numbersRange(rangeFrom, rangeTo);
-    createExercise(i, numbers, answersCount, countImageSourceFunction);
-}
-
-function countEasyExerciseFunction(i, answersCount)
-{
-    countExerciseFunction(i, answersCount, 1, 5, false);
-}
-
-function countReadEasyExerciseFunction(i, answersCount)
-{
-    countExerciseFunction(i, answersCount, 1, 5, true);
-}
-
-function countHardExerciseFunction(i, answersCount)
-{
-    countExerciseFunction(i, answersCount, 5, 20, false);
-}
-
-function countReadHardExerciseFunction(i, answersCount)
-{
-    countExerciseFunction(i, answersCount, 5, 20, true);
-}
-
-function clockImageSourceFunction(object, answerIndex)
-{
-    return "image://imageprovider/clock/" + object.Hour + "/" + object.Minute + "/" + answerIndex;
-}
-
-function clockEasyExerciseFunction(i, answersCount)
-{
-    var times = data.times(60);
-    createExercise(i, times, answersCount, clockImageSourceFunction);
-}
-
-function clockMediumExerciseFunction(i, answersCount)
-{
-    var times = data.times(30);
-    createExercise(i, times, answersCount, clockImageSourceFunction);
-}
-
-function clockHardExerciseFunction(i, answersCount)
-{
-    var times = data.times(5);
-    createExercise(i, times, answersCount, clockImageSourceFunction);
-}
-
-function notesReadImageSourceFunction(object, answerIndex)
-{
-    return "image://imageprovider/notes/" + object.Id;
-}
-
-function notesReadEasyExerciseFunction(i, answersCount)
-{
-    var naturalNotes = data.naturalNotes();
-    createExercise(i, naturalNotes, answersCount, notesReadImageSourceFunction);
-}
-
-function notesReadHardExerciseFunction(i, answersCount)
-{
-    var notes = data.notes();
-    createExercise(i, notes, answersCount, notesReadImageSourceFunction);
-}
-
-function colorImageSourceFunction(object, answerIndex)
-{
-    return "image://imageprovider/color/" + object.Id + "/" + answerIndex;
-}
-
-function colorExerciseFunction(i, answersCount)
-{
-    var colors = data.colors();
-    createExercise(i, colors, answersCount, colorImageSourceFunction);
-}
-
-function mixedEasyExercisesFunction(i, answersCount)
-{
-    var lessonsCount = 4;
-    switch (((i + 1) % lessonsCount) - 1) {
-        case 0: countExerciseFunction(i, answersCount, 1, 5, false); break;
-        case 1: firstLetterExerciseFunction(i, answersCount); break;
-        case 2: clockEasyExerciseFunction(i, answersCount); break;
-        default:
-        case 3: notesReadEasyExerciseFunction(i, answersCount); break;
-    }
-}
-
-function mixedMediumExercisesFunction(i, answersCount)
-{
-    var lessonsCount = 6;
-    switch (((i + 1) % lessonsCount) - 1) {
-        case 0: countExerciseFunction(i, answersCount, 4, 16, false); break;
-        case 1: countExerciseFunction(i, answersCount, 4, 16, true); break;
-        case 2: clockMediumExerciseFunction(i, answersCount); break;
-        case 3: notesReadEasyExerciseFunction(i, answersCount); break;
-        case 4: nameTermsExerciseFunction(i, answersCount); break;
-        default:
-        case 5: colorExerciseFunction(i, answersCount); break;
-    }
-}
-
-function mixedHardExercisesFunction(i, answersCount)
-{
-    var lessonsCount = 5;
-    switch (((i + 1) % lessonsCount) - 1) {
-        case 0: countExerciseFunction(i, answersCount, 8, 20, false); break;
-        case 1: clockHardExerciseFunction(i, answersCount); break;
-        case 2: countExerciseFunction(i, answersCount, 8, 20, true); break;
-        case 3: notesReadHardExerciseFunction(i, answersCount); break;
-        default:
-        case 4: nameTermsExerciseFunction(i, answersCount); break;
     }
 }
 
