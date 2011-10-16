@@ -23,9 +23,14 @@
 #include "imageprovider.h"
 #include "QtCore/qglobal.h"
 #include <math.h>
-#include <QtSvg/QSvgRenderer>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
+
+#ifdef USE_OWN_QTSVG
+#include "qsvgrenderer.h"
+#else
+#include <QtSvg/QSvgRenderer>
+#endif
 
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");

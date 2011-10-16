@@ -60,8 +60,8 @@ contains(MOBILITY_CONFIG, multimedia) {
 }
 
 !symbian:!maemo5:isEmpty(MEEGO_VERSION_MAJOR) {
-    QT += opengl
-    DEFINES += USING_OPENGL
+    #QT += opengl
+    #DEFINES += USING_OPENGL
 }
 
 macx:ICON = touchandlearn.icns
@@ -74,7 +74,12 @@ HEADERS += \
     imageprovider.h \
     feedback.h
 
-QT += svg
+#DEFINES += USE_OWN_QTSVG
+contains(DEFINES, USE_OWN_QTSVG) {
+    include(ownqtsvg/svg.pri)
+} else {
+    QT += svg
+}
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
