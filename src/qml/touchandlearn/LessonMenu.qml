@@ -78,7 +78,7 @@ Rectangle {
     Flickable {
         anchors.fill: parent
         contentHeight: column.height
-        contentY: controls.height * 0.75 // Only show a part of it. As a hint.
+        contentY: Math.floor(controls.height * 0.75) // Only show a part of it. As a hint.
         width: parent.width
 
         Column {
