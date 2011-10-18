@@ -20,7 +20,7 @@
 
 TEMPLATE = lib
 TARGET  = TouchAndLearnPlugin
-QT += svg declarative
+QT += declarative
 CONFIG += qt plugin
 DESTDIR = ./TouchAndLearn
 
@@ -41,3 +41,10 @@ OTHER_FILES = qmldir
 
 RESOURCES += \
     touchandlearnplugin.qrc
+
+#DEFINES += USE_OWN_QTSVG
+contains(DEFINES, USE_OWN_QTSVG) {
+    include(../ownqtsvg/svg.pri)
+} else {
+    QT += svg
+}
