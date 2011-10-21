@@ -53,8 +53,6 @@
 // We mean it.
 //
 
-#ifndef QT_NO_SVG
-
 #include "QtCore/qhash.h"
 #include "QtCore/qstack.h"
 #include "qsvgstyle_p.h"
@@ -183,5 +181,4 @@ private:
 
 QT_END_NAMESPACE
 
-#endif // QT_NO_SVG
 #endif // QSVGHANDLER_P_H

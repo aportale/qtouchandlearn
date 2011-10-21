@@ -55,8 +55,6 @@
 
 #include "qpainterpath.h"
 
-#ifndef QT_NO_SVG
-
 #include "qhash.h"
 #include "qstring.h"
 #include "qsvgstyle_p.h"
@@ -99,5 +97,4 @@ public:
 
 QT_END_NAMESPACE
 
-#endif // QT_NO_SVG
 #endif // QSVGFONT_P_H

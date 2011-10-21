@@ -41,8 +41,6 @@
 
 #include "qsvgrenderer.h"
 
-#ifndef QT_NO_SVGRENDERER
-
 #include "qsvgtinydocument_p.h"
 
 #include "qbytearray.h"
@@ -480,5 +478,3 @@ QMatrix QSvgRenderer::matrixForElement(const QString &id) const
 QT_END_NAMESPACE
 
 #include "moc_qsvgrenderer.cpp"
-
-#endif // QT_NO_SVGRENDERER

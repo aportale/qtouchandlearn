@@ -43,8 +43,6 @@
 
 #include "qsvghandler_p.h"
 
-#ifndef QT_NO_SVG
-
 #include "qsvgtinydocument_p.h"
 #include "qsvgstructure_p.h"
 #include "qsvggraphics_p.h"
@@ -3624,5 +3622,3 @@ QSvgHandler::~QSvgHandler()
 }
 
 QT_END_NAMESPACE
-
-#endif // QT_NO_SVG
