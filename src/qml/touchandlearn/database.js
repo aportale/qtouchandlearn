@@ -23,7 +23,7 @@
 
 var currentScreen = "";
 var currentLessonGroup = null;
-var lessonData = null;
+var lessonData = [];
 var lessonDataLength = 100;
 var currentVolume = 0;
 
@@ -434,8 +434,6 @@ var exercises = {
 function exercise(i, exerciseFunction, answersCount)
 {
     var index = i % lessonDataLength
-    if (lessonData === null)
-        lessonData = [];
     if (lessonData[index] === undefined)
         exercises[exerciseFunction](index, answersCount);
     return lessonData[index];

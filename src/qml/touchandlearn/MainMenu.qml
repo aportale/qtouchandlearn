@@ -107,7 +107,7 @@ Rectangle {
 
     function switchToScreen(screen)
     {
-        Database.lessonData = null;
+        Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
         if (stage.source == '')
             stage.source = Database.currentScreen;
