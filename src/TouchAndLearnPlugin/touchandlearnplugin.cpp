@@ -26,6 +26,7 @@
 
 void TouchAndLearnPlugin::registerTypes(const char *uri)
 {
+    // @uri TouchAndLearn
     qmlRegisterType<QObject>(uri, 1, 0, "TouchAndLearn");
 }
 
