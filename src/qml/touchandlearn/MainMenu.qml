@@ -99,7 +99,6 @@ Rectangle {
             ScriptAction {
                 script: {
                     volumeDisplay.source = '';
-                    Database.setPersistentVolume(Database.currentVolume);
                 }
             }
         }
@@ -169,5 +168,9 @@ Rectangle {
                 feedback.setAudioVolume(Database.persistentVolume(), false);
             switchToScreen("LessonMenu");
         }
+    }
+
+    Component.onDestruction: {
+        Database.setPersistentVolume(Database.currentVolume);
     }
 }
