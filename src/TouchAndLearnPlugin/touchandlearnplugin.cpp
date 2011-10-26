@@ -37,4 +37,4 @@ void TouchAndLearnPlugin::initializeEngine(QDeclarativeEngine *engine, const cha
     engine->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
 }
 
-Q_EXPORT_PLUGIN(TouchAndLearnPlugin);
+Q_EXPORT_PLUGIN(TouchAndLearnPlugin)
