@@ -466,6 +466,45 @@ function createLessonOfGroupTable(transaction)
     transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + lessonOfGroupTableName + '(lessonGroup TEXT, lesson TEXT)');
 }
 
+function readPersistenCurrentLessonsOfGroups()
+{
+    lessonMenu() // initializing 'cachedLessonMenu'
+    for (var group in cachedLessonMenuDict) {
+        group = cachedLessonMenuDict[group];
+        group.CurrentLesson = group.Lessons[group.DefaultLesson];
+    }
+    database().transaction(function(transaction) {
+        createLessonOfGroupTable(transaction);
+        var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName);
+        for (var row = 0; row < rs.rows.length; row++) {
+            var resultRow = rs.rows.item(row);
+            var lessonGroupDb = rs.rows.item(row).lessonGroup;
+            var lessonGroup = cachedLessonMenuDict[lessonGroupDb];
+            if (lessonGroup === undefined)
+                continue;
+            var lessonDb = rs.rows.item(row).lesson;
+            var lesson = lessonGroup.LessonsDict[lessonDb];
+            if (lesson === undefined)
+                continue;
+            lessonGroup.CurrentLesson = lesson;
+        }
+    });
+}
+
+function writePersistenCurrentLessonsOfGroups()
+{
+    database().transaction(function(transaction) {
+        createLessonOfGroupTable(transaction);
+        for (var group in cachedLessonMenuDict) {
+            group = cachedLessonMenuDict[group];
+            var lessonGroupId = group.Id;
+            var lessonId = group.CurrentLesson.Id;
+            transaction.executeSql('DELETE FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroupId + '"');
+            transaction.executeSql('INSERT INTO ' + lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, lessonId]);
+        }
+    });
+}
+
 function currentLessonOfGroup(lessonGroup, defaultLesson)
 {
     var result = defaultLesson;

@@ -170,7 +170,12 @@ Rectangle {
         }
     }
 
+    Component.onCompleted: {
+        Database.readPersistenCurrentLessonsOfGroups();
+    }
+
     Component.onDestruction: {
         Database.setPersistentVolume(Database.currentVolume);
+        Database.writePersistenCurrentLessonsOfGroups();
     }
 }
