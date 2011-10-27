@@ -528,6 +528,7 @@ function setPersistentVolume(volume)
 }
 
 var cachedLessonMenu = null;
+var cachedLessonMenuDict = null;
 function lessonMenu()
 {
     if (cachedLessonMenu === null) {
@@ -566,6 +567,16 @@ function lessonMenu()
                 { Id: "MixedHard",      DisplayName: qsTranslate("LessonMenu", "Mixed lessons, hard"),          ImageLabel: "???" }
             ] }
         ];
+        cachedLessonMenuDict = {};
+        for (var groupIndex = 0; groupIndex < cachedLessonMenu.length; groupIndex++) {
+            var group = cachedLessonMenu[groupIndex];
+            cachedLessonMenuDict[group.Id] = group;
+            group.LessonsDict = {};
+            for (var lessonIndex = 0; lessonIndex < group.Lessons.length; lessonIndex++) {
+                var lesson = group.Lessons[lessonIndex];
+                group.LessonsDict[lesson.Id] = lesson;
+            }
+        }
     }
     return cachedLessonMenu;
 }
