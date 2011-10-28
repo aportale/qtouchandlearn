@@ -469,10 +469,6 @@ function createLessonOfGroupTable(transaction)
 function readPersistenCurrentLessonsOfGroups()
 {
     lessonMenu() // initializing 'cachedLessonMenu'
-    for (var group in cachedLessonMenuDict) {
-        group = cachedLessonMenuDict[group];
-        group.CurrentLesson = group.Lessons[group.DefaultLesson];
-    }
     database().transaction(function(transaction) {
         createLessonOfGroupTable(transaction);
         var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName);
@@ -486,7 +482,7 @@ function readPersistenCurrentLessonsOfGroups()
             var lesson = lessonGroup.LessonsDict[lessonDb];
             if (lesson === undefined)
                 continue;
-            lessonGroup.CurrentLesson = lesson;
+            lessonGroup.CurrentLesson = lessonDb;
         }
     });
 }
@@ -498,44 +494,16 @@ function writePersistenCurrentLessonsOfGroups()
         for (var group in cachedLessonMenuDict) {
             group = cachedLessonMenuDict[group];
             var lessonGroupId = group.Id;
-            var lessonId = group.CurrentLesson.Id;
             transaction.executeSql('DELETE FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroupId + '"');
-            transaction.executeSql('INSERT INTO ' + lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, lessonId]);
+            transaction.executeSql('INSERT INTO ' + lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, group.CurrentLesson]);
         }
     });
-}
-
-function currentLessonOfGroup(lessonGroup, defaultLesson)
-{
-    var result = defaultLesson;
-    database().transaction(function(transaction) {
-        createLessonOfGroupTable(transaction);
-        var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroup + '"');
-        if (rs.rows.length === 1) {
-            var dbResult = rs.rows.item(0).lesson;
-            for (var group in cachedLessonMenu) {
-                group = cachedLessonMenu[group];
-                if (group.Id === lessonGroup) {
-                    for (var lesson in group.Lessons) {
-                        if (dbResult === group.Lessons[lesson].Id) {
-                            result = dbResult;
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-    });
-    return result;
 }
 
 function setCurrentLessonOfGroup(lessonGroup, lesson)
 {
-    database().transaction(function(transaction) {
-        createLessonOfGroupTable(transaction);
-        transaction.executeSql('DELETE FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroup + '"');
-        transaction.executeSql('INSERT INTO ' + lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroup, lesson]);
-    });
+    lessonGroup = cachedLessonMenuDict[lessonGroup];
+    lessonGroup.CurrentLesson = lessonGroup.LessonsDict[lesson].Id;
 }
 
 var settingsTableName = "Settings";
@@ -610,6 +578,7 @@ function lessonMenu()
         for (var groupIndex = 0; groupIndex < cachedLessonMenu.length; groupIndex++) {
             var group = cachedLessonMenu[groupIndex];
             cachedLessonMenuDict[group.Id] = group;
+            group.CurrentLesson = group.Lessons[group.DefaultLesson].Id;
             group.LessonsDict = {};
             for (var lessonIndex = 0; lessonIndex < group.Lessons.length; lessonIndex++) {
                 var lesson = group.Lessons[lessonIndex];
@@ -629,5 +598,5 @@ function lessonsOfCurrentGroup()
 
 function currentLessonOfCurrentGroup()
 {
-    return currentLessonOfGroup(currentLessonGroup.Id, currentLessonGroup.Lessons[currentLessonGroup.DefaultLesson].Id);
+    return currentLessonGroup.CurrentLesson;
 }
