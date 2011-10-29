@@ -528,7 +528,7 @@ function persistentVolume()
 function setPersistentVolume(volume)
 {
     database().transaction(function(transaction) {
-        createLessonOfGroupTable(transaction);
+        createSettingsTable(transaction);
         transaction.executeSql('DELETE FROM ' + settingsTableName + ' WHERE key = "' + volumeKeyName + '"');
         transaction.executeSql('INSERT INTO ' + settingsTableName + ' VALUES(?, ?)', [volumeKeyName, volume]);
     });
