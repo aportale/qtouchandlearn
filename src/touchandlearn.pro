@@ -27,13 +27,8 @@ contains(DEFINES, ASSETS_VIA_QRC) {
 } else {
     qml.source = qml/touchandlearn
     qml.target = qml
-    audio.source = data/audio
-    audio.target = data
-    graphics.source = data/graphics
-    graphics.target = data
-    translations.source = data/translations
-    translations.target = data
-    DEPLOYMENTFOLDERS = qml audio graphics translations
+    data.source = data
+    DEPLOYMENTFOLDERS = qml data
 }
 
 DEFINES += \
