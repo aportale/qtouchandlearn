@@ -164,8 +164,10 @@ Rectangle {
         running: true
         onTriggered: {
             rotateItemsIfLandscape();
-            if (typeof(feedback) === "object")
-                feedback.setAudioVolume(Database.persistentVolume(), false);
+            if (typeof(feedback) === "object") {
+                Database.currentVolume = Database.persistentVolume();
+                feedback.setAudioVolume(Database.currentVolume, false);
+            }
             switchToScreen("LessonMenu");
         }
     }
@@ -175,7 +177,8 @@ Rectangle {
     }
 
     Component.onDestruction: {
-        Database.setPersistentVolume(Database.currentVolume);
+        if (Database.currentVolume != -1)
+            Database.setPersistentVolume(Database.currentVolume);
         Database.writePersistenCurrentLessonsOfGroups();
     }
 }
