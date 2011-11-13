@@ -165,7 +165,7 @@ Rectangle {
         onTriggered: {
             rotateItemsIfLandscape();
             if (typeof(feedback) === "object") {
-                Database.currentVolume = Database.persistentVolume();
+                Database.currentVolume = Database.persistence.readVolume();
                 feedback.setAudioVolume(Database.currentVolume, false);
             }
             switchToScreen("LessonMenu");
@@ -173,12 +173,12 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        Database.readPersistenCurrentLessonsOfGroups();
+        Database.persistence.readCurrentLessonsOfGroups();
     }
 
     Component.onDestruction: {
         if (Database.currentVolume != -1)
-            Database.setPersistentVolume(Database.currentVolume);
-        Database.writePersistenCurrentLessonsOfGroups();
+            Database.persistence.writeVolume(Database.currentVolume);
+        Database.persistence.writeCurrentLessonsOfGroups();
     }
 }

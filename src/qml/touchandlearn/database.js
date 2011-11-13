@@ -455,84 +455,80 @@ function dumpLessonData()
     }
 }
 
-function database()
-{
-    return openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
-}
+var persistence = {
+    database: function()
+    {
+        return openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
+    },
 
-var lessonOfGroupTableName = "LessonOfGroup";
-function createLessonOfGroupTable(transaction)
-{
-    transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + lessonOfGroupTableName + '(lessonGroup TEXT, lesson TEXT)');
-}
+    lessonOfGroupTableName: "LessonOfGroup",
+    createLessonOfGroupTable: function(transaction)
+    {
+        transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + this.lessonOfGroupTableName + '(lessonGroup TEXT, lesson TEXT)');
+    },
 
-function readPersistenCurrentLessonsOfGroups()
-{
-    lessonMenu() // initializing 'cachedLessonMenu'
-    database().transaction(function(transaction) {
-        createLessonOfGroupTable(transaction);
-        var rs = transaction.executeSql('SELECT * FROM ' + lessonOfGroupTableName);
-        for (var row = 0; row < rs.rows.length; row++) {
-            var resultRow = rs.rows.item(row);
-            var lessonGroupDb = rs.rows.item(row).lessonGroup;
-            var lessonGroup = cachedLessonMenuDict[lessonGroupDb];
-            if (lessonGroup === undefined)
-                continue;
-            var lessonDb = rs.rows.item(row).lesson;
-            var lesson = lessonGroup.LessonsDict[lessonDb];
-            if (lesson === undefined)
-                continue;
-            lessonGroup.CurrentLesson = lessonDb;
-        }
-    });
-}
+    readCurrentLessonsOfGroups: function()
+    {
+        lessonMenu(); // initializing 'cachedLessonMenu'
+        persistence.database().transaction(function(transaction) {
+            persistence.createLessonOfGroupTable(transaction);
+            var rs = transaction.executeSql('SELECT * FROM ' + persistence.lessonOfGroupTableName);
+            for (var row = 0; row < rs.rows.length; row++) {
+                var resultRow = rs.rows.item(row);
+                var lessonGroupDb = rs.rows.item(row).lessonGroup;
+                var lessonGroup = cachedLessonMenuDict[lessonGroupDb];
+                if (lessonGroup === undefined)
+                    continue;
+                var lessonDb = rs.rows.item(row).lesson;
+                var lesson = lessonGroup.LessonsDict[lessonDb];
+                if (lesson === undefined)
+                    continue;
+                lessonGroup.CurrentLesson = lessonDb;
+            }
+        });
+    },
 
-function writePersistenCurrentLessonsOfGroups()
-{
-    database().transaction(function(transaction) {
-        createLessonOfGroupTable(transaction);
-        for (var group in cachedLessonMenuDict) {
-            group = cachedLessonMenuDict[group];
-            var lessonGroupId = group.Id;
-            transaction.executeSql('DELETE FROM ' + lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroupId + '"');
-            transaction.executeSql('INSERT INTO ' + lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, group.CurrentLesson]);
-        }
-    });
-}
+    writeCurrentLessonsOfGroups: function()
+    {
+        persistence.database().transaction(function(transaction) {
+            persistence.createLessonOfGroupTable(transaction);
+            for (var group in cachedLessonMenuDict) {
+                group = cachedLessonMenuDict[group];
+                var lessonGroupId = group.Id;
+                transaction.executeSql('DELETE FROM ' + persistence.lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroupId + '"');
+                transaction.executeSql('INSERT INTO ' + persistence.lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, group.CurrentLesson]);
+            }
+        });
+    },
 
-function setCurrentLessonOfGroup(lessonGroup, lesson)
-{
-    lessonGroup = cachedLessonMenuDict[lessonGroup];
-    lessonGroup.CurrentLesson = lessonGroup.LessonsDict[lesson].Id;
-}
+    settingsTableName: "Settings",
+    createSettingsTable: function(transaction)
+    {
+        transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + persistence.settingsTableName + '(key TEXT, value TEXT)');
+    },
 
-var settingsTableName = "Settings";
-function createSettingsTable(transaction)
-{
-    transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + settingsTableName + '(key TEXT, value TEXT)');
-}
+    volumeKeyName: "Volume",
+    readVolume: function()
+    {
+        var result = 60; // 0-100
+        persistence.database().transaction(function(transaction) {
+            persistence.createSettingsTable(transaction);
+            var rs = transaction.executeSql('SELECT * FROM ' + persistence.settingsTableName + ' WHERE key = "' + persistence.volumeKeyName + '"');
+            if (rs.rows.length === 1)
+                result = parseInt(rs.rows.item(0).value);
+        });
+        return result;
+    },
 
-var volumeKeyName = "Volume";
-function persistentVolume()
-{
-    var result = 60; // 0-100
-    database().transaction(function(transaction) {
-        createSettingsTable(transaction);
-        var rs = transaction.executeSql('SELECT * FROM ' + settingsTableName + ' WHERE key = "' + volumeKeyName + '"');
-        if (rs.rows.length === 1)
-            result = parseInt(rs.rows.item(0).value);
-    });
-    return result;
-}
-
-function setPersistentVolume(volume)
-{
-    database().transaction(function(transaction) {
-        createSettingsTable(transaction);
-        transaction.executeSql('DELETE FROM ' + settingsTableName + ' WHERE key = "' + volumeKeyName + '"');
-        transaction.executeSql('INSERT INTO ' + settingsTableName + ' VALUES(?, ?)', [volumeKeyName, volume]);
-    });
-}
+    writeVolume: function(volume)
+    {
+        persistence.database().transaction(function(transaction) {
+            persistence.createSettingsTable(transaction);
+            transaction.executeSql('DELETE FROM ' + persistence.settingsTableName + ' WHERE key = "' + persistence.volumeKeyName + '"');
+            transaction.executeSql('INSERT INTO ' + persistence.settingsTableName + ' VALUES(?, ?)', [persistence.volumeKeyName, volume]);
+        });
+    }
+};
 
 var cachedLessonMenu = null;
 var cachedLessonMenuDict = null;
@@ -594,6 +590,12 @@ function lessonsOfCurrentGroup()
     if (currentLessonGroup === null)
         currentLessonGroup = lessonMenu()[4];
     return currentLessonGroup.Lessons;
+}
+
+function setCurrentLessonOfGroup(lessonGroup, lesson)
+{
+    lessonGroup = cachedLessonMenuDict[lessonGroup];
+    lessonGroup.CurrentLesson = lessonGroup.LessonsDict[lesson].Id;
 }
 
 function currentLessonOfCurrentGroup()
