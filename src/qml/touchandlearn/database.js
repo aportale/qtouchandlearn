@@ -433,7 +433,7 @@ var exercises = {
 
 function exercise(i, exerciseFunction, answersCount)
 {
-    var index = i % lessonDataLength
+    var index = i % lessonDataLength;
     if (lessonData[index] === undefined)
         exercises[exerciseFunction](index, answersCount);
     return lessonData[index];
