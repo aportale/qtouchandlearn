@@ -371,5 +371,9 @@
         <source>pig</source>
         <translation></translation>
     </message>
+    <message>
+        <source>snake</source>
+        <translation></translation>
+    </message>
 </context>
 </TS>
