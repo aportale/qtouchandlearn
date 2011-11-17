@@ -56,7 +56,8 @@ var data = {
                 { Id: "camel",          DisplayName: qsTranslate("Objects", "camel") },
                 { Id: "crocodile",      DisplayName: qsTranslate("Objects", "crocodile") },
                 { Id: "pig",            DisplayName: qsTranslate("Objects", "pig") },
-                { Id: "snake",          DisplayName: qsTranslate("Objects", "snake") }
+                { Id: "snake",          DisplayName: qsTranslate("Objects", "snake") },
+                { Id: "giraffe",        DisplayName: qsTranslate("Objects", "giraffe") }
             ]);
         }
         return this.cachedObjects;

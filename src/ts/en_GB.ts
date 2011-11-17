@@ -375,5 +375,9 @@
         <source>snake</source>
         <translation></translation>
     </message>
+    <message>
+        <source>giraffe</source>
+        <translation></translation>
+    </message>
 </context>
 </TS>
