@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 # Add more folders to ship with the application, here
-folder_01.source = ../data
+folder_01.source = ../../src/data
 DEPLOYMENTFOLDERS = folder_01
 
 DEFINES += \
@@ -27,16 +27,16 @@ DEFINES += \
     QT_USE_FAST_OPERATOR_PLUS
 
 SOURCES += test.cpp \
-    ../imageprovider.cpp
+    ../../src/imageprovider.cpp
 
 HEADERS += \
-    ../imageprovider.h
+    ../../src/imageprovider.h
 
 INCLUDEPATH += \
-    ..
+    ../../src
 
 QT += svg
 
 # Please do not modify the following two lines. Required for deployment.
-include(../qmlapplicationviewer/qmlapplicationviewer.pri)
+include(../../src/qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
