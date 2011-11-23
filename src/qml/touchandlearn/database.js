@@ -264,7 +264,7 @@ var exercises = {
         var answers = new Array(answersPerChoiceCount);
         answers[correctAnswerIndex] = object;
         for (var j = 0; j < answersPerChoiceCount; j++) {
-            if (j != correctAnswerIndex) {
+            if (j !== correctAnswerIndex) {
                 var wrongAnswerDataIndex;
                 do {
                     wrongAnswerDataIndex = Math.floor(Math.random() * data.length);

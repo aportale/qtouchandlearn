@@ -32,7 +32,7 @@ Rectangle {
     function handleVolumeChange(volume)
     {
         Database.currentVolume = volume;
-        if (volumeDisplay.source == '')
+        if (volumeDisplay.source === '')
             volumeDisplay.source = 'VolumeDisplay.qml';
         else
             volumeDisplay.displayCurrentVolume();
@@ -108,7 +108,7 @@ Rectangle {
     {
         Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
-        if (stage.source == '')
+        if (stage.source === '')
             stage.source = Database.currentScreen;
         else
             screenBlendOut.start();
@@ -177,7 +177,7 @@ Rectangle {
     }
 
     Component.onDestruction: {
-        if (Database.currentVolume != -1)
+        if (Database.currentVolume !== -1)
             Database.persistence.writeVolume(Database.currentVolume);
         Database.persistence.writeCurrentLessonsOfGroups();
     }
