@@ -34,6 +34,11 @@ Item {
     property color wrongStateColor: "#f66"
     property color correctionStateColor: grayBackground ? "#ccc" : "#fbb"
 
+    property int wrongAnswerShakeAmplitudeCalc: width * 0.2
+    property int wrongAnswerShakeAmplitudeMin: 45
+    property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
+    property int correctionImageItemSize: (height < width ? height : width) * 0.9
+
     signal correctlyPressed
     signal incorrectlyPressed
 
@@ -61,21 +66,16 @@ Item {
     }
     Text {
         id: label
-        property int shakeAmplitude: Math.min(rect.width * 0.2, 45)
         anchors.verticalCenter: parent.verticalCenter
         // We need to manually horizonally center the text, because in wrongAnswerAnimation,
         // the x of the text is changed, which would not work if we use an anchor layout.
-        x: horizontallyCenteredX();
+        property int horizontallyCenteredX: (button.width - width) >> 1;
+        x: horizontallyCenteredX;
         font.pixelSize: parent.height * 0.33
-        function horizontallyCenteredX()
-        {
-            return rect.x + (rect.width - width) >> 1; // Bit shift any faster than /2 or *0.5?
-        }
     }
     Item {
-        id: correctionImageItem
-        height: Math.min(parent.height, parent.width) * 0.9
-        width: Math.min(parent.height, parent.width) * 0.9
+        height: correctionImageItemSize
+        width: correctionImageItemSize
         anchors.centerIn: parent
         Image {
             id: correctionImage
@@ -186,8 +186,8 @@ Item {
                         if (typeof(feedback) === "object")
                             feedback.playIncorrectSound();
                         if (correctionImageSource.length) {
-                            correctionImage.sourceSize.height = correctionImageItem.height
-                            correctionImage.sourceSize.width = correctionImageItem.width
+                            correctionImage.sourceSize.height = correctionImageItemSize
+                            correctionImage.sourceSize.width = correctionImageItemSize
                             correctionImage.source = correctionImageSource
                         }
                     }
@@ -203,21 +203,21 @@ Item {
                 PropertyAnimation {
                     target: label
                     property: "x"
-                    to: label.horizontallyCenteredX() - label.shakeAmplitude
+                    to: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     easing.type: Easing.InCubic
                     duration: 120
                 }
                 PropertyAnimation {
                     target: label
                     property: "x"
-                    to: label.horizontallyCenteredX() + label.shakeAmplitude
+                    to: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     easing.type: Easing.InOutCubic
                     duration: 220
                 }
                 PropertyAnimation {
                     target: label
                     property: "x"
-                    to: label.horizontallyCenteredX()
+                    to: label.horizontallyCenteredX
                     easing { type: Easing.OutBack; overshoot: 3 }
                     duration: 180
                 }

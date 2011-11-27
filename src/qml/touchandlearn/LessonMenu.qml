@@ -30,11 +30,16 @@ Rectangle {
     property color pressedStateColor: "#ee8"
     property string selectedLesson
 
+    property int delegateWidth: width >> 1
+    property int delegateHeight: delegateWidth * 1.15
+    property int exitButtonSize: width * 0.2
+    property int controlsHeight: exitButtonSize * 0.75
+
     Component {
         id: delegate
         Item {
-            width: menu.width/2
-            height: Math.round(width * 1.15)
+            width: menu.delegateWidth
+            height: menu.delegateHeight
 
             Rectangle {
                 id: rectangle
@@ -47,19 +52,21 @@ Rectangle {
             }
 
             Text {
+                property int _y: delegateHeight * 0.83
                 text: Database.cachedLessonMenu[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: Math.ceil(parent.height * 0.085)
+                font.pixelSize: delegateHeight * 0.085
                 width: parent.width
-                y: Math.round(parent.height * 0.83)
+                y: _y
             }
 
             Text {
+                property int _y: delegateHeight * 0.14
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: Math.ceil(parent.height * 0.1)
+                font.pixelSize: delegateHeight * 0.1
                 width: parent.width
-                y: Math.round(parent.height * 0.14)
+                y: _y
             }
 
             MouseArea {
@@ -76,9 +83,10 @@ Rectangle {
     }
 
     Flickable {
+        property int _contentY: controlsHeight * 0.75
+        contentY: _contentY // Only show a part of it. As a hint.
         anchors.fill: parent
         contentHeight: column.height
-        contentY: Math.floor(controls.height * 0.75) // Only show a part of it. As a hint.
         width: parent.width
 
         Column {
@@ -88,16 +96,15 @@ Rectangle {
             Item {
                 id: controls
                 anchors { left: parent.left; right: parent.right }
-                height: exitButton.height
+                height: controlsHeight
                 Item {
                     id: exitButton
-                    property int exitButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.2)
                     width: exitButtonSize
-                    height: Math.round(exitButtonSize * 0.75)
+                    height: controlsHeight
                     anchors { top: parent.top; right: parent.right }
                     Image {
-                        property real exitImageSize: Math.round(parent.width * 0.7)
-                        sourceSize { width: exitImageSize; height: exitImageSize }
+                        property int _sourceSize: exitButtonSize * 0.7
+                        sourceSize { width: _sourceSize; height: _sourceSize }
                         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
                         source: "image://imageprovider/specialbutton/exitbutton"
                     }
@@ -112,7 +119,7 @@ Rectangle {
                 Image {
                     source: "image://imageprovider/title/spectrum"
                     sourceSize { width: titleImage.width; height: titleImage.height }
-                    width: (Math.ceil(titleImage.width / 360.0) + 1) * 360
+                    width: (Math.ceil(menu.width / 360) + 1) * 360
                     fillMode: Image.Tile
                     NumberAnimation on x {
                         from: 0

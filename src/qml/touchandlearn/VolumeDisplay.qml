@@ -25,8 +25,6 @@ import Qt 4.7
 Rectangle {
     property int volume: 75
     id: volumeDisplay
-    width: 300
-    height: 300
     color: Qt.rgba(0, 0, 0, 0.7)
 
     Component {

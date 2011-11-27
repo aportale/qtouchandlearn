@@ -24,19 +24,25 @@ import Qt 4.7
 import "database.js" as Database
 
 Item {
-    property alias backgroundImage: image.source
+    property alias backgroundImage: backgroundImage.source
     property alias currentExerciseIndex: listview.currentIndex
     property bool grayBackground
     property string exerciseFunction
     property int answersCount
     property real imageSizeFactor: 0.61
+
+    property int backgroundImageSourceSizeHeight: height * 0.3
+    property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
+    property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
+    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImage.height
+    property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
+
     function goForward() {
         listview.incrementCurrentIndex();
     }
     id: imageview
     Rectangle {
         property int hueOffset: Math.random() * 4000
-        id: rect
         anchors.fill: parent
         color: grayBackground ? "#E0E0E0"
                               : Qt.hsla(((listview.contentX + hueOffset) % 4000) / 4000, 0.4, 0.8, 1);
@@ -45,24 +51,22 @@ Item {
     Column {
         Rectangle {
             id: white
-            height: Math.round((imageview.height - image.height) * 0.65);
-            width: rect.width
+            height: backgroundWhiteRectHeight
+            width: imageview.width
             color: "#fff"
         }
         Image {
-            property real heightToWidthRatio: 6.0
-            property real sourceSizeHeight: Math.round(imageview.height * 0.3)
-            property real imageWidth: sourceSizeHeight * heightToWidthRatio
+            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
             fillMode: Image.TileHorizontally
-            id: image
-            sourceSize { height: sourceSizeHeight; width: sourceSizeHeight * heightToWidthRatio }
-            width: (Math.ceil(imageview.width / imageWidth) + 1) * imageWidth
-            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % imageWidth
+            id: backgroundImage
+            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
+            width: _width
+            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
             y: 0
         }
         Rectangle {
-            height: imageview.height - white.height - image.height
-            width: rect.width
+            height: backgroundBlackRectHeight
+            width: imageview.width
             color: "#000"
         }
         opacity: 0.08
@@ -82,12 +86,9 @@ Item {
             width: listview.width // Must not be parent.height/width since those are 0 in the beginning
             height: listview.height
             Image {
-                function sourceSizeWidthHeight() {
-                    return Math.min(parent.width, parent.height) * imageSizeFactor;
-                }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 anchors.centerIn: parent
-                sourceSize { width: sourceSizeWidthHeight(); height: sourceSizeWidthHeight() }
+                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
             }
         }
     }

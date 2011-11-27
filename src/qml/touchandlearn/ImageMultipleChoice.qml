@@ -35,28 +35,26 @@ Item {
     property real viewHeightRatio: 0.45
     property string selectedLesson
 
+    property int imageViewHeight: height * viewHeightRatio
+    property int backButtonSize: width * 0.2
+
     ImageView {
         id: imageView
-        anchors { top: parent.top; right: parent.right; left: parent.left }
-        height: Math.round(parent.height * viewHeightRatio)
+        width: parent.width
+        height: imageViewHeight
         answersCount: choice.buttonsCount
         backgroundImage: "image://imageprovider/background/background_01"
         grayBackground: main.grayBackground
-
-        // Theoretically unneeded, since the anchors above should do the job.
-        // But without width, we get 0-values at construction time
-        width: parent.width
     }
 
     Item {
         id: backButton
-        property real backButtonSize: Math.round(Math.min(parent.width, parent.height) * 0.2)
         width: backButtonSize
         height: backButtonSize
         anchors { top: parent.top; right: parent.right }
         Image {
-            property real exitImageSize: Math.round(parent.width * 0.7)
-            sourceSize { width: exitImageSize; height: exitImageSize }
+            property int _sourceSize: backButtonSize * 0.7
+            sourceSize { width: _sourceSize; height: _sourceSize }
             anchors.centerIn: parent
             source: "image://imageprovider/specialbutton/backbutton"
         }
@@ -67,12 +65,13 @@ Item {
     }
 
     Item {
-        width: backButton.backButtonSize
-        height: backButton.backButtonSize * 0.75
+        property int _height: backButtonSize * 0.75
+        width: backButtonSize
+        height: _height
         anchors { top: backButton.bottom; right: parent.right }
         Image {
-            property real optionsButtonSize: Math.round(parent.width * 0.7)
-            sourceSize { width: optionsButtonSize; height: optionsButtonSize }
+            property int _sourceSize: backButtonSize * 0.7
+            sourceSize { width: _sourceSize; height: _sourceSize }
             anchors { horizontalCenter: parent.horizontalCenter; top: parent.top }
             source: "image://imageprovider/specialbutton/optionsbutton"
         }
@@ -85,10 +84,8 @@ Item {
 
     AnswerChoice {
         id: choice
-        anchors { top: imageView.bottom; bottom: parent.bottom; right: parent.right; left: parent.left }
 
-        // Theoretically unneeded, since the anchors above should do the job.
-        // But without width/height, we get 0-values at construction time
+        y: imageViewHeight
         height: parent.height - imageView.height
         width: parent.width
 

@@ -34,7 +34,8 @@ Rectangle {
     Component {
         id: delegate
         Item {
-            height: Math.round(menu.width * 0.4)
+            property int _height: menu.width * 0.4
+            height: _height
             width: menu.width
 
             Rectangle {
@@ -44,10 +45,11 @@ Rectangle {
             }
 
             Image {
+                property int _anchors_margins: parent.height * 0.15
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15; }
                 opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
-                anchors { right: parent.right; top:  parent.top; margins: parent.height * 0.15; }
+                anchors { right: parent.right; top:  parent.top; margins: _anchors_margins; }
             }
 
             Image {
@@ -56,21 +58,26 @@ Rectangle {
             }
 
             Text {
+                property int _width: parent.width * 0.28
+                property int _x: parent.height * 0.21
+                property int _y: parent.height * 0.65
                 text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
-                width: Math.round(parent.width * 0.28)
-                x: Math.round(parent.height * 0.21)
-                y: Math.round(parent.height * 0.65)
+                width: _width
+                x: _x
+                y: _y
             }
 
             Text {
+                property int _width: parent.width * 0.51
+                property int _anchors_margins: parent.width * 0.1
                 text: Database.lessonsOfCurrentGroup()[index].DisplayName
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.175
-                width: Math.round(parent.width * 0.51)
-                anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: Math.round(parent.width * 0.1) }
+                width: _width
+                anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: _anchors_margins }
             }
 
             MouseArea {
@@ -101,13 +108,14 @@ Rectangle {
                 height: backButton.height
                 Item {
                     id: backButton
-                    property int backButtonSize: Math.round(Math.min(menu.width, menu.height) * 0.2)
-                    width: backButtonSize
-                    height: Math.round(backButtonSize * 0.75)
+                    property int _width: menu.width * 0.2
+                    property int _height: _width * 0.75
+                    width: _width
+                    height: _height
                     anchors { top: parent.top; right: parent.right }
                     Image {
-                        property real exitImageSize: Math.round(parent.width * 0.7)
-                        sourceSize { width: exitImageSize; height: exitImageSize }
+                        property int _sourceSize: parent.width * 0.7
+                        sourceSize { width: _sourceSize; height: _sourceSize }
                         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
                         source: "image://imageprovider/specialbutton/backbutton"
                     }

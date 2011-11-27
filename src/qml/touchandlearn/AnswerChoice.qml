@@ -34,6 +34,11 @@ Item {
     signal correctlyAnswered
     property bool blockClicks: false
 
+    property int buttonSpacing: height * 0.035
+    property int gridWidth: width - 2 * buttonSpacing
+    property int gridHeight: height
+    property int gridRows: buttonsCount / columsCount
+
     Rectangle {
         anchors.fill: parent
         color: "#000000"
@@ -59,12 +64,9 @@ Item {
     Grid {
         id: grid
         columns: 1
-        rows: Math.ceil(choice.buttonsCount / columns)
-        property int buttonSpacing: Math.round(parent.height * 0.035)
-        width: Math.round(parent.width - 2 * buttonSpacing)
-        height: Math.round(parent.height)
-        property int buttonWidth: Math.round((width - buttonSpacing) / choice.columsCount) - buttonSpacing
-        property int buttonHeight: Math.round(height / rows) - buttonSpacing
+        rows: gridRows
+        width: gridWidth
+        height: gridHeight
         spacing: buttonSpacing
         x: 2 * buttonSpacing
         y: buttonSpacing
@@ -73,8 +75,10 @@ Item {
             id: repeater
             model: buttonsCount
             AnswerButton {
-                height: grid.buttonHeight
-                width: grid.buttonWidth
+                property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
+                property int _height: (gridHeight / gridRows) - buttonSpacing
+                width: _width
+                height: _height
                 index: modelData
                 grayBackground: choice.grayBackground
                 onCorrectlyPressed: correctlyAnswered();
