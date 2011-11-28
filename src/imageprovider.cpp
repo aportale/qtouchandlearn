@@ -432,6 +432,8 @@ void ImageProvider::init()
     clocksRenderer()->boundsOnElement(QString());
     notesRenderer()->boundsOnElement(QString());
     lessonIconsRenderer()->boundsOnElement(QString());
+    buttonVariations();
+    frameVariations();
 }
 
 void ImageProvider::setDataPath(const QString &path)
