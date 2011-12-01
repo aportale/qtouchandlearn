@@ -225,6 +225,15 @@ var data = {
         ]);
         }
         return this.cachedColors;
+    },
+
+    initCaches: function()
+    {
+        this.objects();
+        this.numbersAsWords();
+        this.notes();
+        this.naturalNotes();
+        this.colors();
     }
 }
 

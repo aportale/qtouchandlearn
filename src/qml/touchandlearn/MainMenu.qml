@@ -163,6 +163,7 @@ Rectangle {
         interval: 1
         running: true
         onTriggered: {
+            Database.data.initCaches();
             rotateItemsIfLandscape();
             if (typeof(feedback) === "object") {
                 Database.currentVolume = Database.persistence.readVolume();
