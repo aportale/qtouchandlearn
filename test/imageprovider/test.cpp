@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     ImagePainter ip;
-    ip.setId(QLatin1String("notes/C sharp,A"));
+    ip.setId(QLatin1String("button/1"));
     ip.show();
 
     return app.exec();

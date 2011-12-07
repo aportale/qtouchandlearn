@@ -32,6 +32,13 @@
 #include <QtSvg/QSvgRenderer>
 #endif
 
+#define PI 3.14159265
+
+enum DesignElementType {
+    DesignElementTypeButton,
+    DesignElementTypeFrame
+};
+
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
 const QString idPrefix = QLatin1String("id_");
@@ -59,6 +66,32 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, lessonIconsRenderer, {
     x->load(dataPath + QLatin1String("/lessonicons.svg"));
+})
+
+QImage gradientImage(DesignElementType type)
+{
+    QSvgRenderer *renderer = designRenderer();
+    const QString gradientId = idPrefix + (type == DesignElementTypeButton ? buttonString : frameString) + QLatin1String("gradient");
+    Q_ASSERT(renderer->boundsOnElement(gradientId).size().toSize() == QSize(256, 1));
+    QImage result(256, 1, QImage::Format_ARGB32);
+    result.fill(0);
+    QPainter p(&result);
+    renderer->render(&p, gradientId, result.rect());
+#if 0
+    // for debugging
+    p.fillRect(0, 0, 16, 1, Qt::red);
+    p.fillRect(120, 0, 16, 1, Qt::green);
+    p.fillRect(240, 0, 16, 1, Qt::blue);
+#endif
+    return result;
+}
+
+Q_GLOBAL_STATIC_WITH_INITIALIZER(QImage, buttonGradient, {
+    *x = gradientImage(DesignElementTypeButton);
+})
+
+Q_GLOBAL_STATIC_WITH_INITIALIZER(QImage, frameGradient, {
+    *x = gradientImage(DesignElementTypeFrame);
 })
 
 struct ElementVariations
@@ -283,8 +316,43 @@ inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer 
     return pixmap;
 }
 
-inline static QPixmap renderedDesignElement(const ElementVariationList *elements, int variation, QSize *size, const QSize &requestedSize)
+inline static void drawGradient(DesignElementType type, QImage &image)
 {
+    const int imageWidth = image.width();
+    const QImage *gradient = type == DesignElementTypeButton ? buttonGradient() : frameGradient();
+    const QRgb *gradientRgb = reinterpret_cast<const QRgb*>(gradient->constBits());
+    QRgb *imageRgb = reinterpret_cast<QRgb*>(image.bits());
+    const int quarterWidth = imageWidth / 2;
+    const int quarterHeight = image.height() / 2;
+    // Right triangle with a, b = 181.0193359837561662; c = 256.
+    const qreal xScaleFactor = 181.0193359837561662 / quarterWidth;
+    const qreal yScaleFactor = 181.0193359837561662 / quarterHeight;
+
+    for (int y = 0; y <= quarterHeight; y++) {
+        const int scaledY = yScaleFactor * y;
+        const int scaledYSquare = scaledY * scaledY;
+        const int offsetYPlusQuarterWidth = quarterWidth + imageWidth * (quarterHeight - y);
+        for (int x = 0; x <= quarterWidth; x++) {
+            const int scaledX = xScaleFactor * x;
+            const int gradientColorIndex = int(sqrt(qreal(scaledYSquare + scaledX * scaledX)));
+            const QRgb gradientColor = gradientRgb[gradientColorIndex];
+            imageRgb[offsetYPlusQuarterWidth - x] = gradientColor;
+            imageRgb[offsetYPlusQuarterWidth + x] = gradientColor;
+        }
+    }
+    const int bytesPerLine = image.bytesPerLine();
+    QRgb *dst = imageRgb + imageWidth * image.height() - imageWidth;
+    QRgb *src = imageRgb;
+    for (int row = 0; row < quarterHeight; row++) {
+        memcpy(dst, src, bytesPerLine);
+        dst -= imageWidth;
+        src += imageWidth;
+    }
+}
+
+inline static QPixmap renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
+{
+    const ElementVariationList *elements = type == DesignElementTypeButton ? buttonVariations() : frameVariations();
     const qreal requestedRatio = requestedSize.width() / qreal(requestedSize.height());
     const ElementVariations *elementWithNearestRatio = &elements->last();
     foreach (const ElementVariations &element, *elements) {
@@ -295,8 +363,24 @@ inline static QPixmap renderedDesignElement(const ElementVariationList *elements
             break;
         }
     }
-    return renderedSvgElement(elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count()),
-                              designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
+    const QString &elementId = idPrefix + elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count());
+    static QPixmap cachedGradientButton;
+    static QPixmap cachedGradientFrame;
+    QPixmap &cachedGradient = type == DesignElementTypeButton ? cachedGradientButton : cachedGradientFrame;
+    if (cachedGradient.size() == requestedSize) {
+        QPixmap result(cachedGradient);
+        QPainter p(&result);
+        designRenderer()->render(&p, elementId, result.rect());
+        return result;
+    } else {
+        QImage result(requestedSize, QImage::Format_ARGB32);
+        result.fill(0);
+        drawGradient(type, result);
+        cachedGradient = QPixmap::fromImage(result);
+        QPainter p(&result);
+        designRenderer()->render(&p, elementId, result.rect());
+        return QPixmap::fromImage(result);
+    }
 }
 
 inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
@@ -314,7 +398,7 @@ inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariat
     else
         iconRect.moveTop((requestedSize.height() - iconSize.height()) / 2);
     renderer->render(&p, idPrefix + iconId, iconRect);
-    const QPixmap button = renderedDesignElement(buttonVariations(), buttonVariation, size, requestedSize);
+    const QPixmap button = renderedDesignElement(DesignElementTypeButton, buttonVariation, size, requestedSize);
     p.drawPixmap(QPointF(), button);
     return icon;
 }
@@ -386,9 +470,9 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     } else if (idSegments.first() == QLatin1String("specialbutton")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
-        return renderedDesignElement(buttonVariations(), elementId.toInt(), size, requestedSize);
+        return renderedDesignElement(DesignElementTypeButton, elementId.toInt(), size, requestedSize);
     } else if (idSegments.first() == frameString) {
-        return renderedDesignElement(frameVariations(), 0, size, requestedSize);
+        return renderedDesignElement(DesignElementTypeFrame, 0, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("object")) {
         return renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("clock")) {
