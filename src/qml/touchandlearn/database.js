@@ -467,9 +467,11 @@ function dumpLessonData()
 }
 
 var persistence = {
+    openDatabaseSync: null,
+
     database: function()
     {
-        return openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
+        return persistence.openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
     },
 
     lessonOfGroupTableName: "LessonOfGroup",

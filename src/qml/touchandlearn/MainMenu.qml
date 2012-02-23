@@ -174,6 +174,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
+        Database.persistence.openDatabaseSync = openDatabaseSync;
         Database.persistence.readCurrentLessonsOfGroups();
     }
 
