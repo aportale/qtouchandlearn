@@ -450,6 +450,7 @@ inline static QPixmap colorBlot(const QColor &color, int blotVariation, QSize *s
 
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
 {
+    QPixmap result;
     const QStringList idSegments = id.split(QLatin1Char('/'));
     if (requestedSize.width() < 1 && requestedSize.height() < 1) {
         qDebug() << "****************** requestedSize is NULL!" << requestedSize << id;
@@ -464,48 +465,61 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
         return renderedSvgElement(elementId, designRenderer(), Qt::KeepAspectRatioByExpanding, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("title")) {
         if (elementId == QLatin1String("textmask"))
-            return renderedSvgElement(idSegments.first(), designRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+            result = renderedSvgElement(idSegments.first(), designRenderer(), Qt::KeepAspectRatio, size, requestedSize);
         else
-            return spectrum(size, requestedSize);
+            result = spectrum(size, requestedSize);
     } else if (idSegments.first() == QLatin1String("specialbutton")) {
-        return renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
+        result = renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
-        return renderedDesignElement(DesignElementTypeButton, elementId.toInt(), size, requestedSize);
+        result = renderedDesignElement(DesignElementTypeButton, elementId.toInt(), size, requestedSize);
     } else if (idSegments.first() == frameString) {
-        return renderedDesignElement(DesignElementTypeFrame, 0, size, requestedSize);
+        result = renderedDesignElement(DesignElementTypeFrame, 0, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("object")) {
-        return renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+        result = renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("clock")) {
         if (idSegments.count() != 4) {
             qDebug() << "Wrong number of parameters for clock images:" << id;
             return QPixmap();
         }
-        return clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
+        result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("notes")) {
-        return notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
+        result = notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for quantity images:" << id;
             return QPixmap();
         }
-        return quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
+        result = quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("lessonicon")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for lessonicon:" << id;
             return QPixmap();
         }
-        return renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
+        result = renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("color")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for color:" << id;
             return QPixmap();
         }
         const QColor color(idSegments.at(1));
-        return colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
+        result = colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
     } else {
         qDebug() << "invalid image Id:" << id;
     }
-    return QPixmap();
+#if 0
+    if (idSegments.first() == QLatin1String("object")) {
+        QPainter p(&result);
+        QPolygon points;
+        for (int i = 0; i < result.width(); i += 2)
+            for (int j = 0; j < result.height(); j += 2)
+                points.append(QPoint(i, j));
+        p.drawPoints(points);
+        p.setPen(Qt::white);
+        p.translate(1, 1);
+        p.drawPoints(points);
+    }
+#endif
+    return result;
 }
 
 void ImageProvider::init()
