@@ -83,11 +83,18 @@ Item {
         model: 100000
 
         delegate: Item {
+            id: delegate
             width: listview.width // Must not be parent.height/width since those are 0 in the beginning
             height: listview.height
             Image {
+                // Hand-centered in order to avoid non-integer image coordinates.
+                property int leftMargin: (delegate.width - width) / 2
+                property int topMargin: (delegate.height - height) / 2
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                anchors.centerIn: parent
+                anchors.left: delegate.left
+                anchors.top: delegate.top
+                anchors.leftMargin: leftMargin
+                anchors.topMargin: topMargin
                 sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
             }
         }

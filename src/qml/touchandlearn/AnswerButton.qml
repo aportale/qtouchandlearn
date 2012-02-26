@@ -37,7 +37,7 @@ Item {
     property int wrongAnswerShakeAmplitudeCalc: width * 0.2
     property int wrongAnswerShakeAmplitudeMin: 45
     property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
-    property int correctionImageItemSize: (height < width ? height : width) * 0.9
+    property int correctionImageSize: (height < width ? height : width) * 0.9
 
     signal correctlyPressed
     signal incorrectlyPressed
@@ -73,15 +73,17 @@ Item {
         x: horizontallyCenteredX;
         font.pixelSize: parent.height * 0.33
     }
-    Item {
-        height: correctionImageItemSize
-        width: correctionImageItemSize
-        anchors.centerIn: parent
-        Image {
-            id: correctionImage
-            anchors.centerIn: parent
-            opacity: 0
-        }
+    Image {
+        id: correctionImage
+        // Hand-centered in order to avoid non-integer image coordinates.
+        property int leftMargin: (parent.width - width) / 2
+        property int topMargin: (parent.height - height) / 2
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: leftMargin
+        anchors.topMargin: topMargin
+        sourceSize { width: correctionImageSize; height: correctionImageSize; }
+        opacity: 0
     }
 
     MouseArea {
@@ -186,8 +188,8 @@ Item {
                         if (typeof(feedback) === "object")
                             feedback.playIncorrectSound();
                         if (correctionImageSource.length) {
-                            correctionImage.sourceSize.height = correctionImageItemSize
-                            correctionImage.sourceSize.width = correctionImageItemSize
+                            correctionImage.sourceSize.height = correctionImageSize
+                            correctionImage.sourceSize.width = correctionImageSize
                             correctionImage.source = correctionImageSource
                         }
                     }
