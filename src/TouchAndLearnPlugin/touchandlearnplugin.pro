@@ -39,9 +39,6 @@ HEADERS += \
 
 OTHER_FILES = qmldir
 
-RESOURCES += \
-    touchandlearnplugin.qrc
-
 #DEFINES += USE_OWN_QTSVG
 contains(DEFINES, USE_OWN_QTSVG) {
     include(../ownqtsvg/svg.pri)

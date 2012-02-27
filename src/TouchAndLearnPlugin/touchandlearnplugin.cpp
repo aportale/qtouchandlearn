@@ -33,7 +33,8 @@ void TouchAndLearnPlugin::registerTypes(const char *uri)
 void TouchAndLearnPlugin::initializeEngine(QDeclarativeEngine *engine, const char *uri)
 {
     Q_UNUSED(uri)
-    ImageProvider::setDataPath(QLatin1String(":/data/graphics"));
+    const QString graphicsPath = engine->baseUrl().toLocalFile() + QLatin1String("data/graphics");
+    ImageProvider::setDataPath(graphicsPath);
     engine->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
 }
 
