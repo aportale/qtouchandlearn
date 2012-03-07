@@ -180,6 +180,8 @@ static QMediaPlayer *player(const QString &file)
 #else // USING_QT_MOBILITY
 static void playSound(const QList<Phonon::MediaObject*> &sounds, Phonon::MediaObject* &previousSound, int volume)
 {
+    Q_UNUSED(volume)
+
     if (sounds.isEmpty())
         return;
 

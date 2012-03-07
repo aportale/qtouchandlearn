@@ -352,6 +352,8 @@ inline static void drawGradient(DesignElementType type, QImage &image)
 
 inline static QPixmap renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
 {
+    Q_UNUSED(size)
+
     const ElementVariationList *elements = type == DesignElementTypeButton ? buttonVariations() : frameVariations();
     const qreal requestedRatio = requestedSize.width() / qreal(requestedSize.height());
     const ElementVariations *elementWithNearestRatio = &elements->last();
