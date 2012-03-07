@@ -114,9 +114,12 @@ Rectangle {
                     height: _height
                     anchors { top: parent.top; right: parent.right }
                     Image {
+                        // Hand-centered in order to avoid non-integer image coordinates.
                         property int _sourceSize: parent.width * 0.7
-                        sourceSize { width: _sourceSize; height: _sourceSize }
-                        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
+                        property int _leftMargin: (parent._width - width) / 2
+                        property int _topMargin: (parent._height - height) / 2
+                        anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
+                        sourceSize { width: _sourceSize; height: _sourceSize; }
                         source: "image://imageprovider/specialbutton/backbutton"
                     }
                     MouseArea {

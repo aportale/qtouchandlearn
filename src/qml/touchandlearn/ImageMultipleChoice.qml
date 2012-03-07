@@ -53,9 +53,12 @@ Item {
         height: backButtonSize
         anchors { top: parent.top; right: parent.right }
         Image {
+            // Hand-centered in order to avoid non-integer image coordinates.
             property int _sourceSize: backButtonSize * 0.7
+            property int _leftMargin: (parent.width - width) / 2
+            property int _topMargin: (parent.height - height) / 2
+            anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
-            anchors.centerIn: parent
             source: "image://imageprovider/specialbutton/backbutton"
         }
         MouseArea {
@@ -70,9 +73,11 @@ Item {
         height: _height
         anchors { top: backButton.bottom; right: parent.right }
         Image {
+            // Hand-centered in order to avoid non-integer image coordinates.
             property int _sourceSize: backButtonSize * 0.7
+            property int _leftMargin: (parent.width - width) / 2
+            anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
-            anchors { horizontalCenter: parent.horizontalCenter; top: parent.top }
             source: "image://imageprovider/specialbutton/optionsbutton"
         }
         MouseArea {

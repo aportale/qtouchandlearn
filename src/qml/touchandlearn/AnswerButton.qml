@@ -76,13 +76,10 @@ Item {
     Image {
         id: correctionImage
         // Hand-centered in order to avoid non-integer image coordinates.
-        property int leftMargin: (parent.width - width) / 2
-        property int topMargin: (parent.height - height) / 2
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: leftMargin
-        anchors.topMargin: topMargin
+        property int _leftMargin: (parent.width - width) / 2
+        property int _topMargin: (parent.height - height) / 2
         sourceSize { width: correctionImageSize; height: correctionImageSize; }
+        anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
         opacity: 0
     }
 
