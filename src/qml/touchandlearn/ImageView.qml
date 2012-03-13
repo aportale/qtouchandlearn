@@ -78,7 +78,7 @@ Item {
         orientation: ListView.Horizontal
         boundsBehavior: Flickable.DragOverBounds
         highlightRangeMode: ListView.StrictlyEnforceRange
-        maximumFlickVelocity: 200
+        maximumFlickVelocity: width / 2
         highlightMoveDuration: 1000
         model: 100000
 
