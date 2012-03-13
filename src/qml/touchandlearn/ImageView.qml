@@ -79,7 +79,7 @@ Item {
         boundsBehavior: Flickable.DragOverBounds
         highlightRangeMode: ListView.StrictlyEnforceRange
         maximumFlickVelocity: 200
-        highlightMoveSpeed: width // Proceed to next exercise within 1 second
+        highlightMoveDuration: 1000
         model: 100000
 
         delegate: Item {
