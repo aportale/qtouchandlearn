@@ -33,7 +33,9 @@
 
 #include "qmlapplicationviewer.h"
 #include "imageprovider.h"
+#ifndef NO_FEEDBACK
 #include "feedback.h"
+#endif // NO_FEEDBACK
 
 int main(int argc, char *argv[])
 {
@@ -73,6 +75,7 @@ int main(int argc, char *argv[])
 #endif // ASSETS_VIA_QRC
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
+#ifndef NO_FEEDBACK
     Feedback::setDataPath(
 #ifdef USING_QT_MOBILITY
                 dataPath + QLatin1String("/audio")
@@ -84,6 +87,7 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("feedback", &feedback);
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
     QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
+#endif // NO_FEEDBACK
 
 #if defined(Q_WS_SIMULATOR)
     viewer.showFullScreen();

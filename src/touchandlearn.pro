@@ -20,7 +20,7 @@
 
 DEPLOYMENT.display_name = "Touch'n'Learn"
 
-android:DEFINES += ASSETS_VIA_QRC
+android:DEFINES += NO_FEEDBACK
 
 contains(DEFINES, ASSETS_VIA_QRC) {
     RESOURCES = touchandlearn.qrc
@@ -43,15 +43,19 @@ symbian {
 }
 VERSION = 1.1
 
-load(mobilityconfig, true)
-contains(MOBILITY_CONFIG, multimedia) {
-    CONFIG += mobility
-    MOBILITY += multimedia
-    DEFINES += USING_QT_MOBILITY
-} else {
-    QT += phonon
-    mp3audio.source = mp3audio
-    DEPLOYMENTFOLDERS += mp3audio
+!contains(DEFINES, NO_FEEDBACK) {
+    load(mobilityconfig, true)
+    contains(MOBILITY_CONFIG, multimedia) {
+        CONFIG += mobility
+        MOBILITY += multimedia
+        DEFINES += USING_QT_MOBILITY
+    } else {
+        QT += phonon
+        mp3audio.source = mp3audio
+        DEPLOYMENTFOLDERS += mp3audio
+    }
+    SOURCES += feedback.cpp
+    HEADERS += feedback.h
 }
 
 !symbian:!maemo5:isEmpty(MEEGO_VERSION_MAJOR) {
@@ -61,13 +65,12 @@ contains(MOBILITY_CONFIG, multimedia) {
 
 macx:ICON = touchandlearn.icns
 
-SOURCES += main.cpp \
-    imageprovider.cpp \
-    feedback.cpp
+SOURCES += \
+    main.cpp \
+    imageprovider.cpp
 
 HEADERS += \
-    imageprovider.h \
-    feedback.h
+    imageprovider.h
 
 #DEFINES += USE_OWN_QTSVG
 contains(DEFINES, USE_OWN_QTSVG) {
