@@ -60,6 +60,7 @@ Item {
             anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/backbutton"
+            smooth: false
         }
         MouseArea {
             anchors.fill: parent
@@ -79,6 +80,7 @@ Item {
             anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/optionsbutton"
+            smooth: false
         }
         MouseArea {
             anchors.fill: parent

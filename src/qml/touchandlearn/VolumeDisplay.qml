@@ -36,6 +36,7 @@ Rectangle {
                 height: volumeDisplay.width * 0.7
             }
             opacity: volume >= (index + 1) * 20 ? 1 : 0.25;
+            smooth: false
         }
     }
 

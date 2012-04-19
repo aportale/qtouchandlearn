@@ -50,11 +50,13 @@ Rectangle {
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15; }
                 opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
                 anchors { right: parent.right; top:  parent.top; margins: _anchors_margins; }
+                smooth: true
             }
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[index].Id + "/" + index
                 sourceSize { width: parent.width; height: parent.height }
+                smooth: true
             }
 
             Text {
@@ -121,6 +123,7 @@ Rectangle {
                         anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                         sourceSize { width: _sourceSize; height: _sourceSize; }
                         source: "image://imageprovider/specialbutton/backbutton"
+                        smooth: true
                     }
                     MouseArea {
                         anchors.fill: parent

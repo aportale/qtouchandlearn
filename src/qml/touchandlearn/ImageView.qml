@@ -63,6 +63,7 @@ Item {
             width: _width
             x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
             y: 0
+            smooth: true
         }
         Rectangle {
             height: backgroundBlackRectHeight
@@ -93,6 +94,7 @@ Item {
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
+                smooth: true
             }
         }
     }
@@ -100,5 +102,6 @@ Item {
     Image {
         sourceSize { height: parent.height; width: parent.width }
         source: "image://imageprovider/frame/0"
+        smooth: false
     }
 }

@@ -49,6 +49,7 @@ Rectangle {
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
                 sourceSize { width: parent.width; height: parent.height }
+                smooth: true
             }
 
             Text {
@@ -107,6 +108,7 @@ Rectangle {
                         sourceSize { width: _sourceSize; height: _sourceSize }
                         anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
                         source: "image://imageprovider/specialbutton/exitbutton"
+                        smooth: true
                     }
                     MouseArea {
                         anchors.fill: parent
@@ -127,11 +129,13 @@ Rectangle {
                         duration: 2500
                         loops: Animation.Infinite
                     }
+                    smooth: false
                 }
                 Image {
                     id: titleImage
                     source: "image://imageprovider/title/textmask"
                     sourceSize { width: menu.width; height: menu.height }
+                    smooth: true
                 }
                 height: titleImage.height
                 anchors { left: parent.left; right: parent.right }

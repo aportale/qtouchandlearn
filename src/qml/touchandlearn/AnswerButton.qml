@@ -57,12 +57,14 @@ Item {
         velocity: 80; velocityDeviation: 30
         source: "../../data/graphics/particle.png"
         clip: true
+        smooth: false
     }
     Image {
         source: "image://imageprovider/button/" + index
         sourceSize { height: parent.height; width: parent.width }
         width: sourceSize.width
         height: sourceSize.height
+        smooth: false
     }
     Text {
         id: label
@@ -81,6 +83,7 @@ Item {
         sourceSize { width: correctionImageSize; height: correctionImageSize; }
         anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
         opacity: 0
+        smooth: false
     }
 
     MouseArea {
