@@ -22,7 +22,7 @@
 
 #include "touchandlearnplugin.h"
 #include "imageprovider.h"
-#include <QtDeclarative/QDeclarativeEngine>
+#include <QtQml/QQmlEngine>
 
 void TouchAndLearnPlugin::registerTypes(const char *uri)
 {
@@ -30,12 +30,10 @@ void TouchAndLearnPlugin::registerTypes(const char *uri)
     qmlRegisterType<QObject>(uri, 1, 0, "TouchAndLearn");
 }
 
-void TouchAndLearnPlugin::initializeEngine(QDeclarativeEngine *engine, const char *uri)
+void TouchAndLearnPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     Q_UNUSED(uri)
     const QString graphicsPath = engine->baseUrl().toLocalFile() + QLatin1String("data/graphics");
     ImageProvider::setDataPath(graphicsPath);
     engine->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
 }
-
-Q_EXPORT_PLUGIN(TouchAndLearnPlugin)

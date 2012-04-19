@@ -85,8 +85,7 @@ void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
     }
 }
 #else // Q_OS_SYMBIAN
-#include <QtGui/QShortcut>
-#include <QtGui/QApplication>
+#include <QApplication>
 
 class VolumeKeyListener : public QObject
 {

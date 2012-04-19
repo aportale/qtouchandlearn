@@ -21,7 +21,6 @@
 */
 
 #include "imageprovider.h"
-#include "QtCore/qglobal.h"
 #include <math.h>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
@@ -39,29 +38,54 @@ const QString buttonString = QLatin1String("button");
 const QString idPrefix = QLatin1String("id_");
 static QString dataPath = QLatin1String("data/graphics");
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
-    x->load(dataPath + QLatin1String("/design.svg"));
-})
+QSvgRenderer* designRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/design.svg"));
+    return renderer;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, objectRenderer, {
-    x->load(dataPath + QLatin1String("/objects.svg"));
-})
+QSvgRenderer* objectRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/objects.svg"));
+    return renderer;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, countablesRenderer, {
-    x->load(dataPath + QLatin1String("/countables.svg"));
-})
+QSvgRenderer* countablesRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/countables.svg"));
+    return renderer;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, clocksRenderer, {
-    x->load(dataPath + QLatin1String("/clocks.svg"));
-})
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, notesRenderer, {
-    x->load(dataPath + QLatin1String("/notes.svg"));
-})
+QSvgRenderer* clocksRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/clocks.svg"));
+    return renderer;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, lessonIconsRenderer, {
-    x->load(dataPath + QLatin1String("/lessonicons.svg"));
-})
+QSvgRenderer* notesRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/notes.svg"));
+    return renderer;
+}
+
+QSvgRenderer* lessonIconsRenderer()
+{
+    static QSvgRenderer *renderer = 0;
+    if (!renderer)
+        renderer = new QSvgRenderer(dataPath + QLatin1String("/lessonicons.svg"));
+    return renderer;
+}
 
 QImage gradientImage(DesignElementType type)
 {
@@ -81,13 +105,21 @@ QImage gradientImage(DesignElementType type)
     return result;
 }
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QImage, buttonGradient, {
-    *x = gradientImage(DesignElementTypeButton);
-})
+QImage* buttonGradient()
+{
+    static QImage *gradient = 0;
+    if (!gradient)
+        gradient = new QImage(gradientImage(DesignElementTypeButton));
+    return gradient;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(QImage, frameGradient, {
-    *x = gradientImage(DesignElementTypeFrame);
-})
+QImage* frameGradient()
+{
+    static QImage *gradient = 0;
+    if (!gradient)
+        gradient = new QImage(gradientImage(DesignElementTypeFrame));
+    return gradient;
+}
 
 struct ElementVariations
 {
@@ -127,16 +159,24 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
     return result;
 }
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, buttonVariations, {
-    x->append(elementsWithSizes(buttonString));
-})
+ElementVariationList *buttonVariations()
+{
+    static ElementVariationList *list = 0;
+    if (!list)
+        list = new ElementVariationList(elementsWithSizes(buttonString));
+    return list;
+}
 
-Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, frameVariations, {
-    x->append(elementsWithSizes(frameString));
-})
+ElementVariationList *frameVariations()
+{
+    static ElementVariationList *list = 0;
+    if (!list)
+        list = new ElementVariationList(elementsWithSizes(frameString));
+    return list;
+}
 
 ImageProvider::ImageProvider()
-    : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap)
+    : QQmlImageProvider(QQmlImageProvider::Pixmap)
 {
 }
 

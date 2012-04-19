@@ -23,9 +23,9 @@
 #ifndef IMAGEPROVIDER_H
 #define IMAGEPROVIDER_H
 
-#include <QtDeclarative/QDeclarativeImageProvider>
+#include <QtQuick/QQuickImageProvider>
 
-class ImageProvider : public QDeclarativeImageProvider
+class ImageProvider : public QQuickImageProvider
 {
 public:
     ImageProvider();
