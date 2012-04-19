@@ -20,10 +20,20 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import Qt 4.7
+import QtQuick 2.0
 import TouchAndLearn 1.0
 
 MainMenu {
-    width: 360
-    height: 640
+    property int screenWidth: 360
+    property int screenHeight: 640
+    width: screenWidth
+    height: screenHeight
+
+/*  // Only used for plugin-scenario
+    Feedback {
+        id: feedback
+        audioFileExtension: ".mp3"
+        audioDirectory: Qt.resolvedUrl("../../mp3audio/")
+    }
+*/
 }

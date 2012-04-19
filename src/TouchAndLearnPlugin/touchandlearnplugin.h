@@ -23,16 +23,17 @@
 #ifndef TOUCHANDLEARNPLUGIN_H
 #define TOUCHANDLEARNPLUGIN_H
 
-#include <QtDeclarative/qdeclarative.h>
-#include <QtDeclarative/QDeclarativeExtensionPlugin>
+#include <QtQml/qqml.h>
+#include <QtQml/QQmlExtensionPlugin>
 
-class TouchAndLearnPlugin : public QDeclarativeExtensionPlugin
+class TouchAndLearnPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface" FILE "touchandlearn.json")
 
 public:
     void registerTypes(const char *uri);
-    void initializeEngine(QDeclarativeEngine *engine, const char *uri);
+    void initializeEngine(QQmlEngine *engine, const char *uri);
 };
 
 #endif // TOUCHANDLEARNPLUGIN_H

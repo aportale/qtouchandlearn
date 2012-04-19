@@ -20,7 +20,7 @@
 
 TEMPLATE = lib
 TARGET  = TouchAndLearnPlugin
-QT += declarative
+QT += qml
 CONFIG += qt plugin
 DESTDIR = ./TouchAndLearn
 
@@ -37,7 +37,9 @@ HEADERS += \
     ../imageprovider.h \
     touchandlearnplugin.h
 
-OTHER_FILES = qmldir
+OTHER_FILES = \
+    qmldir \
+    touchandlearn.json
 
 #DEFINES += USE_OWN_QTSVG
 contains(DEFINES, USE_OWN_QTSVG) {

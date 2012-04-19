@@ -20,12 +20,10 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import Qt 4.7
+import QtQuick 2.0
 import "database.js" as Database
 
 Rectangle {
-    width: 360
-    height: 640
     id: mainWindow
     color: "#000"
 
@@ -165,10 +163,6 @@ Rectangle {
         onTriggered: {
             Database.data.initCaches();
             rotateItemsIfLandscape();
-            if (typeof(feedback) === "object") {
-                Database.currentVolume = Database.persistence.readVolume();
-                feedback.setAudioVolume(Database.currentVolume, false);
-            }
             switchToScreen("LessonMenu");
         }
     }
@@ -178,8 +172,6 @@ Rectangle {
     }
 
     Component.onDestruction: {
-        if (Database.currentVolume !== -1)
-            Database.persistence.writeVolume(Database.currentVolume);
         Database.persistence.writeCurrentLessonsOfGroups();
     }
 }

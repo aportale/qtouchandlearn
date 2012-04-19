@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import Qt 4.7
+import QtQuick 2.0
 import "database.js" as Database
 
 Rectangle {
@@ -29,6 +29,8 @@ Rectangle {
     property color normalStateColor: "#fff"
     property color pressedStateColor: "#ee8"
     property string selectedLesson
+    width: screenWidth
+    height: screenHeight
 
     property int delegateWidth: width >> 1
     property int delegateHeight: delegateWidth * 1.15

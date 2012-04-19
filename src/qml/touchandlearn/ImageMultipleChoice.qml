@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import Qt 4.7
+import QtQuick 2.0
 import "database.js" as Database
 
 Item {
@@ -34,6 +34,8 @@ Item {
     property alias answersColumsCount: choice.columsCount
     property real viewHeightRatio: 0.45
     property string selectedLesson
+    width: screenWidth
+    height: screenHeight
 
     property int imageViewHeight: height * viewHeightRatio
     property int backButtonSize: width * 0.2

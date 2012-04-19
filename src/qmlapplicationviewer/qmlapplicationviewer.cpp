@@ -13,9 +13,10 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QApplication>
-#include <QDeclarativeComponent>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
+
+#include <QtQml/QQmlComponent>
+#include <QtQml/QQmlEngine>
+#include <QtQml/QQmlContext>
 
 #include <qplatformdefs.h> // MEEGO_EDITION_HARMATTAN
 
@@ -72,12 +73,12 @@ QString QmlApplicationViewerPrivate::adjustPath(const QString &path)
     return path;
 }
 
-QmlApplicationViewer::QmlApplicationViewer(QWidget *parent)
-    : QDeclarativeView(parent)
+QmlApplicationViewer::QmlApplicationViewer(QWindow *parent)
+    : QQuickView(parent)
     , d(new QmlApplicationViewerPrivate())
 {
     connect(engine(), SIGNAL(quit()), SLOT(close()));
-    setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    setResizeMode(QQuickView::SizeRootObjectToView);
 
 #ifdef Q_OS_ANDROID
     engine()->setBaseUrl(QUrl::fromLocalFile("/"));
@@ -116,6 +117,7 @@ void QmlApplicationViewer::addImportPath(const QString &path)
 
 void QmlApplicationViewer::setOrientation(ScreenOrientation orientation)
 {
+#if QT_VERSION < 0x050000
 #if defined(Q_OS_SYMBIAN)
     // If the version of Qt on the device is < 4.7.2, that attribute won't work
     if (orientation != ScreenOrientationAuto) {
@@ -155,6 +157,7 @@ void QmlApplicationViewer::setOrientation(ScreenOrientation orientation)
 #endif // QT_VERSION < 0x040702
     };
     setAttribute(attribute, true);
+#endif // QT_VERSION < 0x050000
 }
 
 void QmlApplicationViewer::showExpanded()

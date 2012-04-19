@@ -22,11 +22,10 @@
 
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
-#include <QtGui/QApplication>
-#include <QtGui/QGraphicsObject>
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QtDeclarative/QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeComponent>
+#include <QtGui/QGuiApplication>
+#include <QtQml/QQmlEngine>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlComponent>
 #ifdef USING_OPENGL
 #include <QtOpenGL/QGLWidget>
 #endif // USING_OPENGL
@@ -41,9 +40,7 @@ int main(int argc, char *argv[])
 {
     qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
     QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
-    QApplication::setStartDragDistance(15);
-    QApplication::setStyle(QLatin1String("windows"));
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
     const QString assetsPrefix =
 #if defined(ASSETS_VIA_QRC)
             QLatin1String(":/");
@@ -57,15 +54,12 @@ int main(int argc, char *argv[])
     const QString translation = QLocale::system().name();
     QTranslator translator;
     translator.load(translation, dataPath + QLatin1String("/translations"));
-    QApplication::installTranslator(&translator);
+    QGuiApplication::installTranslator(&translator);
 
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
     QmlApplicationViewer viewer;
-#ifdef USING_OPENGL
-    viewer.setViewport(new QGLWidget);
-#endif // USING_OPENGL
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
 #ifdef ASSETS_VIA_QRC
@@ -85,7 +79,7 @@ int main(int argc, char *argv[])
     );
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
-    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
+    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootContext());
     QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
 #endif // NO_FEEDBACK
 

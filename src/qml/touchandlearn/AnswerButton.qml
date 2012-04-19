@@ -20,8 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import Qt 4.7
-import Qt.labs.particles 1.0
+import QtQuick 2.0
+import QtQuick.Particles 2.0
 
 Item {
     property int index: 0
@@ -48,16 +48,28 @@ Item {
         anchors.fill: parent
         color: normalStateColor
     }
-    Particles {
-        id: particles
+    ParticleSystem {
+        id: particleSystem
+    }
+    ImageParticle {
         anchors.fill: parent
-        emissionRate: 0
-        lifeSpan: 800; lifeSpanDeviation: 400
-        angle: 0; angleDeviation: 360;
-        velocity: 80; velocityDeviation: 30
+        system: particleSystem
+        rotationSpeed: 50
+        rotationSpeedVariation: 20
         source: "../../data/graphics/particle.png"
         clip: true
-        smooth: false
+    }
+    Emitter {
+        anchors.fill: parent
+        id: particles
+        system: particleSystem
+        lifeSpan: 700
+        lifeSpanVariation: 150
+        speed: AngleDirection { magnitude: 65; angleVariation: 360 }
+        size: 40
+        sizeVariation: 7
+        enabled: false
+        emitRate: 50
     }
     Image {
         source: "image://imageprovider/button/" + index
@@ -149,8 +161,9 @@ Item {
                 if (typeof(feedback) === "object")
                     feedback.playCorrectSound();
                 blockClicks = true;
-                if (typeof(particles) === "object")
-                    particles.burst(20);
+                particles.enabled = true;
+                particles.burst(20);
+                particles.enabled = false;
             }
         }
         PropertyAction {
