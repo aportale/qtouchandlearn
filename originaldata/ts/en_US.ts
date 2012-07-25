@@ -379,5 +379,9 @@
         <source>giraffe</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>snail</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

@@ -379,5 +379,9 @@
         <source>giraffe</source>
         <translation>Giraffe</translation>
     </message>
+    <message>
+        <source>snail</source>
+        <translation>Schnecke</translation>
+    </message>
 </context>
 </TS>
