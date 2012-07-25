@@ -25,12 +25,7 @@
 #include <math.h>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
-
-#ifdef USE_OWN_QTSVG
-#include "qsvgrenderer.h"
-#else
 #include <QtSvg/QSvgRenderer>
-#endif
 
 #define PI 3.14159265
 

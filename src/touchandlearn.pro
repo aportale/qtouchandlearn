@@ -72,12 +72,7 @@ SOURCES += \
 HEADERS += \
     imageprovider.h
 
-#DEFINES += USE_OWN_QTSVG
-contains(DEFINES, USE_OWN_QTSVG) {
-    include(ownqtsvg/svg.pri)
-} else {
-    QT += svg
-}
+QT += svg
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
