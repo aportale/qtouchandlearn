@@ -383,5 +383,9 @@
         <source>snail</source>
         <translation>lumaca</translation>
     </message>
+    <message>
+        <source>hedgehog</source>
+        <translation>riccio</translation>
+    </message>
 </context>
 </TS>

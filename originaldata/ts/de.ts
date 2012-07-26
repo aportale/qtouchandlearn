@@ -383,5 +383,9 @@
         <source>snail</source>
         <translation>Schnecke</translation>
     </message>
+    <message>
+        <source>hedgehog</source>
+        <translation>Igel</translation>
+    </message>
 </context>
 </TS>

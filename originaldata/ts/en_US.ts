@@ -383,5 +383,9 @@
         <source>snail</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>hedgehog</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
