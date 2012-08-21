@@ -48,23 +48,19 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <path
-     style="fill:#ffe680;stroke:#ffcc00;stroke-width:0.80000001;stroke-miterlimit:4;stroke-dasharray:none"
-     sodipodi:cx="4.9402771"
-     sodipodi:cy="4.8703189"
-     inkscape:randomized="0"
-     d="M 6.9763658,7.6008875 5.265625,6.5446645 4.0749131,8.1646788 3.8340721,6.1686236 1.8250972,6.2477499 3.2355141,4.8149327 1.9210753,3.2935874 3.9206774,3.5029488 4.2905739,1.5267358 5.3736201,3.2206224 7.1493123,2.2776705 6.5002467,4.1805512 8.3446021,4.9809223 6.4521843,5.659889 z"
-     sodipodi:type="star"
-     sodipodi:arg2="1.3788745"
-     sodipodi:arg1="0.93007557"
-     inkscape:transform-center-y="-2.842684"
-     sodipodi:r2="1.7056625"
-     sodipodi:r1="3.4061213"
-     inkscape:transform-center-x="0.39235241"
-     inkscape:rounded="0"
-     stroke-miterlimit="4"
-     transform="matrix(5.364324,0.93698464,-0.93698464,5.364324,1.9817466,-5.71276)"
-     inkscape:flatsided="false"
-     sodipodi:sides="7"
-     id="path3760" />
+  <g
+     id="id_star">
+    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffe88b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.80000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+       d="m 23.573596,9.4515781 3.487229,8.2577069 8.48443,-2.844221 -4.441479,7.894433 7.363439,4.808592 -8.673729,1.571381 0.69382,9.005312 -6.52377,-6.106823 -6.420404,6.306452 0.533998,-8.995687 -8.6198999,-1.10474 7.0421289,-5.164046 -4.620396,-7.630913 8.610353,2.342566 z"
+       id="path3760-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccccc" />
+    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffcc00;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.80000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+       d="M 23.502736,0.63754774 18.390271,14.082771 4.5724469,10.11447 11.91841,22.45356 0.24181019,30.951738 14.411003,32.908417 13.795405,47.311856 24.197534,37.209071 34.949628,46.860867 33.662679,32.47061 47.89335,30.119288 35.813357,22.135793 42.711248,9.347929 29.135018,13.886557 z m 0.188165,11.77983826 2.939854,6.905238 7.152666,-2.378387 -3.744319,6.601463 6.207632,4.021028 -7.312252,1.314016 0.584914,7.530399 -5.499762,-5.106632 -5.412621,5.273565 0.450179,-7.52235 -7.266872,-0.923803 5.936757,-4.318265 -3.895153,-6.381102 7.258823,1.958894 z"
+       id="path3760"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccccccccccccccc" />
+  </g>
 </svg>
