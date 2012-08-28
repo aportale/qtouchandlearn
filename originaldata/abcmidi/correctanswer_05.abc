@@ -1,30 +1,30 @@
 X:1
-T:Correct Answer 1
+T:Correct Answer 05
 M:4/4
 L:1/8
 Q:1/4=120
 K:C % 0 sharps
 V:1
 %%MIDI program 11
-%%MIDI control 10 80
+%%MIDI control 10 20
 %%MIDI control 7 20
 % Track 1
 CEx3
 V:2
 %%MIDI program 11
-%%MIDI control 10 60
+%%MIDI control 10 40
 %%MIDI control 7 20
 % Track 2
 xGx3
 V:3
 %%MIDI program 11
-%%MIDI control 10 40
+%%MIDI control 10 60
 %%MIDI control 7 20
 % Track 3
 x3/2CGx3/2
 V:4
 %%MIDI program 11
-%%MIDI control 10 20
+%%MIDI control 10 80
 %%MIDI control 7 20
 % Track 4
 x3/2Ecx3/2
