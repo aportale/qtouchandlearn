@@ -45,15 +45,20 @@ VERSION = 1.1
 
 DEFINES += NO_FEEDBACK
 !contains(DEFINES, NO_FEEDBACK) {
-    load(mobilityconfig, true)
-    contains(MOBILITY_CONFIG, multimedia) {
-        CONFIG += mobility
-        MOBILITY += multimedia
+    greaterThan(QT_MAJOR_VERSION, 4) {
+        QT += multimedia
         DEFINES += USING_QT_MOBILITY
     } else {
-        QT += phonon
-        mp3audio.source = mp3audio
-        DEPLOYMENTFOLDERS += mp3audio
+        load(mobilityconfig, true)
+        contains(MOBILITY_CONFIG, multimedia) {
+            CONFIG += mobility
+            MOBILITY += multimedia
+            DEFINES += USING_QT_MOBILITY
+        } else {
+            QT += phonon
+            mp3audio.source = mp3audio
+            DEPLOYMENTFOLDERS += mp3audio
+        }
     }
     SOURCES += feedback.cpp
     HEADERS += feedback.h
@@ -73,8 +78,18 @@ SOURCES += \
 HEADERS += \
     imageprovider.h
 
-QT += svg
+DEFINES += USE_OWN_QTSVG
+contains(DEFINES, USE_OWN_QTSVG) {
+    include(ownqtsvg/svg.pri)
+} else {
+    QT += svg
+}
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
+
+blackberry {
+OTHER_FILES += \
+    bar-descriptor.xml
+}

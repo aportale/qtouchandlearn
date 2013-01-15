@@ -36,7 +36,11 @@ enum DesignElementType {
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
 const QString idPrefix = QLatin1String("id_");
+#ifdef Q_OS_BLACKBERRY
+static QString dataPath = QLatin1String("app/native/data/graphics");
+#else
 static QString dataPath = QLatin1String("data/graphics");
+#endif
 
 QSvgRenderer* designRenderer()
 {
