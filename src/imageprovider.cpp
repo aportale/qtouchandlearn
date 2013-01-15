@@ -145,7 +145,7 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, frameVariations, {
 })
 
 ImageProvider::ImageProvider()
-    : QQmlImageProvider(QQmlImageProvider::Pixmap)
+    : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
 }
 
