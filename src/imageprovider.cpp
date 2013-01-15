@@ -180,7 +180,7 @@ ElementVariationList *frameVariations()
 }
 
 ImageProvider::ImageProvider()
-    : QQmlImageProvider(QQmlImageProvider::Pixmap)
+    : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
 }
 

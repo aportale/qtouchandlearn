@@ -85,7 +85,7 @@ void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
     }
 }
 #else // Q_OS_SYMBIAN
-#include <QApplication>
+#include <QGuiApplication>
 
 class VolumeKeyListener : public QObject
 {
@@ -106,13 +106,6 @@ VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
     : QObject(feedback)
     , m_feedback(feedback)
 {
-#ifndef Q_OS_LINUX
-    QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
-    connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
-
-    QShortcut *volumeDown = new QShortcut(QKeySequence(Qt::Key_Minus), qApp->activeWindow());
-    connect(volumeDown, SIGNAL(activated()), SLOT(volumeDown()));
-#endif // Q_OS_LINUX
 }
 #endif // Q_OS_SYMBIAN
 

@@ -26,6 +26,7 @@
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlComponent>
+#include <QtQuick/QQuickItem>
 #ifdef USING_OPENGL
 #include <QtOpenGL/QGLWidget>
 #endif // USING_OPENGL
@@ -84,7 +85,7 @@ int main(int argc, char *argv[])
     );
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
-    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootContext());
+    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
     QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
 #endif // NO_FEEDBACK
 
@@ -96,7 +97,6 @@ int main(int argc, char *argv[])
     else
         viewer.setGeometry(100, 100, 360, 640); // NHD
 #endif
-    viewer.setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     viewer.showExpanded();
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
