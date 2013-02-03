@@ -24,7 +24,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QTimer>
 
-#ifdef USING_QT_MOBILITY
+#if defined USING_QT_MOBILITY || USING_QT_MULTIMEDIA
 #include <QMediaPlayer>
 #else // USING_QT_MOBILITY
 #include <phonon/MediaObject>
@@ -141,7 +141,7 @@ void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
         emit volumeChanged(m_audioVolume);
 }
 
-#ifdef USING_QT_MOBILITY
+#if defined USING_QT_MOBILITY || USING_QT_MULTIMEDIA
 static void playSound(const QList<QMediaPlayer*> &sounds, QMediaPlayer* &previousSound, int volume)
 {
     if (sounds.isEmpty())

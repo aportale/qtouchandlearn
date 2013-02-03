@@ -54,7 +54,7 @@ private slots:
     void init();
 
 private:
-#ifdef USING_QT_MOBILITY
+#if defined USING_QT_MOBILITY || USING_QT_MULTIMEDIA
     QList<QMediaPlayer*> m_correctSounds;
     mutable QMediaPlayer *m_previousCorrectSound;
     QList<QMediaPlayer*> m_incorrectSounds;
