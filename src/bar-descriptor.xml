@@ -23,9 +23,28 @@
     <!-- PROJECTPATH should point to the project binary, path can be relative -->
     <asset path="touchandlearn" type="Qnx/Elf" entry="true">touchandlearn</asset>
     <!-- These values will be replaced when deploying in Qt Creator -->
-    <asset path="%QT_INSTALL_LIBS%">lib</asset>
-    <asset path="%QT_INSTALL_PLUGINS%">plugins</asset>
-    <asset path="%QT_INSTALL_QML%">imports</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Core.so.5">lib/libQt5Core.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Network.so.5">lib/libQt5Network.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Multimedia.so.5">lib/libQt5Multimedia.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Gui.so.5">lib/libQt5Gui.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Qml.so.5">lib/libQt5Qml.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Quick.so.5">lib/libQt5Quick.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5V8.so.5">lib/libQt5V8.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Xml.so.5">lib/libQt5Xml.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5Sql.so.5">lib/libQt5Sql.so.5</asset>
+    <asset path="%QT_INSTALL_LIBS%/libQt5QuickParticles.so.5">lib/libQt5QuickParticles.so.5</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/sqldrivers">plugins/sqldrivers</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/playlistformats">plugins/playlistformats</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/platforms">plugins/platforms</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/mediaservice">plugins/mediaservice</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/imageformats">plugins/imageformats</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/bearer">plugins/bearer</asset>
+    <asset path="%QT_INSTALL_PLUGINS%/accessible">plugins/accessible</asset>
+    <asset path="%QT_INSTALL_QML%/QtQuick.2">imports/QtQuick.2</asset>
+    <asset path="%QT_INSTALL_QML%/QtQuick">imports/QtQuick</asset>
+    <asset path="%QT_INSTALL_QML%/QtMultimedia">imports/QtMultimedia</asset>
+    <asset path="%QT_INSTALL_QML%/QtAudioEngine">imports/QtAudioEngine</asset>
+    <asset path="%QT_INSTALL_QML%/Qt">imports/Qt</asset>
     <asset path="%SRC_DIR%/touchandlearn64.png">touchandlearn64.png</asset>
     <asset path="%SRC_DIR%/qml">qml</asset>
     <asset path="%SRC_DIR%/data">data</asset>
