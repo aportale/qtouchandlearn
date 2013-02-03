@@ -24,7 +24,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QTimer>
 
-#ifdef USING_QT_MOBILITY
+#if defined USING_QT_MOBILITY || USING_QT_MULTIMEDIA
 #include <QMediaPlayer>
 #else // USING_QT_MOBILITY
 #include <phonon/MediaObject>
@@ -85,7 +85,7 @@ void VolumeKeyListener::MrccatoCommand(TRemConCoreApiOperationId aOperationId,
     }
 }
 #else // Q_OS_SYMBIAN
-#include <QApplication>
+#include <QGuiApplication>
 
 class VolumeKeyListener : public QObject
 {
@@ -106,13 +106,6 @@ VolumeKeyListener::VolumeKeyListener(Feedback *feedback)
     : QObject(feedback)
     , m_feedback(feedback)
 {
-#ifndef Q_OS_LINUX
-    QShortcut *volumeUp = new QShortcut(QKeySequence(Qt::Key_Plus), qApp->activeWindow());
-    connect(volumeUp, SIGNAL(activated()), SLOT(volumeUp()));
-
-    QShortcut *volumeDown = new QShortcut(QKeySequence(Qt::Key_Minus), qApp->activeWindow());
-    connect(volumeDown, SIGNAL(activated()), SLOT(volumeDown()));
-#endif // Q_OS_LINUX
 }
 #endif // Q_OS_SYMBIAN
 
@@ -148,7 +141,7 @@ void Feedback::setAudioVolume(int volume, bool emitChangedSignal)
         emit volumeChanged(m_audioVolume);
 }
 
-#ifdef USING_QT_MOBILITY
+#if defined USING_QT_MOBILITY || USING_QT_MULTIMEDIA
 static void playSound(const QList<QMediaPlayer*> &sounds, QMediaPlayer* &previousSound, int volume)
 {
     if (sounds.isEmpty())

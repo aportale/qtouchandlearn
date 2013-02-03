@@ -12,7 +12,7 @@
 
 #include <QDir>
 #include <QFileInfo>
-#include <QApplication>
+#include <QGuiApplication>
 
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlEngine>
@@ -63,6 +63,11 @@ QString QmlApplicationViewerPrivate::adjustPath(const QString &path)
     if (!QDir::isAbsolutePath(path))
         return QString::fromLatin1("%1/../Resources/%2")
                 .arg(QCoreApplication::applicationDirPath(), path);
+#elif defined(Q_OS_BLACKBERRY)
+    const QString pathInInstallDir =
+            QString::fromLatin1("app/native/%1").arg(path);
+    if (QFileInfo(pathInInstallDir).exists())
+        return pathInInstallDir;
 #elif !defined(Q_OS_ANDROID)
     const QString pathInInstallDir =
             QString::fromLatin1("%1/../%2").arg(QCoreApplication::applicationDirPath(), path);
@@ -171,11 +176,11 @@ void QmlApplicationViewer::showExpanded()
 #endif
 }
 
-QApplication *createApplication(int &argc, char **argv)
+QGuiApplication *createApplication(int &argc, char **argv)
 {
 #ifdef HARMATTAN_BOOSTER
     return MDeclarativeCache::qApplication(argc, argv);
 #else
-    return new QApplication(argc, argv);
+    return new QGuiApplication(argc, argv);
 #endif
 }

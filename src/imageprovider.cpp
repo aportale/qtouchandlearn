@@ -42,7 +42,11 @@ enum DesignElementType {
 const QString frameString = QLatin1String("frame");
 const QString buttonString = QLatin1String("button");
 const QString idPrefix = QLatin1String("id_");
+#ifdef Q_OS_BLACKBERRY
+static QString dataPath = QLatin1String("app/native/data/graphics");
+#else
 static QString dataPath = QLatin1String("data/graphics");
+#endif
 
 Q_GLOBAL_STATIC_WITH_INITIALIZER(QSvgRenderer, designRenderer, {
     x->load(dataPath + QLatin1String("/design.svg"));
@@ -141,7 +145,7 @@ Q_GLOBAL_STATIC_WITH_INITIALIZER(ElementVariationList, frameVariations, {
 })
 
 ImageProvider::ImageProvider()
-    : QQmlImageProvider(QQmlImageProvider::Pixmap)
+    : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {
 }
 

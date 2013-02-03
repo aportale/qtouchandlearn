@@ -26,6 +26,7 @@
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlComponent>
+#include <QtQuick/QQuickItem>
 #ifdef USING_OPENGL
 #include <QtOpenGL/QGLWidget>
 #endif // USING_OPENGL
@@ -46,6 +47,8 @@ int main(int argc, char *argv[])
             QLatin1String(":/");
 #elif defined(Q_OS_MAC) // ASSETS_VIA_QRC
             QCoreApplication::applicationDirPath() + QLatin1String("/../Resources/");
+#elif defined(Q_OS_BLACKBERRY)
+            QLatin1String("app/native/");
 #else // ASSETS_VIA_QRC
             QString();
 #endif // ASSETS_VIA_QRC
@@ -60,6 +63,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
     QmlApplicationViewer viewer;
+#ifdef Q_OS_BLACKBERRY
+    viewer.addImportPath(QStringLiteral("imports"));
+#endif
     viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
 #ifdef ASSETS_VIA_QRC
@@ -79,19 +85,18 @@ int main(int argc, char *argv[])
     );
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
-    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootContext());
+    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
     QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
 #endif // NO_FEEDBACK
 
 #if defined(Q_WS_SIMULATOR)
     viewer.showFullScreen();
-#elif !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(MEEGO_EDITION_HARMATTAN)
+#elif !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(MEEGO_EDITION_HARMATTAN) && !defined(Q_OS_BLACKBERRY)
     if (false)
         viewer.setGeometry(100, 100, 480, 800); // N900
     else
         viewer.setGeometry(100, 100, 360, 640); // NHD
 #endif
-    viewer.setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     viewer.showExpanded();
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));

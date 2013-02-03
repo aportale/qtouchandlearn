@@ -54,8 +54,8 @@ Item {
     ImageParticle {
         anchors.fill: parent
         system: particleSystem
-        rotationSpeed: 50
-        rotationSpeedVariation: 20
+        rotationVelocity: 50
+        rotationVelocityVariation: 20
         source: "../../data/graphics/particle.png"
         clip: true
     }
@@ -65,7 +65,7 @@ Item {
         system: particleSystem
         lifeSpan: 700
         lifeSpanVariation: 150
-        speed: AngleDirection { magnitude: 65; angleVariation: 360 }
+        velocity: AngleDirection { magnitude: 65; angleVariation: 360 }
         size: 40
         sizeVariation: 7
         enabled: false

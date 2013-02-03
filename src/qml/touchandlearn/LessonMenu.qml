@@ -85,12 +85,23 @@ Rectangle {
         }
     }
 
+    function enableMenuItems(enable) {
+        controls.enabled = enable
+        for (var i = 0; i < menuItems.count; i++)
+            menuItems.itemAt(i).enabled = enable
+    }
+
     Flickable {
         property int _contentY: controlsHeight * 0.75
         contentY: _contentY // Only show a part of it. As a hint.
         anchors.fill: parent
         contentHeight: column.height
         width: parent.width
+
+        onMovementStarted: enableMenuItems(false)
+        onFlickStarted: enableMenuItems(false)
+        onFlickEnded: enableMenuItems(true)
+        onMovementEnded: enableMenuItems(true)
 
         Column {
             id: column
@@ -148,6 +159,7 @@ Rectangle {
                 id: list
                 anchors { left: parent.left; right: parent.right }
                 Repeater {
+                    id: menuItems
                     model: Database.lessonMenu().length
                     delegate: delegate
                 }

@@ -45,14 +45,14 @@ Item {
     }
 
     onExerciseIndexChanged: {
-        if (grid.resources.length > 1)
+        if (repeater.count > 1)
             setButtonData();
     }
 
     function setButtonData() {
         var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
-            var button = grid.resources[i + 1];
+            var button = repeater.itemAt(i);
             var answer = exercise.Answers[i];
             button.text = answer.DisplayName;
             if (showCorrectionImage)

@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 .pragma library
-.import QtQuick.LocalStorage 2.0 as LocalStorage
+.import QtQuick.LocalStorage 2.0 as Sql
 
 var currentScreen = "";
 var currentLessonGroup = null;
@@ -470,7 +470,7 @@ function dumpLessonData()
 var persistence = {
     database: function()
     {
-        return LocalStorage.openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
+        return Sql.LocalStorage.openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
     },
 
     lessonOfGroupTableName: "LessonOfGroup",

@@ -97,10 +97,21 @@ Rectangle {
         }
     }
 
+    function enableMenuItems(enable) {
+        controls.enabled = enable
+        for (var i = 0; i < lessons.count; i++)
+            lessons.itemAt(i).enabled = enable
+    }
+
     Flickable {
         anchors.fill: parent
         contentHeight: column.height
         width: parent.width
+
+        onMovementStarted: enableMenuItems(false)
+        onFlickStarted: enableMenuItems(false)
+        onFlickEnded: enableMenuItems(true)
+        onMovementEnded: enableMenuItems(true)
 
         Column {
             id: column
@@ -138,6 +149,7 @@ Rectangle {
                 id: list
                 anchors { left: parent.left; right: parent.right }
                 Repeater {
+                    id: lessons
                     model: Database.lessonsOfCurrentGroup().length
                     delegate: delegate
                 }
