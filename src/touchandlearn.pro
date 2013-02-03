@@ -46,7 +46,9 @@ VERSION = 1.1
 !contains(DEFINES, NO_FEEDBACK) {
     greaterThan(QT_MAJOR_VERSION, 4) {
         QT += multimedia
-        DEFINES += USING_QT_MOBILITY
+        DEFINES += USING_QT_MULTIMEDIA
+        mp3audio.source = mp3audio
+        DEPLOYMENTFOLDERS += mp3audio
     } else {
         load(mobilityconfig, true)
         contains(MOBILITY_CONFIG, multimedia) {

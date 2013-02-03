@@ -48,6 +48,7 @@
     <asset path="%SRC_DIR%/touchandlearn64.png">touchandlearn64.png</asset>
     <asset path="%SRC_DIR%/qml">qml</asset>
     <asset path="%SRC_DIR%/data">data</asset>
+    <asset path="%SRC_DIR%/mp3audio">mp3audio</asset>
     <icon>
         <image>touchandlearn64.png</image>
     </icon>
