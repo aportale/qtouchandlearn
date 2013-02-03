@@ -45,7 +45,7 @@ Item {
     }
 
     onExerciseIndexChanged: {
-        if (grid.resources.length > 1)
+        if (repeater.count > 1)
             setButtonData();
     }
 
