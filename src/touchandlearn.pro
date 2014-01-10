@@ -43,6 +43,7 @@ symbian {
 }
 VERSION = 1.1
 
+DEFINES += NO_FEEDBACK
 !contains(DEFINES, NO_FEEDBACK) {
     load(mobilityconfig, true)
     contains(MOBILITY_CONFIG, multimedia) {
