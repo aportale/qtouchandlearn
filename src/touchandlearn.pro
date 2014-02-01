@@ -20,7 +20,10 @@
 
 DEPLOYMENT.display_name = "Touch'n'Learn"
 
-android:DEFINES += NO_FEEDBACK
+android {
+    DEFINES += NO_FEEDBACK
+    QT += sql # for QtQuick.LocalStorage
+}
 
 contains(DEFINES, ASSETS_VIA_QRC) {
     RESOURCES = touchandlearn.qrc

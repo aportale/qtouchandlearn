@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
             QCoreApplication::applicationDirPath() + QLatin1String("/../Resources/");
 #elif defined(Q_OS_BLACKBERRY)
             QLatin1String("app/native/");
+#elif defined(Q_OS_ANDROID) && !defined(Q_OS_ANDROID_NO_SDK)
+            QLatin1String("assets:/");
 #else // ASSETS_VIA_QRC
             QString();
 #endif // ASSETS_VIA_QRC
