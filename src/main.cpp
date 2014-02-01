@@ -31,7 +31,7 @@
 #include <QtOpenGL/QGLWidget>
 #endif // USING_OPENGL
 
-#include "qmlapplicationviewer.h"
+#include "qtquick2applicationviewer.h"
 #include "imageprovider.h"
 #ifndef NO_FEEDBACK
 #include "feedback.h"
@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
-    QmlApplicationViewer viewer;
+    QtQuick2ApplicationViewer viewer;
 #ifdef Q_OS_BLACKBERRY
     viewer.addImportPath(QStringLiteral("imports"));
 #endif
@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
 #else // ASSETS_VIA_QRC
     viewer.setMainQmlFile(mainQml);
 #endif // ASSETS_VIA_QRC
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
 
 #ifndef NO_FEEDBACK
     Feedback::setDataPath(
