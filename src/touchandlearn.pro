@@ -23,6 +23,11 @@ DEPLOYMENT.display_name = "Touch'n'Learn"
 android {
     DEFINES += NO_FEEDBACK
     QT += sql # for QtQuick.LocalStorage
+#    ANDROID_DEPLOYMENT_DEPENDENCIES = \
+#        lib/libQt5Sql.so \
+#        lib/libQt5Gui.so \
+#        lib/libQt5Core.so \
+#        plugins/platforms/android/libqtforandroidGL.so
 }
 
 contains(DEFINES, ASSETS_VIA_QRC) {
