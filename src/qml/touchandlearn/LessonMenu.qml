@@ -34,8 +34,6 @@ Rectangle {
 
     property int delegateWidth: width >> 1
     property int delegateHeight: delegateWidth * 1.15
-    property int exitButtonSize: width * 0.2
-    property int controlsHeight: exitButtonSize * 0.75
 
     Component {
         id: delegate
@@ -86,14 +84,11 @@ Rectangle {
     }
 
     function enableMenuItems(enable) {
-        controls.enabled = enable
         for (var i = 0; i < menuItems.count; i++)
             menuItems.itemAt(i).enabled = enable
     }
 
     Flickable {
-        property int _contentY: controlsHeight * 0.75
-        contentY: _contentY // Only show a part of it. As a hint.
         anchors.fill: parent
         contentHeight: column.height
         width: parent.width
@@ -106,29 +101,6 @@ Rectangle {
         Column {
             id: column
             anchors { left: parent.left; right: parent.right }
-
-            Item {
-                id: controls
-                anchors { left: parent.left; right: parent.right }
-                height: controlsHeight
-                Item {
-                    id: exitButton
-                    width: exitButtonSize
-                    height: controlsHeight
-                    anchors { top: parent.top; right: parent.right }
-                    Image {
-                        property int _sourceSize: exitButtonSize * 0.7
-                        sourceSize { width: _sourceSize; height: _sourceSize }
-                        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
-                        source: "image://imageprovider/specialbutton/exitbutton"
-                        smooth: true
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: Qt.quit()
-                    }
-                }
-            }
 
             Item {
                 Image {
