@@ -21,23 +21,31 @@
 DEPLOYMENT.display_name = "Touch'n'Learn"
 
 android {
-    DEFINES += NO_FEEDBACK
-    QT += sql # for QtQuick.LocalStorage
-#    ANDROID_DEPLOYMENT_DEPENDENCIES = \
-#        lib/libQt5Sql.so \
-#        lib/libQt5Gui.so \
-#        lib/libQt5Core.so \
-#        lib/libQt5Widgets.so \
-#        lib/libQt5Svg.so \
-#        lib/libQt5QuickParticles.so \
-#        lib/libQt5Quick.so \
-#        lib/libQt5Qml.so \
-#        lib/libQt5Network.so \
-#        lib/libQt5Gui.so \
-#        lib/libQt5Core.so \
-#        plugins/sqldrivers/libqsqlite.so \
-#        plugins/platforms/android/libqtforandroidGL.so \
-#        qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
+    ANDROID_DEPLOYMENT_DEPENDENCIES = \
+        jar/QtAndroid-bundled.jar \
+        jar/QtAndroidAccessibility-bundled.jar \
+        jar/QtMultimedia-bundled.jar \
+        lib/libQt5Sql.so \
+        lib/libQt5Gui.so \
+        lib/libQt5Core.so \
+        lib/libQt5Widgets.so \
+        lib/libQt5Svg.so \
+        lib/libQt5QuickParticles.so \
+        lib/libQt5Quick.so \
+        lib/libQt5Qml.so \
+        lib/libQt5Network.so \
+        lib/libQt5Multimedia.so \
+        lib/libQt5MultimediaQuick_p.so \
+        plugins/sqldrivers/libqsqlite.so \
+        plugins/platforms/android/libqtforandroidGL.so \
+        qml/QtQuick/LocalStorage/qmldir \
+        qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
+        qml/QtQuick/Particles.2/qmldir \
+        qml/QtQuick/Particles.2/libparticlesplugin.so \
+        qml/QtQuick.2/qmldir \
+        qml/QtQuick.2/libqtquick2plugin.so \
+        qml/QtMultimedia/libdeclarative_multimedia.so \
+        qml/QtMultimedia/qmldir
 }
 
 contains(DEFINES, ASSETS_VIA_QRC) {
