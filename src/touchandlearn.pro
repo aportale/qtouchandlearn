@@ -27,7 +27,17 @@ android {
 #        lib/libQt5Sql.so \
 #        lib/libQt5Gui.so \
 #        lib/libQt5Core.so \
-#        plugins/platforms/android/libqtforandroidGL.so
+#        lib/libQt5Widgets.so \
+#        lib/libQt5Svg.so \
+#        lib/libQt5QuickParticles.so \
+#        lib/libQt5Quick.so \
+#        lib/libQt5Qml.so \
+#        lib/libQt5Network.so \
+#        lib/libQt5Gui.so \
+#        lib/libQt5Core.so \
+#        plugins/sqldrivers/libqsqlite.so \
+#        plugins/platforms/android/libqtforandroidGL.so \
+#        qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
 }
 
 contains(DEFINES, ASSETS_VIA_QRC) {
