@@ -46,6 +46,11 @@ android {
         qml/QtQuick.2/libqtquick2plugin.so \
         qml/QtMultimedia/libdeclarative_multimedia.so \
         qml/QtMultimedia/qmldir
+
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+    OTHER_FILES += \
+        android/AndroidManifest.xml
 }
 
 contains(DEFINES, ASSETS_VIA_QRC) {
