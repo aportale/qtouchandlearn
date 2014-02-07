@@ -28,7 +28,6 @@ android {
         lib/libQt5Sql.so \
         lib/libQt5Gui.so \
         lib/libQt5Core.so \
-        lib/libQt5Widgets.so \
         lib/libQt5Svg.so \
         lib/libQt5QuickParticles.so \
         lib/libQt5Quick.so \
@@ -46,6 +45,8 @@ android {
         qml/QtQuick.2/libqtquick2plugin.so \
         qml/QtMultimedia/libdeclarative_multimedia.so \
         qml/QtMultimedia/qmldir
+
+    exists($$[QT_INSTALL_PREFIX]/lib/libQt5Widgets.so):ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Widgets.so
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
