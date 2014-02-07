@@ -29,11 +29,9 @@ MainMenu {
     width: screenWidth
     height: screenHeight
 
-/*  // Only used for plugin-scenario
     Feedback {
         id: feedback
-        audioFileExtension: ".mp3"
-        audioDirectory: Qt.resolvedUrl("../../mp3audio/")
+        audioFileExtension: ".wav"
+        audioDirectory: Qt.resolvedUrl("../../wavaudio/")
     }
-*/
 }

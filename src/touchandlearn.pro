@@ -36,6 +36,7 @@ android {
         lib/libQt5MultimediaQuick_p.so \
         plugins/sqldrivers/libqsqlite.so \
         plugins/platforms/android/libqtforandroidGL.so \
+        plugins/audio/libqtaudio_opensles.so \
         qml/QtQuick/LocalStorage/qmldir \
         qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
         qml/QtQuick/Particles.2/qmldir \
@@ -81,8 +82,8 @@ DEFINES += NO_FEEDBACK
     greaterThan(QT_MAJOR_VERSION, 4) {
         QT += multimedia
         DEFINES += USING_QT_MULTIMEDIA
-        mp3audio.source = mp3audio
-        DEPLOYMENTFOLDERS += mp3audio
+        wavaudio.source = wavaudio
+        DEPLOYMENTFOLDERS += wavaudio
     } else {
         load(mobilityconfig, true)
         contains(MOBILITY_CONFIG, multimedia) {
