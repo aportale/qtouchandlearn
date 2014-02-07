@@ -25,14 +25,13 @@ android {
         jar/QtAndroid-bundled.jar \
         jar/QtAndroidAccessibility-bundled.jar \
         jar/QtMultimedia-bundled.jar \
-        lib/libQt5Sql.so \
-        lib/libQt5Gui.so \
         lib/libQt5Core.so \
-        lib/libQt5Svg.so \
-        lib/libQt5QuickParticles.so \
-        lib/libQt5Quick.so \
-        lib/libQt5Qml.so \
+        lib/libQt5Gui.so \
+        lib/libQt5Sql.so \
         lib/libQt5Network.so \
+        lib/libQt5Qml.so \
+        lib/libQt5Quick.so \
+        lib/libQt5QuickParticles.so \
         lib/libQt5Multimedia.so \
         lib/libQt5MultimediaQuick_p.so \
         plugins/sqldrivers/libqsqlite.so \
@@ -47,6 +46,8 @@ android {
         qml/QtMultimedia/qmldir
 
     exists($$[QT_INSTALL_PREFIX]/lib/libQt5Widgets.so):ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Widgets.so
+
+    ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Svg.so
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
