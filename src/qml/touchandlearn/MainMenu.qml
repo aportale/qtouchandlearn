@@ -36,6 +36,10 @@ Rectangle {
             volumeDisplay.displayCurrentVolume();
     }
 
+    focus: true
+    Keys.onVolumeDownPressed: handleVolumeChange(Math.max(Database.currentVolume - 20, 0));
+    Keys.onVolumeUpPressed: handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
+
     Connections {
         target: stage.item
         id: connection

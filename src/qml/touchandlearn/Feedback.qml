@@ -22,6 +22,7 @@
 
 import QtQuick 2.0
 import QtMultimedia 5.0
+import "database.js" as Database
 
 Item {
     id: feedback
@@ -60,12 +61,16 @@ Item {
     function playCorrectSound()
     {
         previousCorrectSound = randomSoundIndex(correctSounds, previousCorrectSound);
-        correctSounds[previousCorrectSound].play();
+        var sound = correctSounds[previousCorrectSound];
+        sound.volume = Database.currentVolume / 100;
+        sound.play();
     }
 
     function playIncorrectSound()
     {
         previousIncorrectSound = randomSoundIndex(incorrectSounds, previousIncorrectSound);
-        incorrectSounds[previousIncorrectSound].play();
+        var sound = incorrectSounds[previousIncorrectSound];
+        sound.volume = Database.currentVolume / 100;
+        sound.play();
     }
 }
