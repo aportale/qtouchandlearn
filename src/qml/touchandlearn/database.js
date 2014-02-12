@@ -524,7 +524,7 @@ var persistence = {
     volumeKeyName: "Volume",
     readVolume: function()
     {
-        var result = 60; // 0-100
+        var result = 75;
         persistence.database().transaction(function(transaction) {
             persistence.createSettingsTable(transaction);
             var rs = transaction.executeSql('SELECT * FROM ' + persistence.settingsTableName + ' WHERE key = "' + persistence.volumeKeyName + '"');
