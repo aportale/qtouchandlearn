@@ -84,10 +84,12 @@ int main(int argc, char *argv[])
                 assetsPrefix + QLatin1String("mp3audio")
 #endif // USING_QT_MOBILITY
     );
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
     Feedback feedback;
     viewer.rootContext()->setContextProperty("feedback", &feedback);
     QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
     QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
+#endif // (QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #endif // NO_FEEDBACK
 
 #if defined(Q_WS_SIMULATOR)
