@@ -61,14 +61,20 @@ Item {
         clip: true
     }
     Emitter {
+        property int _size: (height < width ? height : width) / 2.0
+        property int _sizeVariation: _size * 0.1
         anchors.fill: parent
         id: particles
         system: particleSystem
         lifeSpan: 700
         lifeSpanVariation: 150
-        velocity: AngleDirection { magnitude: 65; angleVariation: 360 }
-        size: 40
-        sizeVariation: 7
+        velocity: AngleDirection {
+            property int _velocityMagnitude: (height < width ? height : width) / 2.0
+            magnitude: _velocityMagnitude;
+            angleVariation: 360
+        }
+        size: _size
+        sizeVariation: _sizeVariation
         enabled: false
         emitRate: 50
     }
