@@ -33,6 +33,11 @@ Rectangle {
     width: screenWidth
     height: screenHeight
 
+    function goBack()
+    {
+        selectedLesson = currentLesson;
+    }
+
     Component {
         id: delegate
         Item {
@@ -140,7 +145,7 @@ Rectangle {
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: selectedLesson = currentLesson
+                        onClicked: goBack()
                     }
                 }
             }

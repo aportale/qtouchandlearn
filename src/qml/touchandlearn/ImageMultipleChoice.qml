@@ -40,6 +40,11 @@ Item {
     property int imageViewHeight: height * viewHeightRatio
     property int backButtonSize: width * 0.2
 
+    function goBack()
+    {
+        selectedLesson = "Menu";
+    }
+
     ImageView {
         id: imageView
         width: parent.width
@@ -66,7 +71,7 @@ Item {
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: selectedLesson = "Menu"
+            onPressed: goBack()
         }
     }
 

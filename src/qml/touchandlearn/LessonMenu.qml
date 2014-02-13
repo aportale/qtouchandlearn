@@ -35,6 +35,11 @@ Rectangle {
     property int delegateWidth: width >> 1
     property int delegateHeight: delegateWidth * 1.15
 
+    function goBack()
+    {
+        Qt.quit();
+    }
+
     Component {
         id: delegate
         Item {
