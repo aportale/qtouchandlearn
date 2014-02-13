@@ -173,9 +173,11 @@ Rectangle {
 
     Component.onCompleted: {
         Database.persistence.readCurrentLessonsOfGroups();
+        Database.currentVolume = Database.persistence.readVolume();
     }
 
     Component.onDestruction: {
         Database.persistence.writeCurrentLessonsOfGroups();
+        Database.persistence.writeVolume(Database.currentVolume);
     }
 }
