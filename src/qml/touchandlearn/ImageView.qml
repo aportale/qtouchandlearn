@@ -42,10 +42,11 @@ Item {
     }
     id: imageview
     Rectangle {
-        property int hueOffset: Math.random() * 4000
+        property int _hueSpanInPixels: imageview.width * 10;
+        property int hueOffset: Math.random() * _hueSpanInPixels
         anchors.fill: parent
         color: grayBackground ? "#E0E0E0"
-                              : Qt.hsla(((listview.contentX + hueOffset) % 4000) / 4000, 0.4, 0.8, 1);
+                              : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
     }
 
     Column {
