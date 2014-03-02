@@ -34,8 +34,6 @@ Item {
     property alias answersColumsCount: choice.columsCount
     property real viewHeightRatio: 0.45
     property string selectedLesson
-    width: screenWidth
-    height: screenHeight
 
     property int imageViewHeight: height * viewHeightRatio
     property int backButtonSize: width * 0.2

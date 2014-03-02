@@ -29,8 +29,6 @@ Rectangle {
     property color normalStateColor: "#fff"
     property color pressedStateColor: "#ee8"
     property string selectedLesson
-    width: screenWidth
-    height: screenHeight
 
     property int delegateWidth: width >> 1
     property int delegateHeight: delegateWidth * 1.15

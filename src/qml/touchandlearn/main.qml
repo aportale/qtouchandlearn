@@ -24,11 +24,6 @@ import QtQuick 2.0
 import TouchAndLearn 1.0
 
 MainMenu {
-    property int screenWidth: 360
-    property int screenHeight: 640
-    width: screenWidth
-    height: screenHeight
-
     Feedback {
         id: feedback
         audioFileExtension: ".wav"

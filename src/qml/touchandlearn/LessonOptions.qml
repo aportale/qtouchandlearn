@@ -30,8 +30,6 @@ Rectangle {
     property color pressedStateColor: "#ee8"
     property string selectedLesson
     property string currentLesson: Database.currentLessonOfCurrentGroup()
-    width: screenWidth
-    height: screenHeight
 
     function goBack()
     {
