@@ -21,9 +21,18 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Window 2.1
 import TouchAndLearn 1.0
 
-MainMenu {
+Window {
+    visible: true
+    width: 360
+    height: 640
+
+    MainMenu {
+        anchors.fill: parent
+    }
+
     Feedback {
         id: feedback
         audioFileExtension: ".wav"

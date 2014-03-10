@@ -23,86 +23,33 @@
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
 #include <QtGui/QGuiApplication>
-#include <QtQml/QQmlEngine>
-#include <QtQml/QQmlContext>
-#include <QtQml/QQmlComponent>
-#include <QtQuick/QQuickItem>
-#ifdef USING_OPENGL
-#include <QtOpenGL/QGLWidget>
-#endif // USING_OPENGL
+#include <QtQml/QQmlApplicationEngine>
+#include <QtQml>
 
-#include "qtquick2applicationviewer.h"
 #include "imageprovider.h"
-#ifndef NO_FEEDBACK
-#include "feedback.h"
-#endif // NO_FEEDBACK
 
 int main(int argc, char *argv[])
 {
-    qputenv("QML_ENABLE_TEXT_IMAGE_CACHE", "true");
-    QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
+    QCoreApplication::setApplicationName(QStringLiteral("Touch'n'learn"));
+
     QGuiApplication app(argc, argv);
-    const QString assetsPrefix =
-#if defined(ASSETS_VIA_QRC)
-            QLatin1String(":/");
-#elif defined(Q_OS_MAC) // ASSETS_VIA_QRC
-            QCoreApplication::applicationDirPath() + QLatin1String("/../Resources/");
-#elif defined(Q_OS_BLACKBERRY)
-            QLatin1String("app/native/");
-#elif defined(Q_OS_ANDROID) && !defined(Q_OS_ANDROID_NO_SDK)
-            QLatin1String("assets:/");
-#else // ASSETS_VIA_QRC
-            QString();
-#endif // ASSETS_VIA_QRC
-    const QString dataPath = assetsPrefix + QLatin1String("data");
+    const QString assetsPrefix = QStringLiteral(":/");
+    const QString dataPath = assetsPrefix + QStringLiteral("data");
 
     const QString translation = QLocale::system().name();
     QTranslator translator;
-    translator.load(translation, dataPath + QLatin1String("/translations"));
+    translator.load(translation, dataPath + QStringLiteral("/translations"));
     QGuiApplication::installTranslator(&translator);
 
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
-    QtQuick2ApplicationViewer viewer;
-#ifdef Q_OS_BLACKBERRY
-    viewer.addImportPath(QStringLiteral("imports"));
-#endif
-    viewer.engine()->addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
-    const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
-#ifdef ASSETS_VIA_QRC
-    viewer.setSource(QUrl(QLatin1String("qrc:/") + mainQml));
-#else // ASSETS_VIA_QRC
-    viewer.setMainQmlFile(mainQml);
-#endif // ASSETS_VIA_QRC
+    QQmlApplicationEngine engine;
+    engine.addImageProvider(QStringLiteral("imageprovider"), new ImageProvider);
+    const QString mainQml = QStringLiteral("qml/touchandlearn/main.qml");
+    engine.load(QUrl(QStringLiteral("qrc:/") + mainQml));
 
-#ifndef NO_FEEDBACK
-    Feedback::setDataPath(
-#ifdef USING_QT_MOBILITY
-                dataPath + QLatin1String("/audio")
-#else // USING_QT_MOBILITY
-                assetsPrefix + QLatin1String("mp3audio")
-#endif // USING_QT_MOBILITY
-    );
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-    Feedback feedback;
-    viewer.rootContext()->setContextProperty("feedback", &feedback);
-    QObject *rootObject = dynamic_cast<QObject*>(viewer.rootObject());
-    QObject::connect(&feedback, SIGNAL(volumeChanged(QVariant)), rootObject, SLOT(handleVolumeChange(QVariant)));
-#endif // (QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#endif // NO_FEEDBACK
-
-#if defined(Q_WS_SIMULATOR)
-    viewer.showFullScreen();
-#elif !defined(Q_WS_MAEMO_5) && !defined(Q_WS_MAEMO_6) && !defined(Q_OS_SYMBIAN) && !defined(MEEGO_EDITION_HARMATTAN) && !defined(Q_OS_BLACKBERRY) && !defined(Q_OS_ANDROID)
-    if (false)
-        viewer.setGeometry(100, 100, 480, 800); // N900
-    else
-        viewer.setGeometry(100, 100, 360, 640); // NHD
-#endif
-    viewer.showExpanded();
-
-    ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
+    ImageProvider::setDataPath(dataPath + QStringLiteral("/graphics"));
     ImageProvider::init();
 
     return app.exec();

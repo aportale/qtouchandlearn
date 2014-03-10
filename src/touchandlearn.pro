@@ -18,8 +18,6 @@
 # along with Touch'n'learn; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-DEPLOYMENT.display_name = "Touch'n'Learn"
-
 android {
     ANDROID_DEPLOYMENT_DEPENDENCIES = \
         jar/QtAndroid-bundled.jar \
@@ -41,6 +39,8 @@ android {
         qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
         qml/QtQuick/Particles.2/qmldir \
         qml/QtQuick/Particles.2/libparticlesplugin.so \
+        qml/QtQuick/Window.2/qmldir \
+        qml/QtQuick/Window.2/libwindowplugin.so \
         qml/QtQuick.2/qmldir \
         qml/QtQuick.2/libqtquick2plugin.so \
         qml/QtMultimedia/libdeclarative_multimedia.so \
@@ -56,54 +56,16 @@ android {
         android/AndroidManifest.xml
 }
 
-contains(DEFINES, ASSETS_VIA_QRC) {
-    RESOURCES = touchandlearn.qrc
-} else {
-    qml.source = qml/touchandlearn
-    qml.target = qml
-    data.source = data
-    DEPLOYMENTFOLDERS = qml data
-}
+RESOURCES = touchandlearn.qrc
+
+OTHER_FILES += \
+    qml/touchandlearn/*
 
 DEFINES += \
     QT_USE_FAST_CONCATENATION \
     QT_USE_FAST_OPERATOR_PLUS
 
-symbian {
-    TARGET.UID3 = 0xE10d63ca
-    # TARGET.UID3 = 0x20045CB7
-    # vendorinfo = "%{\"SolApps\"}" ":\"SolApps\""
-    LIBS += -lremconcoreapi -lremconinterfacebase
-}
 VERSION = 1.1
-
-DEFINES += NO_FEEDBACK
-!contains(DEFINES, NO_FEEDBACK) {
-    greaterThan(QT_MAJOR_VERSION, 4) {
-        QT += multimedia
-        DEFINES += USING_QT_MULTIMEDIA
-        wavaudio.source = wavaudio
-        DEPLOYMENTFOLDERS += wavaudio
-    } else {
-        load(mobilityconfig, true)
-        contains(MOBILITY_CONFIG, multimedia) {
-            CONFIG += mobility
-            MOBILITY += multimedia
-            DEFINES += USING_QT_MOBILITY
-        } else {
-            QT += phonon
-            mp3audio.source = mp3audio
-            DEPLOYMENTFOLDERS += mp3audio
-        }
-    }
-    SOURCES += feedback.cpp
-    HEADERS += feedback.h
-}
-
-!symbian:!maemo5:isEmpty(MEEGO_VERSION_MAJOR) {
-    #QT += opengl
-    #DEFINES += USING_OPENGL
-}
 
 macx:ICON = touchandlearn.icns
 
@@ -114,13 +76,8 @@ SOURCES += \
 HEADERS += \
     imageprovider.h
 
-QT += svg
+QT += multimedia svg qml quick
 
-# Please do not modify the following two lines. Required for deployment.
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
 
-blackberry {
-OTHER_FILES += \
-    bar-descriptor.xml
-}
+# Default rules for deployment.
+include(deployment.pri)
