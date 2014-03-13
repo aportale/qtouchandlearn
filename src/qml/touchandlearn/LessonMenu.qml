@@ -52,7 +52,6 @@ Rectangle {
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
                 sourceSize { width: parent.width; height: parent.height }
-                smooth: true
             }
 
             Text {
@@ -123,7 +122,6 @@ Rectangle {
                     id: titleImage
                     source: "image://imageprovider/title/textmask"
                     sourceSize { width: menu.width; height: menu.height }
-                    smooth: true
                 }
                 height: titleImage.height
                 anchors { left: parent.left; right: parent.right }
