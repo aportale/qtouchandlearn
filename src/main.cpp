@@ -27,9 +27,12 @@
 #include <QtQml>
 
 #include "imageprovider.h"
+#include "settings.h"
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setOrganizationName("CasaPortale");
+    QCoreApplication::setOrganizationDomain("casaportale.de");
     QCoreApplication::setApplicationName(QStringLiteral("Touch'n'learn"));
 
     QGuiApplication app(argc, argv);
@@ -44,8 +47,10 @@ int main(int argc, char *argv[])
     // Registering dummy type to allow QML import of TouchAndLearn 1.0
     qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
 
+    Settings settings; // Needs to be instantiated before engine, in order to be destructed after it
     QQmlApplicationEngine engine;
     engine.addImageProvider(QStringLiteral("imageprovider"), new ImageProvider);
+    engine.rootContext()->setContextProperty(QStringLiteral("settings"), &settings);
     const QString mainQml = QStringLiteral("qml/touchandlearn/main.qml");
     engine.load(QUrl(QStringLiteral("qrc:/") + mainQml));
 

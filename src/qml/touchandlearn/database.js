@@ -20,13 +20,13 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 .pragma library
-.import QtQuick.LocalStorage 2.0 as Sql
 
 var currentScreen = "";
 var currentLessonGroup = null;
 var lessonData = [];
 var lessonDataLength = 100;
 var currentVolume = -1;
+var settings = null;
 
 var data = {
     addIndicesToDict: function(dict)
@@ -470,77 +470,37 @@ function dumpLessonData()
 }
 
 var persistence = {
-    database: function()
-    {
-        return Sql.LocalStorage.openDatabaseSync("TouchAndLearnDB", "1.0", "TouchAndLearn settings", 10000);
-    },
-
     lessonOfGroupTableName: "LessonOfGroup",
-    createLessonOfGroupTable: function(transaction)
-    {
-        transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + this.lessonOfGroupTableName + '(lessonGroup TEXT, lesson TEXT)');
-    },
-
     readCurrentLessonsOfGroups: function()
     {
         lessonMenu(); // initializing 'cachedLessonMenu'
-        persistence.database().transaction(function(transaction) {
-            persistence.createLessonOfGroupTable(transaction);
-            var rs = transaction.executeSql('SELECT * FROM ' + persistence.lessonOfGroupTableName);
-            for (var row = 0; row < rs.rows.length; row++) {
-                var resultRow = rs.rows.item(row);
-                var lessonGroupDb = rs.rows.item(row).lessonGroup;
-                var lessonGroup = cachedLessonMenuDict[lessonGroupDb];
-                if (lessonGroup === undefined)
-                    continue;
-                var lessonDb = rs.rows.item(row).lesson;
-                var lesson = lessonGroup.LessonsDict[lessonDb];
-                if (lesson === undefined)
-                    continue;
-                lessonGroup.CurrentLesson = lessonDb;
-            }
-        });
+        for (var group in cachedLessonMenuDict) {
+            group = cachedLessonMenuDict[group];
+            var lessonGroupId = group.Id;
+            group.CurrentLesson = settings.value(persistence.lessonOfGroupTableName, lessonGroupId, group.CurrentLesson);
+        }
     },
 
     writeCurrentLessonsOfGroups: function()
     {
-        persistence.database().transaction(function(transaction) {
-            persistence.createLessonOfGroupTable(transaction);
-            for (var group in cachedLessonMenuDict) {
-                group = cachedLessonMenuDict[group];
-                var lessonGroupId = group.Id;
-                transaction.executeSql('DELETE FROM ' + persistence.lessonOfGroupTableName + ' WHERE lessonGroup = "' + lessonGroupId + '"');
-                transaction.executeSql('INSERT INTO ' + persistence.lessonOfGroupTableName + ' VALUES(?, ?)', [lessonGroupId, group.CurrentLesson]);
-            }
-        });
+        lessonMenu(); // initializing 'cachedLessonMenu'
+        for (var group in cachedLessonMenuDict) {
+            group = cachedLessonMenuDict[group];
+            var lessonGroupId = group.Id;
+            settings.setValue(persistence.lessonOfGroupTableName, lessonGroupId, group.CurrentLesson);
+        }
     },
 
-    settingsTableName: "Settings",
-    createSettingsTable: function(transaction)
-    {
-        transaction.executeSql('CREATE TABLE IF NOT EXISTS ' + persistence.settingsTableName + '(key TEXT, value TEXT)');
-    },
-
+    configGroupName: "Config",
     volumeKeyName: "Volume",
     readVolume: function()
     {
-        var result = 75;
-        persistence.database().transaction(function(transaction) {
-            persistence.createSettingsTable(transaction);
-            var rs = transaction.executeSql('SELECT * FROM ' + persistence.settingsTableName + ' WHERE key = "' + persistence.volumeKeyName + '"');
-            if (rs.rows.length === 1)
-                result = parseInt(rs.rows.item(0).value);
-        });
-        return result;
+        return settings.value(persistence.configGroupName, persistence.volumeKeyName, 75);
     },
 
     writeVolume: function(volume)
     {
-        persistence.database().transaction(function(transaction) {
-            persistence.createSettingsTable(transaction);
-            transaction.executeSql('DELETE FROM ' + persistence.settingsTableName + ' WHERE key = "' + persistence.volumeKeyName + '"');
-            transaction.executeSql('INSERT INTO ' + persistence.settingsTableName + ' VALUES(?, ?)', [persistence.volumeKeyName, volume]);
-        });
+        settings.setValue(persistence.configGroupName, persistence.volumeKeyName, volume);
     }
 };
 

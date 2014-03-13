@@ -25,18 +25,14 @@ android {
         jar/QtMultimedia-bundled.jar \
         lib/libQt5Core.so \
         lib/libQt5Gui.so \
-        lib/libQt5Sql.so \
         lib/libQt5Network.so \
         lib/libQt5Qml.so \
         lib/libQt5Quick.so \
         lib/libQt5QuickParticles.so \
         lib/libQt5Multimedia.so \
         lib/libQt5MultimediaQuick_p.so \
-        plugins/sqldrivers/libqsqlite.so \
         plugins/platforms/android/libqtforandroidGL.so \
         plugins/audio/libqtaudio_opensles.so \
-        qml/QtQuick/LocalStorage/qmldir \
-        qml/QtQuick/LocalStorage/libqmllocalstorageplugin.so \
         qml/QtQuick/Particles.2/qmldir \
         qml/QtQuick/Particles.2/libparticlesplugin.so \
         qml/QtQuick/Window.2/qmldir \
@@ -71,10 +67,12 @@ macx:ICON = touchandlearn.icns
 
 SOURCES += \
     main.cpp \
-    imageprovider.cpp
+    imageprovider.cpp \
+    settings.cpp
 
 HEADERS += \
-    imageprovider.h
+    imageprovider.h \
+    settings.h
 
 QT += multimedia svg qml quick
 

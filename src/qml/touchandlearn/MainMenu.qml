@@ -173,6 +173,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
+        Database.settings = settings; // JS with ".pragma library" cannot directly access context property
         Database.persistence.readCurrentLessonsOfGroups();
         Database.currentVolume = Database.persistence.readVolume();
     }
