@@ -96,6 +96,7 @@ Item {
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
                 smooth: true
+                asynchronous: true
             }
         }
     }

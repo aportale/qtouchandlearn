@@ -30,7 +30,7 @@ class ImageProvider : public QQuickImageProvider
 public:
     ImageProvider();
 
-    QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
     static void init();
     static void setDataPath(const QString &path);
 };

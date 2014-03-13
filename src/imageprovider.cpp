@@ -176,11 +176,11 @@ ElementVariationList *frameVariations()
 }
 
 ImageProvider::ImageProvider()
-    : QQuickImageProvider(QQuickImageProvider::Pixmap)
+    : QQuickImageProvider(QQuickImageProvider::Image)
 {
 }
 
-inline static QPixmap quantity(int quantity, const QString &item, QSize *size, const QSize &requestedSize)
+inline static QImage quantity(int quantity, const QString &item, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = countablesRenderer();
     const int columns = ceil(sqrt(qreal(quantity)));
@@ -188,7 +188,7 @@ inline static QPixmap quantity(int quantity, const QString &item, QSize *size, c
     const int columnsInLastRow = quantity % columns == 0 ? columns : quantity % columns;
     const int itemSize = qMin((requestedSize.width() / qMax(3, columns)), (requestedSize.height() / qMax(3, rows)));
     const QSize resultSize(itemSize * columns, itemSize * rows);
-    QPixmap result(resultSize);
+    QImage result(resultSize, QImage::Format_ARGB32);
     result.fill(Qt::transparent);
     QPainter p(&result);
     for (int row = 0; row < rows; row++) {
@@ -234,7 +234,7 @@ inline static void renderIndicator(const QString &indicatorId, int rotation, con
     renderer->render(p, idPrefix + indicatorId, renderer->boundsOnElement(idPrefix + indicatorId));
 }
 
-inline static QPixmap clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
+inline static QImage clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = clocksRenderer();
     const static QString clockBackgroundString = QLatin1String("background");
@@ -243,16 +243,16 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
     const QString backgroundElementId = clockBackgroundString + variationNumber;
     const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + backgroundElementId);
-    QSize pixmapSize = backgroundRect.size().toSize();
+    QSize resultSize = backgroundRect.size().toSize();
     if (size)
-        *size = pixmapSize;
-    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
-    QPixmap pixmap(pixmapSize);
-    if (pixmap.isNull())
-        qDebug() << "****************** clock pixmap is NULL! Variation:" << variation;
-    pixmap.fill(Qt::transparent);
-    QPainter p(&pixmap);
-    const qreal scaleFactor = pixmapSize.width() / backgroundRect.width();
+        *size = resultSize;
+    resultSize.scale(requestedSize, Qt::KeepAspectRatio);
+    QImage result(resultSize, QImage::Format_ARGB32);
+    if (result.isNull())
+        qDebug() << "****************** clock image is NULL! Variation:" << variation;
+    result.fill(Qt::transparent);
+    QPainter p(&result);
+    const qreal scaleFactor = resultSize.width() / backgroundRect.width();
     QTransform mainTransform;
     mainTransform
             .scale(scaleFactor, scaleFactor)
@@ -273,10 +273,10 @@ inline static QPixmap clock(int hour, int minute, int variation, QSize *size, co
         p.setTransform(mainTransform);
         renderer->render(&p, idPrefix + foregroundElementId, renderer->boundsOnElement(idPrefix + foregroundElementId));
     }
-    return pixmap;
+    return result;
 }
 
-inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
+inline static QImage notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = notesRenderer();
     static const QString clefId = QLatin1String("clef");
@@ -286,22 +286,22 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
     static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
     static const qreal linesSpacePerNote = clefRect.width() * 1.75;
     const qreal linesSpaceForNotes = notes.count() * linesSpacePerNote;
-    QRectF pixmapRect = staffLinesOriginalRect;
-    pixmapRect.setWidth(clefRightY + linesSpaceForNotes);
-    QSize pixmapSize = pixmapRect.size().toSize();
+    QRectF imageRect = staffLinesOriginalRect;
+    imageRect.setWidth(clefRightY + linesSpaceForNotes);
+    QSize resultSize = imageRect.size().toSize();
     if (size)
-        *size = pixmapSize;
-    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
-    QPixmap pixmap(pixmapSize);
-    if (pixmap.isNull())
-        qDebug() << "****************** notes pixmap is NULL! Notes:" << notes;
-    pixmap.fill(Qt::transparent);
-    QPainter p(&pixmap);
-    const qreal scaleFactor = pixmapSize.width() / pixmapRect.width();
+        *size = resultSize;
+    resultSize.scale(requestedSize, Qt::KeepAspectRatio);
+    QImage result(resultSize, QImage::Format_ARGB32);
+    if (result.isNull())
+        qDebug() << "****************** notes image is NULL! Notes:" << notes;
+    result.fill(Qt::transparent);
+    QPainter p(&result);
+    const qreal scaleFactor = resultSize.width() / imageRect.width();
     p.scale(scaleFactor, scaleFactor);
-    p.translate(-pixmapRect.topLeft());
+    p.translate(-imageRect.topLeft());
 
-    renderer->render(&p, idPrefix + staffLinesId, pixmapRect);
+    renderer->render(&p, idPrefix + staffLinesId, imageRect);
     renderer->render(&p, idPrefix + clefId, clefRect);
 
     int currentNoteIndex = 0;
@@ -329,26 +329,26 @@ inline static QPixmap notes(const QStringList &notes, QSize *size, const QSize &
         }
     }
 
-    return pixmap;
+    return result;
 }
 
-inline static QPixmap renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
-                                         QSize *size, const QSize &requestedSize)
+inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
+                                        QSize *size, const QSize &requestedSize)
 {
     const QString rectId = elementId + QLatin1String("_rect");
     const QRectF rect = renderer->boundsOnElement(idPrefix + (renderer->elementExists(idPrefix + rectId) ? rectId : elementId));
     Q_ASSERT_X(rect.width() >= 1 && rect.height() >= 1, "renderedSvgElement", "SVG bounding rect is NULL");
-    QSize pixmapSize = rect.size().toSize();
+    QSize resultSize = rect.size().toSize();
     if (size)
-        *size = pixmapSize;
-    pixmapSize.scale(requestedSize, aspectRatioMode);
-    Q_ASSERT_X(pixmapSize.width() >= 1 && pixmapSize.height() >= 1, "renderedSvgElement", "pixmapSize is NULL");
-    QPixmap pixmap(pixmapSize);
-    Q_ASSERT_X(!pixmap.isNull(), "renderedSvgElement", "pixmap is NULL");
-    pixmap.fill(Qt::transparent);
-    QPainter p(&pixmap);
-    renderer->render(&p, idPrefix + elementId, QRect(QPoint(), pixmapSize));
-    return pixmap;
+        *size = resultSize;
+    resultSize.scale(requestedSize, aspectRatioMode);
+    Q_ASSERT_X(resultSize.width() >= 1 && resultSize.height() >= 1, "renderedSvgElement", "imageSize is NULL");
+    QImage result(resultSize, QImage::Format_ARGB32);
+    Q_ASSERT_X(!result.isNull(), "renderedSvgElement", "image is NULL");
+    result.fill(Qt::transparent);
+    QPainter p(&result);
+    renderer->render(&p, idPrefix + elementId, QRect(QPoint(), resultSize));
+    return result;
 }
 
 inline static void drawGradient(DesignElementType type, QImage &image)
@@ -385,7 +385,7 @@ inline static void drawGradient(DesignElementType type, QImage &image)
     }
 }
 
-inline static QPixmap renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
+inline static QImage renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
 {
     Q_UNUSED(size)
 
@@ -401,11 +401,11 @@ inline static QPixmap renderedDesignElement(DesignElementType type, int variatio
         }
     }
     const QString &elementId = idPrefix + elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count());
-    static QPixmap cachedGradientButton;
-    static QPixmap cachedGradientFrame;
-    QPixmap &cachedGradient = type == DesignElementTypeButton ? cachedGradientButton : cachedGradientFrame;
+    static QImage cachedGradientButton;
+    static QImage cachedGradientFrame;
+    QImage &cachedGradient = type == DesignElementTypeButton ? cachedGradientButton : cachedGradientFrame;
     if (cachedGradient.size() == requestedSize) {
-        QPixmap result(cachedGradient);
+        QImage result(cachedGradient);
         QPainter p(&result);
         designRenderer()->render(&p, elementId, result.rect());
         return result;
@@ -413,18 +413,18 @@ inline static QPixmap renderedDesignElement(DesignElementType type, int variatio
         QImage result(requestedSize, QImage::Format_ARGB32);
         result.fill(0);
         drawGradient(type, result);
-        cachedGradient = QPixmap::fromImage(result);
+        cachedGradient = result;
         QPainter p(&result);
         designRenderer()->render(&p, elementId, result.rect());
-        return QPixmap::fromImage(result);
+        return result;
     }
 }
 
-inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
+inline static QImage renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
 {
-    QPixmap icon(requestedSize);
-    icon.fill(Qt::transparent);
-    QPainter p(&icon);
+    QImage result(requestedSize, QImage::Format_ARGB32);
+    result.fill(Qt::transparent);
+    QPainter p(&result);
     QSvgRenderer *renderer = lessonIconsRenderer();
     const QRectF iconRectOriginal = renderer->boundsOnElement(idPrefix + iconId);
     QSizeF iconSize = iconRectOriginal.size();
@@ -435,12 +435,12 @@ inline static QPixmap renderedLessonIcon(const QString &iconId, int buttonVariat
     else
         iconRect.moveTop((requestedSize.height() - iconSize.height()) / 2);
     renderer->render(&p, idPrefix + iconId, iconRect);
-    const QPixmap button = renderedDesignElement(DesignElementTypeButton, buttonVariation, size, requestedSize);
-    p.drawPixmap(QPointF(), button);
-    return icon;
+    const QImage button = renderedDesignElement(DesignElementTypeButton, buttonVariation, size, requestedSize);
+    p.drawImage(QPointF(), button);
+    return result;
 }
 
-inline static QPixmap spectrum(QSize *size, const QSize &requestedSize)
+inline static QImage spectrum(QSize *size, const QSize &requestedSize)
 {
     const QSize resultSize(360, requestedSize.height());
     QImage result(resultSize.width(), 1, QImage::Format_ARGB32);
@@ -449,10 +449,10 @@ inline static QPixmap spectrum(QSize *size, const QSize &requestedSize)
         *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
     if (size)
         *size = result.size();
-    return QPixmap::fromImage(result.scaled(resultSize));
+    return result.scaled(resultSize);
 }
 
-inline static QPixmap colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
+inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = designRenderer();
     const static QString elementIdBase = QLatin1String("colorblot");
@@ -462,19 +462,19 @@ inline static QPixmap colorBlot(const QColor &color, int blotVariation, QSize *s
     const QString maskElementId = elementId + QLatin1String("_mask");
     const QString highlightElementId = elementId + QLatin1String("_highlight");
     const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + elementId);
-    QSize pixmapSize = backgroundRect.size().toSize();
+    QSize resultSize = backgroundRect.size().toSize();
     if (size)
-        *size = pixmapSize;
-    pixmapSize.scale(requestedSize, Qt::KeepAspectRatio);
-    const qreal scaleFactor = pixmapSize.width() / backgroundRect.width();
+        *size = resultSize;
+    resultSize.scale(requestedSize, Qt::KeepAspectRatio);
+    const qreal scaleFactor = resultSize.width() / backgroundRect.width();
     QTransform transform =
             QTransform::fromScale(scaleFactor, scaleFactor);
     transform.translate(-backgroundRect.topLeft().x(), -backgroundRect.topLeft().y());
-    QImage image(pixmapSize, QImage::Format_ARGB32);
-    if (image.isNull())
-        qDebug() << "****************** clock pixmap is NULL! Variation:" << blotVariation;
-    image.fill(0);
-    QPainter p(&image);
+    QImage result(resultSize, QImage::Format_ARGB32);
+    if (result.isNull())
+        qDebug() << "****************** clock image is NULL! Variation:" << blotVariation;
+    result.fill(0);
+    QPainter p(&result);
     p.setTransform(transform);
     renderer->render(&p, idPrefix + maskElementId, renderer->boundsOnElement(idPrefix + maskElementId));
     p.save();
@@ -482,20 +482,20 @@ inline static QPixmap colorBlot(const QColor &color, int blotVariation, QSize *s
     p.fillRect(backgroundRect, color);
     p.restore();
     renderer->render(&p, idPrefix + highlightElementId, renderer->boundsOnElement(idPrefix + highlightElementId));
-    return QPixmap::fromImage(image);
+    return result;
 }
 
-QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
+QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    QPixmap result;
+    QImage result;
     const QStringList idSegments = id.split(QLatin1Char('/'));
     if (requestedSize.width() < 1 && requestedSize.height() < 1) {
         qDebug() << "****************** requestedSize is NULL!" << requestedSize << id;
-        return QPixmap();
+        return QImage();
     }
     if (idSegments.count() < 2) {
         qDebug() << "Not enough parameters for the image provider: " << id;
-        return QPixmap();
+        return QImage();
     }
     const QString &elementId = idSegments.at(1);
     if (idSegments.first() == QLatin1String("background")) {
@@ -516,7 +516,7 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     } else if (idSegments.first() == QLatin1String("clock")) {
         if (idSegments.count() != 4) {
             qDebug() << "Wrong number of parameters for clock images:" << id;
-            return QPixmap();
+            return QImage();
         }
         result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("notes")) {
@@ -524,19 +524,19 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for quantity images:" << id;
-            return QPixmap();
+            return QImage();
         }
         result = quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("lessonicon")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for lessonicon:" << id;
-            return QPixmap();
+            return QImage();
         }
         result = renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("color")) {
         if (idSegments.count() != 3) {
             qDebug() << "Wrong number of parameters for color:" << id;
-            return QPixmap();
+            return QImage();
         }
         const QColor color(idSegments.at(1));
         result = colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
