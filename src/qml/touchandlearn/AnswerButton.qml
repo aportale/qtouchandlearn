@@ -41,6 +41,7 @@ Item {
 
     signal correctlyPressed
     signal incorrectlyPressed
+    signal contentChangeAnimationFinished
 
     id: button
     Rectangle {
@@ -158,7 +159,10 @@ Item {
             easing.type: Easing.OutBack
         }
         ScriptAction {
-            script: blockClicks = false;
+            script: {
+                blockClicks = false;
+                contentChangeAnimationFinished();
+            }
         }
     }
     SequentialAnimation {

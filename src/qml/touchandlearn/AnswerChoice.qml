@@ -82,6 +82,10 @@ Item {
                 index: modelData
                 grayBackground: choice.grayBackground
                 onCorrectlyPressed: correctlyAnswered();
+
+                // Calculate next but one exercise now, where the animation is over.
+                onContentChangeAnimationFinished: modelData === buttonsCount - 1 ?
+                                                      Database.exercise(exerciseIndex + 2, exerciseFunction, buttonsCount) : true;
             }
             Component.onCompleted: setButtonData();
         }
