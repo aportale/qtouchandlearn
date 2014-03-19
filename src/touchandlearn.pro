@@ -31,7 +31,6 @@ android {
         lib/libQt5QuickParticles.so \
         lib/libQt5Multimedia.so \
         lib/libQt5MultimediaQuick_p.so \
-        plugins/platforms/android/libqtforandroidGL.so \
         plugins/audio/libqtaudio_opensles.so \
         qml/QtQuick/Particles.2/qmldir \
         qml/QtQuick/Particles.2/libparticlesplugin.so \
@@ -43,7 +42,13 @@ android {
         qml/QtMultimedia/qmldir
 
     exists($$[QT_INSTALL_PREFIX]/lib/libQt5Widgets.so):ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Widgets.so
-
+    exists($$[QT_INSTALL_PREFIX]/plugins/platforms/android/libqtforandroidGL.so) {
+        # Qt < 5.3
+        ANDROID_DEPLOYMENT_DEPENDENCIES += /plugins/platforms/android/libqtforandroidGL.so
+    } else {
+        # Qt >= 5.3
+        ANDROID_DEPLOYMENT_DEPENDENCIES += /plugins/platforms/android/libqtforandroid.so
+    }
     ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Svg.so
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
