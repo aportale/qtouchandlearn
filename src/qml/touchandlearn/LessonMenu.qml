@@ -85,20 +85,10 @@ Rectangle {
         }
     }
 
-    function enableMenuItems(enable) {
-        for (var i = 0; i < menuItems.count; i++)
-            menuItems.itemAt(i).enabled = enable
-    }
-
     Flickable {
         anchors.fill: parent
         contentHeight: column.height
         width: parent.width
-
-        onMovementStarted: enableMenuItems(false)
-        onFlickStarted: enableMenuItems(false)
-        onFlickEnded: enableMenuItems(true)
-        onMovementEnded: enableMenuItems(true)
 
         Column {
             id: column
