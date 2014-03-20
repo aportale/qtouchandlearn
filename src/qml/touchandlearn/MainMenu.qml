@@ -94,10 +94,11 @@ Rectangle {
             PauseAnimation {
                 duration: 850
             }
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: volumeDisplay
+                from: 1
                 to: 0
+                duration: 350
             }
             ScriptAction {
                 script: {
