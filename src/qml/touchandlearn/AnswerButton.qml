@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 import QtQuick.Particles 2.0
 
 Item {
@@ -119,8 +119,17 @@ Item {
     }
 
     onTextChanged: {
-        wrongAnswerAnimation.complete();
-        correctAnswerAnimation.complete();
+        if (wrongAnswerAnimation.running) {
+            wrongAnswerAnimation.stop();
+            label.opacity = 1;
+            correctionImage.opacity = 0;
+            rect.color = normalStateColor;
+        }
+        if (correctAnswerAnimation.running) {
+            correctAnswerAnimation.stop();
+            rect.color = normalStateColor;
+        }
+
         if (label.text.length === 0) {
             label.text = text;
         } else {
@@ -137,26 +146,39 @@ Item {
         PauseAnimation {
             duration: 250 + index * 85
         }
-        PropertyAnimation {
-            id: fadein
-            target: label
-            properties: "scale, opacity"
-            from: 1
-            to: 0
-            easing.type: Easing.InQuad
+        ParallelAnimation {
+            ScaleAnimator {
+                target: label
+                from: 1
+                to: 0
+                easing.type: Easing.InQuad
+            }
+            OpacityAnimator {
+                target: label
+                from: 1
+                to: 0
+                easing.type: Easing.InQuad
+            }
         }
         PauseAnimation {
-            duration: 500 + index * 70
+            duration: 350 + index * 70
         }
         ScriptAction { // PropertyAction would fail here, and set the prior text
             script: label.text = text
         }
-        PropertyAnimation {
-            target: label
-            properties: fadein.properties
-            from: 0
-            to: 1
-            easing.type: Easing.OutBack
+        ParallelAnimation {
+            ScaleAnimator {
+                target: label
+                from: 0
+                to: 1
+                easing.type: Easing.OutBack
+            }
+            OpacityAnimator {
+                target: label
+                from: 0
+                to: 1
+                easing.type: Easing.OutBack
+            }
         }
         ScriptAction {
             script: {
@@ -226,23 +248,23 @@ Item {
                 }
             }
             SequentialAnimation {
-                PropertyAnimation {
+                XAnimator {
                     target: label
-                    property: "x"
+                    from: label.horizontallyCenteredX
                     to: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     easing.type: Easing.InCubic
                     duration: 120
                 }
-                PropertyAnimation {
+                XAnimator {
                     target: label
-                    property: "x"
+                    from: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     easing.type: Easing.InOutCubic
                     duration: 220
                 }
-                PropertyAnimation {
+                XAnimator {
                     target: label
-                    property: "x"
+                    from: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX
                     easing { type: Easing.OutBack; overshoot: 3 }
                     duration: 180
@@ -250,31 +272,29 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: correctionImage
-                property: "opacity"
+            OpacityAnimator {
+                target: correctionImageSource.length ? correctionImage : null
+                from: 0
                 to: 1
-                duration: correctionImageSource.length ? 200 : 0
             }
-            PropertyAnimation {
-                target: label
-                property: "opacity"
-                to: correctionImageSource.length ? 0 : 1
-                duration: correctionImageSource.length ? 200 : 0
+            OpacityAnimator {
+                target: correctionImageSource.length ? label : null
+                from: 1
+                to: 0
             }
         }
         PauseAnimation {
             duration: correctionImageSource.length ? 1400 : 0
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: correctionImage
-                property: "opacity"
+            OpacityAnimator {
+                target: correctionImageSource.length ? correctionImage : null
+                from: 1
                 to: 0
             }
-            PropertyAnimation {
-                target: label
-                property: "opacity"
+            OpacityAnimator {
+                target: correctionImageSource.length ? label : null
+                from: 0
                 to: 1
             }
         }
