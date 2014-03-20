@@ -31,7 +31,7 @@ Rectangle {
     property string selectedLesson
 
     property int delegateWidth: width >> 1
-    property int delegateHeight: delegateWidth * 1.15
+    property int delegateHeight: delegateWidth * 1.04
 
     function goBack()
     {
@@ -64,7 +64,7 @@ Rectangle {
             }
 
             Text {
-                property int _y: delegateHeight * 0.14
+                property int _y: delegateHeight * 0.11
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: delegateHeight * 0.1
