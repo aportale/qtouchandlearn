@@ -31,6 +31,12 @@
 
 int main(int argc, char *argv[])
 {
+#if defined(Q_OS_ANDROID)
+    // Temporary hack for
+    // https://bugreports.qt-project.org/browse/QTBUG-37586
+    //qputenv("QML_FORCE_THREADED_RENDERER", "1");
+#endif
+
     QCoreApplication::setOrganizationName("CasaPortale");
     QCoreApplication::setOrganizationDomain("casaportale.de");
     QCoreApplication::setApplicationName(QStringLiteral("Touch'n'learn"));
