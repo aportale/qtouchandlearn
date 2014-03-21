@@ -37,8 +37,15 @@ Rectangle {
     }
 
     focus: true
-    Keys.onVolumeDownPressed: handleVolumeChange(Math.max(Database.currentVolume - 20, 0));
-    Keys.onVolumeUpPressed: handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
+    Keys.onPressed: {
+        if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
+            handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
+            event.accepted = true;
+        } else if (event.key === Qt.Key_VolumeDown || event.key === Qt.Key_Minus) {
+            handleVolumeChange(Math.max(Database.currentVolume - 20, 0));
+            event.accepted = true;
+        }
+    }
     Keys.onBackPressed: stage.item.goBack();
 
     Connections {
