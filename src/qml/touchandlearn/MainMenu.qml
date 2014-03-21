@@ -38,7 +38,10 @@ Rectangle {
 
     focus: true
     Keys.onPressed: {
-        if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
+        if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            stage.item.goBack();
+            event.accepted = true;
+        } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
             handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeDown || event.key === Qt.Key_Minus) {
@@ -46,7 +49,6 @@ Rectangle {
             event.accepted = true;
         }
     }
-    Keys.onBackPressed: stage.item.goBack();
 
     Connections {
         target: stage.item
