@@ -495,7 +495,7 @@ var persistence = {
     volumeKeyName: "Volume",
     readVolume: function()
     {
-        return settings.value(persistence.configGroupName, persistence.volumeKeyName, 75);
+        return parseInt(settings.value(persistence.configGroupName, persistence.volumeKeyName, 80), 10);
     },
 
     writeVolume: function(volume)
