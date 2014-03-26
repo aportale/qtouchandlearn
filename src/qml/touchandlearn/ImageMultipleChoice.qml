@@ -20,90 +20,38 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.0
+import QtQuick 2.2
 import "database.js" as Database
 
 Item {
     id: main
-    property alias backgroundImage: imageView.backgroundImage
-    property bool grayBackground
-    property alias imageSizeFactor: imageView.imageSizeFactor
-    property alias exerciseFunction: imageView.exerciseFunction
-    property alias showCorrectionImageOnButton: choice.showCorrectionImage
-    property alias answersCount: choice.buttonsCount
-    property alias answersColumsCount: choice.columsCount
-    property real viewHeightRatio: 0.45
     property string selectedLesson
 
-    property int imageViewHeight: height * viewHeightRatio
     property int backButtonSize: width * 0.2
 
     function goBack()
     {
-        selectedLesson = "Menu";
+         selectedLesson = "Menu";
     }
 
-    ImageView {
-        id: imageView
-        width: parent.width
-        height: imageViewHeight
-        answersCount: choice.buttonsCount
-        backgroundImage: "image://imageprovider/background/background_01"
-        grayBackground: main.grayBackground
+    Timer {
+        running: true
+        onTriggered: goBack()
+        interval: 1000
     }
 
-    Item {
-        id: backButton
-        width: backButtonSize
-        height: backButtonSize
-        anchors { top: parent.top; right: parent.right }
-        Image {
-            // Hand-centered in order to avoid non-integer image coordinates.
-            property int _sourceSize: backButtonSize * 0.7
-            property int _leftMargin: (parent.width - width) / 2
-            property int _topMargin: (parent.height - height) / 2
-            anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
-            sourceSize { width: _sourceSize; height: _sourceSize }
-            source: "image://imageprovider/specialbutton/backbutton"
-            smooth: false
+    SequentialAnimation {
+        loops: Animation.Infinite
+        running: true
+        PauseAnimation {
+            duration: 100
         }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: goBack()
+        ParallelAnimation {
+            OpacityAnimator {
+                target: null
+                from: 1
+                to: 0
+            }
         }
-    }
-
-    Item {
-        property int _height: backButtonSize * 0.75
-        width: backButtonSize
-        height: _height
-        anchors { top: backButton.bottom; right: parent.right }
-        Image {
-            // Hand-centered in order to avoid non-integer image coordinates.
-            property int _sourceSize: backButtonSize * 0.7
-            property int _leftMargin: (parent.width - width) / 2
-            anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; }
-            sourceSize { width: _sourceSize; height: _sourceSize }
-            source: "image://imageprovider/specialbutton/optionsbutton"
-            smooth: false
-        }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: selectedLesson = "Options"
-        }
-        visible: Database.lessonsOfCurrentGroup().length > 1
-    }
-
-    AnswerChoice {
-        id: choice
-
-        y: imageViewHeight
-        height: parent.height - imageView.height
-        width: parent.width
-
-        exerciseIndex: imageView.currentExerciseIndex
-        exerciseFunction: imageView.exerciseFunction
-        onCorrectlyAnswered: imageView.goForward();
-        grayBackground: main.grayBackground
     }
 }

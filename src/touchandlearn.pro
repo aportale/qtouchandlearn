@@ -50,6 +50,7 @@ android {
         ANDROID_DEPLOYMENT_DEPENDENCIES += /plugins/platforms/android/libqtforandroid.so
     }
     ANDROID_DEPLOYMENT_DEPENDENCIES += lib/libQt5Svg.so
+ANDROID_DEPLOYMENT_DEPENDENCIES=
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

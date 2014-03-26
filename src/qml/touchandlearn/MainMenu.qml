@@ -27,169 +27,26 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
-    function handleVolumeChange(volume)
-    {
-        Database.currentVolume = volume;
-        if (volumeDisplay.source == '')
-            volumeDisplay.source = 'VolumeDisplay.qml';
-        else
-            volumeDisplay.displayCurrentVolume();
-    }
-
-    focus: true
-    Keys.onPressed: {
-        if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
-            stage.item.goBack();
-            event.accepted = true;
-        } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
-            handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
-            event.accepted = true;
-        } else if (event.key === Qt.Key_VolumeDown || event.key === Qt.Key_Minus) {
-            handleVolumeChange(Math.max(Database.currentVolume - 20, 0));
-            event.accepted = true;
-        }
-    }
-
     Connections {
         target: stage.item
         id: connection
         ignoreUnknownSignals: true
-        onSelectedLessonChanged: switchToScreen("Lesson" + stage.item.selectedLesson)
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        id: courtain
-        color: "#000"
-        opacity: 1
-        z: 1
-        Text {
-            id: loadingText
-            anchors.centerIn: parent
-            text: "..."
-            color: "#FFF"
-            font.pixelSize: 20
-        }
+        onSelectedLessonChanged: screenBlendOut.start();
     }
 
     Loader {
         id: stage
         width: parent.width
         height: parent.height
-        onLoaded: {
-            screenBlendIn.start();
-        }
-    }
-
-    Loader {
-        id: volumeDisplay
-        width: parent.width
-        height: parent.height
-
-        onLoaded: {
-            displayCurrentVolume();
-        }
-
-        function displayCurrentVolume()
-        {
-            item.volume = Database.currentVolume;
-            volumeDisplayBlendOut.stop();
-            opacity = 1;
-            volumeDisplayBlendOut.start();
-        }
-
-        SequentialAnimation {
-            id: volumeDisplayBlendOut
-            PauseAnimation {
-                duration: 850
-            }
-            OpacityAnimator {
-                target: volumeDisplay
-                from: 1
-                to: 0
-                duration: 350
-            }
-            ScriptAction {
-                script: {
-                    volumeDisplay.source = '';
-                }
-            }
-        }
-    }
-
-    function switchToScreen(screen)
-    {
-        Database.lessonData = [];
-        Database.currentScreen = screen + '.qml';
-        if (stage.source == '')
-            stage.source = Database.currentScreen;
-        else
-            screenBlendOut.start();
+        source: "LessonMixedEasy.qml"
     }
 
     SequentialAnimation {
         id: screenBlendOut
-        OpacityAnimator {
-            target: courtain
-            from: 0
-            to: 1
-            duration: 180
-        }
         ScriptAction {
             script: {
-                stage.source = Database.currentScreen;
+                stage.source = "LessonMenu.qml";
             }
         }
-    }
-
-    SequentialAnimation {
-        id: screenBlendIn
-        OpacityAnimator {
-            target: courtain
-            from: 1
-            to: 0
-            duration: 180
-        }
-        ScriptAction {
-            script: loadingText.text = '';
-        }
-    }
-
-    function rotateItem(item)
-    {
-        item.width = height;
-        item.height = width;
-        item.y = height;
-        item.transformOrigin = Item.TopLeft;
-        item.rotation = 270;
-    }
-
-    function rotateItemsIfLandscape()
-    {
-        if (width > height) {
-            rotateItem(stage);
-            rotateItem(courtain);
-        }
-    }
-
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: {
-            Database.data.initCaches();
-            rotateItemsIfLandscape();
-            switchToScreen("LessonMenu");
-        }
-    }
-
-    Component.onCompleted: {
-        Database.settings = settings; // JS with ".pragma library" cannot directly access context property
-        Database.persistence.readCurrentLessonsOfGroups();
-        Database.currentVolume = Database.persistence.readVolume();
-    }
-
-    Component.onDestruction: {
-        Database.persistence.writeCurrentLessonsOfGroups();
-        Database.persistence.writeVolume(Database.currentVolume);
     }
 }

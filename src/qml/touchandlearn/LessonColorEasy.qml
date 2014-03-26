@@ -24,6 +24,6 @@ import QtQuick 2.0
 
 ImageMultipleChoice {
     imageSizeFactor: 0.8
-    exerciseFunction: "colorExerciseFunction"
+     exerciseFunction: "colorExerciseFunction"
     grayBackground: true
 }

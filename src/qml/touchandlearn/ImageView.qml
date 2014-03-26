@@ -24,54 +24,18 @@ import QtQuick 2.0
 import "database.js" as Database
 
 Item {
-    property alias backgroundImage: backgroundImage.source
     property alias currentExerciseIndex: listview.currentIndex
     property bool grayBackground
     property string exerciseFunction
     property int answersCount
     property real imageSizeFactor: 0.61
 
-    property int backgroundImageSourceSizeHeight: height * 0.3
-    property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
-    property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
-    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImage.height
     property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
 
     function goForward() {
-        listview.incrementCurrentIndex();
+             listview.incrementCurrentIndex();
     }
     id: imageview
-    Rectangle {
-        property int _hueSpanInPixels: imageview.width * 10;
-        property int hueOffset: Math.random() * _hueSpanInPixels
-        anchors.fill: parent
-        color: grayBackground ? "#E0E0E0"
-                              : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
-    }
-
-    Column {
-        Rectangle {
-            id: white
-            height: backgroundWhiteRectHeight
-            width: imageview.width
-            color: "#fff"
-        }
-        Image {
-            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
-            fillMode: Image.TileHorizontally
-            id: backgroundImage
-            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
-            width: _width
-            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
-            y: 0
-        }
-        Rectangle {
-            height: backgroundBlackRectHeight
-            width: imageview.width
-            color: "#000"
-        }
-        opacity: 0.08
-    }
 
     ListView {
         id: listview
@@ -81,27 +45,15 @@ Item {
         highlightRangeMode: ListView.StrictlyEnforceRange
         maximumFlickVelocity: width / 2
         highlightMoveDuration: 1000
-        model: 100000
+        model: 100
 
         delegate: Item {
             id: delegate
             width: listview.width // Must not be parent.height/width since those are 0 in the beginning
             height: listview.height
-            Image {
-                // Hand-centered in order to avoid non-integer image coordinates.
-                property int _leftMargin: (delegate.width - width) / 2
-                property int _topMargin: (delegate.height - height) / 2
-                anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
-                source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
-                asynchronous: true
+            Text {
+                text: modelData
             }
         }
-    }
-
-    Image {
-        sourceSize { height: parent.height; width: parent.width }
-        source: "image://imageprovider/frame/0"
-        smooth: false
     }
 }

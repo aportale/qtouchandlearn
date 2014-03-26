@@ -23,9 +23,4 @@
 import QtQuick 2.0
 
 ImageMultipleChoice {
-    exerciseFunction: "mixedEasyExercisesFunction"
-    answersCount: 2
-    viewHeightRatio: 0.55
-    imageSizeFactor: 0.8
-    showCorrectionImageOnButton: false
 }

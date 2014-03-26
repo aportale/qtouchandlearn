@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
     // https://bugreports.qt-project.org/browse/QTBUG-37586
     //qputenv("QML_FORCE_THREADED_RENDERER", "1");
 #endif
+    qputenv("QML_BAD_GUI_RENDER_LOOP", "1");
+    qputenv("QSG_INFO", "1");
 
     QCoreApplication::setOrganizationName("CasaPortale");
     QCoreApplication::setOrganizationDomain("casaportale.de");
