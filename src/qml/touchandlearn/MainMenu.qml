@@ -155,29 +155,11 @@ Rectangle {
         }
     }
 
-    function rotateItem(item)
-    {
-        item.width = height;
-        item.height = width;
-        item.y = height;
-        item.transformOrigin = Item.TopLeft;
-        item.rotation = 270;
-    }
-
-    function rotateItemsIfLandscape()
-    {
-        if (width > height) {
-            rotateItem(stage);
-            rotateItem(courtain);
-        }
-    }
-
     Timer {
         interval: 1
         running: true
         onTriggered: {
             Database.data.initCaches();
-            rotateItemsIfLandscape();
             switchToScreen("LessonMenu");
         }
     }
