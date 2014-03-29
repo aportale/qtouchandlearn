@@ -354,11 +354,14 @@ inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *
 inline static void drawGradient(DesignElementType type, QImage &image)
 {
     const int imageWidth = image.width();
+    const int imageHeight = image.height();
+    if (imageWidth < 1 || imageHeight < 1)
+        return;
     const QImage *gradient = type == DesignElementTypeButton ? buttonGradient() : frameGradient();
     const QRgb *gradientRgb = reinterpret_cast<const QRgb*>(gradient->constBits());
     QRgb *imageRgb = reinterpret_cast<QRgb*>(image.bits());
     const int quarterWidth = imageWidth / 2;
-    const int quarterHeight = image.height() / 2;
+    const int quarterHeight = imageHeight / 2;
     // Right triangle with a, b = 181.0193359837561662; c = 256.
     const qreal xScaleFactor = 181.0193359837561662 / quarterWidth;
     const qreal yScaleFactor = 181.0193359837561662 / quarterHeight;
