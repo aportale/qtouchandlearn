@@ -489,7 +489,7 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
 {
     QImage result;
     const QStringList idSegments = id.split(QLatin1Char('/'));
-    if (requestedSize.width() < 1 && requestedSize.height() < 1) {
+    if (requestedSize.width() < 1 || requestedSize.height() < 1) {
         qDebug() << "****************** requestedSize is NULL!" << requestedSize << id;
         return QImage();
     }
