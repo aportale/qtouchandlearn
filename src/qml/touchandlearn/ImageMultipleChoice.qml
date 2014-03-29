@@ -36,7 +36,8 @@ Item {
     property string selectedLesson
 
     property int imageViewHeight: height * viewHeightRatio
-    property int backButtonSize: width * 0.2
+    property int backButtonSize: (height < width ? height : width) * 0.2
+    property bool portaitLayout: width < (height * 1.5)
 
     function goBack()
     {
@@ -45,8 +46,8 @@ Item {
 
     ImageView {
         id: imageView
-        width: parent.width
-        height: imageViewHeight
+        width: portaitLayout ? parent.width : Math.ceil(parent.width / 2)
+        height: portaitLayout ? imageViewHeight : parent.height
         answersCount: choice.buttonsCount
         backgroundImage: "image://imageprovider/background/background_01"
         grayBackground: main.grayBackground
@@ -56,7 +57,11 @@ Item {
         id: backButton
         width: backButtonSize
         height: backButtonSize
-        anchors { top: parent.top; right: parent.right }
+        anchors {
+            top: parent.top
+            right: portaitLayout ? parent.right : undefined
+            left: portaitLayout ? undefined : parent.left
+        }
         Image {
             // Hand-centered in order to avoid non-integer image coordinates.
             property int _sourceSize: backButtonSize * 0.7
@@ -77,7 +82,11 @@ Item {
         property int _height: backButtonSize * 0.75
         width: backButtonSize
         height: _height
-        anchors { top: backButton.bottom; right: parent.right }
+        anchors {
+            top: backButton.bottom
+            right: portaitLayout ? parent.right : undefined
+            left: portaitLayout ? undefined : parent.left
+        }
         Image {
             // Hand-centered in order to avoid non-integer image coordinates.
             property int _sourceSize: backButtonSize * 0.7
@@ -97,9 +106,10 @@ Item {
     AnswerChoice {
         id: choice
 
-        y: imageViewHeight
-        height: parent.height - imageView.height
-        width: parent.width
+        y: portaitLayout ? imageViewHeight : 0
+        x: portaitLayout ? 0 : imageView.width
+        height: portaitLayout ? parent.height - imageView.height : parent.height
+        width: portaitLayout ? parent.width : parent.width - imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
         exerciseFunction: imageView.exerciseFunction
