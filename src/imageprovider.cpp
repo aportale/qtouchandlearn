@@ -249,7 +249,7 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
     QImage result(resultSize, QImage::Format_ARGB32);
     if (result.isNull())
-        qDebug() << "****************** clock image is NULL! Variation:" << variation;
+        qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << variation;
     result.fill(Qt::transparent);
     QPainter p(&result);
     const qreal scaleFactor = resultSize.width() / backgroundRect.width();
@@ -294,7 +294,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
     QImage result(resultSize, QImage::Format_ARGB32);
     if (result.isNull())
-        qDebug() << "****************** notes image is NULL! Notes:" << notes;
+        qDebug() << Q_FUNC_INFO << "notes image is NULL! Notes:" << notes;
     result.fill(Qt::transparent);
     QPainter p(&result);
     const qreal scaleFactor = resultSize.width() / imageRect.width();
@@ -472,7 +472,7 @@ inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *si
     transform.translate(-backgroundRect.topLeft().x(), -backgroundRect.topLeft().y());
     QImage result(resultSize, QImage::Format_ARGB32);
     if (result.isNull())
-        qDebug() << "****************** clock image is NULL! Variation:" << blotVariation;
+        qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << blotVariation;
     result.fill(0);
     QPainter p(&result);
     p.setTransform(transform);
@@ -490,11 +490,11 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
     QImage result;
     const QStringList idSegments = id.split(QLatin1Char('/'));
     if (requestedSize.width() < 1 || requestedSize.height() < 1) {
-        qDebug() << "****************** requestedSize is NULL!" << requestedSize << id;
+        qDebug() << Q_FUNC_INFO << " requestedSize is invalid!" << requestedSize << id;
         return QImage();
     }
     if (idSegments.count() < 2) {
-        qDebug() << "Not enough parameters for the image provider: " << id;
+        qDebug() << Q_FUNC_INFO << "Not enough parameters for the image provider: " << id;
         return QImage();
     }
     const QString &elementId = idSegments.at(1);
@@ -515,7 +515,7 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         result = renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
     } else if (idSegments.first() == QLatin1String("clock")) {
         if (idSegments.count() != 4) {
-            qDebug() << "Wrong number of parameters for clock images:" << id;
+            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for clock images:" << id;
             return QImage();
         }
         result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
@@ -523,25 +523,25 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         result = notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
-            qDebug() << "Wrong number of parameters for quantity images:" << id;
+            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for quantity images:" << id;
             return QImage();
         }
         result = quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("lessonicon")) {
         if (idSegments.count() != 3) {
-            qDebug() << "Wrong number of parameters for lessonicon:" << id;
+            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for lessonicon:" << id;
             return QImage();
         }
         result = renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("color")) {
         if (idSegments.count() != 3) {
-            qDebug() << "Wrong number of parameters for color:" << id;
+            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for color:" << id;
             return QImage();
         }
         const QColor color(idSegments.at(1));
         result = colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
     } else {
-        qDebug() << "invalid image Id:" << id;
+        qDebug() << Q_FUNC_INFO << "invalid image Id:" << id;
     }
 #if 0
     if (idSegments.first() == QLatin1String("object")) {
