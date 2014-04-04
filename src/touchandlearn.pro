@@ -57,6 +57,10 @@ android {
         android/AndroidManifest.xml
 }
 
+ios {
+    QTPLUGIN += qtaudio_coreaudio
+}
+
 RESOURCES = touchandlearn.qrc
 
 OTHER_FILES += \
