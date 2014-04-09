@@ -54,9 +54,9 @@ Rectangle {
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15 * devicePixelRatio; width: parent.height * 0.15 * devicePixelRatio }
                 opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
-                anchors { right: parent.right; top:  parent.top; margins: _anchors_margins; }
+                anchors { right: parent.right; top: parent.top; margins: _anchors_margins; }
                 scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
+                transformOrigin: Item.TopRight
             }
 
             Image {
@@ -134,15 +134,12 @@ Rectangle {
                     height: _height
                     anchors { top: parent.top; right: parent.right }
                     Image {
-                        // Hand-centered in order to avoid non-integer image coordinates.
                         property int _sourceSize: parent.width * 0.7 * devicePixelRatio
-                        property int _leftMargin: (parent._width - width) / 2 * devicePixelRatio
-                        property int _topMargin: (parent._height - height) / 2 * devicePixelRatio
-                        anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
+                        anchors { centerIn: parent }
                         sourceSize { width: _sourceSize; height: _sourceSize; }
                         source: "image://imageprovider/specialbutton/backbutton"
                         scale: devicePixelRatioScale
-                        transformOrigin: Item.TopLeft
+                        transformOrigin: Item.Center
                     }
                     MouseArea {
                         anchors.fill: parent
