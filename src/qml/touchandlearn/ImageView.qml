@@ -89,19 +89,23 @@ Item {
             height: listview.height
             Image {
                 // Hand-centered in order to avoid non-integer image coordinates.
-                property int _leftMargin: (delegate.width - width) / 2
-                property int _topMargin: (delegate.height - height) / 2
+                property int _leftMargin: (delegate.width - width / devicePixelRatio) / 2
+                property int _topMargin: (delegate.height - height / devicePixelRatio) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
+                sourceSize { width: imageSourceSizeWidthHeight * devicePixelRatio; height: imageSourceSizeWidthHeight * devicePixelRatio }
                 asynchronous: true
+                scale: devicePixelRatioScale
+                transformOrigin: Item.TopLeft
             }
         }
     }
 
     Image {
-        sourceSize { height: parent.height; width: parent.width }
+        sourceSize { height: parent.height * devicePixelRatio; width: parent.width * devicePixelRatio }
         source: "image://imageprovider/frame/0"
         smooth: false
+        scale: devicePixelRatioScale
+        transformOrigin: Item.TopLeft
     }
 }

@@ -64,13 +64,15 @@ Item {
         }
         Image {
             // Hand-centered in order to avoid non-integer image coordinates.
-            property int _sourceSize: backButtonSize * 0.7
-            property int _leftMargin: (parent.width - width) / 2
-            property int _topMargin: (parent.height - height) / 2
+            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
+            property int _leftMargin: (parent.width - width) / 2 * devicePixelRatio
+            property int _topMargin: (parent.height - height) / 2 * devicePixelRatio
             anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/backbutton"
             smooth: false
+            scale: devicePixelRatioScale
+            transformOrigin: Item.TopLeft
         }
         MouseArea {
             anchors.fill: parent
@@ -89,12 +91,14 @@ Item {
         }
         Image {
             // Hand-centered in order to avoid non-integer image coordinates.
-            property int _sourceSize: backButtonSize * 0.7
-            property int _leftMargin: (parent.width - width) / 2
+            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
+            property int _leftMargin: (parent.width - width) / 2 * devicePixelRatio
             anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/optionsbutton"
             smooth: false
+            scale: devicePixelRatioScale
+            transformOrigin: Item.TopLeft
         }
         MouseArea {
             anchors.fill: parent
