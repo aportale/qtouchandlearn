@@ -452,6 +452,11 @@ inline static QImage spectrum(QSize *size, const QSize &requestedSize)
         *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
     if (size)
         *size = result.size();
+#if 0
+    // for debugging
+    QPainter p(&result);
+    p.fillRect(resultSize.width() - 1, 0, 1, requestedSize.height(), Qt::white);
+#endif
     return result.scaled(resultSize);
 }
 
