@@ -100,11 +100,11 @@ Rectangle {
                 Image {
                     source: "image://imageprovider/title/spectrum"
                     sourceSize { width: titleImage.width; height: titleImage.height}
-                    width: (Math.ceil(menu.width / 360) + 1) * 360 * devicePixelRatio
+                    width: (Math.ceil(menu.width / 360 * devicePixelRatioScale) + 1) * 360 * devicePixelRatio
                     fillMode: Image.Tile
                     NumberAnimation on x {
                         from: 0
-                        to: -360
+                        to: -360 * devicePixelRatioScale
                         duration: 2500
                         loops: Animation.Infinite
                     }
