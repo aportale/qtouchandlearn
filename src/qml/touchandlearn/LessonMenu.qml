@@ -51,7 +51,9 @@ Rectangle {
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
-                sourceSize { width: parent.width; height: parent.height }
+                sourceSize { width: parent.width * devicePixelRatio; height: parent.height * devicePixelRatio }
+                scale: devicePixelRatioScale
+                transformOrigin: Item.TopLeft
             }
 
             Text {
@@ -97,23 +99,27 @@ Rectangle {
             Item {
                 Image {
                     source: "image://imageprovider/title/spectrum"
-                    sourceSize { width: titleImage.width; height: titleImage.height }
-                    width: (Math.ceil(menu.width / 360) + 1) * 360
+                    sourceSize { width: titleImage.width; height: titleImage.height}
+                    width: (Math.ceil(menu.width / 360 * devicePixelRatioScale) + 1) * 360 * devicePixelRatio
                     fillMode: Image.Tile
                     NumberAnimation on x {
                         from: 0
-                        to: -360
+                        to: -360 * devicePixelRatioScale
                         duration: 2500
                         loops: Animation.Infinite
                     }
+                    scale: devicePixelRatioScale
+                    transformOrigin: Item.TopLeft
                     smooth: false
                 }
                 Image {
                     id: titleImage
                     source: "image://imageprovider/title/textmask"
-                    sourceSize { width: menu.width; height: menu.height }
+                    sourceSize { width: menu.width * devicePixelRatio; height: menu.height * devicePixelRatio}
+                    scale: devicePixelRatioScale
+                    transformOrigin: Item.TopLeft
                 }
-                height: titleImage.height
+                height: titleImage.height * devicePixelRatioScale
                 anchors { left: parent.left; right: parent.right }
             }
 

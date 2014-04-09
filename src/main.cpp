@@ -57,6 +57,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImageProvider(QStringLiteral("imageprovider"), new ImageProvider);
     engine.rootContext()->setContextProperty(QStringLiteral("settings"), &settings);
+    const qreal devicePixelRatio = qApp->devicePixelRatio();
+    engine.rootContext()->setContextProperty(QStringLiteral("devicePixelRatio"), devicePixelRatio);
+    engine.rootContext()->setContextProperty(QStringLiteral("devicePixelRatioScale"), 1 / devicePixelRatio);
     const QString mainQml = QStringLiteral("qml/touchandlearn/main.qml");
     engine.load(QUrl(QStringLiteral("qrc:/") + mainQml));
 

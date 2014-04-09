@@ -34,7 +34,7 @@ Item {
     property int backgroundImageSourceSizeHeight: height * 0.3
     property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
     property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
-    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImage.height
+    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImageSourceSizeHeight
     property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
 
     function goForward() {
@@ -49,7 +49,7 @@ Item {
                               : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
     }
 
-    Column {
+    Item {
         Rectangle {
             id: white
             height: backgroundWhiteRectHeight
@@ -57,15 +57,18 @@ Item {
             color: "#fff"
         }
         Image {
-            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
-            fillMode: Image.TileHorizontally
+            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth * devicePixelRatio
+            fillMode: Image.Tile
             id: backgroundImage
-            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
+            sourceSize { height: backgroundImageSourceSizeHeight * devicePixelRatio; width: backgroundImageSourceSizeWidth * devicePixelRatio}
             width: _width
             x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
-            y: 0
+            y: backgroundWhiteRectHeight
+            scale: devicePixelRatioScale
+            transformOrigin: Item.TopLeft
         }
         Rectangle {
+            y: backgroundImage.height * devicePixelRatioScale + backgroundWhiteRectHeight
             height: backgroundBlackRectHeight
             width: imageview.width
             color: "#000"
@@ -89,19 +92,23 @@ Item {
             height: listview.height
             Image {
                 // Hand-centered in order to avoid non-integer image coordinates.
-                property int _leftMargin: (delegate.width - width) / 2
-                property int _topMargin: (delegate.height - height) / 2
+                property int _leftMargin: (delegate.width - width / devicePixelRatio) / 2
+                property int _topMargin: (delegate.height - height / devicePixelRatio) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight; }
+                sourceSize { width: imageSourceSizeWidthHeight * devicePixelRatio; height: imageSourceSizeWidthHeight * devicePixelRatio }
                 asynchronous: true
+                scale: devicePixelRatioScale
+                transformOrigin: Item.TopLeft
             }
         }
     }
 
     Image {
-        sourceSize { height: parent.height; width: parent.width }
+        sourceSize { height: parent.height * devicePixelRatio; width: parent.width * devicePixelRatio }
         source: "image://imageprovider/frame/0"
         smooth: false
+        scale: devicePixelRatioScale
+        transformOrigin: Item.TopLeft
     }
 }
