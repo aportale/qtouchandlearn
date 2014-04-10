@@ -34,7 +34,7 @@ Item {
     property int backgroundImageSourceSizeHeight: height * 0.3
     property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
     property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
-    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImage.height
+    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImageSourceSizeHeight
     property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
 
     function goForward() {
@@ -49,7 +49,7 @@ Item {
                               : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
     }
 
-    Column {
+    Item {
         Rectangle {
             id: white
             height: backgroundWhiteRectHeight
@@ -57,15 +57,18 @@ Item {
             color: "#fff"
         }
         Image {
-            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
-            fillMode: Image.TileHorizontally
+            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth * devicePixelRatio
+            fillMode: Image.Tile
             id: backgroundImage
-            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
+            sourceSize { height: backgroundImageSourceSizeHeight * devicePixelRatio; width: backgroundImageSourceSizeWidth * devicePixelRatio}
             width: _width
             x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
-            y: 0
+            y: backgroundWhiteRectHeight
+            scale: devicePixelRatioScale
+            transformOrigin: Item.TopLeft
         }
         Rectangle {
+            y: backgroundImage.height * devicePixelRatioScale + backgroundWhiteRectHeight
             height: backgroundBlackRectHeight
             width: imageview.width
             color: "#000"
