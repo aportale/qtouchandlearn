@@ -22,20 +22,21 @@
 
 import QtQuick 2.2
 import QtQuick.Window 2.1
-import TouchAndLearn 1.0
 
 Window {
     visible: true
-    width: 360
-    height: 640
+    width: 1000
+    height: 500
 
-    MainMenu {
-        anchors.fill: parent
+    Loader {
+        id: stage
+        width: parent.width
+        height: parent.height
     }
 
-    Feedback {
-        id: feedback
-        audioFileExtension: ".wav"
-        audioDirectory: Qt.resolvedUrl("../../wavaudio/")
+    Timer {
+        interval: 1
+        running: true
+        onTriggered: stage.source = "LessonClockEasy.qml";
     }
 }

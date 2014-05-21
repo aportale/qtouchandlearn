@@ -23,7 +23,4 @@
 import QtQuick 2.2
 
 ImageMultipleChoice {
-    answersCount: 2
-    viewHeightRatio: 0.55
-    exerciseFunction: "clockEasyExerciseFunction"
 }

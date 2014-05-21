@@ -21,7 +21,6 @@
 */
 
 import QtQuick 2.2
-import "database.js" as Database
 
 Item {
     id: choice
@@ -29,63 +28,57 @@ Item {
     property string exerciseFunction
     property bool showCorrectionImage: true
     property bool grayBackground
-    property int buttonsCount: 3
-    property alias columsCount: grid.columns
+    property int buttonsCount: 1
     signal correctlyAnswered
     property bool blockClicks: false
 
-    property int buttonSpacing: height * 0.035
-    property int gridWidth: width - 2 * buttonSpacing
-    property int gridHeight: height
-    property int gridRows: buttonsCount / columsCount
-
-    Rectangle {
-        anchors.fill: parent
-        color: "#000000"
-    }
-
     onExerciseIndexChanged: {
-        if (repeater.count > 1)
+        if (exerciseIndex >= 0)
             setButtonData();
     }
 
     function setButtonData() {
-        var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
             var button = repeater.itemAt(i);
-            var answer = exercise.Answers[i];
-            button.text = answer.DisplayName;
-            if (showCorrectionImage)
-                button.correctionImageSource = answer.ImageSource;
-            button.isCorrectAnswer = exercise.CorrectAnswerIndex === i;
+            button.text = Date();
         }
     }
 
-    Grid {
+    Column {
         id: grid
-        columns: 1
-        rows: gridRows
-        width: gridWidth
-        height: gridHeight
-        spacing: buttonSpacing
-        x: 2 * buttonSpacing
-        y: buttonSpacing
-
         Repeater {
             id: repeater
             model: buttonsCount
-            AnswerButton {
-                property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
-                property int _height: (gridHeight / gridRows) - buttonSpacing
-                width: _width
-                height: _height
-                index: modelData
-                grayBackground: choice.grayBackground
-                onCorrectlyPressed: correctlyAnswered();
+            Item {
+                property int index: modelData
+                property string text
 
-                // Calculate next but one exercise now, where the animation is over.
-                onContentChangeAnimationFinished: modelData === buttonsCount - 1 ?
-                                                      Database.exercise(exerciseIndex + 2, exerciseFunction, buttonsCount) : true;
+                Text {
+                    id: label
+                    anchors.centerIn: parent
+                }
+
+                onTextChanged: {
+                    contentChangeAnimation.complete();
+                    contentChangeAnimation.start();
+                }
+
+                SequentialAnimation {
+                    id: contentChangeAnimation
+                    ScaleAnimator {
+                        target: label
+                        from: 1
+                        to: 0
+                    }
+                    ScriptAction { // PropertyAction would fail here, and set the prior text
+                        script: label.text = text
+                    }
+                    ScaleAnimator {
+                        target: label
+                        from: 0
+                        to: 1
+                    }
+                }
             }
             Component.onCompleted: setButtonData();
         }

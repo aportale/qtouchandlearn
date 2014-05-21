@@ -25,19 +25,9 @@ import "database.js" as Database
 
 Item {
     id: main
-    property alias backgroundImage: imageView.backgroundImage
     property bool grayBackground
-    property alias imageSizeFactor: imageView.imageSizeFactor
-    property alias exerciseFunction: imageView.exerciseFunction
     property alias showCorrectionImageOnButton: choice.showCorrectionImage
-    property alias answersCount: choice.buttonsCount
-    property alias answersColumsCount: choice.columsCount
-    property real viewHeightRatio: 0.45
     property string selectedLesson
-
-    property int imageViewHeight: height * viewHeightRatio
-    property int backButtonSize: (height < width ? height : width) * 0.2
-    property bool portaitLayout: width < (height * 1.5)
 
     function goBack()
     {
@@ -46,72 +36,19 @@ Item {
 
     ImageView {
         id: imageView
-        width: portaitLayout ? parent.width : Math.ceil(parent.width / 2)
-        height: portaitLayout ? imageViewHeight : parent.height
-        answersCount: choice.buttonsCount
-        backgroundImage: "image://imageprovider/background/background_01"
-        grayBackground: main.grayBackground
-    }
-
-    Item {
-        id: backButton
-        width: backButtonSize
-        height: backButtonSize
-        anchors {
-            top: parent.top
-            right: portaitLayout ? parent.right : undefined
-            left: portaitLayout ? undefined : parent.left
-        }
-        Image {
-            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
-            anchors.centerIn: parent
-            sourceSize { width: _sourceSize; height: _sourceSize }
-            source: "image://imageprovider/specialbutton/backbutton"
-            smooth: false
-            scale: devicePixelRatioScale
-            transformOrigin: Item.Center
-        }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: goBack()
-        }
-    }
-
-    Item {
-        property int _height: backButtonSize * 0.75
-        width: backButtonSize
-        height: _height
-        anchors {
-            top: backButton.bottom
-            right: portaitLayout ? parent.right : undefined
-            left: portaitLayout ? undefined : parent.left
-        }
-        Image {
-            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
-            anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
-            sourceSize { width: _sourceSize; height: _sourceSize }
-            source: "image://imageprovider/specialbutton/optionsbutton"
-            smooth: false
-            scale: devicePixelRatioScale
-            transformOrigin: Item.Top
-        }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: selectedLesson = "Options"
-        }
-        visible: Database.lessonsOfCurrentGroup().length > 1
+        width: Math.ceil(parent.width / 2)
+        height: parent.height
     }
 
     AnswerChoice {
         id: choice
 
-        y: portaitLayout ? imageViewHeight : 0
-        x: portaitLayout ? 0 : imageView.width
-        height: portaitLayout ? parent.height - imageView.height : parent.height
-        width: portaitLayout ? parent.width : parent.width - imageView.width
+        y: 0
+        x: imageView.width
+        height: parent.height
+        width: imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
-        exerciseFunction: imageView.exerciseFunction
         onCorrectlyAnswered: imageView.goForward();
         grayBackground: main.grayBackground
     }
