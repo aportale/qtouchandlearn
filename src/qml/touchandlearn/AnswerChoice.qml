@@ -23,36 +23,26 @@
 import QtQuick 2.2
 
 Item {
-    id: choice
     property int exerciseIndex
     property int buttonsCount: 1
-    signal correctlyAnswered
 
     onExerciseIndexChanged: {
-        if (exerciseIndex >= 0)
-            setButtonData();
-    }
-
-    function setButtonData() {
-        for (var i = 0; i < buttonsCount; i++) {
-            var button = repeater.itemAt(i);
-            button.text = Date();
+        if (exerciseIndex >= 0) {
+            for (var i = 0; i < buttonsCount; i++) {
+                var button = repeater.itemAt(i);
+                button.text = Date();
+            }
         }
     }
 
     Column {
-        id: grid
         Repeater {
             id: repeater
             model: buttonsCount
             Item {
+                id: item
                 property int index: modelData
                 property string text
-
-                Text {
-                    id: label
-                    anchors.centerIn: parent
-                }
 
                 onTextChanged: {
                     contentChangeAnimation.complete();
@@ -62,21 +52,16 @@ Item {
                 SequentialAnimation {
                     id: contentChangeAnimation
                     ScaleAnimator {
-                        target: label
-                        from: 1
-                        to: 0
+                        target: item
                     }
-                    ScriptAction { // PropertyAction would fail here, and set the prior text
-                        script: label.text = text
+                    ScriptAction {
+                        script: { var foo = 1; }
                     }
                     ScaleAnimator {
-                        target: label
-                        from: 0
-                        to: 1
+                        target: item
                     }
                 }
             }
-            Component.onCompleted: setButtonData();
         }
     }
 }
