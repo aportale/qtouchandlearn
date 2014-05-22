@@ -25,12 +25,8 @@ import QtQuick 2.2
 Item {
     id: choice
     property int exerciseIndex
-    property string exerciseFunction
-    property bool showCorrectionImage: true
-    property bool grayBackground
     property int buttonsCount: 1
     signal correctlyAnswered
-    property bool blockClicks: false
 
     onExerciseIndexChanged: {
         if (exerciseIndex >= 0)

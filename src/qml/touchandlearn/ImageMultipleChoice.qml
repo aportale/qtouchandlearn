@@ -25,9 +25,6 @@ import "database.js" as Database
 
 Item {
     id: main
-    property bool grayBackground
-    property alias showCorrectionImageOnButton: choice.showCorrectionImage
-    property string selectedLesson
 
     function goBack()
     {
@@ -49,7 +46,5 @@ Item {
         width: imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
-        onCorrectlyAnswered: imageView.goForward();
-        grayBackground: main.grayBackground
     }
 }
