@@ -25,18 +25,11 @@ import QtQuick.Window 2.1
 
 Window {
     visible: true
-    width: 1000
-    height: 500
+    width: 640
+    height: 480
 
     Loader {
         id: stage
-        width: parent.width
-        height: parent.height
-    }
-
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: stage.source = "LessonClockEasy.qml";
+        source: "LessonClockEasy.qml"
     }
 }
