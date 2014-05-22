@@ -20,45 +20,14 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#include <QtCore/QLocale>
-#include <QtCore/QTranslator>
-#include <QtGui/QGuiApplication>
-#include <QtQml/QQmlApplicationEngine>
+#include <QtCore>
+#include <QtGui>
 #include <QtQml>
-
-#include "imageprovider.h"
-#include "settings.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setOrganizationName("CasaPortale");
-    QCoreApplication::setOrganizationDomain("casaportale.de");
-    QCoreApplication::setApplicationName(QStringLiteral("Touch'n'learn"));
-
     QGuiApplication app(argc, argv);
-    const QString assetsPrefix = QStringLiteral(":/");
-    const QString dataPath = assetsPrefix + QStringLiteral("data");
-
-    const QString translation = QLocale::system().name();
-    QTranslator translator;
-    translator.load(translation, dataPath + QStringLiteral("/translations"));
-    QGuiApplication::installTranslator(&translator);
-
-    // Registering dummy type to allow QML import of TouchAndLearn 1.0
-    qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
-
-    Settings settings; // Needs to be instantiated before engine, in order to be destructed after it
     QQmlApplicationEngine engine;
-    engine.addImageProvider(QStringLiteral("imageprovider"), new ImageProvider);
-    engine.rootContext()->setContextProperty(QStringLiteral("settings"), &settings);
-    const qreal devicePixelRatio = qApp->devicePixelRatio();
-    engine.rootContext()->setContextProperty(QStringLiteral("devicePixelRatio"), devicePixelRatio);
-    engine.rootContext()->setContextProperty(QStringLiteral("devicePixelRatioScale"), 1 / devicePixelRatio);
-    const QString mainQml = QStringLiteral("qml/touchandlearn/main.qml");
-    engine.load(QUrl(QStringLiteral("qrc:/") + mainQml));
-
-    ImageProvider::setDataPath(dataPath + QStringLiteral("/graphics"));
-    ImageProvider::init();
-
+    engine.load(QUrl(QStringLiteral("qrc:///qml/touchandlearn/main.qml")));
     return app.exec();
 }
