@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.2
+import QtQuick 2.1
 import "database.js" as Database
 
 Rectangle {
@@ -103,7 +103,8 @@ Rectangle {
             PauseAnimation {
                 duration: 850
             }
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: volumeDisplay
                 from: 1
                 to: 0
@@ -129,7 +130,8 @@ Rectangle {
 
     SequentialAnimation {
         id: screenBlendOut
-        OpacityAnimator {
+        PropertyAnimation {
+            property: "opacity"
             target: courtain
             from: 0
             to: 1
@@ -144,7 +146,8 @@ Rectangle {
 
     SequentialAnimation {
         id: screenBlendIn
-        OpacityAnimator {
+        PropertyAnimation {
+            property: "opacity"
             target: courtain
             from: 1
             to: 0

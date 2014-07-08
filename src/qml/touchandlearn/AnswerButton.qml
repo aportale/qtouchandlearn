@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.2
+import QtQuick 2.1
 import QtQuick.Particles 2.0
 
 Item {
@@ -151,13 +151,15 @@ Item {
             duration: 250 + index * 85
         }
         ParallelAnimation {
-            ScaleAnimator {
+            PropertyAnimation {
+                property: "scale"
                 target: label
                 from: 1
                 to: 0
                 easing.type: Easing.InQuad
             }
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: label
                 from: 1
                 to: 0
@@ -171,13 +173,15 @@ Item {
             script: label.text = text
         }
         ParallelAnimation {
-            ScaleAnimator {
+            PropertyAnimation {
+                property: "scale"
                 target: label
                 from: 0
                 to: 1
                 easing.type: Easing.OutBack
             }
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: label
                 from: 0
                 to: 1
@@ -209,8 +213,8 @@ Item {
             value: correctStateColor
         }
         PropertyAnimation {
-            target: rect
             property: "color"
+            target: rect
             to: normalStateColor
             duration: 700
         }
@@ -245,28 +249,31 @@ Item {
                     }
                 }
                 PropertyAnimation {
-                    target: rect
                     property: "color"
+                    target: rect
                     to: correctionImageSource.length ? correctionStateColor : normalStateColor
                     duration: correctionImageSource.length ? 450 : 600
                 }
             }
             SequentialAnimation {
-                XAnimator {
+                PropertyAnimation {
+                    property: "x"
                     target: label
                     from: label.horizontallyCenteredX
                     to: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     easing.type: Easing.InCubic
                     duration: 120
                 }
-                XAnimator {
+                PropertyAnimation {
+                    property: "x"
                     target: label
                     from: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     easing.type: Easing.InOutCubic
                     duration: 220
                 }
-                XAnimator {
+                PropertyAnimation {
+                    property: "x"
                     target: label
                     from: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX
@@ -276,12 +283,14 @@ Item {
             }
         }
         ParallelAnimation {
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: correctionImageSource.length ? correctionImage : null
                 from: 0
                 to: 1
             }
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: correctionImageSource.length ? label : null
                 from: 1
                 to: 0
@@ -291,20 +300,22 @@ Item {
             duration: correctionImageSource.length ? 1400 : 0
         }
         ParallelAnimation {
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: correctionImageSource.length ? correctionImage : null
                 from: 1
                 to: 0
             }
-            OpacityAnimator {
+            PropertyAnimation {
+                property: "opacity"
                 target: correctionImageSource.length ? label : null
                 from: 0
                 to: 1
             }
         }
         PropertyAnimation {
-            target: rect
             property: "color"
+            target: rect
             to: normalStateColor
             duration: 450
         }
