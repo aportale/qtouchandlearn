@@ -36,6 +36,6 @@ Window {
     Feedback {
         id: feedback
         audioFileExtension: ".wav"
-        audioDirectory: Qt.resolvedUrl("../../wavaudio/")
+        audioDirectory: Qt.resolvedUrl("../../data/audio/")
     }
 }

@@ -1,6 +1,6 @@
 <RCC>
     <qresource>
-        <file>wavaudio</file>
+        <file>data/audio</file>
         <file>data/graphics</file>
         <file>data/translations</file>
         <file>qml/touchandlearn</file>
