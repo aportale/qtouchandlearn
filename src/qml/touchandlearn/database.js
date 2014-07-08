@@ -470,6 +470,12 @@ function dumpLessonData()
 }
 
 var persistence = {
+    writeAll: function()
+    {
+        persistence.writeCurrentLessonsOfGroups();
+        persistence.writeVolume(currentVolume);
+    },
+
     lessonOfGroupTableName: "LessonOfGroup",
     readCurrentLessonsOfGroups: function()
     {

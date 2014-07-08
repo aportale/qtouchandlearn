@@ -51,7 +51,7 @@ Item {
     }
     ParticleSystem {
         id: particleSystem
-        running: Qt.application.active
+        running: Qt.application.state === Qt.ApplicationActive
     }
     ImageParticle {
         anchors.fill: parent

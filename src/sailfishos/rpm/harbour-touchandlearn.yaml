@@ -1,0 +1,32 @@
+Name: harbour-touchandlearn
+Summary: A collection of finger friendly learning games
+Version: 0.2
+Release: 2
+Group: Qt/Qt
+License: LICENSE
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |
+  Touch'n'learn is a collection of finger friendly learning games. There are counting, reading, clock reading and musical note reading lessons.
+  The game behaves like a deck of cards, showing images of animals, objects, clocks or notes, and the possible answers.
+  Touch'n'learn is free open source software.
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp >= 0.0.10
+- Qt5Quick
+- Qt5Qml
+- Qt5Core
+- Qt5Svg
+Requires:
+- qt5-qtsvg
+- sailfishsilica-qt5 >= 0.10.9
+- qt5-qtdeclarative-qtquickparticles
+- qt5-qtdeclarative-import-particles2
+Files:
+- '%{_bindir}'
+- '%{_datadir}/%{name}/qml'
+- '%{_datadir}/%{name}/data'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+PkgBR: []

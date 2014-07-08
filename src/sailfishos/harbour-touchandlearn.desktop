@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Name=Touch'n'learn
+Icon=harbour-touchandlearn
+Exec=harbour-touchandlearn

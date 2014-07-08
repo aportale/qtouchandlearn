@@ -107,6 +107,7 @@ Rectangle {
                         to: -360 * devicePixelRatioScale
                         duration: 2500
                         loops: Animation.Infinite
+                        running: Qt.application.state === Qt.ApplicationActive
                     }
                     scale: devicePixelRatioScale
                     transformOrigin: Item.TopLeft

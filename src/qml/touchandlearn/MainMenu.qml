@@ -122,6 +122,7 @@ Rectangle {
     {
         Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
+        Database.persistence.writeAll(); // TODO: Remove this hack. See https://together.jolla.com/question/49775/componentondestruction-of-applicationwindow-not-called/
         if (stage.source == '')
             stage.source = Database.currentScreen;
         else
@@ -174,7 +175,6 @@ Rectangle {
     }
 
     Component.onDestruction: {
-        Database.persistence.writeCurrentLessonsOfGroups();
-        Database.persistence.writeVolume(Database.currentVolume);
+        Database.persistence.writeAll();
     }
 }
