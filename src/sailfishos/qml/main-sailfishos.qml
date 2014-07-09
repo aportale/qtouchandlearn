@@ -37,6 +37,7 @@ ApplicationWindow
         property int screenHeight: window.height
         width: screenWidth
         height: screenHeight
+        titleAnimationEnabled: false
     }
 
     Feedback {

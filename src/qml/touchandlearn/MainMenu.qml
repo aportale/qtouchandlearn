@@ -27,6 +27,8 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
+    property bool titleAnimationEnabled: true
+
     function handleVolumeChange(volume)
     {
         Database.currentVolume = volume;
