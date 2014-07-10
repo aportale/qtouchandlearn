@@ -37,7 +37,6 @@ Item {
 
     property int imageViewHeight: height * viewHeightRatio
     property int backButtonSize: (height < width ? height : width) * 0.2
-    property bool portaitLayout: width < (height * 1.5)
 
     function goBack()
     {

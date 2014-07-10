@@ -30,6 +30,7 @@ Rectangle {
     property color pressedStateColor: "#ee8"
     property string selectedLesson
     property string currentLesson: Database.currentLessonOfCurrentGroup()
+    property int backButtonSize: (height < width ? height : width) * 0.2
 
     function goBack()
     {
@@ -39,9 +40,9 @@ Rectangle {
     Component {
         id: delegate
         Item {
-            property int _height: menu.width * 0.4
+            property int _height: width * 0.4
             height: _height
-            width: menu.width
+            width: menu.width / grid.columns
 
             Rectangle {
                 id: rectangle
@@ -102,60 +103,43 @@ Rectangle {
         }
     }
 
-    function enableMenuItems(enable) {
-        controls.enabled = enable
-        for (var i = 0; i < lessons.count; i++)
-            lessons.itemAt(i).enabled = enable
-    }
-
     Flickable {
         anchors.fill: parent
-        contentHeight: column.height
+        contentHeight: backButton.height + grid.height
         width: parent.width
 
-        onMovementStarted: enableMenuItems(false)
-        onFlickStarted: enableMenuItems(false)
-        onFlickEnded: enableMenuItems(true)
-        onMovementEnded: enableMenuItems(true)
-
-        Column {
-            id: column
-            anchors { left: parent.left; right: parent.right }
-
-            Item {
-                id: controls
-                anchors { left: parent.left; right: parent.right }
-                height: backButton.height
-                Item {
-                    id: backButton
-                    property int _width: menu.width * 0.2
-                    property int _height: _width * 0.75
-                    width: _width
-                    height: _height
-                    anchors { top: parent.top; right: parent.right }
-                    Image {
-                        property int _sourceSize: parent.width * 0.7 * devicePixelRatio
-                        anchors { centerIn: parent }
-                        sourceSize { width: _sourceSize; height: _sourceSize; }
-                        source: "image://imageprovider/specialbutton/backbutton"
-                        scale: devicePixelRatioScale
-                        transformOrigin: Item.Center
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: goBack()
-                    }
-                }
+        Item {
+            id: backButton
+            property int _height: backButtonSize * 0.75
+            width: backButtonSize
+            height: _height
+            anchors {
+                top: parent.top
+                right: portaitLayout ? parent.right : undefined
+                left: portaitLayout ? undefined : parent.left
             }
+            Image {
+                property int _sourceSize: parent.width * 0.7 * devicePixelRatio
+                anchors { centerIn: parent }
+                sourceSize { width: _sourceSize; height: _sourceSize; }
+                source: "image://imageprovider/specialbutton/backbutton"
+                scale: devicePixelRatioScale
+                transformOrigin: Item.Center
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: goBack()
+            }
+        }
 
-            Column {
-                id: list
-                anchors { left: parent.left; right: parent.right }
-                Repeater {
-                    id: lessons
-                    model: Database.lessonsOfCurrentGroup().length
-                    delegate: delegate
-                }
+        Grid {
+            id: grid
+            columns: portaitLayout ? 1 : 2
+            anchors { top: backButton.bottom; left: parent.left; right: parent.right }
+            Repeater {
+                id: lessons
+                model: Database.lessonsOfCurrentGroup().length
+                delegate: delegate
             }
         }
     }

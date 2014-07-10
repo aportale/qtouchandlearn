@@ -28,6 +28,7 @@ Rectangle {
     color: "#000"
 
     property bool titleAnimationEnabled: true
+    property bool portaitLayout: width < (height * 1.5)
 
     function handleVolumeChange(volume)
     {

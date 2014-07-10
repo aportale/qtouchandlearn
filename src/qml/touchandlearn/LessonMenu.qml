@@ -30,7 +30,9 @@ Rectangle {
     property color pressedStateColor: "#ee8"
     property string selectedLesson
 
-    property int delegateWidth: width >> 1
+    property int gridMargin: portaitLayout ? 0 : width * 0.075
+    property int columsCount: portaitLayout ? 2 : 3
+    property int delegateWidth: (width - 2 * gridMargin) / columsCount
     property int delegateHeight: delegateWidth * 1.04
 
     function goBack()
@@ -89,50 +91,66 @@ Rectangle {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: column.height
+        contentHeight: title.height + list.height
         width: parent.width
 
-        Column {
-            id: column
-            anchors { left: parent.left; right: parent.right }
-
-            Item {
-                Image {
-                    source: "image://imageprovider/title/spectrum"
-                    sourceSize { width: titleImage.width; height: titleImage.height}
-                    width: (Math.ceil(menu.width / 360 * devicePixelRatioScale) + 1) * 360 * devicePixelRatio
-                    fillMode: Image.Tile
-                    NumberAnimation on x {
-                        from: 0
-                        to: -360 * devicePixelRatioScale
-                        duration: 2500
-                        loops: Animation.Infinite
-                        running: titleAnimationEnabled
-                    }
-                    scale: devicePixelRatioScale
-                    transformOrigin: Item.TopLeft
-                    smooth: false
+        Item {
+            id: title
+            Image {
+                source: "image://imageprovider/title/spectrum"
+                sourceSize { width: titleImage.width; height: titleImage.height}
+                width: (Math.ceil(menu.width / 360 * devicePixelRatioScale) + 1) * 360 * devicePixelRatio
+                fillMode: Image.Tile
+                NumberAnimation on x {
+                    from: 0
+                    to: -360 * devicePixelRatioScale
+                    duration: 2500
+                    loops: Animation.Infinite
+                    running: titleAnimationEnabled
                 }
-                Image {
-                    id: titleImage
-                    source: "image://imageprovider/title/textmask"
-                    sourceSize { width: menu.width * devicePixelRatio; height: menu.height * devicePixelRatio}
-                    scale: devicePixelRatioScale
-                    transformOrigin: Item.TopLeft
+                scale: devicePixelRatioScale
+                transformOrigin: Item.TopLeft
+                smooth: false
+            }
+            Image {
+                id: titleImage
+                source: "image://imageprovider/title/textmask"
+                sourceSize {
+                    width: devicePixelRatio * (portaitLayout ? menu.width : menu.height * 0.65)
+                    height: devicePixelRatio * menu.height
                 }
-                height: titleImage.height * devicePixelRatioScale
-                anchors { left: parent.left; right: parent.right }
+                scale: devicePixelRatioScale
+                transformOrigin: Item.TopLeft
+            }
+            Rectangle {
+                color: "#000"
+                anchors {
+                    top: parent.top
+                    right: parent.right
+                    left: titleImage.right
+                    bottom: titleImage.bottom
+                }
+                visible: !portaitLayout
             }
 
-            Grid {
-                columns: 2
-                id: list
-                anchors { left: parent.left; right: parent.right }
-                Repeater {
-                    id: menuItems
-                    model: Database.lessonMenu().length
-                    delegate: delegate
-                }
+            height: titleImage.height * devicePixelRatioScale
+            anchors { left: parent.left; right: parent.right }
+        }
+
+        Grid {
+            id: list
+            columns: columsCount
+            anchors {
+                top: title.bottom
+                left: parent.left
+                right: parent.right
+                leftMargin: gridMargin
+                rightMargin: gridMargin
+            }
+            Repeater {
+                id: menuItems
+                model: Database.lessonMenu().length
+                delegate: delegate
             }
         }
     }
