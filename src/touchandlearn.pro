@@ -57,8 +57,17 @@ android {
         android/AndroidManifest.xml
 }
 
+QTPLUGIN.imageformats = -
+QTPLUGIN.iconengines = -
+QTPLUGIN.position = -
 ios {
-    QTPLUGIN += qtaudio_coreaudio
+  QMAKE_INFO_PLIST = Info_ios.plist
+
+  iosIcon.files = ios/AppIcon29x29.png ios/AppIcon40x40@2x.png ios/AppIcon50x50~ipad.png ios/AppIcon72x72@2x~ipad.png \
+   ios/AppIcon29x29@2x.png ios/AppIcon40x40@2x~ipad.png ios/AppIcon57x57.png ios/AppIcon72x72~ipad.png \
+   ios/AppIcon29x29@2x~ipad.png ios/AppIcon40x40~ipad.png ios/AppIcon57x57@2x.png ios/AppIcon76x76@2x~ipad.png \
+   ios/AppIcon29x29~ipad.png ios/AppIcon50x50@2x~ipad.png ios/AppIcon60x60@2x.png ios/AppIcon76x76~ipad.png
+  QMAKE_BUNDLE_DATA += iosIcon
 }
 
 RESOURCES = \
