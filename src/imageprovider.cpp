@@ -33,64 +33,51 @@ enum DesignElementType {
     DesignElementTypeFrame
 };
 
-const QString frameString = QLatin1String("frame");
-const QString buttonString = QLatin1String("button");
-const QString idPrefix = QLatin1String("id_");
-static QString dataPath = QLatin1String("data/graphics");
+static const QString frameString = QStringLiteral("frame");
+static const QString buttonString = QStringLiteral("button");
+static const QString idPrefix = QStringLiteral("id_");
+static QString dataPath = QStringLiteral("data/graphics");
 
 QSvgRenderer* designRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/design.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/design.svg"));
+    return& renderer;
 }
 
 QSvgRenderer* objectRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/objects.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/objects.svg"));
+    return &renderer;
 }
 
 QSvgRenderer* countablesRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/countables.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/countables.svg"));
+    return &renderer;
 }
-
 
 QSvgRenderer* clocksRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/clocks.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/clocks.svg"));
+    return &renderer;
 }
 
 QSvgRenderer* notesRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/notes.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/notes.svg"));
+    return &renderer;
 }
 
 QSvgRenderer* lessonIconsRenderer()
 {
-    static QSvgRenderer *renderer = 0;
-    if (!renderer)
-        renderer = new QSvgRenderer(dataPath + QLatin1String("/lessonicons.svg"));
-    return renderer;
+    static QSvgRenderer renderer(dataPath + QStringLiteral("/lessonicons.svg"));
+    return &renderer;
 }
 
-QImage gradientImage(DesignElementType type)
+const QImage gradientImage(DesignElementType type)
 {
     QSvgRenderer *renderer = designRenderer();
-    const QString gradientId = idPrefix + (type == DesignElementTypeButton ? buttonString : frameString) + QLatin1String("gradient");
+    const QString gradientId = idPrefix + (type == DesignElementTypeButton ? buttonString : frameString) + QStringLiteral("gradient");
     Q_ASSERT(renderer->boundsOnElement(gradientId).size().toSize() == QSize(256, 1));
     QImage result(256, 1, QImage::Format_ARGB32);
     result.fill(0);
@@ -105,20 +92,16 @@ QImage gradientImage(DesignElementType type)
     return result;
 }
 
-QImage* buttonGradient()
+QImage const *buttonGradient()
 {
-    static QImage *gradient = 0;
-    if (!gradient)
-        gradient = new QImage(gradientImage(DesignElementTypeButton));
-    return gradient;
+    const static QImage gradient(gradientImage(DesignElementTypeButton));
+    return &gradient;
 }
 
-QImage* frameGradient()
+QImage const *frameGradient()
 {
-    static QImage *gradient = 0;
-    if (!gradient)
-        gradient = new QImage(gradientImage(DesignElementTypeFrame));
-    return gradient;
+    const static QImage gradient(gradientImage(DesignElementTypeFrame));
+    return &gradient;
 }
 
 struct ElementVariations
@@ -159,20 +142,16 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
     return result;
 }
 
-ElementVariationList *buttonVariations()
+ElementVariationList const *buttonVariations()
 {
-    static ElementVariationList *list = 0;
-    if (!list)
-        list = new ElementVariationList(elementsWithSizes(buttonString));
-    return list;
+    const static ElementVariationList list(elementsWithSizes(buttonString));
+    return &list;
 }
 
-ElementVariationList *frameVariations()
+ElementVariationList const *frameVariations()
 {
-    static ElementVariationList *list = 0;
-    if (!list)
-        list = new ElementVariationList(elementsWithSizes(frameString));
-    return list;
+    const static ElementVariationList list(elementsWithSizes(frameString));
+    return &list;
 }
 
 ImageProvider::ImageProvider()
@@ -237,7 +216,7 @@ inline static void renderIndicator(const QString &indicatorId, int rotation, con
 inline static QImage clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = clocksRenderer();
-    const static QString clockBackgroundString = QLatin1String("background");
+    const static QString clockBackgroundString = QStringLiteral("background");
     const static int variationsCnt = variationsCount(renderer, clockBackgroundString);
     const int actualVariation = (variation % variationsCnt) + 1;
     const QString variationNumber = QLatin1Char('_') + QString::number(actualVariation);
@@ -261,14 +240,14 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
     renderer->render(&p, idPrefix + backgroundElementId, backgroundRect);
 
     const int minuteRotation = (minute * 6) % 360;
-    renderIndicator(QLatin1String("minute") + variationNumber, minuteRotation,
+    renderIndicator(QStringLiteral("minute") + variationNumber, minuteRotation,
                     backgroundRect, scaleFactor, renderer, &p);
 
     const int hoursSkew = 6; // Initial position of hour in the SVG is 6
-    renderIndicator(QLatin1String("hour") + variationNumber, (((hour + hoursSkew) * 360 + minuteRotation) / 12) % 360,
+    renderIndicator(QStringLiteral("hour") + variationNumber, (((hour + hoursSkew) * 360 + minuteRotation) / 12) % 360,
                     backgroundRect, scaleFactor, renderer, &p);
 
-    const QString foregroundElementId = QLatin1String("foreground") + variationNumber;
+    const QString foregroundElementId = QStringLiteral("foreground") + variationNumber;
     if (renderer->elementExists(idPrefix + foregroundElementId)) {
         p.setTransform(mainTransform);
         renderer->render(&p, idPrefix + foregroundElementId, renderer->boundsOnElement(idPrefix + foregroundElementId));
@@ -279,9 +258,9 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
 inline static QImage notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = notesRenderer();
-    static const QString clefId = QLatin1String("clef");
+    static const QString clefId = QStringLiteral("clef");
     static const QRectF clefRect = renderer->boundsOnElement(idPrefix + clefId);
-    static const QString staffLinesId = QLatin1String("stafflines");
+    static const QString staffLinesId = QStringLiteral("stafflines");
     static const QRectF staffLinesOriginalRect = renderer->boundsOnElement(idPrefix + staffLinesId);
     static const qreal clefRightY = clefRect.right() - staffLinesOriginalRect.left();
     static const qreal linesSpacePerNote = clefRect.width() * 1.75;
@@ -308,7 +287,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     foreach(const QString &currentNote, notes) {
         const QString trimmedNote = currentNote.trimmed();
         const QString note = trimmedNote.at(0).toLower();
-        const QString noteID = QLatin1String("note_") + note;
+        const QString noteID = QStringLiteral("note_") + note;
         QRectF noteRect = renderer->boundsOnElement(idPrefix + noteID);
         const qreal noteCenterX = clefRightY + (currentNoteIndex + 0.125) * linesSpacePerNote + noteRect.width();
         currentNoteIndex++;
@@ -316,12 +295,12 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
         noteRect.translate(noteXTranslate, 0);
         renderer->render(&p, idPrefix + noteID, noteRect);
         if (trimmedNote.length() > 1) {
-            static const QString sharpId = QLatin1String("sharp");
-            static const QString flatId = QLatin1String("flat");
-            static const QRectF noteCHeadRect = renderer->boundsOnElement(idPrefix + QLatin1String("note_c_head"));
-            const bool sharp = trimmedNote.endsWith(QLatin1String("sharp"));
+            static const QString sharpId = QStringLiteral("sharp");
+            static const QString flatId = QStringLiteral("flat");
+            static const QRectF noteCHeadRect = renderer->boundsOnElement(idPrefix + QStringLiteral("note_c_head"));
+            const bool sharp = trimmedNote.endsWith(QStringLiteral("sharp"));
             const QString &noteSign = sharp ? sharpId : flatId;
-            const QRectF noteHeadRect = renderer->boundsOnElement(idPrefix + QLatin1String("note_") + note + QLatin1String("_head"));
+            const QRectF noteHeadRect = renderer->boundsOnElement(idPrefix + QStringLiteral("note_") + note + QStringLiteral("_head"));
             const QRectF signRect = renderer->boundsOnElement(idPrefix + noteSign)
                     .translated(noteXTranslate, 0)
                     .translated(noteHeadRect.topLeft() - noteCHeadRect.topLeft());
@@ -335,7 +314,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
 inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
                                         QSize *size, const QSize &requestedSize)
 {
-    const QString rectId = elementId + QLatin1String("_rect");
+    const QString rectId = elementId + QStringLiteral("_rect");
     const QRectF rect = renderer->boundsOnElement(idPrefix + (renderer->elementExists(idPrefix + rectId) ? rectId : elementId));
     Q_ASSERT_X(rect.width() >= 1 && rect.height() >= 1, "renderedSvgElement", "SVG bounding rect is NULL");
     QSize resultSize = rect.size().toSize();
@@ -463,12 +442,12 @@ inline static QImage spectrum(QSize *size, const QSize &requestedSize)
 inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = designRenderer();
-    const static QString elementIdBase = QLatin1String("colorblot");
+    const static QString elementIdBase = QStringLiteral("colorblot");
     const static int variationsCnt = variationsCount(renderer, elementIdBase);
     const int actualVariation = (blotVariation % variationsCnt) + 1;
     const QString elementId = elementIdBase + QLatin1Char('_') + QString::number(actualVariation);
-    const QString maskElementId = elementId + QLatin1String("_mask");
-    const QString highlightElementId = elementId + QLatin1String("_highlight");
+    const QString maskElementId = elementId + QStringLiteral("_mask");
+    const QString highlightElementId = elementId + QStringLiteral("_highlight");
     const QRectF backgroundRect = renderer->boundsOnElement(idPrefix + elementId);
     QSize resultSize = backgroundRect.size().toSize();
     if (size)
@@ -506,42 +485,42 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         return QImage();
     }
     const QString &elementId = idSegments.at(1);
-    if (idSegments.first() == QLatin1String("background")) {
+    if (idSegments.first() == QStringLiteral("background")) {
         return renderedSvgElement(elementId, designRenderer(), Qt::KeepAspectRatioByExpanding, size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("title")) {
-        if (elementId == QLatin1String("textmask"))
+    } else if (idSegments.first() == QStringLiteral("title")) {
+        if (elementId == QStringLiteral("textmask"))
             result = renderedSvgElement(idSegments.first(), designRenderer(), Qt::KeepAspectRatio, size, requestedSize);
         else
             result = spectrum(size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("specialbutton")) {
+    } else if (idSegments.first() == QStringLiteral("specialbutton")) {
         result = renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
         result = renderedDesignElement(DesignElementTypeButton, elementId.toInt(), size, requestedSize);
     } else if (idSegments.first() == frameString) {
         result = renderedDesignElement(DesignElementTypeFrame, 0, size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("object")) {
+    } else if (idSegments.first() == QStringLiteral("object")) {
         result = renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("clock")) {
+    } else if (idSegments.first() == QStringLiteral("clock")) {
         if (idSegments.count() != 4) {
             qDebug() << Q_FUNC_INFO << "Wrong number of parameters for clock images:" << id;
             return QImage();
         }
         result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("notes")) {
+    } else if (idSegments.first() == QStringLiteral("notes")) {
         result = notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("quantity")) {
+    } else if (idSegments.first() == QStringLiteral("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << Q_FUNC_INFO << "Wrong number of parameters for quantity images:" << id;
             return QImage();
         }
         result = quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("lessonicon")) {
+    } else if (idSegments.first() == QStringLiteral("lessonicon")) {
         if (idSegments.count() != 3) {
             qDebug() << Q_FUNC_INFO << "Wrong number of parameters for lessonicon:" << id;
             return QImage();
         }
         result = renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
-    } else if (idSegments.first() == QLatin1String("color")) {
+    } else if (idSegments.first() == QStringLiteral("color")) {
         if (idSegments.count() != 3) {
             qDebug() << Q_FUNC_INFO << "Wrong number of parameters for color:" << id;
             return QImage();
@@ -552,7 +531,7 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         qDebug() << Q_FUNC_INFO << "invalid image Id:" << id;
     }
 #if 0
-    if (idSegments.first() == QLatin1String("object")) {
+    if (idSegments.first() == QStringLiteral("object")) {
         QPainter p(&result);
         QPolygon points;
         for (int i = 0; i < result.width(); i += 2)
