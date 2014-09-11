@@ -1,0 +1,11 @@
+<RCC>
+    <qresource>
+        <file>data/graphics/particle.png</file>
+        <file>data/graphics/objects.svg</file>
+        <file>data/graphics/lessonicons.svg</file>
+        <file>data/graphics/notes.svg</file>
+        <file>data/graphics/design.svg</file>
+        <file>data/graphics/clocks.svg</file>
+        <file>data/graphics/countables.svg</file>
+    </qresource>
+</RCC>

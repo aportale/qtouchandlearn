@@ -1,0 +1,13 @@
+<RCC>
+    <qresource>
+        <file>data/audio/incorrectanswer_04.wav</file>
+        <file>data/audio/incorrectanswer_03.wav</file>
+        <file>data/audio/incorrectanswer_02.wav</file>
+        <file>data/audio/incorrectanswer_01.wav</file>
+        <file>data/audio/correctanswer_05.wav</file>
+        <file>data/audio/correctanswer_04.wav</file>
+        <file>data/audio/correctanswer_03.wav</file>
+        <file>data/audio/correctanswer_02.wav</file>
+        <file>data/audio/correctanswer_01.wav</file>
+    </qresource>
+</RCC>

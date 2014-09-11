@@ -1,0 +1,30 @@
+<RCC>
+    <qresource>
+        <file>qml/touchandlearn/AnswerButton.qml</file>
+        <file>qml/touchandlearn/AnswerChoice.qml</file>
+        <file>qml/touchandlearn/database.js</file>
+        <file>qml/touchandlearn/Feedback.qml</file>
+        <file>qml/touchandlearn/ImageMultipleChoice.qml</file>
+        <file>qml/touchandlearn/ImageView.qml</file>
+        <file>qml/touchandlearn/LessonClockEasy.qml</file>
+        <file>qml/touchandlearn/LessonClockHard.qml</file>
+        <file>qml/touchandlearn/LessonClockMedium.qml</file>
+        <file>qml/touchandlearn/LessonColorEasy.qml</file>
+        <file>qml/touchandlearn/LessonCountEasy.qml</file>
+        <file>qml/touchandlearn/LessonCountHard.qml</file>
+        <file>qml/touchandlearn/LessonCountReadEasy.qml</file>
+        <file>qml/touchandlearn/LessonCountReadHard.qml</file>
+        <file>qml/touchandlearn/LessonFirstLetter.qml</file>
+        <file>qml/touchandlearn/LessonMenu.qml</file>
+        <file>qml/touchandlearn/LessonMixedEasy.qml</file>
+        <file>qml/touchandlearn/LessonMixedHard.qml</file>
+        <file>qml/touchandlearn/LessonMixedMedium.qml</file>
+        <file>qml/touchandlearn/LessonNameTerms.qml</file>
+        <file>qml/touchandlearn/LessonNotesReadEasy.qml</file>
+        <file>qml/touchandlearn/LessonNotesReadHard.qml</file>
+        <file>qml/touchandlearn/LessonOptions.qml</file>
+        <file>qml/touchandlearn/main.qml</file>
+        <file>qml/touchandlearn/MainMenu.qml</file>
+        <file>qml/touchandlearn/VolumeDisplay.qml</file>
+    </qresource>
+</RCC>

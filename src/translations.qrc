@@ -1,0 +1,9 @@
+<RCC>
+    <qresource>
+        <file>data/translations/it.qm</file>
+        <file>data/translations/fi.qm</file>
+        <file>data/translations/en_US.qm</file>
+        <file>data/translations/en_GB.qm</file>
+        <file>data/translations/de.qm</file>
+    </qresource>
+</RCC>

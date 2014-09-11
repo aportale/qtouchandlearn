@@ -61,10 +61,11 @@ ios {
     QTPLUGIN += qtaudio_coreaudio
 }
 
-RESOURCES = touchandlearn.qrc
-
-OTHER_FILES += \
-    qml/touchandlearn/*
+RESOURCES = \
+    audio.qrc \
+    graphics.qrc \
+    qml.qrc \
+    translations.qrc
 
 DEFINES += \
     QT_USE_FAST_CONCATENATION \
