@@ -37,6 +37,7 @@ static const QString frameString = QStringLiteral("frame");
 static const QString buttonString = QStringLiteral("button");
 static const QString idPrefix = QStringLiteral("id_");
 static QString dataPath = QStringLiteral("data/graphics");
+static const QImage::Format imageFormat = QImage::Format_ARGB32_Premultiplied;
 
 QSvgRenderer* designRenderer()
 {
@@ -79,7 +80,7 @@ const QImage gradientImage(DesignElementType type)
     QSvgRenderer *renderer = designRenderer();
     const QString gradientId = idPrefix + (type == DesignElementTypeButton ? buttonString : frameString) + QStringLiteral("gradient");
     Q_ASSERT(renderer->boundsOnElement(gradientId).size().toSize() == QSize(256, 1));
-    QImage result(256, 1, QImage::Format_ARGB32);
+    QImage result(256, 1, imageFormat);
     result.fill(0);
     QPainter p(&result);
     renderer->render(&p, gradientId, result.rect());
@@ -167,7 +168,7 @@ inline static QImage quantity(int quantity, const QString &item, QSize *size, co
     const int columnsInLastRow = quantity % columns == 0 ? columns : quantity % columns;
     const int itemSize = qMin((requestedSize.width() / qMax(3, columns)), (requestedSize.height() / qMax(3, rows)));
     const QSize resultSize(itemSize * columns, itemSize * rows);
-    QImage result(resultSize, QImage::Format_ARGB32);
+    QImage result(resultSize, imageFormat);
     result.fill(Qt::transparent);
     QPainter p(&result);
     for (int row = 0; row < rows; row++) {
@@ -226,7 +227,7 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
     if (size)
         *size = resultSize;
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
-    QImage result(resultSize, QImage::Format_ARGB32);
+    QImage result(resultSize, imageFormat);
     if (result.isNull())
         qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << variation;
     result.fill(Qt::transparent);
@@ -271,7 +272,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     if (size)
         *size = resultSize;
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
-    QImage result(resultSize, QImage::Format_ARGB32);
+    QImage result(resultSize, imageFormat);
     if (result.isNull())
         qDebug() << Q_FUNC_INFO << "notes image is NULL! Notes:" << notes;
     result.fill(Qt::transparent);
@@ -322,7 +323,7 @@ inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *
         *size = resultSize;
     resultSize.scale(requestedSize, aspectRatioMode);
     Q_ASSERT_X(resultSize.width() >= 1 && resultSize.height() >= 1, "renderedSvgElement", "imageSize is NULL");
-    QImage result(resultSize, QImage::Format_ARGB32);
+    QImage result(resultSize, imageFormat);
     Q_ASSERT_X(!result.isNull(), "renderedSvgElement", "image is NULL");
     result.fill(Qt::transparent);
     QPainter p(&result);
@@ -392,7 +393,7 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
         designRenderer()->render(&p, elementId, result.rect());
         return result;
     } else {
-        QImage result(requestedSize, QImage::Format_ARGB32);
+        QImage result(requestedSize, imageFormat);
         result.fill(0);
         drawGradient(type, result);
         cachedGradient = result;
@@ -404,7 +405,7 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
 
 inline static QImage renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
 {
-    QImage result(requestedSize, QImage::Format_ARGB32);
+    QImage result(requestedSize, imageFormat);
     result.fill(Qt::transparent);
     QPainter p(&result);
     QSvgRenderer *renderer = lessonIconsRenderer();
@@ -425,7 +426,7 @@ inline static QImage renderedLessonIcon(const QString &iconId, int buttonVariati
 inline static QImage spectrum(QSize *size, const QSize &requestedSize)
 {
     const QSize resultSize(360, requestedSize.height());
-    QImage result(resultSize.width(), 1, QImage::Format_ARGB32);
+    QImage result(resultSize.width(), 1, imageFormat);
     QRgb *bits = reinterpret_cast<QRgb*>(result.bits());
     for (int i = 0; i < resultSize.width(); ++i)
         *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
@@ -457,7 +458,7 @@ inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *si
     QTransform transform =
             QTransform::fromScale(scaleFactor, scaleFactor);
     transform.translate(-backgroundRect.topLeft().x(), -backgroundRect.topLeft().y());
-    QImage result(resultSize, QImage::Format_ARGB32);
+    QImage result(resultSize, imageFormat);
     if (result.isNull())
         qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << blotVariation;
     result.fill(0);
