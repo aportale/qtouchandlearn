@@ -26,5 +26,6 @@
         <file>qml/touchandlearn/main.qml</file>
         <file>qml/touchandlearn/MainMenu.qml</file>
         <file>qml/touchandlearn/VolumeDisplay.qml</file>
+        <file>qml/touchandlearn/Particles.qml</file>
     </qresource>
 </RCC>

@@ -21,7 +21,6 @@
 */
 
 import QtQuick 2.1
-import QtQuick.Particles 2.0
 
 Item {
     property int index: 0
@@ -49,35 +48,9 @@ Item {
         anchors.fill: parent
         color: normalStateColor
     }
-    ParticleSystem {
-        id: particleSystem
-        running: Qt.application.state === Qt.ApplicationActive
-    }
-    ImageParticle {
-        anchors.fill: parent
-        system: particleSystem
-        rotationVelocity: 50
-        rotationVelocityVariation: 20
-        source: "../../data/graphics/particle.png"
-        clip: true
-    }
-    Emitter {
-        property real _size: (height < width ? height : width) / 2.0
-        property real _sizeVariation: _size * 0.1
+    Particles {
         anchors.fill: parent
         id: particles
-        system: particleSystem
-        lifeSpan: 700
-        lifeSpanVariation: 200
-        velocity: AngleDirection {
-            property real _velocityMagnitude: (height < width ? height : width) / 2.0
-            magnitude: _velocityMagnitude;
-            angleVariation: 360
-        }
-        size: _size
-        sizeVariation: _sizeVariation
-        enabled: false
-        emitRate: 50
     }
     Image {
         source: "image://imageprovider/button/" + index
@@ -202,9 +175,7 @@ Item {
                 if (typeof(feedback) === "object")
                     feedback.playCorrectSound();
                 blockClicks = true;
-                particles.enabled = true;
                 particles.burst(20);
-                particles.enabled = false;
             }
         }
         PropertyAction {
