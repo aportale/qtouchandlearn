@@ -4,12 +4,26 @@ import QtQuick.Particles 2.0
 Item {
     function burst(particlesCount)
     {
+        particleSystem.running = true
         particles.burst(particlesCount);
+        particleRunningTimer.start();
+    }
+
+    Timer {
+        id: particleRunningTimer
+        interval: particles.lifeSpan + particles.lifeSpanVariation + 50
+        onTriggered: particleSystem.running = false;
     }
 
     ParticleSystem {
         id: particleSystem
-        running: Qt.application.state === Qt.ApplicationActive
+        running: true
+        Timer {
+            // The first instance of ParticleSystem will take a while to initialize
+            // It does only nitialize while it is "running"
+            interval: 0
+            onTriggered: parent.running = false;
+        }
     }
     ImageParticle {
         anchors.fill: parent
