@@ -21,6 +21,7 @@
 */
 
 #include <QtCore/QLocale>
+#include <QtCore/QDir>
 #include <QtCore/QTranslator>
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatio"), devicePixelRatio);
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatioScale"), 1 / devicePixelRatio);
     const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
-    engine.load(QUrl(QLatin1String("qrc:/") + mainQml));
+    engine.load(QUrl(QLatin1String("qrc:///") + mainQml)); // Needs to be "qrc:///" -> QTBUG-42102
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
