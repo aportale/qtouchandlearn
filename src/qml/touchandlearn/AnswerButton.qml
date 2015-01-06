@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.1
+import QtQuick 2.2
 
 Item {
     property int index: 0
@@ -124,15 +124,13 @@ Item {
             duration: 250 + index * 85
         }
         ParallelAnimation {
-            PropertyAnimation {
-                property: "scale"
+            ScaleAnimator {
                 target: label
                 from: 1
                 to: 0
                 easing.type: Easing.InQuad
             }
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: label
                 from: 1
                 to: 0
@@ -146,15 +144,13 @@ Item {
             script: label.text = text
         }
         ParallelAnimation {
-            PropertyAnimation {
-                property: "scale"
+            ScaleAnimator {
                 target: label
                 from: 0
                 to: 1
                 easing.type: Easing.OutBack
             }
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: label
                 from: 0
                 to: 1
@@ -227,24 +223,21 @@ Item {
                 }
             }
             SequentialAnimation {
-                PropertyAnimation {
-                    property: "x"
+                XAnimator {
                     target: label
                     from: label.horizontallyCenteredX
                     to: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     easing.type: Easing.InCubic
                     duration: 120
                 }
-                PropertyAnimation {
-                    property: "x"
+                XAnimator {
                     target: label
                     from: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     easing.type: Easing.InOutCubic
                     duration: 220
                 }
-                PropertyAnimation {
-                    property: "x"
+                XAnimator {
                     target: label
                     from: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX
@@ -254,14 +247,12 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: correctionImageSource.length ? correctionImage : null
                 from: 0
                 to: 1
             }
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: correctionImageSource.length ? label : null
                 from: 1
                 to: 0
@@ -271,14 +262,12 @@ Item {
             duration: correctionImageSource.length ? 1400 : 0
         }
         ParallelAnimation {
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: correctionImageSource.length ? correctionImage : null
                 from: 1
                 to: 0
             }
-            PropertyAnimation {
-                property: "opacity"
+            OpacityAnimator {
                 target: correctionImageSource.length ? label : null
                 from: 0
                 to: 1

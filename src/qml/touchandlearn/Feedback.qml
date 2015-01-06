@@ -20,7 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.1
+import QtQuick 2.2
 import QtMultimedia 5.0
 import "database.js" as Database
 
