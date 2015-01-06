@@ -34,6 +34,7 @@ Rectangle {
     property int columsCount: portaitLayout ? 2 : 3
     property int delegateWidth: (width - 2 * gridMargin) / columsCount
     property int delegateHeight: delegateWidth * 1.04
+    property bool quitsOnBack: true
 
     function goBack()
     {

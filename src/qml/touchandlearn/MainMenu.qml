@@ -42,6 +42,8 @@ Rectangle {
     focus: true
     Keys.onPressed: {
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            if (stage.item.quitsOnBack && Qt.platform.os == "winphone")
+                return;
             stage.item.goBack();
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
@@ -66,13 +68,6 @@ Rectangle {
         color: "#000"
         opacity: 1
         z: 1
-        Text {
-            id: loadingText
-            anchors.centerIn: parent
-            text: "..."
-            color: "#FFF"
-            font.pixelSize: 20
-        }
     }
 
     Loader {

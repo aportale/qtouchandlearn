@@ -55,7 +55,12 @@ int main(int argc, char *argv[])
     const qreal devicePixelRatio = qApp->devicePixelRatio();
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatio"), devicePixelRatio);
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatioScale"), 1 / devicePixelRatio);
-    const QString mainQml = QLatin1String("qml/touchandlearn/main.qml");
+    const QString mainQml =
+#ifdef Q_OS_WINRT
+            QLatin1String("qml/touchandlearn/main_winrt.qml");
+#else
+            QLatin1String("qml/touchandlearn/main.qml");
+#endif
     engine.load(QUrl(QLatin1String("qrc:///") + mainQml)); // Needs to be "qrc:///" -> QTBUG-42102
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));

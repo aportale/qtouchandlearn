@@ -61,11 +61,38 @@ ios {
     QTPLUGIN += qtaudio_coreaudio
 }
 
+winrt {
+    # WINRT_MANIFEST = winrt/AppxManifest.in
+    # Experimental: Add custom deployment step in Qt Creator.
+    #   Command: %{sourceDir}\winrt\CreateAppxManifestMap.cmd
+    #   Arguments: %{sourceDir} %{buildDir} %{Env:QTDIR}
+
+    WINRT_MANIFEST.name = "Touch'n'learn"
+    WINRT_MANIFEST.version = 1.2.0.0
+    WINRT_MANIFEST.background = $${LITERAL_HASH}00a2ff
+    WINRT_MANIFEST.publisher = "Alessandro Portale"
+    WINRT_MANIFEST.logo_store = winrt/assets/StoreLogo.png
+    WINRT_MANIFEST.logo_small = winrt/assets/SmallLogo.png
+    WINRT_MANIFEST.logo_large = winrt/assets/Logo.png
+    WINRT_MANIFEST.splash_screen = winrt/assets/SplashScreen.png
+
+    WINRT_MANIFEST.logo_44x44 = winrt/assets/SmallLogo.png
+    WINRT_MANIFEST.logo_71x71 = winrt/assets/Square71x71Logo.png
+    WINRT_MANIFEST.logo_480x800 = winrt/assets/SplashScreen.png
+
+    CONFIG += windeployqt
+
+    audio.files = winrt/audio/*
+    audio.path = data/audio
+    INSTALLS += audio
+}
+
 RESOURCES = \
-    audio.qrc \
     graphics.qrc \
     qml.qrc \
     translations.qrc
+
+!winrt:RESOURCES += audio.qrc
 
 DEFINES += \
     QT_USE_FAST_CONCATENATION \
