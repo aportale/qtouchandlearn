@@ -71,6 +71,10 @@ winrt {
     WINRT_MANIFEST.version = 1.2.0.0
     WINRT_MANIFEST.background = $${LITERAL_HASH}00a2ff
     WINRT_MANIFEST.publisher = "Alessandro Portale"
+    WINRT_MANIFEST.publisherid = "CN=" # Can be found in store take-in page
+    WINRT_MANIFEST.phone_product_id = "90a78d40-3ab7-4de6-8458-9a4c283eb5cc"
+    WINRT_MANIFEST.identity = "50991AlessandroPortale.Touchnlearn"
+    WINRT_MANIFEST.rotation_preference = portrait
     WINRT_MANIFEST.logo_store = winrt/assets/StoreLogo.png
     WINRT_MANIFEST.logo_small = winrt/assets/SmallLogo.png
     WINRT_MANIFEST.logo_large = winrt/assets/Logo.png
