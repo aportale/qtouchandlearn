@@ -149,9 +149,6 @@ Rectangle {
             to: 0
             duration: 180
         }
-        ScriptAction {
-            script: loadingText.text = '';
-        }
     }
 
     Timer {
