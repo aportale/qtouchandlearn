@@ -1,0 +1,10 @@
+{
+    "Name" : "Touch'n'Learn",
+    "ShortDescription" : "Touch and Learn is a collection of finger friendly learning games.",
+    "DownloadLocation" : "https://api.github.com/repos/aportale/qtouchandlearn/zipball/master",
+    "Icon" : "network.png",
+    "Id" : 11,
+    "Tags" : "qml svg",
+    "ProjectFile" : "src/touchandlearn.pro",
+    "LongDescription" : "There are counting, reading, clock reading and musical note reading lessons. The game behaves like a deck of cards, showing images of animals, objects, clocks or notes, and the possible answers. Touch and Learn is free open source software. It is based on Qt 5, implemented in QML."
+}
