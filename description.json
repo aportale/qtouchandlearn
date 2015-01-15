@@ -1,7 +1,7 @@
 {
     "Name" : "Touch'n'Learn",
     "ShortDescription" : "Touch and Learn is a collection of finger friendly learning games.",
-    "DownloadLocation" : "https://api.github.com/repos/aportale/qtouchandlearn/zipball/master",
+    "DownloadLocation" : "https://api.github.com/repos/aportale/qtouchandlearn/zipball/2c80ced73920fc7759119d113384a52db9c6c392",
     "Icon" : "network.png",
     "Id" : 11,
     "Tags" : "qml svg",
