@@ -58,7 +58,7 @@ android {
 }
 
 ios {
-    QTPLUGIN += qtaudio_coreaudio
+    QMAKE_INFO_PLIST = ios/Info.plist
 }
 
 winrt {
