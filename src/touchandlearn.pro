@@ -58,7 +58,33 @@ android {
 }
 
 ios {
-    QTPLUGIN += qtaudio_coreaudio
+    # ./configure -xplatform macx-ios-clang -sdk iphoneos -release -developer-build -confirm-license -opensource -skip qttranslations -skip qtwebkit -skip qtserialport -skip qtimageformats -skip qtxmlpatterns -nomake tests -no-widgets -no-qml-debug -no-sql-sqlite -no-gif -no-libjpeg -no-dbus -D QT_NO_BIG_CODECS -D QT_NO_CSSPARSER -D QT_NO_PDF -D QT_NO_TEXTHTMLPARSER -D QT_NO_COLORNAMES -D QT_NO_PICTURE -D QT_NO_FTP -D QT_NO_TEXTODFWRITER
+
+    QMAKE_INFO_PLIST = ios/Info.plist
+    QTPLUGIN.audio=qtaudio_coreaudio
+    QTPLUGIN.bearer=-
+    QTPLUGIN.geoservices=-
+    QTPLUGIN.iconengines=-
+    QTPLUGIN.imageformats=-
+    QTPLUGIN.mediaservice=-
+    QTPLUGIN.platforms=-
+    QTPLUGIN.playlistformats=-
+    QTPLUGIN.position=-
+#    QTPLUGIN.qmltooling=- # QTBUG-44389
+    QTPLUGIN.sensorgestures=-
+    QTPLUGIN.sensors=-
+    QTPLUGIN.sqldrivers=-
+
+    ios_icon.files = $$files($$PWD/ios/AppIcon*.png)
+    QMAKE_BUNDLE_DATA += ios_icon
+
+    # QTBUG-44384
+    # Manual step needed: Remove qml plugin copying from XCode Build Phase "Qt Postlink"
+    window_qmldir.files = $$[QT_INSTALL_QML]/QtQuick/Window.2/qmldir
+    window_qmldir.path = /qt_qml/QtQuick/Window.2
+    particles_qmldir.files = $$[QT_INSTALL_QML]/QtQuick/Particles.2/qmldir
+    particles_qmldir.path = /qt_qml/QtQuick/Particles.2
+    QMAKE_BUNDLE_DATA += window_qmldir particles_qmldir
 }
 
 winrt {
