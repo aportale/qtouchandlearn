@@ -74,6 +74,7 @@ Rectangle {
                 text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
+                font.family: textFontFamily
                 width: _width
                 x: _x
                 y: _y
@@ -86,6 +87,7 @@ Rectangle {
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.175
+                font.family: textFontFamily
                 width: _width
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: _anchors_margins }
             }

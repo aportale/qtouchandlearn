@@ -55,6 +55,12 @@ int main(int argc, char *argv[])
     const qreal devicePixelRatio = qApp->devicePixelRatio();
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatio"), devicePixelRatio);
     engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatioScale"), 1 / devicePixelRatio);
+    const QString textFontFamily =
+#ifdef Q_OS_IOS
+            QSysInfo::macVersion() <= QSysInfo::MV_IOS_6_1 ? QLatin1String("Arial") : // Workaround for QTBUG-44254
+#endif
+            QString();
+    engine.rootContext()->setContextProperty(QLatin1String("textFontFamily"), textFontFamily);
     const QString mainQml =
 #ifdef Q_OS_WINRT
             QLatin1String("qml/touchandlearn/main_winrt.qml");

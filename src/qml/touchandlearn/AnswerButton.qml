@@ -69,6 +69,7 @@ Item {
         property int horizontallyCenteredX: (button.width - width) >> 1;
         x: horizontallyCenteredX;
         font.pixelSize: parent.height * 0.33
+        font.family: textFontFamily
     }
     Image {
         id: correctionImage
