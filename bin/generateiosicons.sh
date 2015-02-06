@@ -1,14 +1,18 @@
-iconSizes="60 76 40 29 57 72 29 50"
-iconSvg=../src/touchandlearn.svg
+iconSizes="29 40 57 60 72 76"
+iconSvg=../src/ios/AppIcon.svg
 outputPath=../src/ios
+
+function generatePng() {
+    convert -density $1 $iconSvg $2;\
+    optipng $2;\
+}
 
 for i in $iconSizes;\
 do singleDensity=`echo "$i * 72 / 96" | bc -l`;\
-singleDensityPng=$outputPath/icon_$i.png;\
 doubleDensity=`echo "$singleDensity * 2" | bc -l`;\
-doubleDensityPng=$outputPath/icon_$i@2x.png;\
-convert -density $singleDensity $iconSvg $singleDensityPng;\
-optipng $singleDensityPng;\
-convert -density $doubleDensity $iconSvg $doubleDensityPng;\
-optipng $doubleDensityPng;\
+prefix=AppIcon${i}x${i};\
+generatePng $singleDensity $outputPath/${prefix}.png;\
+generatePng $doubleDensity $outputPath/${prefix}@2x.png;\
+generatePng $singleDensity $outputPath/${prefix}~ipad.png;\
+generatePng $doubleDensity $outputPath/${prefix}@2x~ipad.png;\
 done
