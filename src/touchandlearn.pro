@@ -61,6 +61,20 @@ ios {
     QMAKE_INFO_PLIST = ios/Info.plist
     ios_icon.files = $$files($$PWD/ios/AppIcon*.png)
     QMAKE_BUNDLE_DATA += ios_icon
+    QTPLUGIN.audio=qtaudio_coreaudio
+    QTPLUGIN.bearer=-
+    QTPLUGIN.geoservices=-
+    QTPLUGIN.iconengines=-
+    QTPLUGIN.imageformats=-
+    QTPLUGIN.mediaservice=-
+    QTPLUGIN.platforms=-
+    QTPLUGIN.playlistformats=-
+    QTPLUGIN.position=-
+#    QTPLUGIN.qmltooling=- # QTBUG-44389
+    QTPLUGIN.sensorgestures=-
+    QTPLUGIN.sensors=-
+    QTPLUGIN.sqldrivers=-
+#    QMAKE_QML_BUNDLE_PATH= # QTBUG-44384
 }
 
 winrt {
