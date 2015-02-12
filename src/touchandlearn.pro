@@ -59,8 +59,6 @@ android {
 
 ios {
     QMAKE_INFO_PLIST = ios/Info.plist
-    ios_icon.files = $$files($$PWD/ios/AppIcon*.png)
-    QMAKE_BUNDLE_DATA += ios_icon
     QTPLUGIN.audio=qtaudio_coreaudio
     QTPLUGIN.bearer=-
     QTPLUGIN.geoservices=-
@@ -74,7 +72,17 @@ ios {
     QTPLUGIN.sensorgestures=-
     QTPLUGIN.sensors=-
     QTPLUGIN.sqldrivers=-
-#    QMAKE_QML_BUNDLE_PATH= # QTBUG-44384
+
+    ios_icon.files = $$files($$PWD/ios/AppIcon*.png)
+    QMAKE_BUNDLE_DATA += ios_icon
+
+    # QTBUG-44384
+    # Manual step needed: Remove qml plugin copying from XCode Build Phase "Qt Postlink"
+    window_qmldir.files = $$[QT_INSTALL_QML]/QtQuick/Window.2/qmldir
+    window_qmldir.path = /qt_qml/QtQuick/Window.2
+    particles_qmldir.files = $$[QT_INSTALL_QML]/QtQuick/Particles.2/qmldir
+    particles_qmldir.path = /qt_qml/QtQuick/Particles.2
+    QMAKE_BUNDLE_DATA += window_qmldir particles_qmldir
 }
 
 winrt {
