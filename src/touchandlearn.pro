@@ -58,6 +58,8 @@ android {
 }
 
 ios {
+    # ./configure -xplatform macx-ios-clang -sdk iphoneos -release -developer-build -confirm-license -opensource -skip qttranslations -skip qtwebkit -skip qtserialport -skip qtimageformats -skip qtxmlpatterns -nomake tests -no-widgets -no-qml-debug -no-sql-sqlite -no-gif -no-libjpeg -no-dbus -D QT_NO_BIG_CODECS -D QT_NO_CSSPARSER -D QT_NO_PDF -D QT_NO_TEXTHTMLPARSER -D QT_NO_COLORNAMES -D QT_NO_PICTURE -D QT_NO_FTP -D QT_NO_TEXTODFWRITER
+
     QMAKE_INFO_PLIST = ios/Info.plist
     QTPLUGIN.audio=qtaudio_coreaudio
     QTPLUGIN.bearer=-
