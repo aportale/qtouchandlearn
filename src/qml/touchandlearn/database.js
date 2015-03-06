@@ -252,9 +252,11 @@ var exercises = {
 
     previousExercisesHaveSameCorrectAnswer: function(answerObjectIndex, uniqueAnswers, listModelItemsLength)
     {
-        for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++)
-            if (lessonData[i].Index === answerObjectIndex)
+        for (var i = Math.max(0, listModelItemsLength - uniqueAnswers); i < listModelItemsLength; i++) {
+            var lessonDataSet = lessonData[i];
+            if (lessonDataSet && (lessonDataSet.Index === answerObjectIndex))
                 return true;
+        }
         return false;
     },
 
