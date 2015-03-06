@@ -245,7 +245,9 @@ var exercises = {
     {
         if (listModelItemsLength < 1)
             return false;
-        return lessonData[listModelItemsLength - 1].Answers[index].Index === answerObjectIndex;
+        var lessonDataSet = lessonData[listModelItemsLength - 1];
+        return (lessonDataSet && lessonDataSet.Answers) ?
+                    (lessonDataSet.Answers[index].Index === answerObjectIndex) : false;
     },
 
     previousExercisesHaveSameCorrectAnswer: function(answerObjectIndex, uniqueAnswers, listModelItemsLength)
