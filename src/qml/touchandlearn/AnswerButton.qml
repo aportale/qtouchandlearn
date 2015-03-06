@@ -36,7 +36,7 @@ Item {
     property int wrongAnswerShakeAmplitudeCalc: width * 0.2
     property int wrongAnswerShakeAmplitudeMin: 45
     property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
-    property int correctionImageSize: (height < width ? height : width) * 0.9 * devicePixelRatio
+    property int correctionImageSize: (height < width ? height : width) * 0.9
 
     signal correctlyPressed
     signal incorrectlyPressed
@@ -54,12 +54,8 @@ Item {
     }
     Image {
         source: "image://imageprovider/button/" + index
-        sourceSize { height: parent.height * devicePixelRatio; width: parent.width * devicePixelRatio }
-        width: sourceSize.width
-        height: sourceSize.height
+        sourceSize { height: parent.height; width: parent.width }
         smooth: false
-        scale: devicePixelRatioScale
-        transformOrigin: Item.TopLeft
     }
     Text {
         id: label
@@ -74,14 +70,12 @@ Item {
     Image {
         id: correctionImage
         // Hand-centered in order to avoid non-integer image coordinates.
-        property int _leftMargin: (parent.width - width / devicePixelRatio) / 2
-        property int _topMargin: (parent.height - height / devicePixelRatio) / 2
-        sourceSize { width: correctionImageSize * devicePixelRatio; height: correctionImageSize * devicePixelRatio }
+        property int _leftMargin: (parent.width - width) / 2
+        property int _topMargin: (parent.height - height) / 2
+        sourceSize { width: correctionImageSize; height: correctionImageSize }
         anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
         opacity: 0
         smooth: false
-        scale: devicePixelRatioScale
-        transformOrigin: Item.TopLeft
     }
 
     MouseArea {

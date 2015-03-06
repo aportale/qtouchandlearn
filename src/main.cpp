@@ -52,9 +52,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     engine.rootContext()->setContextProperty(QLatin1String("settings"), &settings);
-    const qreal devicePixelRatio = qApp->devicePixelRatio();
-    engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatio"), devicePixelRatio);
-    engine.rootContext()->setContextProperty(QLatin1String("devicePixelRatioScale"), 1 / devicePixelRatio);
     const QString textFontFamily =
 #ifdef Q_OS_IOS
             QSysInfo::macVersion() <= QSysInfo::MV_IOS_6_1 ? QLatin1String("Arial") : // Workaround for QTBUG-44254

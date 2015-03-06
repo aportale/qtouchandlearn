@@ -53,18 +53,14 @@ Rectangle {
             Image {
                 property int _anchors_margins: parent.height * 0.15
                 source: "image://imageprovider/specialbutton/activemarker"
-                sourceSize { height: parent.height * 0.15 * devicePixelRatio; width: parent.height * 0.15 * devicePixelRatio }
+                sourceSize { height: parent.height * 0.15; width: parent.height * 0.15 }
                 opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
                 anchors { right: parent.right; top: parent.top; margins: _anchors_margins; }
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopRight
             }
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[index].Id + "/" + index
-                sourceSize { width: parent.width * devicePixelRatio; height: parent.height * devicePixelRatio }
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
+                sourceSize { width: parent.width; height: parent.height }
             }
 
             Text {
@@ -121,12 +117,10 @@ Rectangle {
                 left: portaitLayout ? undefined : parent.left
             }
             Image {
-                property int _sourceSize: parent.width * 0.7 * devicePixelRatio
+                property int _sourceSize: parent.width * 0.7
                 anchors { centerIn: parent }
                 sourceSize { width: _sourceSize; height: _sourceSize; }
                 source: "image://imageprovider/specialbutton/backbutton"
-                scale: devicePixelRatioScale
-                transformOrigin: Item.Center
             }
             MouseArea {
                 anchors.fill: parent

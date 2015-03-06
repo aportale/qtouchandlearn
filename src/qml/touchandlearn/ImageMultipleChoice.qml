@@ -62,13 +62,11 @@ Item {
             left: portaitLayout ? undefined : parent.left
         }
         Image {
-            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
+            property int _sourceSize: backButtonSize * 0.7
             anchors.centerIn: parent
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/backbutton"
             smooth: false
-            scale: devicePixelRatioScale
-            transformOrigin: Item.Center
         }
         MouseArea {
             anchors.fill: parent
@@ -86,13 +84,11 @@ Item {
             left: portaitLayout ? undefined : parent.left
         }
         Image {
-            property int _sourceSize: backButtonSize * 0.7 * devicePixelRatio
+            property int _sourceSize: backButtonSize * 0.7
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/optionsbutton"
             smooth: false
-            scale: devicePixelRatioScale
-            transformOrigin: Item.Top
         }
         MouseArea {
             anchors.fill: parent

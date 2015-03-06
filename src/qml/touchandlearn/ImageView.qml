@@ -57,18 +57,16 @@ Item {
             color: "#fff"
         }
         Image {
-            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth * devicePixelRatio
+            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
             fillMode: Image.Tile
             id: backgroundImage
-            sourceSize { height: backgroundImageSourceSizeHeight * devicePixelRatio; width: backgroundImageSourceSizeWidth * devicePixelRatio}
+            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
             width: _width
             x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
             y: backgroundWhiteRectHeight
-            scale: devicePixelRatioScale
-            transformOrigin: Item.TopLeft
         }
         Rectangle {
-            y: backgroundImage.height * devicePixelRatioScale + backgroundWhiteRectHeight
+            y: backgroundImage.height + backgroundWhiteRectHeight
             height: backgroundBlackRectHeight
             width: imageview.width
             color: "#000"
@@ -92,23 +90,19 @@ Item {
             height: listview.height
             Image {
                 // Hand-centered in order to avoid non-integer image coordinates.
-                property int _leftMargin: (delegate.width - width / devicePixelRatio) / 2
-                property int _topMargin: (delegate.height - height / devicePixelRatio) / 2
+                property int _leftMargin: (delegate.width - width) / 2
+                property int _topMargin: (delegate.height - height) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                sourceSize { width: imageSourceSizeWidthHeight * devicePixelRatio; height: imageSourceSizeWidthHeight * devicePixelRatio }
+                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight }
                 asynchronous: true
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
             }
         }
     }
 
     Image {
-        sourceSize { height: parent.height * devicePixelRatio; width: parent.width * devicePixelRatio }
+        sourceSize { height: parent.height; width: parent.width }
         source: "image://imageprovider/frame/0"
         smooth: false
-        scale: devicePixelRatioScale
-        transformOrigin: Item.TopLeft
     }
 }

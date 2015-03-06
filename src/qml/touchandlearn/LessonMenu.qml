@@ -54,9 +54,7 @@ Rectangle {
 
             Image {
                 source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[index].Id + "/" + index
-                sourceSize { width: parent.width * devicePixelRatio; height: parent.height * devicePixelRatio }
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
+                sourceSize { width: parent.width; height: parent.height }
             }
 
             Text {
@@ -102,28 +100,24 @@ Rectangle {
             Image {
                 source: "image://imageprovider/title/spectrum"
                 sourceSize { width: titleImage.width; height: titleImage.height}
-                width: (Math.ceil(menu.width / 360 * devicePixelRatioScale) + 1) * 360 * devicePixelRatio
+                width: (Math.ceil(menu.width / 360) + 1) * 360
                 fillMode: Image.Tile
                 NumberAnimation on x {
                     from: 0
-                    to: -360 * devicePixelRatioScale
+                    to: -360
                     duration: 2500
                     loops: Animation.Infinite
                     running: titleAnimationEnabled
                 }
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
                 smooth: false
             }
             Image {
                 id: titleImage
                 source: "image://imageprovider/title/textmask"
                 sourceSize {
-                    width: devicePixelRatio * (portaitLayout ? menu.width : menu.height * 0.65)
-                    height: devicePixelRatio * menu.height
+                    width: portaitLayout ? menu.width : menu.height * 0.65
+                    height: menu.height
                 }
-                scale: devicePixelRatioScale
-                transformOrigin: Item.TopLeft
             }
             Rectangle {
                 color: "#000"
@@ -136,7 +130,7 @@ Rectangle {
                 visible: !portaitLayout
             }
 
-            height: titleImage.height * devicePixelRatioScale
+            height: titleImage.height
             anchors { left: parent.left; right: parent.right }
         }
 
