@@ -27,7 +27,5 @@
         <file>qml/touchandlearn/MainMenu.qml</file>
         <file>qml/touchandlearn/VolumeDisplay.qml</file>
         <file>qml/touchandlearn/Particles.qml</file>
-        <file>qml/touchandlearn/FeedbackAudio.qml</file>
-        <file>qml/touchandlearn/main_winrt.qml</file>
     </qresource>
 </RCC>

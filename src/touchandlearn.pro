@@ -111,18 +111,13 @@ winrt {
     WINRT_MANIFEST.logo_480x800 = winrt/assets/SplashScreen.png
 
     CONFIG += windeployqt
-
-    audio.files = winrt/audio/*
-    audio.path = data/audio
-    INSTALLS += audio
 }
 
 RESOURCES = \
     graphics.qrc \
     qml.qrc \
-    translations.qrc
-
-!winrt:RESOURCES += audio.qrc
+    translations.qrc \
+    audio.qrc
 
 DEFINES += \
     QT_USE_FAST_CONCATENATION \

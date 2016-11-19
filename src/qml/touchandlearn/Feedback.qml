@@ -34,19 +34,19 @@ Item {
     property string incorrectSoundBaseName: audioDirectory + "incorrectanswer_"
     property int previousIncorrectSound: -1
 
-    property list<SoundEffect> correctSounds: [
-        SoundEffect { source: feedback.correctSoundBaseName + "01" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "02" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "03" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "04" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "05" + feedback.audioFileExtension}
+    property list<Audio> correctSounds: [
+        Audio { source: feedback.correctSoundBaseName + "01" + feedback.audioFileExtension},
+        Audio { source: feedback.correctSoundBaseName + "02" + feedback.audioFileExtension},
+        Audio { source: feedback.correctSoundBaseName + "03" + feedback.audioFileExtension},
+        Audio { source: feedback.correctSoundBaseName + "04" + feedback.audioFileExtension},
+        Audio { source: feedback.correctSoundBaseName + "05" + feedback.audioFileExtension}
     ]
 
-    property list<SoundEffect> incorrectSounds: [
-        SoundEffect { source: feedback.incorrectSoundBaseName + "01" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "02" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "03" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "04" + feedback.audioFileExtension}
+    property list<Audio> incorrectSounds: [
+        Audio { source: feedback.incorrectSoundBaseName + "01" + feedback.audioFileExtension},
+        Audio { source: feedback.incorrectSoundBaseName + "02" + feedback.audioFileExtension},
+        Audio { source: feedback.incorrectSoundBaseName + "03" + feedback.audioFileExtension},
+        Audio { source: feedback.incorrectSoundBaseName + "04" + feedback.audioFileExtension}
     ]
 
     function randomSoundIndex(sounds, currentSoundIndex)

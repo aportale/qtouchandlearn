@@ -58,13 +58,7 @@ int main(int argc, char *argv[])
 #endif
             QString();
     engine.rootContext()->setContextProperty(QLatin1String("textFontFamily"), textFontFamily);
-    const QString mainQml =
-#ifdef Q_OS_WINRT
-            QLatin1String("qml/touchandlearn/main_winrt.qml");
-#else
-            QLatin1String("qml/touchandlearn/main.qml");
-#endif
-    engine.load(QUrl(QLatin1String("qrc:///") + mainQml)); // Needs to be "qrc:///" -> QTBUG-42102
+    engine.load(QUrl(QLatin1String("qrc:///qml/touchandlearn/main.qml"))); // Needs to be "qrc:///" -> QTBUG-42102
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
