@@ -29,9 +29,9 @@ Item {
 
     property string audioFileExtension
     property string audioDirectory
-    property string correctSoundBaseName: audioDirectory +"correctanswer_"
+    readonly property string correctSoundBaseName: audioDirectory +"correctanswer_"
     property int previousCorrectSound: -1
-    property string incorrectSoundBaseName: audioDirectory + "incorrectanswer_"
+    readonly property string incorrectSoundBaseName: audioDirectory + "incorrectanswer_"
     property int previousIncorrectSound: -1
 
     property list<SoundEffect> correctSounds: [

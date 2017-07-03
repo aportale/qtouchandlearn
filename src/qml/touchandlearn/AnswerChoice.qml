@@ -34,10 +34,10 @@ Item {
     signal correctlyAnswered
     property bool blockClicks: false
 
-    property int buttonSpacing: height * 0.035
-    property int gridWidth: width - 2 * buttonSpacing
-    property int gridHeight: height
-    property int gridRows: buttonsCount / columsCount
+    readonly property int buttonSpacing: height * 0.035
+    readonly property int gridWidth: width - 2 * buttonSpacing
+    readonly property int gridHeight: height
+    readonly property int gridRows: buttonsCount / columsCount
 
     Rectangle {
         anchors.fill: parent
@@ -75,8 +75,8 @@ Item {
             id: repeater
             model: buttonsCount
             AnswerButton {
-                property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
-                property int _height: (gridHeight / gridRows) - buttonSpacing
+                readonly property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
+                readonly property int _height: (gridHeight / gridRows) - buttonSpacing
                 width: _width
                 height: _height
                 index: modelData

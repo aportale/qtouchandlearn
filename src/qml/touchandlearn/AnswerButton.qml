@@ -28,15 +28,15 @@ Item {
     property string correctionImageSource
     property bool isCorrectAnswer: false
     property bool grayBackground: false
-    property color normalStateColor: "#fff"
-    property color correctStateColor: "#ffa"
-    property color wrongStateColor: "#f66"
-    property color correctionStateColor: grayBackground ? "#ccc" : "#fbb"
+    readonly property color normalStateColor: "#fff"
+    readonly property color correctStateColor: "#ffa"
+    readonly property color wrongStateColor: "#f66"
+    readonly property color correctionStateColor: grayBackground ? "#ccc" : "#fbb"
 
-    property int wrongAnswerShakeAmplitudeCalc: width * 0.2
-    property int wrongAnswerShakeAmplitudeMin: 45
-    property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
-    property int correctionImageSize: (height < width ? height : width) * 0.9
+    readonly property int wrongAnswerShakeAmplitudeCalc: width * 0.2
+    readonly property int wrongAnswerShakeAmplitudeMin: 45
+    readonly property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
+    readonly property int correctionImageSize: (height < width ? height : width) * 0.9
 
     signal correctlyPressed
     signal incorrectlyPressed
@@ -62,15 +62,15 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         // We need to manually horizonally center the text, because in wrongAnswerAnimation,
         // the x of the text is changed, which would not work if we use an anchor layout.
-        property int horizontallyCenteredX: (button.width - width) >> 1;
+        readonly property int horizontallyCenteredX: (button.width - width) >> 1;
         x: horizontallyCenteredX;
         font.pixelSize: parent.height * 0.33
     }
     Image {
         id: correctionImage
         // Hand-centered in order to avoid non-integer image coordinates.
-        property int _leftMargin: (parent.width - width) / 2
-        property int _topMargin: (parent.height - height) / 2
+        readonly property int _leftMargin: (parent.width - width) / 2
+        readonly property int _topMargin: (parent.height - height) / 2
         sourceSize { width: correctionImageSize; height: correctionImageSize }
         anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
         opacity: 0

@@ -26,15 +26,15 @@ import "database.js" as Database
 Rectangle {
     id: menu
     color: "#000"
-    property color normalStateColor: "#fff"
-    property color pressedStateColor: "#ee8"
+    readonly property color normalStateColor: "#fff"
+    readonly property color pressedStateColor: "#ee8"
     property string selectedLesson
 
-    property int gridMargin: portaitLayout ? 0 : width * 0.075
-    property int columsCount: portaitLayout ? 2 : 3
-    property int delegateWidth: (width - 2 * gridMargin) / columsCount
-    property int delegateHeight: delegateWidth * 1.04
-    property bool quitsOnBack: true
+    readonly property int gridMargin: portaitLayout ? 0 : width * 0.075
+    readonly property int columsCount: portaitLayout ? 2 : 3
+    readonly property int delegateWidth: (width - 2 * gridMargin) / columsCount
+    readonly property int delegateHeight: delegateWidth * 1.04
+    readonly property bool quitsOnBack: true
 
     function goBack()
     {
@@ -58,7 +58,7 @@ Rectangle {
             }
 
             Text {
-                property int _y: delegateHeight * 0.83
+                readonly property int _y: delegateHeight * 0.83
                 text: Database.cachedLessonMenu[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: delegateHeight * 0.085
@@ -67,7 +67,7 @@ Rectangle {
             }
 
             Text {
-                property int _y: delegateHeight * 0.11
+                readonly property int _y: delegateHeight * 0.11
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: delegateHeight * 0.1

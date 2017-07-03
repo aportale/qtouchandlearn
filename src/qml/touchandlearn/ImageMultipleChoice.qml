@@ -35,8 +35,8 @@ Item {
     property real viewHeightRatio: 0.45
     property string selectedLesson
 
-    property int imageViewHeight: height * viewHeightRatio
-    property int backButtonSize: (height < width ? height : width) * 0.2
+    readonly property int imageViewHeight: height * viewHeightRatio
+    readonly property int backButtonSize: (height < width ? height : width) * 0.2
 
     function goBack()
     {
@@ -62,7 +62,7 @@ Item {
             left: portaitLayout ? undefined : parent.left
         }
         Image {
-            property int _sourceSize: backButtonSize * 0.7
+            readonly property int _sourceSize: backButtonSize * 0.7
             anchors.centerIn: parent
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/backbutton"
@@ -75,7 +75,7 @@ Item {
     }
 
     Item {
-        property int _height: backButtonSize * 0.75
+        readonly property int _height: backButtonSize * 0.75
         width: backButtonSize
         height: _height
         anchors {
@@ -84,7 +84,7 @@ Item {
             left: portaitLayout ? undefined : parent.left
         }
         Image {
-            property int _sourceSize: backButtonSize * 0.7
+            readonly property int _sourceSize: backButtonSize * 0.7
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/optionsbutton"

@@ -31,19 +31,19 @@ Item {
     property int answersCount
     property real imageSizeFactor: 0.61
 
-    property int backgroundImageSourceSizeHeight: height * 0.3
-    property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
-    property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
-    property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImageSourceSizeHeight
-    property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
+    readonly property int backgroundImageSourceSizeHeight: height * 0.3
+    readonly property int backgroundImageSourceSizeWidth: backgroundImageSourceSizeHeight * 6.0
+    readonly property int backgroundWhiteRectHeight: (height - backgroundImageSourceSizeHeight) * 0.65
+    readonly property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImageSourceSizeHeight
+    readonly property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
 
     function goForward() {
         listview.incrementCurrentIndex();
     }
     id: imageview
     Rectangle {
-        property int _hueSpanInPixels: imageview.width * 10;
-        property int hueOffset: Math.random() * _hueSpanInPixels
+        readonly property int _hueSpanInPixels: imageview.width * 10;
+        readonly property int hueOffset: Math.random() * _hueSpanInPixels
         anchors.fill: parent
         color: grayBackground ? "#E0E0E0"
                               : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
@@ -57,7 +57,7 @@ Item {
             color: "#fff"
         }
         Image {
-            property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
+            readonly property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
             fillMode: Image.Tile
             id: backgroundImage
             sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
@@ -90,8 +90,8 @@ Item {
             height: listview.height
             Image {
                 // Hand-centered in order to avoid non-integer image coordinates.
-                property int _leftMargin: (delegate.width - width) / 2
-                property int _topMargin: (delegate.height - height) / 2
+                readonly property int _leftMargin: (delegate.width - width) / 2
+                readonly property int _topMargin: (delegate.height - height) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
                 source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
                 sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight }

@@ -26,11 +26,11 @@ import "database.js" as Database
 Rectangle {
     id: menu
     color: "#000"
-    property color normalStateColor: "#fff"
-    property color pressedStateColor: "#ee8"
+    readonly property color normalStateColor: "#fff"
+    readonly property color pressedStateColor: "#ee8"
     property string selectedLesson
     property string currentLesson: Database.currentLessonOfCurrentGroup()
-    property int backButtonSize: (height < width ? height : width) * 0.2
+    readonly property int backButtonSize: (height < width ? height : width) * 0.2
 
     function goBack()
     {
@@ -40,7 +40,7 @@ Rectangle {
     Component {
         id: delegate
         Item {
-            property int _height: width * 0.4
+            readonly property int _height: width * 0.4
             height: _height
             width: menu.width / grid.columns
 
@@ -51,7 +51,7 @@ Rectangle {
             }
 
             Image {
-                property int _anchors_margins: parent.height * 0.15
+                readonly property int _anchors_margins: parent.height * 0.15
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15 }
                 opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
@@ -64,9 +64,9 @@ Rectangle {
             }
 
             Text {
-                property int _width: parent.width * 0.28
-                property int _x: parent.height * 0.21
-                property int _y: parent.height * 0.65
+                readonly property int _width: parent.width * 0.28
+                readonly property int _x: parent.height * 0.21
+                readonly property int _y: parent.height * 0.65
                 text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: parent.height * 0.14
@@ -76,8 +76,8 @@ Rectangle {
             }
 
             Text {
-                property int _width: parent.width * 0.51
-                property int _anchors_margins: parent.width * 0.1
+                readonly property int _width: parent.width * 0.51
+                readonly property int _anchors_margins: parent.width * 0.1
                 text: Database.lessonsOfCurrentGroup()[index].DisplayName
                 wrapMode: "WordWrap"
                 horizontalAlignment: Text.AlignHCenter
@@ -106,7 +106,7 @@ Rectangle {
 
         Item {
             id: backButton
-            property int _height: backButtonSize * 0.75
+            readonly property int _height: backButtonSize * 0.75
             width: backButtonSize
             height: _height
             anchors {
@@ -115,7 +115,7 @@ Rectangle {
                 left: portaitLayout ? undefined : parent.left
             }
             Image {
-                property int _sourceSize: parent.width * 0.7
+                readonly property int _sourceSize: parent.width * 0.7
                 anchors { centerIn: parent }
                 sourceSize { width: _sourceSize; height: _sourceSize; }
                 source: "image://imageprovider/specialbutton/backbutton"
