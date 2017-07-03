@@ -62,7 +62,6 @@ Rectangle {
                 text: Database.cachedLessonMenu[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: delegateHeight * 0.085
-                font.family: textFontFamily
                 width: parent.width
                 y: _y
             }
@@ -72,7 +71,6 @@ Rectangle {
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: delegateHeight * 0.1
-                font.family: textFontFamily
                 width: parent.width
                 y: _y
             }

@@ -52,12 +52,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     engine.rootContext()->setContextProperty(QLatin1String("settings"), &settings);
-    const QString textFontFamily =
-#ifdef Q_OS_IOS
-            QSysInfo::macVersion() <= QSysInfo::MV_IOS_6_1 ? QLatin1String("Arial") : // Workaround for QTBUG-44254
-#endif
-            QString();
-    engine.rootContext()->setContextProperty(QLatin1String("textFontFamily"), textFontFamily);
     engine.load(QUrl(QLatin1String("qrc:///qml/touchandlearn/main.qml"))); // Needs to be "qrc:///" -> QTBUG-42102
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
