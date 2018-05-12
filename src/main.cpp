@@ -20,12 +20,12 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#include <QtCore/QLocale>
 #include <QtCore/QDir>
+#include <QtCore/QLocale>
 #include <QtCore/QTranslator>
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
-#include <QtQml>
+#include <QtQml/QQmlContext>
 
 #include "imageprovider.h"
 #include "settings.h"

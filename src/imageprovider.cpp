@@ -21,9 +21,11 @@
 */
 
 #include "imageprovider.h"
+
 #include <math.h>
-#include <QtGui/QPainter>
+
 #include <QtCore/QDebug>
+#include <QtGui/QPainter>
 #include <QtSvg/QSvgRenderer>
 
 #define PI 3.14159265
@@ -115,12 +117,12 @@ struct ElementVariations
     }
 };
 
-typedef QList<ElementVariations> ElementVariationList;
+using ElementVariationList = QList<ElementVariations>;
 
 ElementVariationList elementsWithSizes(const QString &elementBase)
 {
     ElementVariationList result;
-    QSvgRenderer *renderer = designRenderer();
+    const QSvgRenderer *renderer = designRenderer();
     ElementVariations element;
     element.widthToHeightRatio = -1;
     for (int i = 1; ; i++) {
@@ -163,8 +165,8 @@ ImageProvider::ImageProvider()
 inline static QImage quantity(int quantity, const QString &item, QSize *size, const QSize &requestedSize)
 {
     QSvgRenderer *renderer = countablesRenderer();
-    const int columns = ceil(sqrt(qreal(quantity)));
-    const int rows = ceil(quantity / qreal(columns));
+    const auto columns = int(ceil(sqrt(qreal(quantity))));
+    const auto rows = int(ceil(quantity / qreal(columns)));
     const int columnsInLastRow = quantity % columns == 0 ? columns : quantity % columns;
     const int itemSize = qMin((requestedSize.width() / qMax(3, columns)), (requestedSize.height() / qMax(3, rows)));
     const QSize resultSize(itemSize * columns, itemSize * rows);
@@ -338,8 +340,8 @@ inline static void drawGradient(DesignElementType type, QImage &image)
     if (imageWidth < 1 || imageHeight < 1)
         return;
     const QImage *gradient = type == DesignElementTypeButton ? buttonGradient() : frameGradient();
-    const QRgb *gradientRgb = reinterpret_cast<const QRgb*>(gradient->constBits());
-    QRgb *imageRgb = reinterpret_cast<QRgb*>(image.bits());
+    const auto *gradientRgb = reinterpret_cast<const QRgb*>(gradient->constBits());
+    auto *imageRgb = reinterpret_cast<QRgb*>(image.bits());
     const int quarterWidth = imageWidth / 2;
     const int quarterHeight = imageHeight / 2;
     // Right triangle with a, b = 181.0193359837561662; c = 256.
@@ -347,12 +349,12 @@ inline static void drawGradient(DesignElementType type, QImage &image)
     const qreal yScaleFactor = 181.0193359837561662 / quarterHeight;
 
     for (int y = 0; y <= quarterHeight; y++) {
-        const int scaledY = yScaleFactor * y;
+        const auto scaledY = int(yScaleFactor * y);
         const int scaledYSquare = scaledY * scaledY;
         const int offsetYPlusQuarterWidth = quarterWidth + imageWidth * (quarterHeight - y);
         for (int x = 0; x <= quarterWidth; x++) {
-            const int scaledX = xScaleFactor * x;
-            const int gradientColorIndex = int(sqrt(qreal(scaledYSquare + scaledX * scaledX)));
+            const auto scaledX = int(xScaleFactor * x);
+            const auto gradientColorIndex = int(sqrt(qreal(scaledYSquare + scaledX * scaledX)));
             const QRgb gradientColor = gradientRgb[gradientColorIndex];
             imageRgb[offsetYPlusQuarterWidth - x] = gradientColor;
             imageRgb[offsetYPlusQuarterWidth + x] = gradientColor;
@@ -362,7 +364,7 @@ inline static void drawGradient(DesignElementType type, QImage &image)
     QRgb *dst = imageRgb + imageWidth * image.height() - imageWidth;
     QRgb *src = imageRgb;
     for (int row = 0; row < quarterHeight; row++) {
-        memcpy(dst, src, bytesPerLine);
+        memcpy(dst, src, size_t(bytesPerLine));
         dst -= imageWidth;
         src += imageWidth;
     }
@@ -427,7 +429,7 @@ inline static QImage spectrum(QSize *size, const QSize &requestedSize)
 {
     const QSize resultSize(360, requestedSize.height());
     QImage result(resultSize.width(), 1, imageFormat);
-    QRgb *bits = reinterpret_cast<QRgb*>(result.bits());
+    auto *bits = reinterpret_cast<QRgb*>(result.bits());
     for (int i = 0; i < resultSize.width(); ++i)
         *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
     if (size)

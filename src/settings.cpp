@@ -21,9 +21,8 @@
 */
 
 #include "settings.h"
-#include <QtCore/QSettings>
 
-#include <QDebug>
+#include <QtCore/QSettings>
 
 Settings::Settings(QObject *parent)
     : QObject(parent)

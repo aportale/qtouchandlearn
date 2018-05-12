@@ -20,8 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
 #include <QObject>
 
@@ -32,12 +31,10 @@ class Settings : public QObject
     Q_OBJECT
 
 public:
-    explicit Settings(QObject *parent = 0);
+    explicit Settings(QObject *parent = nullptr);
     Q_INVOKABLE void setValue(const QString &group, const QString &key, const QVariant &value);
     Q_INVOKABLE QString value(const QString &group, const QString &key, const QString &defaultValue) const;
 
 private:
     QSettings *m_settings;
 };
-
-#endif // SETTINGS_H

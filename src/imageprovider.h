@@ -20,8 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#ifndef IMAGEPROVIDER_H
-#define IMAGEPROVIDER_H
+#pragma once
 
 #include <QtQuick/QQuickImageProvider>
 
@@ -30,9 +29,7 @@ class ImageProvider : public QQuickImageProvider
 public:
     ImageProvider();
 
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
+    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
     static void init();
     static void setDataPath(const QString &path);
 };
-
-#endif // IMAGEPROVIDER_H
