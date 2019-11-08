@@ -18,9 +18,8 @@
 # along with Touch'n'learn; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-# Add more folders to ship with the application, here
-folder_01.source = ../../src/data
-DEPLOYMENTFOLDERS = folder_01
+RESOURCES += \
+    ../../src/graphics.qrc
 
 DEFINES += \
     QT_USE_FAST_CONCATENATION \
@@ -35,8 +34,4 @@ HEADERS += \
 INCLUDEPATH += \
     ../../src
 
-QT += svg
-
-# Please do not modify the following two lines. Required for deployment.
-include(../../src/qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
+QT += widgets quick svg

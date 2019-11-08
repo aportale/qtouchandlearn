@@ -20,7 +20,10 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#include <QtGui>
+#include <QApplication>
+#include <QDebug>
+#include <QPainter>
+#include <QWidget>
 
 #include "imageprovider.h"
 
@@ -38,9 +41,9 @@ public:
         Q_UNUSED(event)
         QSize returnedSize;
         const QSize requestedSize = size();
-        const QPixmap pixmap = m_imageProvider.requestPixmap(m_id, &returnedSize, requestedSize);
+        const QImage image = m_imageProvider.requestImage(m_id, &returnedSize, requestedSize);
         QPainter p(this);
-        p.drawPixmap(QPointF(0, 0), pixmap);
+        p.drawImage(QPointF(0, 0), image);
         qDebug() << "id:" << m_id << " requested:" << requestedSize << " returned:" << returnedSize;
     }
 
@@ -65,6 +68,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    ImageProvider::setDataPath(":/data/graphics");
+    ImageProvider::init();
     ImagePainter ip;
     ip.setId(QLatin1String("button/1"));
     ip.show();
