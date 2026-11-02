@@ -20,6 +20,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+#include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
@@ -42,7 +43,8 @@ int main(int argc, char *argv[])
 
     const QString translation = QLocale::system().name();
     QTranslator translator;
-    translator.load(translation, dataPath + QLatin1String("/translations"));
+    if (!translator.load(translation, dataPath + QLatin1String("/translations")))
+        qWarning() << "Could not load translation" << translation;
     QGuiApplication::installTranslator(&translator);
 
     // Registering dummy type to allow QML import of TouchAndLearn 1.0

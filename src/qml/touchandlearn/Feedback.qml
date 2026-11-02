@@ -21,7 +21,7 @@
 */
 
 import QtQuick 2.2
-import QtMultimedia 5.0
+import QtMultimedia
 import "database.js" as Database
 
 Item {

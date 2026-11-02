@@ -24,7 +24,10 @@
 
 #include <math.h>
 
+#include <algorithm>
+
 #include <QtCore/QDebug>
+#include <QtCore/QRandomGenerator>
 #include <QtGui/QPainter>
 #include <QtSvg/QSvgRenderer>
 
@@ -141,7 +144,7 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
     }
     if (!element.elementIds.isEmpty())
         result.append(element);
-    qSort(result);
+    std::sort(result.begin(), result.end());
     return result;
 }
 
@@ -177,7 +180,7 @@ inline static QImage quantity(int quantity, const QString &item, QSize *size, co
         for (int column = 0; column < columns; column++) {
             if (columns * row + column >= quantity)
                 break;
-            const QString itemId = item + QLatin1Char('_') + QString::number((qrand() % 8 + 1));
+            const QString itemId = item + QLatin1Char('_') + QString::number((QRandomGenerator::global()->bounded(1, 9)));
             const QRect itemRect(column * itemSize + (row == rows-1 ? (columns - columnsInLastRow) * itemSize / 2 : 0),
                                  row * itemSize, itemSize, itemSize);
             renderer->render(&p, idPrefix + itemId, itemRect);
@@ -510,7 +513,7 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         }
         result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("notes")) {
-        result = notes(elementId.split(QLatin1Char(','), QString::SkipEmptyParts), size, requestedSize);
+        result = notes(elementId.split(QLatin1Char(','), Qt::SkipEmptyParts), size, requestedSize);
     } else if (idSegments.first() == QLatin1String("quantity")) {
         if (idSegments.count() != 3) {
             qDebug() << Q_FUNC_INFO << "Wrong number of parameters for quantity images:" << id;
