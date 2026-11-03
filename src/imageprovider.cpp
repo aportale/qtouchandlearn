@@ -31,8 +31,6 @@
 #include <QtGui/QPainter>
 #include <QtSvg/QSvgRenderer>
 
-#define PI 3.14159265
-
 enum DesignElementType {
     DesignElementTypeButton,
     DesignElementTypeFrame
