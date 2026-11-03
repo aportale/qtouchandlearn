@@ -59,7 +59,9 @@ Rectangle {
         target: stage.item
         id: connection
         ignoreUnknownSignals: true
-        onSelectedLessonChanged: switchToScreen("Lesson" + stage.item.selectedLesson)
+        function onSelectedLessonChanged() {
+            switchToScreen("Lesson" + stage.item.selectedLesson)
+        }
     }
 
     Rectangle {
