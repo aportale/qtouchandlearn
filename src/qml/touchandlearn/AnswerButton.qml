@@ -64,6 +64,11 @@ Item {
         // the x of the text is changed, which would not work if we use an anchor layout.
         readonly property int horizontallyCenteredX: (button.width - width) >> 1;
         x: horizontallyCenteredX;
+        // Fixed width plus HorizontalFit keeps long (translated) answers inside the button.
+        width: button.width * 0.95
+        horizontalAlignment: Text.AlignHCenter
+        fontSizeMode: Text.HorizontalFit
+        minimumPixelSize: 8
         font.pixelSize: parent.height * 0.33
     }
     Image {

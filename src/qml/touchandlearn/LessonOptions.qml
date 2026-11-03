@@ -69,6 +69,8 @@ Rectangle {
                 readonly property int _y: parent.height * 0.65
                 text: Database.lessonsOfCurrentGroup()[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
+                fontSizeMode: Text.HorizontalFit
+                minimumPixelSize: 8
                 font.pixelSize: parent.height * 0.14
                 width: _width
                 x: _x
@@ -79,10 +81,14 @@ Rectangle {
                 readonly property int _width: parent.width * 0.51
                 readonly property int _anchors_margins: parent.width * 0.1
                 text: Database.lessonsOfCurrentGroup()[index].DisplayName
-                wrapMode: "WordWrap"
+                wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                fontSizeMode: Text.Fit
+                minimumPixelSize: 8
                 font.pixelSize: parent.height * 0.175
                 width: _width
+                height: parent.height * 0.8
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: _anchors_margins }
             }
 

@@ -37,7 +37,7 @@ Item {
     readonly property int buttonSpacing: height * 0.035
     readonly property int gridWidth: width - 2 * buttonSpacing
     readonly property int gridHeight: height
-    readonly property int gridRows: buttonsCount / columsCount
+    readonly property int gridRows: Math.max(1, Math.ceil(buttonsCount / columsCount))
 
     Rectangle {
         anchors.fill: parent

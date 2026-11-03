@@ -61,6 +61,8 @@ Rectangle {
                 readonly property int _y: delegateHeight * 0.83
                 text: Database.cachedLessonMenu[index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
+                fontSizeMode: Text.HorizontalFit
+                minimumPixelSize: 8
                 font.pixelSize: delegateHeight * 0.085
                 width: parent.width
                 y: _y
@@ -70,6 +72,8 @@ Rectangle {
                 readonly property int _y: delegateHeight * 0.11
                 text: Database.cachedLessonMenu[index].DisplayName
                 horizontalAlignment: Text.AlignHCenter
+                fontSizeMode: Text.HorizontalFit
+                minimumPixelSize: 8
                 font.pixelSize: delegateHeight * 0.1
                 width: parent.width
                 y: _y
