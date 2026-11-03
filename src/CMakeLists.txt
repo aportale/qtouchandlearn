@@ -13,10 +13,74 @@ qt_add_executable(touchandlearn
     imageprovider.h
     settings.cpp
     settings.h
-    audio.qrc
-    graphics.qrc
-    qml.qrc
-    translations.qrc
+)
+
+qt_add_resources(touchandlearn audio
+    PREFIX "/"
+    FILES
+        data/audio/incorrectanswer_04.wav
+        data/audio/incorrectanswer_03.wav
+        data/audio/incorrectanswer_02.wav
+        data/audio/incorrectanswer_01.wav
+        data/audio/correctanswer_05.wav
+        data/audio/correctanswer_04.wav
+        data/audio/correctanswer_03.wav
+        data/audio/correctanswer_02.wav
+        data/audio/correctanswer_01.wav
+)
+
+qt_add_resources(touchandlearn graphics
+    PREFIX "/"
+    FILES
+        data/graphics/particle.png
+        data/graphics/objects.svg
+        data/graphics/lessonicons.svg
+        data/graphics/notes.svg
+        data/graphics/design.svg
+        data/graphics/clocks.svg
+        data/graphics/countables.svg
+)
+
+qt_add_resources(touchandlearn qml
+    PREFIX "/"
+    FILES
+        qml/touchandlearn/AnswerButton.qml
+        qml/touchandlearn/AnswerChoice.qml
+        qml/touchandlearn/database.js
+        qml/touchandlearn/Feedback.qml
+        qml/touchandlearn/ImageMultipleChoice.qml
+        qml/touchandlearn/ImageView.qml
+        qml/touchandlearn/LessonClockEasy.qml
+        qml/touchandlearn/LessonClockHard.qml
+        qml/touchandlearn/LessonClockMedium.qml
+        qml/touchandlearn/LessonColorEasy.qml
+        qml/touchandlearn/LessonCountEasy.qml
+        qml/touchandlearn/LessonCountHard.qml
+        qml/touchandlearn/LessonCountReadEasy.qml
+        qml/touchandlearn/LessonCountReadHard.qml
+        qml/touchandlearn/LessonFirstLetter.qml
+        qml/touchandlearn/LessonMenu.qml
+        qml/touchandlearn/LessonMixedEasy.qml
+        qml/touchandlearn/LessonMixedHard.qml
+        qml/touchandlearn/LessonMixedMedium.qml
+        qml/touchandlearn/LessonNameTerms.qml
+        qml/touchandlearn/LessonNotesReadEasy.qml
+        qml/touchandlearn/LessonNotesReadHard.qml
+        qml/touchandlearn/LessonOptions.qml
+        qml/touchandlearn/main.qml
+        qml/touchandlearn/MainMenu.qml
+        qml/touchandlearn/VolumeDisplay.qml
+        qml/touchandlearn/Particles.qml
+)
+
+qt_add_resources(touchandlearn translations
+    PREFIX "/"
+    FILES
+        data/translations/it.qm
+        data/translations/fi.qm
+        data/translations/en_US.qm
+        data/translations/en_GB.qm
+        data/translations/de.qm
 )
 
 target_link_libraries(touchandlearn PRIVATE
