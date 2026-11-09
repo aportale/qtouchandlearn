@@ -42,6 +42,10 @@ Rectangle {
     focus: true
     Keys.onPressed: {
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
+            if (!stage.item) { // Next screen is still loading
+                event.accepted = true;
+                return;
+            }
             if (stage.item.quitsOnBack && Qt.platform.os == "winphone")
                 return;
             stage.item.goBack();
@@ -72,10 +76,13 @@ Rectangle {
         z: 1
     }
 
+    // Screens load asynchronously, so the UI keeps repainting while they are built.
+    // The opaque curtain covers the stage until onLoaded starts screenBlendIn.
     Loader {
         id: stage
         width: parent.width
         height: parent.height
+        asynchronous: true
         onLoaded: {
             screenBlendIn.start();
         }

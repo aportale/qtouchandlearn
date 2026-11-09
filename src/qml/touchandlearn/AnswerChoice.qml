@@ -44,12 +44,15 @@ Item {
         color: "#000000"
     }
 
-    onExerciseIndexChanged: {
-        if (repeater.count > 1)
-            setButtonData();
-    }
+    onExerciseIndexChanged: setButtonData();
 
     function setButtonData() {
+        // Inside an asynchronous Loader, the Repeater creates the buttons over several
+        // frames. Wait until all of them exist.
+        for (let j = 0; j < buttonsCount; j++) {
+            if (!repeater.itemAt(j))
+                return;
+        }
         var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
             var button = repeater.itemAt(i);
@@ -87,7 +90,7 @@ Item {
                 onContentChangeAnimationFinished: modelData === buttonsCount - 1 ?
                                                       Database.exercise(exerciseIndex + 2, exerciseFunction, buttonsCount) : true;
             }
-            Component.onCompleted: setButtonData();
+            onItemAdded: setButtonData();
         }
     }
 }
