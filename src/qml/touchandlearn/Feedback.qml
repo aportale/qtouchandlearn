@@ -52,7 +52,7 @@ Item {
     function randomSoundIndex(sounds, currentSoundIndex)
     {
         for (;;) {
-            var result = Math.floor(Math.random() * sounds.length);
+            const result = Math.floor(Math.random() * sounds.length);
             if (result !== currentSoundIndex)
                 return result;
         }
