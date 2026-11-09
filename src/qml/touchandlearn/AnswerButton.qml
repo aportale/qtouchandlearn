@@ -38,6 +38,12 @@ Item {
     readonly property int wrongAnswerShakeAmplitude: wrongAnswerShakeAmplitudeCalc < wrongAnswerShakeAmplitudeMin ? wrongAnswerShakeAmplitudeMin : wrongAnswerShakeAmplitudeCalc
     readonly property int correctionImageSize: (height < width ? height : width) * 0.9
 
+    // Timing of contentChangeAnimation, in milliseconds
+    readonly property int blendDuration: 250
+    readonly property int blendOutDelay: 250
+    readonly property int blendInDelay: 350
+    readonly property int staggerDelay: index * 85 // Buttons with a higher index change later
+
     signal correctlyPressed
     signal incorrectlyPressed
     signal contentChangeAnimationFinished
@@ -106,38 +112,46 @@ Item {
             rect.color = normalStateColor;
         }
 
-        if (label.text.length === 0) {
-            label.text = text;
-        } else {
-            contentChangeAnimation.complete();
-            contentChangeAnimation.start();
-        }
+        contentChangeAnimation.complete();
+        contentChangeAnimation.start();
     }
 
     SequentialAnimation {
         id: contentChangeAnimation
+        // The label is empty before the first text arrives. Then there is nothing to blend
+        // out, so only the stagger pause runs before the blend in. The durations are read when
+        // the animation starts.
+        readonly property bool blendOut: label.text.length > 0
+        readonly property int blendOutPause: blendOut ? button.blendOutDelay + button.staggerDelay : 0
+        readonly property int blendOutDuration: blendOut ? button.blendDuration : 0
+        readonly property int blendInPause: blendOut ? button.blendInDelay : 0
         ScriptAction {
             script: blockClicks = true
         }
         PauseAnimation {
-            duration: 250 + index * 85
+            duration: contentChangeAnimation.blendOutPause
         }
         ParallelAnimation {
             ScaleAnimator {
                 target: label
                 from: 1
                 to: 0
+                duration: contentChangeAnimation.blendOutDuration
                 easing.type: Easing.InQuad
             }
             OpacityAnimator {
                 target: label
                 from: 1
                 to: 0
+                duration: contentChangeAnimation.blendOutDuration
                 easing.type: Easing.InQuad
             }
         }
         PauseAnimation {
-            duration: 350 + index * 70
+            duration: contentChangeAnimation.blendInPause
+        }
+        PauseAnimation {
+            duration: staggerDelay
         }
         ScriptAction { // PropertyAction would fail here, and set the prior text
             script: label.text = text
@@ -147,12 +161,14 @@ Item {
                 target: label
                 from: 0
                 to: 1
+                duration: button.blendDuration
                 easing.type: Easing.OutBack
             }
             OpacityAnimator {
                 target: label
                 from: 0
                 to: 1
+                duration: button.blendDuration
                 easing.type: Easing.OutBack
             }
         }
