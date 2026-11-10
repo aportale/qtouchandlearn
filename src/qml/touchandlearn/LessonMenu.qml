@@ -138,13 +138,13 @@ Rectangle {
 
         Grid {
             id: list
-            columns: columsCount
+            columns: menu.columsCount
             anchors {
                 top: title.bottom
                 left: parent.left
                 right: parent.right
-                leftMargin: gridMargin
-                rightMargin: gridMargin
+                leftMargin: menu.gridMargin
+                rightMargin: menu.gridMargin
             }
             Repeater {
                 id: menuItems
