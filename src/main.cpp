@@ -33,6 +33,15 @@
 
 int main(int argc, char *argv[])
 {
+    // Touch'n'learn plays only WAV sound effects. Skip the check for hardware video codecs
+    // that the Qt Multimedia FFmpeg backend runs when it loads. On Linux with CUDA and VAAPI,
+    // the check took about 230 ms and delayed the creation of the first SoundEffect.
+    // These environment variables are private API of the FFmpeg backend.
+    if (!qEnvironmentVariableIsSet("QT_FFMPEG_DECODING_HW_DEVICE_TYPES"))
+        qputenv("QT_FFMPEG_DECODING_HW_DEVICE_TYPES", ",");
+    if (!qEnvironmentVariableIsSet("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES"))
+        qputenv("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES", ",");
+
     QCoreApplication::setOrganizationName("CasaPortale");
     QCoreApplication::setOrganizationDomain("casaportale.de");
     QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
