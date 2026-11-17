@@ -27,9 +27,6 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
-    property bool titleAnimationEnabled: true
-    property bool portaitLayout: width < (height * 1.5)
-
     function handleVolumeChange(volume)
     {
         Database.currentVolume = volume;
@@ -62,7 +59,7 @@ Rectangle {
         id: connection
         ignoreUnknownSignals: true
         function onSelectedLessonChanged() {
-            switchToScreen("Lesson" + stage.item.selectedLesson)
+            mainWindow.switchToScreen("Lesson" + stage.item.selectedLesson)
         }
     }
 
@@ -97,7 +94,7 @@ Rectangle {
 
         function displayCurrentVolume()
         {
-            item.volume = Database.currentVolume;
+            (volumeDisplay.item as VolumeDisplay).volume = Database.currentVolume;
             volumeDisplayBlendOut.stop();
             opacity = 1;
             volumeDisplayBlendOut.start();
@@ -163,7 +160,7 @@ Rectangle {
         running: true
         onTriggered: {
             Database.data.initCaches();
-            switchToScreen("LessonMenu");
+            mainWindow.switchToScreen("LessonMenu");
         }
     }
 
