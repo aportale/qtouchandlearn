@@ -46,8 +46,6 @@ Rectangle {
                 event.accepted = true;
                 return;
             }
-            if (stage.item.quitsOnBack && Qt.platform.os == "winphone")
-                return;
             stage.item.goBack();
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
