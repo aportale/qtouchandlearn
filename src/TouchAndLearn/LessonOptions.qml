@@ -25,12 +25,10 @@ pragma ComponentBehavior: Bound
 import QtQuick 2.2
 import "database.js" as Database
 
-Rectangle {
+StageScreen {
     id: menu
-    color: "#000"
     readonly property color normalStateColor: "#fff"
     readonly property color pressedStateColor: "#ee8"
-    property string selectedLesson
     property string currentLesson: Database.currentLessonOfCurrentGroup()
     readonly property int backButtonSize: (height < width ? height : width) * 0.2
     readonly property bool portaitLayout: width < (height * 1.5)
@@ -38,6 +36,11 @@ Rectangle {
     function goBack()
     {
         selectedLesson = currentLesson;
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#000"
     }
 
     Component {

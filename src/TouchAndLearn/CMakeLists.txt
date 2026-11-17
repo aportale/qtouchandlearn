@@ -28,6 +28,7 @@ qt_add_qml_module(touchandlearn_qml
         LessonOptions.qml
         Main.qml
         MainMenu.qml
+        StageScreen.qml
         VolumeDisplay.qml
         Particles.qml
     RESOURCES

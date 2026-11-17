@@ -23,7 +23,7 @@
 import QtQuick 2.2
 import "database.js" as Database
 
-Item {
+StageScreen {
     id: main
     property alias backgroundImage: imageView.backgroundImage
     property bool grayBackground
@@ -33,7 +33,6 @@ Item {
     property alias answersCount: choice.buttonsCount
     property alias answersColumsCount: choice.columsCount
     property real viewHeightRatio: 0.45
-    property string selectedLesson
 
     readonly property bool portaitLayout: width < (height * 1.5)
     readonly property int imageViewHeight: height * viewHeightRatio
