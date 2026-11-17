@@ -2,6 +2,9 @@ qt_add_library(touchandlearn_qml STATIC)
 qt_add_qml_module(touchandlearn_qml
     URI TouchAndLearn
     VERSION 1.0
+    SOURCES
+        settings.cpp
+        settings.h
     QML_FILES
         AnswerButton.qml
         AnswerChoice.qml

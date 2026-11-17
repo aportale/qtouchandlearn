@@ -24,10 +24,29 @@
 
 #include <QtCore/QSettings>
 
+Settings *Settings::s_instance = nullptr;
+
 Settings::Settings(QObject *parent)
     : QObject(parent)
 {
+    Q_ASSERT(!s_instance);
+    s_instance = this;
     m_settings = new QSettings(this);
+}
+
+Settings::~Settings()
+{
+    s_instance = nullptr;
+}
+
+Settings *Settings::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    Q_UNUSED(qmlEngine)
+    Q_UNUSED(jsEngine)
+    Q_ASSERT(s_instance);
+    // main() owns the instance. Keep the engine from deleting it.
+    QJSEngine::setObjectOwnership(s_instance, QJSEngine::CppOwnership);
+    return s_instance;
 }
 
 void Settings::setValue(const QString &group, const QString &key, const QVariant &value)

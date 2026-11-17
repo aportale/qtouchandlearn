@@ -11,8 +11,6 @@ qt_add_executable(touchandlearn
     main.cpp
     imageprovider.cpp
     imageprovider.h
-    settings.cpp
-    settings.h
 )
 
 add_subdirectory(TouchAndLearn)

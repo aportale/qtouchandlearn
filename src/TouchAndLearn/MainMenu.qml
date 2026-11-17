@@ -166,7 +166,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        Database.settings = settings; // JS with ".pragma library" cannot directly access context property
+        Database.settings = Settings; // database.js is a ".pragma library" script, which does not see the imports of this file
         Database.persistence.readCurrentLessonsOfGroups();
         Database.currentVolume = Database.persistence.readVolume();
     }

@@ -26,11 +26,10 @@
 #include <QtCore/QTranslator>
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
-#include <QtQml/QQmlContext>
 #include <QtQml/QQmlExtensionPlugin>
 
 #include "imageprovider.h"
-#include "settings.h"
+#include "TouchAndLearn/settings.h"
 
 // The static plugin of the QML module in TouchAndLearn/. It is not the plugin in
 // TouchAndLearnPlugin/. The reference keeps the linker from dropping the module.
@@ -59,10 +58,11 @@ int main(int argc, char *argv[])
         qWarning() << "Could not load translation" << translation;
     QGuiApplication::installTranslator(&translator);
 
-    Settings settings; // Needs to be instantiated before engine, in order to be destructed after it
+    // The Settings singleton in QML. It must outlive the engine, which writes the settings
+    // when it destroys the main menu.
+    Settings settings(nullptr);
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
-    engine.rootContext()->setContextProperty(QLatin1String("settings"), &settings);
     engine.loadFromModule("TouchAndLearn", "Main");
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));

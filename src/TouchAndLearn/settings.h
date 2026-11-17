@@ -22,19 +22,31 @@
 
 #pragma once
 
-#include <QObject>
+#include <QtCore/QObject>
+#include <QtQml/QQmlEngine>
 
 class QSettings;
 
+// The Settings singleton in QML. main() creates the only instance before the QML engine,
+// so that it outlives the engine. MainMenu writes the settings when the engine destroys it.
 class Settings : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 
 public:
-    explicit Settings(QObject *parent = nullptr);
+    // No default argument: the QML engine would use a default constructor instead of create().
+    explicit Settings(QObject *parent);
+    ~Settings() override;
+
+    // Called by the QML engine. Returns the instance that main() created.
+    static Settings *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
+
     Q_INVOKABLE void setValue(const QString &group, const QString &key, const QVariant &value);
     Q_INVOKABLE QString value(const QString &group, const QString &key, const QString &defaultValue) const;
 
 private:
     QSettings *m_settings;
+    static Settings *s_instance;
 };
