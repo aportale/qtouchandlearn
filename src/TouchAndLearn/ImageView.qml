@@ -20,6 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.2
 import "database.js" as Database
 
@@ -45,29 +47,29 @@ Item {
         readonly property int _hueSpanInPixels: imageview.width * 10;
         readonly property int hueOffset: Math.random() * _hueSpanInPixels
         anchors.fill: parent
-        color: grayBackground ? "#E0E0E0"
+        color: imageview.grayBackground ? "#E0E0E0"
                               : Qt.hsla(((listview.contentX + hueOffset) % _hueSpanInPixels) / _hueSpanInPixels, 0.4, 0.8, 1);
     }
 
     Item {
         Rectangle {
             id: white
-            height: backgroundWhiteRectHeight
+            height: imageview.backgroundWhiteRectHeight
             width: imageview.width
             color: "#fff"
         }
         Image {
-            readonly property int _width: (Math.ceil(imageview.width / backgroundImageSourceSizeWidth) + 1) * backgroundImageSourceSizeWidth
+            readonly property int _width: (Math.ceil(imageview.width / imageview.backgroundImageSourceSizeWidth) + 1) * imageview.backgroundImageSourceSizeWidth
             fillMode: Image.Tile
             id: backgroundImage
-            sourceSize { height: backgroundImageSourceSizeHeight; width: backgroundImageSourceSizeWidth }
+            sourceSize { height: imageview.backgroundImageSourceSizeHeight; width: imageview.backgroundImageSourceSizeWidth }
             width: _width
-            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % backgroundImageSourceSizeWidth
-            y: backgroundWhiteRectHeight
+            x: ((-listview.contentX - 10 * imageview.width) * 0.3) % imageview.backgroundImageSourceSizeWidth
+            y: imageview.backgroundWhiteRectHeight
         }
         Rectangle {
-            y: backgroundImage.height + backgroundWhiteRectHeight
-            height: backgroundBlackRectHeight
+            y: backgroundImage.height + imageview.backgroundWhiteRectHeight
+            height: imageview.backgroundBlackRectHeight
             width: imageview.width
             color: "#000"
         }
@@ -86,6 +88,7 @@ Item {
 
         delegate: Item {
             id: delegate
+            required property int modelData
             width: listview.width // Must not be parent.height/width since those are 0 in the beginning
             height: listview.height
             Image {
@@ -93,8 +96,8 @@ Item {
                 readonly property int _leftMargin: (delegate.width - width) / 2
                 readonly property int _topMargin: (delegate.height - height) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
-                source: Database.exercise(modelData, exerciseFunction, answersCount).ImageSource
-                sourceSize { width: imageSourceSizeWidthHeight; height: imageSourceSizeWidthHeight }
+                source: Database.exercise(delegate.modelData, imageview.exerciseFunction, imageview.answersCount).ImageSource
+                sourceSize { width: imageview.imageSourceSizeWidthHeight; height: imageview.imageSourceSizeWidthHeight }
                 asynchronous: true
             }
         }
