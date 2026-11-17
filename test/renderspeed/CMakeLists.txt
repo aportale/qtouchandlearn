@@ -8,5 +8,5 @@ qt_add_executable(tst_renderspeed
 set_target_properties(tst_renderspeed PROPERTIES AUTOMOC ON)
 target_include_directories(tst_renderspeed PRIVATE ../../src)
 target_compile_definitions(tst_renderspeed PRIVATE
-    SRCDIR="${CMAKE_CURRENT_SOURCE_DIR}/../../src/data")
+    SRCDIR="${CMAKE_CURRENT_SOURCE_DIR}/../../src/TouchAndLearn/data")
 target_link_libraries(tst_renderspeed PRIVATE Qt6::Test Qt6::Quick Qt6::Svg)

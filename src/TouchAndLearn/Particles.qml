@@ -30,7 +30,7 @@ Item {
         system: particleSystem
         rotationVelocity: 50
         rotationVelocityVariation: 20
-        source: "../../data/graphics/particle.png"
+        source: "data/graphics/particle.png"
         clip: true
     }
     Emitter {

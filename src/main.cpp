@@ -27,9 +27,14 @@
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
+#include <QtQml/QQmlExtensionPlugin>
 
 #include "imageprovider.h"
 #include "settings.h"
+
+// The static plugin of the QML module in TouchAndLearn/. It is not the plugin in
+// TouchAndLearnPlugin/. The reference keeps the linker from dropping the module.
+Q_IMPORT_QML_PLUGIN(TouchAndLearnPlugin)
 
 int main(int argc, char *argv[])
 {

@@ -7,15 +7,15 @@ qt_add_executable(tst_imageprovider
 )
 qt_add_resources(tst_imageprovider graphics
     PREFIX "/"
-    BASE ../../src
+    BASE ../../src/TouchAndLearn
     FILES
-        ../../src/data/graphics/particle.png
-        ../../src/data/graphics/objects.svg
-        ../../src/data/graphics/lessonicons.svg
-        ../../src/data/graphics/notes.svg
-        ../../src/data/graphics/design.svg
-        ../../src/data/graphics/clocks.svg
-        ../../src/data/graphics/countables.svg
+        ../../src/TouchAndLearn/data/graphics/particle.png
+        ../../src/TouchAndLearn/data/graphics/objects.svg
+        ../../src/TouchAndLearn/data/graphics/lessonicons.svg
+        ../../src/TouchAndLearn/data/graphics/notes.svg
+        ../../src/TouchAndLearn/data/graphics/design.svg
+        ../../src/TouchAndLearn/data/graphics/clocks.svg
+        ../../src/TouchAndLearn/data/graphics/countables.svg
 )
 set_target_properties(tst_imageprovider PROPERTIES AUTOMOC ON)
 target_include_directories(tst_imageprovider PRIVATE ../../src)

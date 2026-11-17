@@ -15,65 +15,10 @@ qt_add_executable(touchandlearn
     settings.h
 )
 
-# The source tree layout is mirrored in the resources, under :/qt/qml/TouchAndLearn/.
-# QML code finds the assets by relative paths like "../../data/audio/". That also
-# works when the QML files are loaded from the file system with TouchAndLearnPlugin.
-qt_add_qml_module(touchandlearn
-    URI TouchAndLearn
-    VERSION 1.0
-    QML_FILES
-        qml/touchandlearn/AnswerButton.qml
-        qml/touchandlearn/AnswerChoice.qml
-        qml/touchandlearn/database.js
-        qml/touchandlearn/Feedback.qml
-        qml/touchandlearn/ImageMultipleChoice.qml
-        qml/touchandlearn/ImageView.qml
-        qml/touchandlearn/LessonClockEasy.qml
-        qml/touchandlearn/LessonClockHard.qml
-        qml/touchandlearn/LessonClockMedium.qml
-        qml/touchandlearn/LessonColorEasy.qml
-        qml/touchandlearn/LessonCountEasy.qml
-        qml/touchandlearn/LessonCountHard.qml
-        qml/touchandlearn/LessonCountReadEasy.qml
-        qml/touchandlearn/LessonCountReadHard.qml
-        qml/touchandlearn/LessonFirstLetter.qml
-        qml/touchandlearn/LessonMenu.qml
-        qml/touchandlearn/LessonMixedEasy.qml
-        qml/touchandlearn/LessonMixedHard.qml
-        qml/touchandlearn/LessonMixedMedium.qml
-        qml/touchandlearn/LessonNameTerms.qml
-        qml/touchandlearn/LessonNotesReadEasy.qml
-        qml/touchandlearn/LessonNotesReadHard.qml
-        qml/touchandlearn/LessonOptions.qml
-        qml/touchandlearn/Main.qml
-        qml/touchandlearn/MainMenu.qml
-        qml/touchandlearn/VolumeDisplay.qml
-        qml/touchandlearn/Particles.qml
-    RESOURCES
-        data/audio/incorrectanswer_04.wav
-        data/audio/incorrectanswer_03.wav
-        data/audio/incorrectanswer_02.wav
-        data/audio/incorrectanswer_01.wav
-        data/audio/correctanswer_05.wav
-        data/audio/correctanswer_04.wav
-        data/audio/correctanswer_03.wav
-        data/audio/correctanswer_02.wav
-        data/audio/correctanswer_01.wav
-        data/graphics/particle.png
-        data/graphics/objects.svg
-        data/graphics/lessonicons.svg
-        data/graphics/notes.svg
-        data/graphics/design.svg
-        data/graphics/clocks.svg
-        data/graphics/countables.svg
-        data/translations/it.qm
-        data/translations/fi.qm
-        data/translations/en_US.qm
-        data/translations/en_GB.qm
-        data/translations/de.qm
-)
+add_subdirectory(TouchAndLearn)
 
 target_link_libraries(touchandlearn PRIVATE
+    touchandlearn_qmlplugin
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Svg Qt6::Multimedia
 )
 
