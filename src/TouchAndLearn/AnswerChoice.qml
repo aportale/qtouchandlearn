@@ -78,12 +78,16 @@ Item {
             id: repeater
             model: buttonsCount
             AnswerButton {
+                // AnswerButton has required properties, so the Repeater passes the model
+                // data only to required properties.
+                required property int modelData
                 readonly property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
                 readonly property int _height: (gridHeight / gridRows) - buttonSpacing
                 width: _width
                 height: _height
                 index: modelData
                 grayBackground: choice.grayBackground
+                answerChoice: choice
                 onCorrectlyPressed: correctlyAnswered();
 
                 // Calculate next but one exercise now, where the animation is over.

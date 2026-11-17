@@ -28,6 +28,8 @@ Item {
     property string correctionImageSource
     property bool isCorrectAnswer: false
     property bool grayBackground: false
+    // Shared by all buttons of the choice, so only one button reacts at a time
+    required property AnswerChoice answerChoice
     readonly property color normalStateColor: "#fff"
     readonly property color correctStateColor: "#ffa"
     readonly property color wrongStateColor: "#f66"
@@ -52,14 +54,14 @@ Item {
     Rectangle {
         id: rect
         anchors.fill: parent
-        color: normalStateColor
+        color: button.normalStateColor
     }
     Particles {
         anchors.fill: parent
         id: particles
     }
     Image {
-        source: "image://imageprovider/button/" + index
+        source: "image://imageprovider/button/" + button.index
         sourceSize { height: parent.height; width: parent.width }
         smooth: false
     }
@@ -82,7 +84,7 @@ Item {
         // Hand-centered in order to avoid non-integer image coordinates.
         readonly property int _leftMargin: (parent.width - width) / 2
         readonly property int _topMargin: (parent.height - height) / 2
-        sourceSize { width: correctionImageSize; height: correctionImageSize }
+        sourceSize { width: button.correctionImageSize; height: button.correctionImageSize }
         anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
         opacity: 0
         smooth: false
@@ -91,8 +93,8 @@ Item {
     MouseArea {
         anchors.fill: parent
         onPressed: {
-            if (!blockClicks) {
-                if (isCorrectAnswer)
+            if (!button.answerChoice.blockClicks) {
+                if (button.isCorrectAnswer)
                     correctAnswerAnimation.start();
                 else
                     wrongAnswerAnimation.start();
@@ -126,7 +128,7 @@ Item {
         readonly property int blendOutDuration: blendOut ? button.blendDuration : 0
         readonly property int blendInPause: blendOut ? button.blendInDelay : 0
         ScriptAction {
-            script: blockClicks = true
+            script: button.answerChoice.blockClicks = true
         }
         PauseAnimation {
             duration: contentChangeAnimation.blendOutPause
@@ -151,10 +153,10 @@ Item {
             duration: contentChangeAnimation.blendInPause
         }
         PauseAnimation {
-            duration: staggerDelay
+            duration: button.staggerDelay
         }
         ScriptAction { // PropertyAction would fail here, and set the prior text
-            script: label.text = text
+            script: label.text = button.text
         }
         ParallelAnimation {
             ScaleAnimator {
@@ -174,8 +176,8 @@ Item {
         }
         ScriptAction {
             script: {
-                blockClicks = false;
-                contentChangeAnimationFinished();
+                button.answerChoice.blockClicks = false;
+                button.contentChangeAnimationFinished();
             }
         }
     }
@@ -185,19 +187,19 @@ Item {
             script: {
                 if (typeof(feedback) === "object")
                     feedback.playCorrectSound();
-                blockClicks = true;
+                button.answerChoice.blockClicks = true;
                 particles.burst(20);
             }
         }
         PropertyAction {
             target: rect
             property: "color"
-            value: correctStateColor
+            value: button.correctStateColor
         }
         PropertyAnimation {
             property: "color"
             target: rect
-            to: normalStateColor
+            to: button.normalStateColor
             duration: 700
         }
         PauseAnimation {
@@ -205,8 +207,8 @@ Item {
         }
         ScriptAction {
             script: {
-                blockClicks = false;
-                correctlyPressed();
+                button.answerChoice.blockClicks = false;
+                button.correctlyPressed();
             }
         }
     }
@@ -217,44 +219,44 @@ Item {
                 PropertyAction {
                     target: rect
                     property: "color"
-                    value: wrongStateColor
+                    value: button.wrongStateColor
                 }
                 ScriptAction {
                     script: {
                         if (typeof(feedback) === "object")
                             feedback.playIncorrectSound();
-                        if (correctionImageSource.length) {
-                            correctionImage.sourceSize.height = correctionImageSize
-                            correctionImage.sourceSize.width = correctionImageSize
-                            correctionImage.source = correctionImageSource
+                        if (button.correctionImageSource.length) {
+                            correctionImage.sourceSize.height = button.correctionImageSize
+                            correctionImage.sourceSize.width = button.correctionImageSize
+                            correctionImage.source = button.correctionImageSource
                         }
                     }
                 }
                 PropertyAnimation {
                     property: "color"
                     target: rect
-                    to: correctionImageSource.length ? correctionStateColor : normalStateColor
-                    duration: correctionImageSource.length ? 450 : 600
+                    to: button.correctionImageSource.length ? button.correctionStateColor : button.normalStateColor
+                    duration: button.correctionImageSource.length ? 450 : 600
                 }
             }
             SequentialAnimation {
                 XAnimator {
                     target: label
                     from: label.horizontallyCenteredX
-                    to: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
+                    to: label.horizontallyCenteredX - button.wrongAnswerShakeAmplitude
                     easing.type: Easing.InCubic
                     duration: 120
                 }
                 XAnimator {
                     target: label
-                    from: label.horizontallyCenteredX - wrongAnswerShakeAmplitude
-                    to: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
+                    from: label.horizontallyCenteredX - button.wrongAnswerShakeAmplitude
+                    to: label.horizontallyCenteredX + button.wrongAnswerShakeAmplitude
                     easing.type: Easing.InOutCubic
                     duration: 220
                 }
                 XAnimator {
                     target: label
-                    from: label.horizontallyCenteredX + wrongAnswerShakeAmplitude
+                    from: label.horizontallyCenteredX + button.wrongAnswerShakeAmplitude
                     to: label.horizontallyCenteredX
                     easing { type: Easing.OutBack; overshoot: 3 }
                     duration: 180
@@ -263,27 +265,27 @@ Item {
         }
         ParallelAnimation {
             OpacityAnimator {
-                target: correctionImageSource.length ? correctionImage : null
+                target: button.correctionImageSource.length ? correctionImage : null
                 from: 0
                 to: 1
             }
             OpacityAnimator {
-                target: correctionImageSource.length ? label : null
+                target: button.correctionImageSource.length ? label : null
                 from: 1
                 to: 0
             }
         }
         PauseAnimation {
-            duration: correctionImageSource.length ? 1400 : 0
+            duration: button.correctionImageSource.length ? 1400 : 0
         }
         ParallelAnimation {
             OpacityAnimator {
-                target: correctionImageSource.length ? correctionImage : null
+                target: button.correctionImageSource.length ? correctionImage : null
                 from: 1
                 to: 0
             }
             OpacityAnimator {
-                target: correctionImageSource.length ? label : null
+                target: button.correctionImageSource.length ? label : null
                 from: 0
                 to: 1
             }
@@ -291,13 +293,13 @@ Item {
         PropertyAnimation {
             property: "color"
             target: rect
-            to: normalStateColor
+            to: button.normalStateColor
             duration: 450
         }
         ScriptAction {
             script: {
                 correctionImage.source = "";
-                incorrectlyPressed();
+                button.incorrectlyPressed();
             }
         }
     }
