@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
 
     QGuiApplication app(argc, argv);
-    const QString assetsPrefix = QLatin1String(":/");
+    const QString assetsPrefix = QLatin1String(":/qt/qml/TouchAndLearn/");
     const QString dataPath = assetsPrefix + QLatin1String("data");
 
     const QString translation = QLocale::system().name();
@@ -54,14 +54,11 @@ int main(int argc, char *argv[])
         qWarning() << "Could not load translation" << translation;
     QGuiApplication::installTranslator(&translator);
 
-    // Registering dummy type to allow QML import of TouchAndLearn 1.0
-    qmlRegisterType<QObject>("TouchAndLearn", 1, 0, "QObject");
-
     Settings settings; // Needs to be instantiated before engine, in order to be destructed after it
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
     engine.rootContext()->setContextProperty(QLatin1String("settings"), &settings);
-    engine.load(QUrl(QLatin1String("qrc:///qml/touchandlearn/main.qml"))); // Needs to be "qrc:///" -> QTBUG-42102
+    engine.loadFromModule("TouchAndLearn", "Main");
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();

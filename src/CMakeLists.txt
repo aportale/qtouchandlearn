@@ -3,9 +3,9 @@ project(touchandlearn VERSION 1.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Svg Multimedia)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick Svg Multimedia)
+qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(touchandlearn
     main.cpp
@@ -15,35 +15,13 @@ qt_add_executable(touchandlearn
     settings.h
 )
 
-qt_add_resources(touchandlearn audio
-    PREFIX "/"
-    FILES
-        data/audio/incorrectanswer_04.wav
-        data/audio/incorrectanswer_03.wav
-        data/audio/incorrectanswer_02.wav
-        data/audio/incorrectanswer_01.wav
-        data/audio/correctanswer_05.wav
-        data/audio/correctanswer_04.wav
-        data/audio/correctanswer_03.wav
-        data/audio/correctanswer_02.wav
-        data/audio/correctanswer_01.wav
-)
-
-qt_add_resources(touchandlearn graphics
-    PREFIX "/"
-    FILES
-        data/graphics/particle.png
-        data/graphics/objects.svg
-        data/graphics/lessonicons.svg
-        data/graphics/notes.svg
-        data/graphics/design.svg
-        data/graphics/clocks.svg
-        data/graphics/countables.svg
-)
-
-qt_add_resources(touchandlearn qml
-    PREFIX "/"
-    FILES
+# The source tree layout is mirrored in the resources, under :/qt/qml/TouchAndLearn/.
+# QML code finds the assets by relative paths like "../../data/audio/". That also
+# works when the QML files are loaded from the file system with TouchAndLearnPlugin.
+qt_add_qml_module(touchandlearn
+    URI TouchAndLearn
+    VERSION 1.0
+    QML_FILES
         qml/touchandlearn/AnswerButton.qml
         qml/touchandlearn/AnswerChoice.qml
         qml/touchandlearn/database.js
@@ -67,15 +45,27 @@ qt_add_resources(touchandlearn qml
         qml/touchandlearn/LessonNotesReadEasy.qml
         qml/touchandlearn/LessonNotesReadHard.qml
         qml/touchandlearn/LessonOptions.qml
-        qml/touchandlearn/main.qml
+        qml/touchandlearn/Main.qml
         qml/touchandlearn/MainMenu.qml
         qml/touchandlearn/VolumeDisplay.qml
         qml/touchandlearn/Particles.qml
-)
-
-qt_add_resources(touchandlearn translations
-    PREFIX "/"
-    FILES
+    RESOURCES
+        data/audio/incorrectanswer_04.wav
+        data/audio/incorrectanswer_03.wav
+        data/audio/incorrectanswer_02.wav
+        data/audio/incorrectanswer_01.wav
+        data/audio/correctanswer_05.wav
+        data/audio/correctanswer_04.wav
+        data/audio/correctanswer_03.wav
+        data/audio/correctanswer_02.wav
+        data/audio/correctanswer_01.wav
+        data/graphics/particle.png
+        data/graphics/objects.svg
+        data/graphics/lessonicons.svg
+        data/graphics/notes.svg
+        data/graphics/design.svg
+        data/graphics/clocks.svg
+        data/graphics/countables.svg
         data/translations/it.qm
         data/translations/fi.qm
         data/translations/en_US.qm
