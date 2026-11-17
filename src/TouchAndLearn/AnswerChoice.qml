@@ -20,6 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.2
 import "database.js" as Database
 
@@ -55,7 +57,7 @@ Item {
         }
         var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
         for (var i = 0; i < buttonsCount; i++) {
-            var button = repeater.itemAt(i);
+            var button = repeater.itemAt(i) as AnswerButton;
             var answer = exercise.Answers[i];
             button.text = answer.DisplayName;
             if (showCorrectionImage)
@@ -67,34 +69,34 @@ Item {
     Grid {
         id: grid
         columns: 1
-        rows: gridRows
-        width: gridWidth
-        height: gridHeight
-        spacing: buttonSpacing
-        x: 2 * buttonSpacing
-        y: buttonSpacing
+        rows: choice.gridRows
+        width: choice.gridWidth
+        height: choice.gridHeight
+        spacing: choice.buttonSpacing
+        x: 2 * choice.buttonSpacing
+        y: choice.buttonSpacing
 
         Repeater {
             id: repeater
-            model: buttonsCount
+            model: choice.buttonsCount
             AnswerButton {
                 // AnswerButton has required properties, so the Repeater passes the model
                 // data only to required properties.
                 required property int modelData
-                readonly property int _width: ((gridWidth - buttonSpacing) / columsCount) - buttonSpacing
-                readonly property int _height: (gridHeight / gridRows) - buttonSpacing
+                readonly property int _width: ((choice.gridWidth - choice.buttonSpacing) / choice.columsCount) - choice.buttonSpacing
+                readonly property int _height: (choice.gridHeight / choice.gridRows) - choice.buttonSpacing
                 width: _width
                 height: _height
                 index: modelData
                 grayBackground: choice.grayBackground
                 answerChoice: choice
-                onCorrectlyPressed: correctlyAnswered();
+                onCorrectlyPressed: choice.correctlyAnswered();
 
                 // Calculate next but one exercise now, where the animation is over.
-                onContentChangeAnimationFinished: modelData === buttonsCount - 1 ?
-                                                      Database.exercise(exerciseIndex + 2, exerciseFunction, buttonsCount) : true;
+                onContentChangeAnimationFinished: modelData === choice.buttonsCount - 1 ?
+                                                      Database.exercise(choice.exerciseIndex + 2, choice.exerciseFunction, choice.buttonsCount) : true;
             }
-            onItemAdded: setButtonData();
+            onItemAdded: choice.setButtonData();
         }
     }
 }
