@@ -20,6 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.2
 import "database.js" as Database
 
@@ -31,6 +33,7 @@ Rectangle {
     property string selectedLesson
     property string currentLesson: Database.currentLessonOfCurrentGroup()
     readonly property int backButtonSize: (height < width ? height : width) * 0.2
+    readonly property bool portaitLayout: width < (height * 1.5)
 
     function goBack()
     {
@@ -40,6 +43,8 @@ Rectangle {
     Component {
         id: lessonDelegate
         Item {
+            id: lessonItem
+            required property int index
             readonly property int _height: width * 0.4
             height: _height
             width: menu.width / grid.columns
@@ -47,19 +52,19 @@ Rectangle {
             Rectangle {
                 id: rectangle
                 anchors.fill: parent
-                color: mouseArea.pressed ? pressedStateColor : normalStateColor
+                color: mouseArea.pressed ? menu.pressedStateColor : menu.normalStateColor
             }
 
             Image {
                 readonly property int _anchors_margins: parent.height * 0.15
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15 }
-                opacity: Database.lessonsOfCurrentGroup()[index].Id === currentLesson ? 1 : 0;
+                opacity: Database.lessonsOfCurrentGroup()[lessonItem.index].Id === menu.currentLesson ? 1 : 0;
                 anchors { right: parent.right; top: parent.top; margins: _anchors_margins; }
             }
 
             Image {
-                source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[index].Id + "/" + index
+                source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[lessonItem.index].Id + "/" + lessonItem.index
                 sourceSize { width: parent.width; height: parent.height }
             }
 
@@ -67,7 +72,7 @@ Rectangle {
                 readonly property int _width: parent.width * 0.28
                 readonly property int _x: parent.height * 0.21
                 readonly property int _y: parent.height * 0.65
-                text: Database.lessonsOfCurrentGroup()[index].ImageLabel
+                text: Database.lessonsOfCurrentGroup()[lessonItem.index].ImageLabel
                 horizontalAlignment: Text.AlignHCenter
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: 8
@@ -80,7 +85,7 @@ Rectangle {
             Text {
                 readonly property int _width: parent.width * 0.51
                 readonly property int _anchors_margins: parent.width * 0.1
-                text: Database.lessonsOfCurrentGroup()[index].DisplayName
+                text: Database.lessonsOfCurrentGroup()[lessonItem.index].DisplayName
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -95,10 +100,10 @@ Rectangle {
             MouseArea {
                 id: mouseArea
                 onClicked: {
-                    rectangle.color = pressedStateColor;
-                    var theLesson = Database.lessonsOfCurrentGroup()[index].Id;
+                    rectangle.color = menu.pressedStateColor;
+                    var theLesson = Database.lessonsOfCurrentGroup()[lessonItem.index].Id;
                     Database.setCurrentLessonOfGroup(Database.currentLessonGroup.Id, theLesson);
-                    selectedLesson = theLesson;
+                    menu.selectedLesson = theLesson;
                 }
                 anchors.fill: parent
             }
@@ -112,13 +117,13 @@ Rectangle {
 
         Item {
             id: backButton
-            readonly property int _height: backButtonSize * 0.75
-            width: backButtonSize
+            readonly property int _height: menu.backButtonSize * 0.75
+            width: menu.backButtonSize
             height: _height
             anchors {
                 top: parent.top
-                right: portaitLayout ? parent.right : undefined
-                left: portaitLayout ? undefined : parent.left
+                right: menu.portaitLayout ? parent.right : undefined
+                left: menu.portaitLayout ? undefined : parent.left
             }
             Image {
                 readonly property int _sourceSize: parent.width * 0.7
@@ -128,13 +133,13 @@ Rectangle {
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: goBack()
+                onClicked: menu.goBack()
             }
         }
 
         Grid {
             id: grid
-            columns: portaitLayout ? 1 : 2
+            columns: menu.portaitLayout ? 1 : 2
             anchors { top: backButton.bottom; left: parent.left; right: parent.right }
             Repeater {
                 id: lessons
