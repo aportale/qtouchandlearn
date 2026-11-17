@@ -2,6 +2,8 @@ import QtQuick 2.2
 import QtQuick.Particles 2.0
 
 Item {
+    id: particlesItem
+
     function burst(particlesCount)
     {
         particleSystem.running = true
@@ -40,7 +42,7 @@ Item {
         lifeSpan: 700
         lifeSpanVariation: 200
         velocity: AngleDirection {
-            magnitude: (height < width ? height : width) / 2.0
+            magnitude: (particlesItem.height < particlesItem.width ? particlesItem.height : particlesItem.width) / 2.0
             angleVariation: 360
         }
         size: (height < width ? height : width) / 2.0
