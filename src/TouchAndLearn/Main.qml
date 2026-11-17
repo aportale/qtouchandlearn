@@ -35,7 +35,5 @@ Window {
 
     Feedback {
         id: feedback
-        audioFileExtension: ".wav"
-        audioDirectory: Qt.resolvedUrl("data/audio/")
     }
 }

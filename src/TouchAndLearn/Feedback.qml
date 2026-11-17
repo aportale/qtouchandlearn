@@ -27,26 +27,27 @@ import "database.js" as Database
 Item {
     id: feedback
 
-    property string audioFileExtension
-    property string audioDirectory
-    readonly property string correctSoundBaseName: audioDirectory +"correctanswer_"
     property int previousCorrectSound: -1
-    readonly property string incorrectSoundBaseName: audioDirectory + "incorrectanswer_"
     property int previousIncorrectSound: -1
 
+    function audioUrl(name: string): url
+    {
+        return Qt.resolvedUrl("data/audio/" + name + ".wav");
+    }
+
     property list<SoundEffect> correctSounds: [
-        SoundEffect { source: feedback.correctSoundBaseName + "01" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "02" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "03" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "04" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.correctSoundBaseName + "05" + feedback.audioFileExtension}
+        SoundEffect { source: feedback.audioUrl("correctanswer_01") },
+        SoundEffect { source: feedback.audioUrl("correctanswer_02") },
+        SoundEffect { source: feedback.audioUrl("correctanswer_03") },
+        SoundEffect { source: feedback.audioUrl("correctanswer_04") },
+        SoundEffect { source: feedback.audioUrl("correctanswer_05") }
     ]
 
     property list<SoundEffect> incorrectSounds: [
-        SoundEffect { source: feedback.incorrectSoundBaseName + "01" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "02" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "03" + feedback.audioFileExtension},
-        SoundEffect { source: feedback.incorrectSoundBaseName + "04" + feedback.audioFileExtension}
+        SoundEffect { source: feedback.audioUrl("incorrectanswer_01") },
+        SoundEffect { source: feedback.audioUrl("incorrectanswer_02") },
+        SoundEffect { source: feedback.audioUrl("incorrectanswer_03") },
+        SoundEffect { source: feedback.audioUrl("incorrectanswer_04") }
     ]
 
     function randomSoundIndex(sounds, currentSoundIndex)
