@@ -27,6 +27,8 @@ Rectangle {
     id: mainWindow
     color: "#000"
 
+    readonly property StageScreen stageScreen: stage.item as StageScreen
+
     function handleVolumeChange(volume)
     {
         Database.currentVolume = volume;
@@ -39,11 +41,11 @@ Rectangle {
     focus: true
     Keys.onPressed: function(event) {
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
-            if (!stage.item) { // Next screen is still loading
+            if (!stageScreen) { // Next screen is still loading
                 event.accepted = true;
                 return;
             }
-            stage.item.goBack();
+            stageScreen.goBack();
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
             handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
@@ -55,11 +57,10 @@ Rectangle {
     }
 
     Connections {
-        target: stage.item
+        target: mainWindow.stageScreen
         id: connection
-        ignoreUnknownSignals: true
         function onSelectedLessonChanged() {
-            mainWindow.switchToScreen("Lesson" + stage.item.selectedLesson)
+            mainWindow.switchToScreen("Lesson" + mainWindow.stageScreen.selectedLesson)
         }
     }
 
