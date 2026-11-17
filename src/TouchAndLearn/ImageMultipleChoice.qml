@@ -35,6 +35,7 @@ Item {
     property real viewHeightRatio: 0.45
     property string selectedLesson
 
+    readonly property bool portaitLayout: width < (height * 1.5)
     readonly property int imageViewHeight: height * viewHeightRatio
     readonly property int backButtonSize: (height < width ? height : width) * 0.2
 
@@ -45,8 +46,8 @@ Item {
 
     ImageView {
         id: imageView
-        width: portaitLayout ? parent.width : Math.ceil(parent.width / 2)
-        height: portaitLayout ? imageViewHeight : parent.height
+        width: main.portaitLayout ? parent.width : Math.ceil(parent.width / 2)
+        height: main.portaitLayout ? main.imageViewHeight : parent.height
         answersCount: choice.buttonsCount
         backgroundImage: "image://imageprovider/background/background_01"
         grayBackground: main.grayBackground
@@ -54,15 +55,15 @@ Item {
 
     Item {
         id: backButton
-        width: backButtonSize
-        height: backButtonSize
+        width: main.backButtonSize
+        height: main.backButtonSize
         anchors {
             top: parent.top
-            right: portaitLayout ? parent.right : undefined
-            left: portaitLayout ? undefined : parent.left
+            right: main.portaitLayout ? parent.right : undefined
+            left: main.portaitLayout ? undefined : parent.left
         }
         Image {
-            readonly property int _sourceSize: backButtonSize * 0.7
+            readonly property int _sourceSize: main.backButtonSize * 0.7
             anchors.centerIn: parent
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/backbutton"
@@ -70,21 +71,21 @@ Item {
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: goBack()
+            onPressed: main.goBack()
         }
     }
 
     Item {
-        readonly property int _height: backButtonSize * 0.75
-        width: backButtonSize
+        readonly property int _height: main.backButtonSize * 0.75
+        width: main.backButtonSize
         height: _height
         anchors {
             top: backButton.bottom
-            right: portaitLayout ? parent.right : undefined
-            left: portaitLayout ? undefined : parent.left
+            right: main.portaitLayout ? parent.right : undefined
+            left: main.portaitLayout ? undefined : parent.left
         }
         Image {
-            readonly property int _sourceSize: backButtonSize * 0.7
+            readonly property int _sourceSize: main.backButtonSize * 0.7
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
             sourceSize { width: _sourceSize; height: _sourceSize }
             source: "image://imageprovider/specialbutton/optionsbutton"
@@ -92,7 +93,7 @@ Item {
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: selectedLesson = "Options"
+            onPressed: main.selectedLesson = "Options"
         }
         visible: Database.lessonsOfCurrentGroup().length > 1
     }
@@ -100,10 +101,10 @@ Item {
     AnswerChoice {
         id: choice
 
-        y: portaitLayout ? imageViewHeight : 0
-        x: portaitLayout ? 0 : imageView.width
-        height: portaitLayout ? parent.height - imageView.height : parent.height
-        width: portaitLayout ? parent.width : parent.width - imageView.width
+        y: main.portaitLayout ? main.imageViewHeight : 0
+        x: main.portaitLayout ? 0 : imageView.width
+        height: main.portaitLayout ? parent.height - imageView.height : parent.height
+        width: main.portaitLayout ? parent.width : parent.width - imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
         exerciseFunction: imageView.exerciseFunction
