@@ -33,7 +33,7 @@ Rectangle {
     function handleVolumeChange(volume)
     {
         Database.currentVolume = volume;
-        if (volumeDisplay.source == '')
+        if (volumeDisplay.status === Loader.Null)
             volumeDisplay.source = 'VolumeDisplay.qml';
         else
             volumeDisplay.displayCurrentVolume();
@@ -129,7 +129,7 @@ Rectangle {
         Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
         Database.persistence.writeAll(); // TODO: Remove this hack. See https://together.jolla.com/question/49775/componentondestruction-of-applicationwindow-not-called/
-        if (stage.source == '')
+        if (stage.status === Loader.Null)
             stage.source = Database.currentScreen;
         else
             screenBlendOut.start();
