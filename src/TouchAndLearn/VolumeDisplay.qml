@@ -28,7 +28,7 @@ Rectangle {
     color: Qt.rgba(0, 0, 0, 0.7)
 
     Component {
-        id: delegate
+        id: volumeBarDelegate
         Image {
             source: "image://imageprovider/specialbutton/volumebar_" + (index + 1) * 20
             sourceSize {
@@ -43,7 +43,7 @@ Rectangle {
     Row {
         anchors.centerIn: parent
         height: volumeDisplay.width
-        Repeater { model: 5; delegate: delegate }
+        Repeater { model: 5; delegate: volumeBarDelegate }
     }
 
     MouseArea {

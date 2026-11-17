@@ -42,7 +42,7 @@ Rectangle {
     }
 
     Component {
-        id: delegate
+        id: menuItemDelegate
         Item {
             width: menu.delegateWidth
             height: menu.delegateHeight
@@ -149,7 +149,7 @@ Rectangle {
             Repeater {
                 id: menuItems
                 model: Database.lessonMenu().length
-                delegate: delegate
+                delegate: menuItemDelegate
             }
         }
     }

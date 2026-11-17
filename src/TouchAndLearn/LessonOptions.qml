@@ -38,7 +38,7 @@ Rectangle {
     }
 
     Component {
-        id: delegate
+        id: lessonDelegate
         Item {
             readonly property int _height: width * 0.4
             height: _height
@@ -139,7 +139,7 @@ Rectangle {
             Repeater {
                 id: lessons
                 model: Database.lessonsOfCurrentGroup().length
-                delegate: delegate
+                delegate: lessonDelegate
             }
         }
     }
