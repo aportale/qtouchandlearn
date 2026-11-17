@@ -20,6 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.2
 
 Rectangle {
@@ -30,12 +32,14 @@ Rectangle {
     Component {
         id: volumeBarDelegate
         Image {
+            required property int index
+
             source: "image://imageprovider/specialbutton/volumebar_" + (index + 1) * 20
             sourceSize {
                 width: Math.round(volumeDisplay.width / 5 * 0.7)
                 height: volumeDisplay.width * 0.7
             }
-            opacity: volume >= (index + 1) * 20 ? 1 : 0.25;
+            opacity: volumeDisplay.volume >= (index + 1) * 20 ? 1 : 0.25;
             smooth: false
         }
     }
