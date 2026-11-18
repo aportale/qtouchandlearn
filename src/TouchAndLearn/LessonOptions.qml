@@ -100,7 +100,7 @@ StageScreen {
                 id: mouseArea
                 onClicked: {
                     rectangle.color = menu.pressedStateColor;
-                    var theLesson = Database.lessonsOfCurrentGroup()[lessonItem.index].Id;
+                    const theLesson = Database.lessonsOfCurrentGroup()[lessonItem.index].Id;
                     Database.setCurrentLessonOfGroup(Database.currentLessonGroup.Id, theLesson);
                     menu.selectedLesson = theLesson;
                 }

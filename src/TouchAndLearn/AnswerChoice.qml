@@ -55,10 +55,10 @@ Item {
             if (!repeater.itemAt(j))
                 return;
         }
-        var exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
-        for (var i = 0; i < buttonsCount; i++) {
-            var button = repeater.itemAt(i) as AnswerButton;
-            var answer = exercise.Answers[i];
+        const exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
+        for (let i = 0; i < buttonsCount; i++) {
+            const button = repeater.itemAt(i) as AnswerButton;
+            const answer = exercise.Answers[i];
             button.text = answer.DisplayName;
             if (showCorrectionImage)
                 button.correctionImageSource = answer.ImageSource;
