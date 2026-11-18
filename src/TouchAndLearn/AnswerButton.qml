@@ -115,6 +115,7 @@ Item {
         }
 
         contentChangeAnimation.complete();
+        contentChangeAnimation.blendOut = label.text.length > 0;
         contentChangeAnimation.start();
     }
 
@@ -132,9 +133,11 @@ Item {
     SequentialAnimation {
         id: contentChangeAnimation
         // The label is empty before the first text arrives. Then there is nothing to blend
-        // out, so only the stagger pause runs before the blend in. The durations are read when
-        // the animation starts.
-        readonly property bool blendOut: label.text.length > 0
+        // out, so only the stagger pause runs before the blend in. blendOut is set before each
+        // start and must not be bound to label.text: the animation itself sets label.text, and
+        // the NumberAnimations would pick up the changed durations while running and replay
+        // the blend out and in.
+        property bool blendOut
         readonly property int blendOutPause: blendOut ? button.blendOutDelay + button.staggerDelay : 0
         readonly property int blendOutDuration: blendOut ? button.blendDuration : 0
         readonly property int blendInPause: blendOut ? button.blendInDelay : 0
@@ -144,16 +147,21 @@ Item {
         PauseAnimation {
             duration: contentChangeAnimation.blendOutPause
         }
+        // This animation runs while the ImageView scrolls. It uses NumberAnimations instead of
+        // Animators: Animators run on the render thread, which then renders additional frames
+        // and lets the scroll animation of the ImageView advance only on every second frame.
         ParallelAnimation {
-            ScaleAnimator {
+            NumberAnimation {
                 target: label
+                property: "scale"
                 from: 1
                 to: 0
                 duration: contentChangeAnimation.blendOutDuration
                 easing.type: Easing.InQuad
             }
-            OpacityAnimator {
+            NumberAnimation {
                 target: label
+                property: "opacity"
                 from: 1
                 to: 0
                 duration: contentChangeAnimation.blendOutDuration
@@ -170,15 +178,17 @@ Item {
             script: label.text = button.text
         }
         ParallelAnimation {
-            ScaleAnimator {
+            NumberAnimation {
                 target: label
+                property: "scale"
                 from: 0
                 to: 1
                 duration: button.blendDuration
                 easing.type: Easing.OutBack
             }
-            OpacityAnimator {
+            NumberAnimation {
                 target: label
+                property: "opacity"
                 from: 0
                 to: 1
                 duration: button.blendDuration
