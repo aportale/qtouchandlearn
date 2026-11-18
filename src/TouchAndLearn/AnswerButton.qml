@@ -26,7 +26,7 @@ Item {
     property int index: 0
     property string text
     property string correctionImageSource
-    property bool isCorrectAnswer: false
+    final property bool isCorrectAnswer: false
     property bool grayBackground: false
     // Shared by all buttons of the choice, so only one button reacts at a time
     required property AnswerChoice answerChoice

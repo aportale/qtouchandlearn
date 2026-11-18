@@ -34,7 +34,7 @@ Item {
     property int buttonsCount: 3
     property alias columsCount: grid.columns
     signal correctlyAnswered
-    property bool blockClicks: false
+    final property bool blockClicks: false
 
     readonly property int buttonSpacing: height * 0.035
     readonly property int gridWidth: width - 2 * buttonSpacing
