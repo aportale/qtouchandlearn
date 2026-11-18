@@ -118,6 +118,17 @@ Item {
         contentChangeAnimation.start();
     }
 
+    // MainMenu disables the screen before it unloads it. The Loader invalidates the QML context
+    // of the screen before it deletes the screen. A ScriptAction that runs in between would warn
+    // "QQmlExpression: Attempted to evaluate an expression in an invalid context".
+    onEnabledChanged: {
+        if (!enabled) {
+            contentChangeAnimation.stop();
+            correctAnswerAnimation.stop();
+            wrongAnswerAnimation.stop();
+        }
+    }
+
     SequentialAnimation {
         id: contentChangeAnimation
         // The label is empty before the first text arrives. Then there is nothing to blend

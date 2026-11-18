@@ -128,10 +128,15 @@ Rectangle {
         Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
         Database.persistence.writeAll(); // TODO: Remove this hack. See https://together.jolla.com/question/49775/componentondestruction-of-applicationwindow-not-called/
-        if (stage.status === Loader.Null)
+        if (stage.status === Loader.Null) {
             stage.source = Database.currentScreen;
-        else
+        } else {
+            // Disable the old screen, so that it ignores input and stops its animations
+            // while it blends out.
+            if (stageScreen)
+                stageScreen.enabled = false;
             screenBlendOut.start();
+        }
     }
 
     SequentialAnimation {
