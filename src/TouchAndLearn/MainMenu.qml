@@ -29,7 +29,7 @@ Rectangle {
 
     readonly property StageScreen stageScreen: stage.item as StageScreen
 
-    function handleVolumeChange(volume)
+    function handleVolumeChange(volume: int): void
     {
         Database.currentVolume = volume;
         if (volumeDisplay.status === Loader.Null)
@@ -120,7 +120,7 @@ Rectangle {
         }
     }
 
-    function switchToScreen(screen)
+    function switchToScreen(screen: string): void
     {
         Database.lessonData = [];
         Database.currentScreen = screen + '.qml';
