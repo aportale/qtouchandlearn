@@ -288,7 +288,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     renderer->render(&p, idPrefix + clefId, clefRect);
 
     int currentNoteIndex = 0;
-    foreach(const QString &currentNote, notes) {
+    for (const QString &currentNote : notes) {
         const QString trimmedNote = currentNote.trimmed();
         const QString note = trimmedNote.at(0).toLower();
         const QString noteID = QLatin1String("note_") + note;
@@ -378,7 +378,7 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
     const ElementVariationList *elements = type == DesignElementTypeButton ? buttonVariations() : frameVariations();
     const qreal requestedRatio = requestedSize.width() / qreal(requestedSize.height());
     const ElementVariations *elementWithNearestRatio = &elements->last();
-    foreach (const ElementVariations &element, *elements) {
+    for (const ElementVariations &element : *elements) {
         if (qAbs(requestedRatio - element.widthToHeightRatio)
                 < qAbs(requestedRatio - elementWithNearestRatio->widthToHeightRatio)) {
             elementWithNearestRatio = &element;
