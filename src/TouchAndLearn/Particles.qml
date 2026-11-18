@@ -24,7 +24,7 @@ Item {
             // The first instance of ParticleSystem will take a while to initialize
             // It does only nitialize while it is "running"
             interval: 0
-            onTriggered: parent.running = false;
+            onTriggered: particleSystem.running = false;
         }
     }
     ImageParticle {
