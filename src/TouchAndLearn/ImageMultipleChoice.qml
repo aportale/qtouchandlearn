@@ -25,18 +25,18 @@ import "database.js" as Database
 
 StageScreen {
     id: main
-    property alias backgroundImage: imageView.backgroundImage
-    property bool grayBackground
-    property alias imageSizeFactor: imageView.imageSizeFactor
-    property alias exerciseFunction: imageView.exerciseFunction
-    property alias showCorrectionImageOnButton: choice.showCorrectionImage
-    property alias answersCount: choice.buttonsCount
-    property alias answersColumsCount: choice.columsCount
-    property real viewHeightRatio: 0.45
+    final property alias backgroundImage: imageView.backgroundImage
+    final property bool grayBackground
+    final property alias imageSizeFactor: imageView.imageSizeFactor
+    final property alias exerciseFunction: imageView.exerciseFunction
+    final property alias showCorrectionImageOnButton: choice.showCorrectionImage
+    final property alias answersCount: choice.buttonsCount
+    final property alias answersColumsCount: choice.columsCount
+    final property real viewHeightRatio: 0.45
 
-    readonly property bool portaitLayout: width < (height * 1.5)
-    readonly property int imageViewHeight: height * viewHeightRatio
-    readonly property int backButtonSize: (height < width ? height : width) * 0.2
+    final readonly property bool portaitLayout: width < (height * 1.5)
+    final readonly property int imageViewHeight: height * viewHeightRatio
+    final readonly property int backButtonSize: (height < width ? height : width) * 0.2
 
     function goBack()
     {
