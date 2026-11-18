@@ -165,7 +165,7 @@ Item {
                 from: 1
                 to: 0
                 duration: contentChangeAnimation.blendOutDuration
-                easing.type: Easing.InQuad
+                easing.type: Easing.OutQuad
             }
         }
         PauseAnimation {
