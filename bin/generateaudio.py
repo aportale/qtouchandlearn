@@ -32,7 +32,8 @@ from pathlib import Path
 VIBRAPHONE = 11
 TUBA = 58
 
-SAMPLE_RATE = 44100
+DEFAULT_SAMPLE_RATE = 48000  # Native rate of most mobile and desktop audio outputs
+INT16_MAX = 2**15 - 1
 PEAK_DBFS = -17.0   # Loudness of the WAVs that were generated with abcmidi + VLC
 RELEASE_S = 0.4     # How long the sound keeps ringing after the last note ends
 FADE_OUT_S = 0.15   # Fade-out at the end of the release, so that it does not click
@@ -159,19 +160,24 @@ def midi_file(sound):
     return header + b"MTrk" + struct.pack(">I", len(track)) + bytes(track)
 
 
+RIFF_HEADER = struct.Struct("<4sI4s")  # "RIFF", file size, "WAVE"
+CHUNK_HEADER = struct.Struct("<4sI")   # Chunk id, chunk size
+
+
 def read_float_wav(path):
     """Returns (channels, samples) of a 32 bit float WAV file, as written by FluidSynth."""
     data = path.read_bytes()
-    if data[:4] != b"RIFF" or data[8:12] != b"WAVE":
+    riff_id, _, wave_id = RIFF_HEADER.unpack_from(data)
+    if riff_id != b"RIFF" or wave_id != b"WAVE":
         raise ValueError(f"{path} is not a WAV file")
     channels = None
-    position = 12
-    while position + 8 <= len(data):
-        chunk_id = data[position:position + 4]
-        chunk_size = struct.unpack("<I", data[position + 4:position + 8])[0]
-        chunk = data[position + 8:position + 8 + chunk_size]
+    position = RIFF_HEADER.size
+    while position + CHUNK_HEADER.size <= len(data):
+        chunk_id, chunk_size = CHUNK_HEADER.unpack_from(data, position)
+        position += CHUNK_HEADER.size
+        chunk = data[position:position + chunk_size]
         if chunk_id == b"fmt ":
-            _, channels, _, _, _, bits = struct.unpack("<HHIIHH", chunk[:16])
+            _, channels, _, _, _, bits = struct.unpack_from("<HHIIHH", chunk)
             if bits != 32:
                 raise ValueError(f"{path} has {bits} bit samples, expected 32 bit float")
         elif chunk_id == b"data":
@@ -180,47 +186,49 @@ def read_float_wav(path):
             if sys.byteorder == "big":
                 samples.byteswap()
             return channels, samples
-        position += 8 + chunk_size + (chunk_size & 1)
+        position += chunk_size + (chunk_size & 1)  # Chunks are padded to an even size
     raise ValueError(f"{path} has no audio data")
 
 
-def render(sound, fluidsynth, soundfont, work_dir, name):
+def render(sound, sample_rate, fluidsynth, soundfont, work_dir, name):
     midi_path = work_dir / f"{name}.mid"
     raw_path = work_dir / f"{name}.raw.wav"
     midi_path.write_bytes(midi_file(sound))
     subprocess.run([fluidsynth, "-n", "-i", "-q",
-                    "-r", str(SAMPLE_RATE), "-T", "wav", "-O", "float",
+                    "-r", str(sample_rate), "-T", "wav", "-O", "float",
                     "-F", str(raw_path), str(soundfont), str(midi_path)],
                    check=True)
     return read_float_wav(raw_path)
 
 
-def post_process(sound, channels, samples):
+def post_process(sound, sample_rate, channels, samples):
     """Trims the sound to the release time, fades it out and normalizes it to 16 bit."""
-    frames = round((eighths_to_seconds(sound, last_note_end(sound)) + RELEASE_S) * SAMPLE_RATE)
+    frames = round((eighths_to_seconds(sound, last_note_end(sound)) + RELEASE_S) * sample_rate)
     samples = samples[:frames * channels]
     frames = len(samples) // channels
 
-    fade_frames = round(FADE_OUT_S * SAMPLE_RATE)
+    fade_frames = round(FADE_OUT_S * sample_rate)
     for frame in range(max(0, frames - fade_frames), frames):
         remaining = (frames - frame) / fade_frames
         factor = 0.5 - 0.5 * math.cos(math.pi * remaining)  # Raised cosine
         for channel in range(channels):
             samples[frame * channels + channel] *= factor
 
+    # No clipping needed: with PEAK_DBFS <= 0, all samples stay within the 16 bit range.
+    # Otherwise, array raises an OverflowError.
     peak = max(abs(s) for s in samples)
-    gain = 10 ** (PEAK_DBFS / 20) / peak
-    pcm = array.array("h", (max(-32768, min(32767, round(s * gain * 32767))) for s in samples))
+    gain = 10 ** (PEAK_DBFS / 20) / peak * INT16_MAX
+    pcm = array.array("h", (round(s * gain) for s in samples))
     if sys.byteorder == "big":
         pcm.byteswap()
     return pcm
 
 
-def write_wav(path, channels, pcm):
+def write_wav(path, sample_rate, channels, pcm):
     with wave.open(str(path), "wb") as file:
         file.setnchannels(channels)
         file.setsampwidth(2)
-        file.setframerate(SAMPLE_RATE)
+        file.setframerate(sample_rate)
         file.writeframes(pcm.tobytes())
 
 
@@ -230,6 +238,8 @@ def main():
     parser.add_argument("--soundfont", type=Path, required=True, help="General MIDI .sf2 file")
     parser.add_argument("--fluidsynth", default="fluidsynth", help="FluidSynth executable")
     parser.add_argument("--output", type=Path, default=default_output, help="Output directory")
+    parser.add_argument("--sample-rate", type=int, default=DEFAULT_SAMPLE_RATE,
+                        help=f"Sample rate in Hz (default: {DEFAULT_SAMPLE_RATE})")
     parser.add_argument("--keep-midi", action="store_true", help="Also write the .mid files")
     parser.add_argument("sounds", nargs="*", metavar="SOUND",
                         help=f"Sounds to generate (default: all): {', '.join(SOUNDS)}")
@@ -248,8 +258,10 @@ def main():
     with tempfile.TemporaryDirectory() as work_dir:
         for name in args.sounds or SOUNDS:
             sound = SOUNDS[name]
-            channels, samples = render(sound, fluidsynth, args.soundfont, Path(work_dir), name)
-            write_wav(args.output / f"{name}.wav", channels, post_process(sound, channels, samples))
+            channels, samples = render(sound, args.sample_rate, fluidsynth, args.soundfont,
+                                       Path(work_dir), name)
+            pcm = post_process(sound, args.sample_rate, channels, samples)
+            write_wav(args.output / f"{name}.wav", args.sample_rate, channels, pcm)
             if args.keep_midi:
                 shutil.copy(Path(work_dir) / f"{name}.mid", args.output)
             print(f"{args.output / name}.wav")
