@@ -31,4 +31,10 @@ Item {
     // quits the app. This is a property and not an overridable goBack() function, because
     // QML cannot mark a function as final.
     final property string backLesson
+
+    // MainMenu sets this when it starts to switch to another screen. The disabled screen ignores
+    // input, and its items stop their animations. MainMenu sets this final property instead of
+    // enabled, because a derived screen could shadow enabled.
+    final property bool leaving
+    enabled: !leaving
 }

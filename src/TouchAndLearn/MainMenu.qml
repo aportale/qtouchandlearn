@@ -133,10 +133,9 @@ Rectangle {
         if (stage.status === Loader.Null) {
             stage.sourceComponent = Qt.createComponent("TouchAndLearn", screen);
         } else {
-            // Disable the old screen, so that it ignores input and stops its animations
-            // while it blends out.
+            // The old screen ignores input and stops its animations while it blends out.
             if (stageScreen)
-                stageScreen.enabled = false;
+                stageScreen.leaving = true;
             screenBlendOut.start();
         }
     }
