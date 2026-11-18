@@ -22,7 +22,7 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.2
+import QtQuick
 import "database.js" as Database
 
 Item {

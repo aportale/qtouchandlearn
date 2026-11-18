@@ -20,9 +20,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-import QtQuick 2.2
-import QtQuick.Window 2.1
-import TouchAndLearn 1.0
+import QtQuick
+import TouchAndLearn
 
 Window {
     visible: true

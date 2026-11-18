@@ -22,7 +22,7 @@
 
 pragma ComponentBehavior: Bound
 
-import QtQuick 2.2
+import QtQuick
 
 Rectangle {
     property int volume: 75
