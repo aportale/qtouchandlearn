@@ -36,11 +36,6 @@ StageScreen {
     readonly property int delegateWidth: (width - 2 * gridMargin) / columsCount
     readonly property int delegateHeight: delegateWidth * 1.04
 
-    function goBack()
-    {
-        Qt.quit();
-    }
-
     Rectangle {
         anchors.fill: parent
         color: "#000"

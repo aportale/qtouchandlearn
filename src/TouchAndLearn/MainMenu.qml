@@ -45,7 +45,10 @@ Rectangle {
                 event.accepted = true;
                 return;
             }
-            stageScreen.goBack();
+            if (stageScreen.backLesson.length > 0)
+                stageScreen.selectedLesson = stageScreen.backLesson;
+            else
+                Qt.quit();
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
             handleVolumeChange(Math.min(Database.currentVolume + 20, 100));

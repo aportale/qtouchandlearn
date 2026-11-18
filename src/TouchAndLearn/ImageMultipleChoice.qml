@@ -37,11 +37,7 @@ StageScreen {
     final readonly property bool portaitLayout: width < (height * 1.5)
     final readonly property int imageViewHeight: height * viewHeightRatio
     final readonly property int backButtonSize: (height < width ? height : width) * 0.2
-
-    function goBack()
-    {
-        selectedLesson = "Menu";
-    }
+    backLesson: "Menu"
 
     ImageView {
         id: imageView
@@ -70,7 +66,7 @@ StageScreen {
         }
         MouseArea {
             anchors.fill: parent
-            onPressed: main.goBack()
+            onPressed: main.selectedLesson = main.backLesson
         }
     }
 

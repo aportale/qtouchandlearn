@@ -27,8 +27,8 @@ Item {
     // When a screen sets this, MainMenu switches to the screen "Lesson" + selectedLesson.
     final property string selectedLesson
 
-    // MainMenu calls this when the back key is pressed.
-    function goBack()
-    {
-    }
+    // The back key and the back button select this lesson. When it is empty, the back key
+    // quits the app. This is a property and not an overridable goBack() function, because
+    // QML cannot mark a function as final.
+    final property string backLesson
 }

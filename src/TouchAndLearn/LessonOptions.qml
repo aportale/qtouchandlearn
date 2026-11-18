@@ -32,11 +32,7 @@ StageScreen {
     property string currentLesson: Database.currentLessonOfCurrentGroup()
     readonly property int backButtonSize: (height < width ? height : width) * 0.2
     readonly property bool portaitLayout: width < (height * 1.5)
-
-    function goBack()
-    {
-        selectedLesson = currentLesson;
-    }
+    backLesson: currentLesson
 
     Rectangle {
         anchors.fill: parent
@@ -136,7 +132,7 @@ StageScreen {
             }
             MouseArea {
                 anchors.fill: parent
-                onClicked: menu.goBack()
+                onClicked: menu.selectedLesson = menu.backLesson
             }
         }
 
