@@ -52,6 +52,9 @@ Item {
 
     function randomSoundIndex(sounds: list<SoundEffect>, currentSoundIndex: int): int
     {
+        // With a single sound, there is no other sound to pick. The loop would never end.
+        if (sounds.length < 2)
+            return 0;
         for (;;) {
             const result = Math.floor(Math.random() * sounds.length);
             if (result !== currentSoundIndex)
