@@ -119,11 +119,9 @@ StageScreen {
             readonly property int _height: menu.backButtonSize * 0.75
             width: menu.backButtonSize
             height: _height
-            anchors {
-                top: parent.top
-                right: menu.portaitLayout ? parent.right : undefined
-                left: menu.portaitLayout ? undefined : parent.left
-            }
+            // See ImageMultipleChoice.qml for why this is not done with anchors
+            x: menu.portaitLayout ? parent.width - width : 0
+            anchors.top: parent.top
             Image {
                 readonly property int _sourceSize: parent.width * 0.7
                 anchors { centerIn: parent }

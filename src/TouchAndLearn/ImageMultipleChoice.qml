@@ -52,11 +52,11 @@ StageScreen {
         id: backButton
         width: main.backButtonSize
         height: main.backButtonSize
-        anchors {
-            top: parent.top
-            right: main.portaitLayout ? parent.right : undefined
-            left: main.portaitLayout ? undefined : parent.left
-        }
+        // Positioned via x instead of swapping left/right anchors: the anchor bindings
+        // re-evaluate in undefined order, so the item can transiently get both anchors,
+        // gets stretched to the parent width and ends up misplaced.
+        x: main.portaitLayout ? parent.width - width : 0
+        anchors.top: parent.top
         Image {
             readonly property int _sourceSize: main.backButtonSize * 0.7
             anchors.centerIn: parent
@@ -74,11 +74,8 @@ StageScreen {
         readonly property int _height: main.backButtonSize * 0.75
         width: main.backButtonSize
         height: _height
-        anchors {
-            top: backButton.bottom
-            right: main.portaitLayout ? parent.right : undefined
-            left: main.portaitLayout ? undefined : parent.left
-        }
+        x: backButton.x
+        anchors.top: backButton.bottom
         Image {
             readonly property int _sourceSize: main.backButtonSize * 0.7
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
