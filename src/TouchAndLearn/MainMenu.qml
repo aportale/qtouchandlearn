@@ -32,8 +32,8 @@ Rectangle {
     function handleVolumeChange(volume: int): void
     {
         Database.currentVolume = volume;
-        if (volumeDisplay.status === Loader.Null)
-            volumeDisplay.source = 'VolumeDisplay.qml';
+        if (!volumeDisplay.active)
+            volumeDisplay.active = true;
         else
             volumeDisplay.displayCurrentVolume();
     }
@@ -91,6 +91,8 @@ Rectangle {
         id: volumeDisplay
         width: parent.width
         height: parent.height
+        active: false
+        sourceComponent: VolumeDisplay {}
 
         onLoaded: {
             displayCurrentVolume();
@@ -117,7 +119,7 @@ Rectangle {
             }
             ScriptAction {
                 script: {
-                    volumeDisplay.source = '';
+                    volumeDisplay.active = false;
                 }
             }
         }
@@ -126,10 +128,10 @@ Rectangle {
     function switchToScreen(screen: string): void
     {
         Database.lessonData = [];
-        Database.currentScreen = screen + '.qml';
+        Database.currentScreen = screen;
         Database.persistence.writeAll(); // TODO: Remove this hack. See https://together.jolla.com/question/49775/componentondestruction-of-applicationwindow-not-called/
         if (stage.status === Loader.Null) {
-            stage.source = Database.currentScreen;
+            stage.sourceComponent = Qt.createComponent("TouchAndLearn", screen);
         } else {
             // Disable the old screen, so that it ignores input and stops its animations
             // while it blends out.
@@ -149,7 +151,7 @@ Rectangle {
         }
         ScriptAction {
             script: {
-                stage.source = Database.currentScreen;
+                stage.sourceComponent = Qt.createComponent("TouchAndLearn", Database.currentScreen);
             }
         }
     }
