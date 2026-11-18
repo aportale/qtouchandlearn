@@ -63,6 +63,8 @@ int main(int argc, char *argv[])
     Settings settings(nullptr);
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
+                     &app, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("TouchAndLearn", "Main");
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
