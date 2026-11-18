@@ -39,7 +39,7 @@ Rectangle {
     }
 
     focus: true
-    Keys.onPressed: function(event) {
+    Keys.onPressed: function(event: KeyEvent): void {
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
             if (!stageScreen) { // Next screen is still loading
                 event.accepted = true;
