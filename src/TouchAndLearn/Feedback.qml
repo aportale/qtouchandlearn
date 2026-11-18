@@ -50,7 +50,7 @@ Item {
         SoundEffect { source: feedback.audioUrl("incorrectanswer_04") }
     ]
 
-    function randomSoundIndex(sounds, currentSoundIndex)
+    function randomSoundIndex(sounds: list<SoundEffect>, currentSoundIndex: int): int
     {
         for (;;) {
             const result = Math.floor(Math.random() * sounds.length);

@@ -4,7 +4,7 @@ import QtQuick.Particles 2.0
 Item {
     id: particlesItem
 
-    function burst(particlesCount)
+    function burst(particlesCount: int): void
     {
         particleSystem.running = true
         particles.burst(particlesCount);
