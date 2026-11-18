@@ -4,7 +4,7 @@ project(touchandlearn VERSION 1.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.11 REQUIRED COMPONENTS Core Gui Qml Quick Svg Multimedia)
+find_package(Qt6 6.11 REQUIRED COMPONENTS Core Gui Qml Quick Svg Multimedia LinguistTools)
 qt_standard_project_setup(REQUIRES 6.11)
 
 qt_add_executable(touchandlearn
@@ -18,6 +18,21 @@ add_subdirectory(TouchAndLearn)
 target_link_libraries(touchandlearn PRIVATE
     touchandlearn_qmlplugin
     Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Svg Qt6::Multimedia
+)
+
+# lrelease builds the .qm files, and main.cpp loads them from the resources.
+# Build the update_translations target to update the .ts files with lupdate.
+qt_add_translations(touchandlearn
+    SOURCE_TARGETS touchandlearn_qml
+    TS_FILES
+        ../originaldata/ts/de.ts
+        ../originaldata/ts/en_GB.ts
+        ../originaldata/ts/en_US.ts
+        ../originaldata/ts/fi.ts
+        ../originaldata/ts/it.ts
+    RESOURCE_PREFIX /qt/qml/TouchAndLearn/data/translations
+    LUPDATE_OPTIONS -no-obsolete -locations none
+    LRELEASE_OPTIONS -nounfinished -removeidentical
 )
 
 if(APPLE)

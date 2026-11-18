@@ -51,11 +51,6 @@ qt_add_qml_module(touchandlearn_qml
         data/graphics/design.svg
         data/graphics/clocks.svg
         data/graphics/countables.svg
-        data/translations/it.qm
-        data/translations/fi.qm
-        data/translations/en_US.qm
-        data/translations/en_GB.qm
-        data/translations/de.qm
 )
 
 target_link_libraries(touchandlearn_qml PRIVATE
