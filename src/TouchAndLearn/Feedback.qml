@@ -62,19 +62,23 @@ Item {
         }
     }
 
-    function playCorrectSound(): void
+    // Plays a random sound of the list other than the previous one, and returns its index.
+    function playRandomSound(sounds: list<SoundEffect>, previousSoundIndex: int): int
     {
-        previousCorrectSound = randomSoundIndex(correctSounds, previousCorrectSound);
-        const sound = correctSounds[previousCorrectSound];
+        const index = randomSoundIndex(sounds, previousSoundIndex);
+        const sound = sounds[index];
         sound.volume = Database.currentVolume / 100;
         sound.play();
+        return index;
+    }
+
+    function playCorrectSound(): void
+    {
+        previousCorrectSound = playRandomSound(correctSounds, previousCorrectSound);
     }
 
     function playIncorrectSound(): void
     {
-        previousIncorrectSound = randomSoundIndex(incorrectSounds, previousIncorrectSound);
-        const sound = incorrectSounds[previousIncorrectSound];
-        sound.volume = Database.currentVolume / 100;
-        sound.play();
+        previousIncorrectSound = playRandomSound(incorrectSounds, previousIncorrectSound);
     }
 }
