@@ -25,7 +25,7 @@ import QtQuick
 // The base type of the screens that MainMenu loads into its stage.
 Item {
     // When a screen sets this, MainMenu switches to the screen "Lesson" + selectedLesson.
-    property string selectedLesson
+    final property string selectedLesson
 
     // MainMenu calls this when the back key is pressed.
     function goBack()
