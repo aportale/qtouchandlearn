@@ -70,11 +70,7 @@ install(TARGETS touchandlearn
 )
 
 # Optional pieces
-option(TOUCHANDLEARN_BUILD_PLUGIN "Build QML plugin" OFF)
 option(TOUCHANDLEARN_BUILD_TESTS "Build test programs" OFF)
-if(TOUCHANDLEARN_BUILD_PLUGIN)
-    add_subdirectory(TouchAndLearnPlugin)
-endif()
 if(TOUCHANDLEARN_BUILD_TESTS)
     add_subdirectory(../test/imageprovider test_imageprovider)
     add_subdirectory(../test/renderspeed test_renderspeed)
