@@ -48,7 +48,7 @@ Item {
 
     onExerciseIndexChanged: setButtonData();
 
-    function setButtonData() {
+    function setButtonData(): void {
         // Inside an asynchronous Loader, the Repeater creates the buttons over several
         // frames. Wait until all of them exist.
         for (let j = 0; j < buttonsCount; j++) {

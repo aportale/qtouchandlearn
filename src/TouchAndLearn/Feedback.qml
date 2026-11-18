@@ -59,7 +59,7 @@ Item {
         }
     }
 
-    function playCorrectSound()
+    function playCorrectSound(): void
     {
         previousCorrectSound = randomSoundIndex(correctSounds, previousCorrectSound);
         var sound = correctSounds[previousCorrectSound];
@@ -67,7 +67,7 @@ Item {
         sound.play();
     }
 
-    function playIncorrectSound()
+    function playIncorrectSound(): void
     {
         previousIncorrectSound = randomSoundIndex(incorrectSounds, previousIncorrectSound);
         var sound = incorrectSounds[previousIncorrectSound];

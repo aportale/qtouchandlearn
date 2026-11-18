@@ -62,7 +62,7 @@ Rectangle {
     Connections {
         target: mainWindow.stageScreen
         id: connection
-        function onSelectedLessonChanged() {
+        function onSelectedLessonChanged(): void {
             mainWindow.switchToScreen("Lesson" + mainWindow.stageScreen.selectedLesson)
         }
     }
@@ -96,7 +96,7 @@ Rectangle {
             displayCurrentVolume();
         }
 
-        function displayCurrentVolume()
+        function displayCurrentVolume(): void
         {
             (volumeDisplay.item as VolumeDisplay).volume = Database.currentVolume;
             volumeDisplayBlendOut.stop();

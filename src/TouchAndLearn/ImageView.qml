@@ -39,7 +39,7 @@ Item {
     readonly property int backgroundBlackRectHeight: height - backgroundWhiteRectHeight - backgroundImageSourceSizeHeight
     readonly property int imageSourceSizeWidthHeight: (height < width ? height : width) * imageSizeFactor
 
-    function goForward() {
+    function goForward(): void {
         listview.incrementCurrentIndex();
     }
     id: imageview
