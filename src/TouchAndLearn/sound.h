@@ -26,14 +26,18 @@
 #include <QtCore/QUrl>
 #include <QtQml/QQmlEngine>
 
+// Without Qt Multimedia, WebAssembly builds play the sounds with the Web Audio API.
+#if !defined(TOUCHANDLEARN_USE_QTMULTIMEDIA) && defined(Q_OS_WASM)
+#define TOUCHANDLEARN_USE_WEBAUDIO
+#endif
+
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
 class QSoundEffect;
 #endif
 
 // A short sound in QML. The QML code sets the source and the volume, and calls play().
-// With TOUCHANDLEARN_USE_QTMULTIMEDIA, a QSoundEffect plays the sound. Without it, the
-// sound is silent. This is the place for other backends, for example the Web Audio API
-// on WebAssembly.
+// With TOUCHANDLEARN_USE_QTMULTIMEDIA, a QSoundEffect plays the sound. With
+// TOUCHANDLEARN_USE_WEBAUDIO, the browser plays it. Without either, the sound is silent.
 class Sound : public QObject
 {
     Q_OBJECT
@@ -43,6 +47,7 @@ class Sound : public QObject
 
 public:
     explicit Sound(QObject *parent = nullptr);
+    ~Sound() override;
 
     QUrl source() const;
     void setSource(const QUrl &source);
@@ -62,5 +67,9 @@ private:
     qreal m_volume = 1;
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     QSoundEffect *m_soundEffect;
+#endif
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    // The key of the decoded sound on the JavaScript side.
+    int m_id;
 #endif
 };

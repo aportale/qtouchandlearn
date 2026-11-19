@@ -4,8 +4,9 @@ project(touchandlearn VERSION 1.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Qt Multimedia plays the sounds. Qt for WebAssembly lacks it, so the default there is OFF.
-# Without Qt Multimedia, the app is silent.
+# Qt Multimedia plays the sounds. Qt for WebAssembly lacks it, so the default there is OFF,
+# and the app plays the sounds with the Web Audio API instead. On the other platforms, the
+# app is silent without Qt Multimedia.
 if(EMSCRIPTEN)
     set(use_qtmultimedia_default OFF)
 else()

@@ -26,12 +26,86 @@
 #include <QtMultimedia/QSoundEffect>
 #endif
 
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtQml/QQmlFile>
+
+#include <emscripten.h>
+
+// The JavaScript side of the Web Audio backend. It keeps one AudioContext for all sounds,
+// and a map from the ids of the Sound objects to their decoded audio data.
+
+// Decodes the audio file in data, and stores it under id. Replaces an earlier sound of id.
+EM_JS(void, touchandlearn_loadSound, (int id, const char *data, int size), {
+    if (!Module.touchAndLearnAudio) {
+        const context = new AudioContext();
+        // Browsers keep an AudioContext suspended until the user interacts with the page.
+        // Resume the context in the capture phase of each interaction, which runs before the
+        // event handlers of Qt. Doing this on each interaction also resumes the context after
+        // the system interrupted it, for example for a phone call on iOS.
+        const resume = function() {
+            if (context.state !== "running")
+                context.resume();
+        };
+        for (const type of ["pointerdown", "pointerup", "touchend", "keydown"])
+            document.addEventListener(type, resume, true);
+        Module.touchAndLearnAudio = { context: context, sounds: new Map() };
+    }
+    const audio = Module.touchAndLearnAudio;
+    // decodeAudioData takes over the ArrayBuffer. Give it a copy of the bytes in the wasm
+    // memory. The promise of a sound that fails to decode delivers null.
+    const bytes = HEAPU8.slice(data, data + size);
+    const decoded = audio.context.decodeAudioData(bytes.buffer).catch(function(error) {
+        console.warn("Could not decode sound:", error);
+        return null;
+    });
+    audio.sounds.set(id, decoded);
+});
+
+// Plays the sound of id with the volume from 0 to 1. Waits until it is decoded.
+EM_JS(void, touchandlearn_playSound, (int id, double volume), {
+    const audio = Module.touchAndLearnAudio;
+    const decoded = audio && audio.sounds.get(id);
+    if (!decoded)
+        return;
+    decoded.then(function(buffer) {
+        if (!buffer)
+            return;
+        const source = audio.context.createBufferSource();
+        source.buffer = buffer;
+        const gain = audio.context.createGain();
+        gain.gain.value = volume;
+        source.connect(gain).connect(audio.context.destination);
+        source.start();
+    });
+});
+
+// Removes the sound of id.
+EM_JS(void, touchandlearn_unloadSound, (int id), {
+    if (Module.touchAndLearnAudio)
+        Module.touchAndLearnAudio.sounds.delete(id);
+});
+
+static int lastSoundId = 0;
+#endif // TOUCHANDLEARN_USE_WEBAUDIO
+
 Sound::Sound(QObject *parent)
     : QObject(parent)
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     , m_soundEffect(new QSoundEffect(this))
 #endif
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    , m_id(++lastSoundId)
+#endif
 {
+}
+
+Sound::~Sound()
+{
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    touchandlearn_unloadSound(m_id);
+#endif
 }
 
 QUrl Sound::source() const
@@ -46,6 +120,18 @@ void Sound::setSource(const QUrl &source)
     m_source = source;
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     m_soundEffect->setSource(source);
+#endif
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    touchandlearn_unloadSound(m_id);
+    if (!source.isEmpty()) {
+        QFile file(QQmlFile::urlToLocalFileOrQrc(source));
+        if (file.open(QIODevice::ReadOnly)) {
+            const QByteArray data = file.readAll();
+            touchandlearn_loadSound(m_id, data.constData(), int(data.size()));
+        } else {
+            qWarning() << "Could not open sound" << source << file.errorString();
+        }
+    }
 #endif
     emit sourceChanged();
 }
@@ -70,5 +156,8 @@ void Sound::play()
 {
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     m_soundEffect->play();
+#endif
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    touchandlearn_playSound(m_id, m_volume);
 #endif
 }
