@@ -48,7 +48,10 @@ EM_JS(void, touchandlearn_loadSound, (int id, const char *data, int size), {
             if (context.state !== "running")
                 context.resume();
         };
-        for (const type of ["pointerdown", "pointerup", "touchend", "keydown"])
+        // The events that activate the page, as defined by the HTML standard. Some browsers
+        // resume an AudioContext only while handling such an event.
+        const activationEvents = ["pointerdown", "pointerup", "touchend", "keydown"];
+        for (const type of activationEvents)
             document.addEventListener(type, resume, true);
         Module.touchAndLearnAudio = { context: context, sounds: new Map() };
     }
