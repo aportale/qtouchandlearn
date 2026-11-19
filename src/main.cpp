@@ -37,12 +37,14 @@ Q_IMPORT_QML_PLUGIN(TouchAndLearnPlugin)
 
 int main(int argc, char *argv[])
 {
+#ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     // We only play WAV files. Turn off the FFmpeg backend's hardware codec check,
     // which slows down startup. These variables are not public Qt API.
     if (!qEnvironmentVariableIsSet("QT_FFMPEG_DECODING_HW_DEVICE_TYPES"))
         qputenv("QT_FFMPEG_DECODING_HW_DEVICE_TYPES", ",");
     if (!qEnvironmentVariableIsSet("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES"))
         qputenv("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES", ",");
+#endif
 
     QCoreApplication::setOrganizationName("CasaPortale");
     QCoreApplication::setOrganizationDomain("casaportale.de");

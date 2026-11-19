@@ -21,7 +21,6 @@
 */
 
 import QtQuick
-import QtMultimedia
 import "database.js" as Database
 
 Item {
@@ -35,22 +34,22 @@ Item {
         return Qt.resolvedUrl("data/audio/" + name + ".wav");
     }
 
-    property list<SoundEffect> correctSounds: [
-        SoundEffect { source: feedback.audioUrl("correctanswer_01") },
-        SoundEffect { source: feedback.audioUrl("correctanswer_02") },
-        SoundEffect { source: feedback.audioUrl("correctanswer_03") },
-        SoundEffect { source: feedback.audioUrl("correctanswer_04") },
-        SoundEffect { source: feedback.audioUrl("correctanswer_05") }
+    property list<Sound> correctSounds: [
+        Sound { source: feedback.audioUrl("correctanswer_01") },
+        Sound { source: feedback.audioUrl("correctanswer_02") },
+        Sound { source: feedback.audioUrl("correctanswer_03") },
+        Sound { source: feedback.audioUrl("correctanswer_04") },
+        Sound { source: feedback.audioUrl("correctanswer_05") }
     ]
 
-    property list<SoundEffect> incorrectSounds: [
-        SoundEffect { source: feedback.audioUrl("incorrectanswer_01") },
-        SoundEffect { source: feedback.audioUrl("incorrectanswer_02") },
-        SoundEffect { source: feedback.audioUrl("incorrectanswer_03") },
-        SoundEffect { source: feedback.audioUrl("incorrectanswer_04") }
+    property list<Sound> incorrectSounds: [
+        Sound { source: feedback.audioUrl("incorrectanswer_01") },
+        Sound { source: feedback.audioUrl("incorrectanswer_02") },
+        Sound { source: feedback.audioUrl("incorrectanswer_03") },
+        Sound { source: feedback.audioUrl("incorrectanswer_04") }
     ]
 
-    function randomSoundIndex(sounds: list<SoundEffect>, currentSoundIndex: int): int
+    function randomSoundIndex(sounds: list<Sound>, currentSoundIndex: int): int
     {
         // With a single sound, there is no other sound to pick. The loop would never end.
         if (sounds.length < 2)
@@ -63,7 +62,7 @@ Item {
     }
 
     // Plays a random sound of the list other than the previous one, and returns its index.
-    function playRandomSound(sounds: list<SoundEffect>, previousSoundIndex: int): int
+    function playRandomSound(sounds: list<Sound>, previousSoundIndex: int): int
     {
         const index = randomSoundIndex(sounds, previousSoundIndex);
         const sound = sounds[index];

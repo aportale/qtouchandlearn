@@ -4,7 +4,20 @@ project(touchandlearn VERSION 1.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.11 REQUIRED COMPONENTS Core Gui Qml Quick Svg Multimedia LinguistTools)
+# Qt Multimedia plays the sounds. Qt for WebAssembly lacks it, so the default there is OFF.
+# Without Qt Multimedia, the app is silent.
+if(EMSCRIPTEN)
+    set(use_qtmultimedia_default OFF)
+else()
+    set(use_qtmultimedia_default ON)
+endif()
+option(TOUCHANDLEARN_USE_QTMULTIMEDIA "Play the sounds with Qt Multimedia" ${use_qtmultimedia_default})
+
+set(qt_components Core Gui Qml Quick Svg LinguistTools)
+if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
+    list(APPEND qt_components Multimedia)
+endif()
+find_package(Qt6 6.11 REQUIRED COMPONENTS ${qt_components})
 qt_standard_project_setup(REQUIRES 6.11)
 
 qt_add_executable(touchandlearn
@@ -17,8 +30,12 @@ add_subdirectory(TouchAndLearn)
 
 target_link_libraries(touchandlearn PRIVATE
     touchandlearn_qmlplugin
-    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Svg Qt6::Multimedia
+    Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Svg
 )
+
+if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
+    target_compile_definitions(touchandlearn PRIVATE TOUCHANDLEARN_USE_QTMULTIMEDIA)
+endif()
 
 # lrelease builds the .qm files, and main.cpp loads them from the resources.
 # Build the update_translations target to update the .ts files with lupdate.

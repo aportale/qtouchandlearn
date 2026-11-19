@@ -5,6 +5,8 @@ qt_add_qml_module(touchandlearn_qml
     SOURCES
         settings.cpp
         settings.h
+        sound.cpp
+        sound.h
     QML_FILES
         AnswerButton.qml
         AnswerChoice.qml
@@ -54,5 +56,10 @@ qt_add_qml_module(touchandlearn_qml
 )
 
 target_link_libraries(touchandlearn_qml PRIVATE
-    Qt6::Quick Qt6::Multimedia
+    Qt6::Quick
 )
+
+if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
+    target_link_libraries(touchandlearn_qml PRIVATE Qt6::Multimedia)
+    target_compile_definitions(touchandlearn_qml PRIVATE TOUCHANDLEARN_USE_QTMULTIMEDIA)
+endif()
