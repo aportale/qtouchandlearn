@@ -49,6 +49,11 @@ Item {
     onExerciseIndexChanged: setButtonData();
 
     function setButtonData(): void {
+        // exerciseIndex is -1 until the ListView of the ImageView sets its current index. The
+        // buttons can exist before that, for example on WebAssembly, and would first show the
+        // answers of a bogus exercise -1. onExerciseIndexChanged calls this function again.
+        if (exerciseIndex < 0)
+            return;
         // Inside an asynchronous Loader, the Repeater creates the buttons over several
         // frames. Wait until all of them exist.
         for (let j = 0; j < buttonsCount; j++) {
