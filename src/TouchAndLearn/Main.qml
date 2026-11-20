@@ -31,8 +31,4 @@ Window {
     MainMenu {
         anchors.fill: parent
     }
-
-    Feedback {
-        id: feedback
-    }
 }

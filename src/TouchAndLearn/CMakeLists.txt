@@ -3,15 +3,14 @@ qt_add_qml_module(touchandlearn_qml
     URI TouchAndLearn
     VERSION 1.0
     SOURCES
+        answersounds.cpp
+        answersounds.h
         settings.cpp
         settings.h
-        sound.cpp
-        sound.h
     QML_FILES
         AnswerButton.qml
         AnswerChoice.qml
         database.js
-        Feedback.qml
         ImageMultipleChoice.qml
         ImageView.qml
         LessonClockEasy.qml

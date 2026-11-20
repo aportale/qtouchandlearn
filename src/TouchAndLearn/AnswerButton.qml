@@ -206,8 +206,7 @@ Item {
         id: correctAnswerAnimation
         ScriptAction {
             script: {
-                if (typeof(feedback) === "object")
-                    feedback.playCorrectSound();
+                AnswerSounds.playCorrect();
                 button.answerChoice.blockClicks = true;
                 particles.burst(20);
             }
@@ -244,8 +243,7 @@ Item {
                 }
                 ScriptAction {
                     script: {
-                        if (typeof(feedback) === "object")
-                            feedback.playIncorrectSound();
+                        AnswerSounds.playIncorrect();
                         if (button.correctionImageSource.length) {
                             correctionImage.sourceSize.height = button.correctionImageSize
                             correctionImage.sourceSize.width = button.correctionImageSize

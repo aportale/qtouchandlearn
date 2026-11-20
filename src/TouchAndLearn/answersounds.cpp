@@ -20,7 +20,15 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-#include "sound.h"
+#include "answersounds.h"
+
+#include <QtCore/QRandomGenerator>
+#include <QtCore/QString>
+
+// Without Qt Multimedia, WebAssembly builds play the sounds with the Web Audio API.
+#if !defined(TOUCHANDLEARN_USE_QTMULTIMEDIA) && defined(Q_OS_WASM)
+#define TOUCHANDLEARN_USE_WEBAUDIO
+#endif
 
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
 #include <QtMultimedia/QSoundEffect>
@@ -93,6 +101,35 @@ EM_JS(void, touchandlearn_unloadSound, (int id), {
 static int lastSoundId = 0;
 #endif // TOUCHANDLEARN_USE_WEBAUDIO
 
+// A short sound. With TOUCHANDLEARN_USE_QTMULTIMEDIA, a QSoundEffect plays the sound. With
+// TOUCHANDLEARN_USE_WEBAUDIO, the browser plays it. Without either, the sound is silent.
+class Sound : public QObject
+{
+public:
+    explicit Sound(QObject *parent = nullptr);
+    ~Sound() override;
+
+    QUrl source() const;
+    void setSource(const QUrl &source);
+
+    // The volume from 0 to 1.
+    qreal volume() const;
+    void setVolume(qreal volume);
+
+    void play();
+
+private:
+    QUrl m_source;
+    qreal m_volume = 1;
+#ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
+    QSoundEffect *m_soundEffect;
+#endif
+#ifdef TOUCHANDLEARN_USE_WEBAUDIO
+    // The key of the decoded sound on the JavaScript side.
+    int m_id;
+#endif
+};
+
 Sound::Sound(QObject *parent)
     : QObject(parent)
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
@@ -136,7 +173,6 @@ void Sound::setSource(const QUrl &source)
         }
     }
 #endif
-    emit sourceChanged();
 }
 
 qreal Sound::volume() const
@@ -152,7 +188,6 @@ void Sound::setVolume(qreal volume)
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
     m_soundEffect->setVolume(volume);
 #endif
-    emit volumeChanged();
 }
 
 void Sound::play()
@@ -163,4 +198,72 @@ void Sound::play()
 #ifdef TOUCHANDLEARN_USE_WEBAUDIO
     touchandlearn_playSound(m_id, m_volume);
 #endif
+}
+
+RandomSound::RandomSound(const QList<QUrl> &sources, QObject *parent)
+{
+    for (const QUrl &source : sources) {
+        auto sound = new Sound(parent);
+        sound->setSource(source);
+        m_sounds.append(sound);
+    }
+}
+
+void RandomSound::play(qreal volume)
+{
+    const int count = int(m_sounds.size());
+    if (count == 0)
+        return;
+    // Draw from the variants other than the previous one, by skipping its index. A single
+    // variant plays each time.
+    const bool skipPrevious = m_previousIndex >= 0 && count > 1;
+    int index = QRandomGenerator::global()->bounded(skipPrevious ? count - 1 : count);
+    if (skipPrevious && index >= m_previousIndex)
+        ++index;
+    m_previousIndex = index;
+    Sound *sound = m_sounds.at(index);
+    sound->setVolume(volume);
+    sound->play();
+}
+
+// The URLs of the WAV files in the resources of the QML module, in data/audio.
+static QList<QUrl> audioUrls(const QString &prefix, int count)
+{
+    QList<QUrl> result;
+    for (int i = 1; i <= count; ++i) {
+        result.append(QUrl(QStringLiteral("qrc:/qt/qml/TouchAndLearn/data/audio/%1_%2.wav")
+                               .arg(prefix)
+                               .arg(i, 2, 10, QLatin1Char('0'))));
+    }
+    return result;
+}
+
+AnswerSounds::AnswerSounds(QObject *parent)
+    : QObject(parent)
+    , m_correctSounds(audioUrls(QStringLiteral("correctanswer"), 5), this)
+    , m_incorrectSounds(audioUrls(QStringLiteral("incorrectanswer"), 4), this)
+{
+}
+
+qreal AnswerSounds::volume() const
+{
+    return m_volume;
+}
+
+void AnswerSounds::setVolume(qreal volume)
+{
+    if (volume == m_volume)
+        return;
+    m_volume = volume;
+    emit volumeChanged();
+}
+
+void AnswerSounds::playCorrect()
+{
+    m_correctSounds.play(m_volume);
+}
+
+void AnswerSounds::playIncorrect()
+{
+    m_incorrectSounds.play(m_volume);
 }

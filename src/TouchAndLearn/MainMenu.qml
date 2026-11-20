@@ -32,6 +32,7 @@ Rectangle {
     function handleVolumeChange(volume: int): void
     {
         Database.currentVolume = volume;
+        AnswerSounds.volume = volume / 100;
         if (!volumeDisplay.active)
             volumeDisplay.active = true;
         else
@@ -178,6 +179,7 @@ Rectangle {
         Database.settings = Settings; // database.js is a ".pragma library" script, which does not see the imports of this file
         Database.persistence.readCurrentLessonsOfGroups();
         Database.currentVolume = Database.persistence.readVolume();
+        AnswerSounds.volume = Database.currentVolume / 100;
     }
 
     Component.onDestruction: {

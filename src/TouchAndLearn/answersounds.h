@@ -22,54 +22,54 @@
 
 #pragma once
 
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 #include <QtQml/QQmlEngine>
 
-// Without Qt Multimedia, WebAssembly builds play the sounds with the Web Audio API.
-#if !defined(TOUCHANDLEARN_USE_QTMULTIMEDIA) && defined(Q_OS_WASM)
-#define TOUCHANDLEARN_USE_WEBAUDIO
-#endif
+class Sound;
 
-#ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
-class QSoundEffect;
-#endif
+// Several variants of a sound. Each call of play() plays a random variant, other than the
+// one of the previous call, so that the same variant does not repeat.
+class RandomSound
+{
+public:
+    // Creates a Sound for each of the sources, as a child of parent.
+    RandomSound(const QList<QUrl> &sources, QObject *parent);
 
-// A short sound in QML. The QML code sets the source and the volume, and calls play().
-// With TOUCHANDLEARN_USE_QTMULTIMEDIA, a QSoundEffect plays the sound. With
-// TOUCHANDLEARN_USE_WEBAUDIO, the browser plays it. Without either, the sound is silent.
-class Sound : public QObject
+    // Plays a variant with the volume from 0 to 1.
+    void play(qreal volume);
+
+private:
+    QList<Sound *> m_sounds;
+    // The index of the variant that played last, or -1.
+    int m_previousIndex = -1;
+};
+
+// The AnswerSounds singleton in QML. It plays a sound when the child answers correctly or
+// incorrectly, with a different variant than the last time.
+class AnswerSounds : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
-    Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged FINAL)
+    QML_SINGLETON
     Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
 
 public:
-    explicit Sound(QObject *parent = nullptr);
-    ~Sound() override;
+    explicit AnswerSounds(QObject *parent = nullptr);
 
-    QUrl source() const;
-    void setSource(const QUrl &source);
-
-    // The volume from 0 to 1.
+    // The volume of the sounds from 0 to 1.
     qreal volume() const;
     void setVolume(qreal volume);
 
-    Q_INVOKABLE void play();
+    Q_INVOKABLE void playCorrect();
+    Q_INVOKABLE void playIncorrect();
 
 signals:
-    void sourceChanged();
     void volumeChanged();
 
 private:
-    QUrl m_source;
+    RandomSound m_correctSounds;
+    RandomSound m_incorrectSounds;
     qreal m_volume = 1;
-#ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
-    QSoundEffect *m_soundEffect;
-#endif
-#ifdef TOUCHANDLEARN_USE_WEBAUDIO
-    // The key of the decoded sound on the JavaScript side.
-    int m_id;
-#endif
 };
