@@ -4,22 +4,30 @@ project(touchandlearn VERSION 1.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(Qt6 6.11 REQUIRED COMPONENTS Core Gui Qml Quick Svg LinguistTools)
+qt_standard_project_setup(REQUIRES 6.11)
+
 # Qt Multimedia plays the sounds. Qt for WebAssembly lacks it, so the default there is OFF,
 # and the app plays the sounds with the Web Audio API instead. On the other platforms, the
-# app is silent without Qt Multimedia.
+# default is ON if Qt Multimedia is installed. Without it, the app builds and stays mute.
 if(EMSCRIPTEN)
     set(use_qtmultimedia_default OFF)
 else()
-    set(use_qtmultimedia_default ON)
+    find_package(Qt6 QUIET OPTIONAL_COMPONENTS Multimedia)
+    if(TARGET Qt6::Multimedia)
+        set(use_qtmultimedia_default ON)
+    else()
+        set(use_qtmultimedia_default OFF)
+    endif()
 endif()
 option(TOUCHANDLEARN_USE_QTMULTIMEDIA "Play the sounds with Qt Multimedia" ${use_qtmultimedia_default})
 
-set(qt_components Core Gui Qml Quick Svg LinguistTools)
 if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
-    list(APPEND qt_components Multimedia)
+    # Fails with an error if the option was turned on, but Qt Multimedia is missing.
+    find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+elseif(NOT EMSCRIPTEN)
+    message(STATUS "Building without Qt Multimedia. The app will be mute.")
 endif()
-find_package(Qt6 6.11 REQUIRED COMPONENTS ${qt_components})
-qt_standard_project_setup(REQUIRES 6.11)
 
 qt_add_executable(touchandlearn
     main.cpp

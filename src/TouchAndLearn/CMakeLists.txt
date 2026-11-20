@@ -39,15 +39,6 @@ qt_add_qml_module(touchandlearn_qml
         VolumeDisplay.qml
         Particles.qml
     RESOURCES
-        data/audio/incorrectanswer_04.wav
-        data/audio/incorrectanswer_03.wav
-        data/audio/incorrectanswer_02.wav
-        data/audio/incorrectanswer_01.wav
-        data/audio/correctanswer_05.wav
-        data/audio/correctanswer_04.wav
-        data/audio/correctanswer_03.wav
-        data/audio/correctanswer_02.wav
-        data/audio/correctanswer_01.wav
         data/graphics/particle.png
         data/graphics/objects.svg
         data/graphics/lessonicons.svg
@@ -64,4 +55,20 @@ target_link_libraries(touchandlearn_qml PRIVATE
 if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
     target_link_libraries(touchandlearn_qml PRIVATE Qt6::Multimedia)
     target_compile_definitions(touchandlearn_qml PRIVATE TOUCHANDLEARN_USE_QTMULTIMEDIA)
+endif()
+
+# The sounds are needed only if Qt Multimedia or, on WebAssembly, the Web Audio API plays them.
+if(TOUCHANDLEARN_USE_QTMULTIMEDIA OR EMSCRIPTEN)
+    qt_target_qml_sources(touchandlearn_qml
+        RESOURCES
+            data/audio/incorrectanswer_04.wav
+            data/audio/incorrectanswer_03.wav
+            data/audio/incorrectanswer_02.wav
+            data/audio/incorrectanswer_01.wav
+            data/audio/correctanswer_05.wav
+            data/audio/correctanswer_04.wav
+            data/audio/correctanswer_03.wav
+            data/audio/correctanswer_02.wav
+            data/audio/correctanswer_01.wav
+    )
 endif()
