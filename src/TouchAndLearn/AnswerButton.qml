@@ -120,8 +120,8 @@ Item {
     }
 
     // MainMenu disables the screen before it unloads it. The Loader invalidates the QML context
-    // of the screen before it deletes the screen. A ScriptAction that runs in between would warn
-    // "QQmlExpression: Attempted to evaluate an expression in an invalid context".
+    // of the screen before it deletes the screen. An animation handler that runs in between would
+    // warn "QQmlExpression: Attempted to evaluate an expression in an invalid context".
     onEnabledChanged: {
         if (!enabled) {
             contentChangeAnimation.stop();
@@ -129,6 +129,10 @@ Item {
             wrongAnswerAnimation.stop();
         }
     }
+
+    // The animations act in signal handlers instead of in ScriptActions. qmlcachegen does not
+    // compile the script of a ScriptAction to C++, and neither does it compile any binding that
+    // follows a ScriptAction in the file.
 
     SequentialAnimation {
         id: contentChangeAnimation
@@ -141,8 +145,20 @@ Item {
         readonly property int blendOutPause: blendOut ? button.blendOutDelay + button.staggerDelay : 0
         readonly property int blendOutDuration: blendOut ? button.blendDuration : 0
         readonly property int blendInPause: blendOut ? button.blendInDelay : 0
-        ScriptAction {
-            script: button.answerChoice.blockClicks = true
+        // Set by the PropertyAction between the blend out and the blend in, which then shows the
+        // new text. A PropertyAction on label.text would fail, and set the prior text.
+        property bool showNewText
+        onStarted: {
+            showNewText = false;
+            button.answerChoice.blockClicks = true;
+        }
+        onShowNewTextChanged: {
+            if (showNewText)
+                label.text = button.text;
+        }
+        onFinished: {
+            button.answerChoice.blockClicks = false;
+            button.contentChangeAnimationFinished();
         }
         PauseAnimation {
             duration: contentChangeAnimation.blendOutPause
@@ -174,8 +190,10 @@ Item {
         PauseAnimation {
             duration: button.staggerDelay
         }
-        ScriptAction { // PropertyAction would fail here, and set the prior text
-            script: label.text = button.text
+        PropertyAction {
+            target: contentChangeAnimation
+            property: "showNewText"
+            value: true
         }
         ParallelAnimation {
             NumberAnimation {
@@ -195,21 +213,17 @@ Item {
                 easing.type: Easing.OutBack
             }
         }
-        ScriptAction {
-            script: {
-                button.answerChoice.blockClicks = false;
-                button.contentChangeAnimationFinished();
-            }
-        }
     }
     SequentialAnimation {
         id: correctAnswerAnimation
-        ScriptAction {
-            script: {
-                AnswerSounds.playCorrect();
-                button.answerChoice.blockClicks = true;
-                particles.burst(20);
-            }
+        onStarted: {
+            AnswerSounds.playCorrect();
+            button.answerChoice.blockClicks = true;
+            particles.burst(20);
+        }
+        onFinished: {
+            button.answerChoice.blockClicks = false;
+            button.correctlyPressed();
         }
         PropertyAction {
             target: rect
@@ -225,31 +239,34 @@ Item {
         PauseAnimation {
             duration: 300 // Wait for particles to finish
         }
-        ScriptAction {
-            script: {
-                button.answerChoice.blockClicks = false;
-                button.correctlyPressed();
-            }
-        }
     }
     SequentialAnimation {
         id: wrongAnswerAnimation
+        // The last step sets reachedEnd. This animation contains Animators, and Qt emits
+        // finished also when stop() stops such an animation. onTextChanged stops it, and then
+        // the button must not report the press.
+        property bool reachedEnd
+        onStarted: {
+            reachedEnd = false;
+            AnswerSounds.playIncorrect();
+            if (button.correctionImageSource.length) {
+                correctionImage.sourceSize.height = button.correctionImageSize;
+                correctionImage.sourceSize.width = button.correctionImageSize;
+                correctionImage.source = button.correctionImageSource;
+            }
+        }
+        onReachedEndChanged: {
+            if (reachedEnd) {
+                correctionImage.source = "";
+                button.incorrectlyPressed();
+            }
+        }
         ParallelAnimation {
             SequentialAnimation {
                 PropertyAction {
                     target: rect
                     property: "color"
                     value: button.wrongStateColor
-                }
-                ScriptAction {
-                    script: {
-                        AnswerSounds.playIncorrect();
-                        if (button.correctionImageSource.length) {
-                            correctionImage.sourceSize.height = button.correctionImageSize
-                            correctionImage.sourceSize.width = button.correctionImageSize
-                            correctionImage.source = button.correctionImageSource
-                        }
-                    }
                 }
                 PropertyAnimation {
                     property: "color"
@@ -315,11 +332,10 @@ Item {
             to: button.normalStateColor
             duration: 450
         }
-        ScriptAction {
-            script: {
-                correctionImage.source = "";
-                button.incorrectlyPressed();
-            }
+        PropertyAction {
+            target: wrongAnswerAnimation
+            property: "reachedEnd"
+            value: true
         }
     }
 }

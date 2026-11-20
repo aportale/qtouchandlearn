@@ -107,8 +107,20 @@ Rectangle {
             volumeDisplayBlendOut.start();
         }
 
+        // The animations act in signal handlers instead of in ScriptActions. qmlcachegen does
+        // not compile the script of a ScriptAction to C++, and neither does it compile any
+        // binding that follows a ScriptAction in the file.
         SequentialAnimation {
             id: volumeDisplayBlendOut
+            // The last step sets reachedEnd. This animation contains an Animator, and Qt emits
+            // finished also when stop() stops such an animation. displayCurrentVolume() stops
+            // it, and then the volume display must stay.
+            property bool reachedEnd
+            onStarted: reachedEnd = false
+            onReachedEndChanged: {
+                if (reachedEnd)
+                    volumeDisplay.active = false;
+            }
             PauseAnimation {
                 duration: 850
             }
@@ -118,10 +130,10 @@ Rectangle {
                 to: 0
                 duration: 350
             }
-            ScriptAction {
-                script: {
-                    volumeDisplay.active = false;
-                }
+            PropertyAction {
+                target: volumeDisplayBlendOut
+                property: "reachedEnd"
+                value: true
             }
         }
     }
@@ -143,16 +155,12 @@ Rectangle {
 
     SequentialAnimation {
         id: screenBlendOut
+        onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", Database.currentScreen)
         OpacityAnimator {
             target: courtain
             from: 0
             to: 1
             duration: 180
-        }
-        ScriptAction {
-            script: {
-                stage.sourceComponent = Qt.createComponent("TouchAndLearn", Database.currentScreen);
-            }
         }
     }
 
