@@ -131,8 +131,8 @@ Item {
     }
 
     // The animations act in signal handlers instead of in ScriptActions. qmlcachegen does not
-    // compile the script of a ScriptAction to C++, and neither does it compile any binding that
-    // follows a ScriptAction in the file.
+    // compile the script of a ScriptAction to C++. It then also skips all bindings and signal
+    // handlers of the file that it processes after that script.
 
     SequentialAnimation {
         id: contentChangeAnimation
