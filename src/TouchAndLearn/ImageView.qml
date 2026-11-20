@@ -42,6 +42,7 @@ Item {
     }
     id: imageview
     Rectangle {
+        id: hueBackground
         // The hue is based on the scroll position in pages rather than in pixels, so that it
         // does not change when the view gets resized. _hueOffsetInPages has no dependencies
         // and is therefore evaluated only once.
@@ -49,8 +50,14 @@ Item {
         readonly property real _hueOffsetInPages: Math.random() * _hueSpanInPages
         readonly property real _scrollPositionInPages: listview.contentX / Math.max(imageview.width, 1)
         anchors.fill: parent
-        color: imageview.grayBackground ? "#E0E0E0"
-                              : Qt.hsla(((_scrollPositionInPages + _hueOffsetInPages) % _hueSpanInPages) / _hueSpanInPages, 0.4, 0.8, 1);
+        color: imageview.grayBackground ? "#E0E0E0" : backgroundColor.color
+
+        HslaColor {
+            id: backgroundColor
+            hue: (hueBackground._scrollPositionInPages + hueBackground._hueOffsetInPages) / hueBackground._hueSpanInPages
+            saturation: 0.4
+            lightness: 0.8
+        }
     }
 
     Item {

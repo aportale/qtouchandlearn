@@ -27,7 +27,12 @@ import QtQuick
 Rectangle {
     property int volume: 75
     id: volumeDisplay
-    color: Qt.rgba(0, 0, 0, 0.7)
+    color: backgroundColor.color
+
+    HslaColor {
+        id: backgroundColor
+        alpha: 0.7
+    }
 
     Component {
         id: volumeBarDelegate

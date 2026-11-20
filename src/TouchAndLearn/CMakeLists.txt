@@ -5,6 +5,8 @@ qt_add_qml_module(touchandlearn_qml
     SOURCES
         answersounds.cpp
         answersounds.h
+        color.cpp
+        color.h
         exercises.cpp
         exercises.h
         lessons.cpp
