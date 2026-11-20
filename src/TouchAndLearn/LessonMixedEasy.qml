@@ -23,7 +23,7 @@
 import QtQuick
 
 ImageMultipleChoice {
-    exerciseFunction: "mixedEasyExercisesFunction"
+    exerciseKind: Exercises.MixedEasy
     answersCount: 2
     viewHeightRatio: 0.55
     imageSizeFactor: 0.8

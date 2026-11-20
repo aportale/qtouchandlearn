@@ -23,5 +23,5 @@
 import QtQuick
 
 ImageMultipleChoice {
-    exerciseFunction: "nameTermsExerciseFunction"
+    exerciseKind: Exercises.NameTerms
 }

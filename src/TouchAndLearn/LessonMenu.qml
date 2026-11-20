@@ -23,7 +23,6 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import "database.js" as Database
 
 StageScreen {
     id: menu
@@ -55,13 +54,13 @@ StageScreen {
             }
 
             Image {
-                source: "image://imageprovider/lessonicon/" + Database.cachedLessonMenu[menuItem.index].Id + "/" + menuItem.index
+                source: "image://imageprovider/lessonicon/" + Lessons.groupIds[menuItem.index] + "/" + menuItem.index
                 sourceSize { width: parent.width; height: parent.height }
             }
 
             Text {
                 readonly property int _y: menu.delegateHeight * 0.83
-                text: Database.cachedLessonMenu[menuItem.index].ImageLabel
+                text: Lessons.groupImageLabels[menuItem.index]
                 horizontalAlignment: Text.AlignHCenter
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: 8
@@ -72,7 +71,7 @@ StageScreen {
 
             Text {
                 readonly property int _y: menu.delegateHeight * 0.11
-                text: Database.cachedLessonMenu[menuItem.index].DisplayName
+                text: Lessons.groupDisplayNames[menuItem.index]
                 horizontalAlignment: Text.AlignHCenter
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: 8
@@ -86,8 +85,8 @@ StageScreen {
                 onCanceled: rectangle.color = menu.normalStateColor;
                 onClicked: {
                     rectangle.color = menu.pressedStateColor;
-                    Database.currentLessonGroup = Database.cachedLessonMenu[menuItem.index];
-                    menu.selectedLesson = Database.currentLessonOfCurrentGroup();
+                    Lessons.currentGroup = menuItem.index;
+                    menu.selectedLesson = Lessons.currentLesson;
                 }
                 anchors.fill: parent
             }
@@ -149,7 +148,7 @@ StageScreen {
             }
             Repeater {
                 id: menuItems
-                model: Database.lessonMenu().length
+                model: Lessons.groupIds.length
                 delegate: menuItemDelegate
             }
         }

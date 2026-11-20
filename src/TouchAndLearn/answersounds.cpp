@@ -23,6 +23,7 @@
 #include "answersounds.h"
 
 #include <QtCore/QRandomGenerator>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 // Without Qt Multimedia, WebAssembly builds play the sounds with the Web Audio API.
@@ -226,6 +227,8 @@ void RandomSound::play(qreal volume)
     sound->play();
 }
 
+static const char volumeSettingsKey[] = "Config/Volume";
+
 // The URLs of the WAV files in the resources of the QML module, in data/audio.
 static QList<QUrl> audioUrls(const QString &prefix, int count)
 {
@@ -242,28 +245,31 @@ AnswerSounds::AnswerSounds(QObject *parent)
     : QObject(parent)
     , m_correctSounds(audioUrls(QStringLiteral("correctanswer"), 5), this)
     , m_incorrectSounds(audioUrls(QStringLiteral("incorrectanswer"), 4), this)
+    , m_volume(qBound(0, QSettings().value(volumeSettingsKey, 80).toInt(), 100))
 {
 }
 
-qreal AnswerSounds::volume() const
+int AnswerSounds::volume() const
 {
     return m_volume;
 }
 
-void AnswerSounds::setVolume(qreal volume)
+void AnswerSounds::setVolume(int volume)
 {
+    volume = qBound(0, volume, 100);
     if (volume == m_volume)
         return;
     m_volume = volume;
+    QSettings().setValue(volumeSettingsKey, volume);
     emit volumeChanged();
 }
 
 void AnswerSounds::playCorrect()
 {
-    m_correctSounds.play(m_volume);
+    m_correctSounds.play(m_volume / 100.0);
 }
 
 void AnswerSounds::playIncorrect()
 {
-    m_incorrectSounds.play(m_volume);
+    m_incorrectSounds.play(m_volume / 100.0);
 }

@@ -26,5 +26,5 @@ ImageMultipleChoice {
     answersColumsCount: 2
     answersCount: 4
     viewHeightRatio: 0.5
-    exerciseFunction: "firstLetterExerciseFunction"
+    exerciseKind: Exercises.FirstLetter
 }

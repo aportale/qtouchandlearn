@@ -23,7 +23,7 @@
 import QtQuick
 
 ImageMultipleChoice {
-    exerciseFunction: "mixedMediumExercisesFunction"
+    exerciseKind: Exercises.MixedMedium
     imageSizeFactor: 0.8
     showCorrectionImageOnButton: false
 }

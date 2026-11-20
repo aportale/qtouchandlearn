@@ -47,20 +47,20 @@ private:
 };
 
 // The AnswerSounds singleton in QML. It plays a sound when the child answers correctly or
-// incorrectly, with a different variant than the last time.
+// incorrectly, with a different variant than the last time. The settings store the volume.
 class AnswerSounds : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
+    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
 
 public:
     explicit AnswerSounds(QObject *parent = nullptr);
 
-    // The volume of the sounds from 0 to 1.
-    qreal volume() const;
-    void setVolume(qreal volume);
+    // The volume of the sounds in percent, from 0 to 100.
+    int volume() const;
+    void setVolume(int volume);
 
     Q_INVOKABLE void playCorrect();
     Q_INVOKABLE void playIncorrect();
@@ -71,5 +71,5 @@ signals:
 private:
     RandomSound m_correctSounds;
     RandomSound m_incorrectSounds;
-    qreal m_volume = 1;
+    int m_volume;
 };

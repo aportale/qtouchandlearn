@@ -23,16 +23,14 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import "database.js" as Database
 
 StageScreen {
     id: menu
     readonly property color normalStateColor: "#fff"
     readonly property color pressedStateColor: "#ee8"
-    property string currentLesson: Database.currentLessonOfCurrentGroup()
     readonly property int backButtonSize: (height < width ? height : width) * 0.2
     readonly property bool portaitLayout: width < (height * 1.5)
-    backLesson: currentLesson
+    backLesson: Lessons.currentLesson
 
     Rectangle {
         anchors.fill: parent
@@ -44,6 +42,7 @@ StageScreen {
         Item {
             id: lessonItem
             required property int index
+            readonly property string lesson: Lessons.lessonIds[index]
             readonly property int _height: width * 0.4
             height: _height
             width: menu.width / grid.columns
@@ -58,12 +57,12 @@ StageScreen {
                 readonly property int _anchors_margins: parent.height * 0.15
                 source: "image://imageprovider/specialbutton/activemarker"
                 sourceSize { height: parent.height * 0.15; width: parent.height * 0.15 }
-                opacity: Database.lessonsOfCurrentGroup()[lessonItem.index].Id === menu.currentLesson ? 1 : 0;
+                opacity: lessonItem.lesson === Lessons.currentLesson ? 1 : 0;
                 anchors { right: parent.right; top: parent.top; margins: _anchors_margins; }
             }
 
             Image {
-                source: "image://imageprovider/lessonicon/" + Database.lessonsOfCurrentGroup()[lessonItem.index].Id + "/" + lessonItem.index
+                source: "image://imageprovider/lessonicon/" + lessonItem.lesson + "/" + lessonItem.index
                 sourceSize { width: parent.width; height: parent.height }
             }
 
@@ -71,7 +70,7 @@ StageScreen {
                 readonly property int _width: parent.width * 0.28
                 readonly property int _x: parent.height * 0.21
                 readonly property int _y: parent.height * 0.65
-                text: Database.lessonsOfCurrentGroup()[lessonItem.index].ImageLabel
+                text: Lessons.lessonImageLabels[lessonItem.index]
                 horizontalAlignment: Text.AlignHCenter
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: 8
@@ -84,7 +83,7 @@ StageScreen {
             Text {
                 readonly property int _width: parent.width * 0.51
                 readonly property int _anchors_margins: parent.width * 0.1
-                text: Database.lessonsOfCurrentGroup()[lessonItem.index].DisplayName
+                text: Lessons.lessonDisplayNames[lessonItem.index]
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -100,9 +99,8 @@ StageScreen {
                 id: mouseArea
                 onClicked: {
                     rectangle.color = menu.pressedStateColor;
-                    const theLesson = Database.lessonsOfCurrentGroup()[lessonItem.index].Id;
-                    Database.setCurrentLessonOfGroup(Database.currentLessonGroup.Id, theLesson);
-                    menu.selectedLesson = theLesson;
+                    Lessons.currentLesson = lessonItem.lesson;
+                    menu.selectedLesson = lessonItem.lesson;
                 }
                 anchors.fill: parent
             }
@@ -140,7 +138,7 @@ StageScreen {
             anchors { top: backButton.bottom; left: parent.left; right: parent.right }
             Repeater {
                 id: lessons
-                model: Database.lessonsOfCurrentGroup().length
+                model: Lessons.lessonIds.length
                 delegate: lessonDelegate
             }
         }

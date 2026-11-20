@@ -23,12 +23,11 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import "database.js" as Database
 
 Item {
     id: choice
     property int exerciseIndex
-    property string exerciseFunction
+    required property Exercises exercises
     property bool showCorrectionImage: true
     property bool grayBackground
     property int buttonsCount: 3
@@ -60,14 +59,13 @@ Item {
             if (!repeater.itemAt(j))
                 return;
         }
-        const exercise = Database.exercise(exerciseIndex, exerciseFunction, buttonsCount);
+        const correctAnswerIndex = exercises.correctAnswerIndex(exerciseIndex);
         for (let i = 0; i < buttonsCount; i++) {
             const button = repeater.itemAt(i) as AnswerButton;
-            const answer = exercise.Answers[i];
-            button.text = answer.DisplayName;
+            button.text = exercises.answerText(exerciseIndex, i);
             if (showCorrectionImage)
-                button.correctionImageSource = answer.ImageSource;
-            button.isCorrectAnswer = exercise.CorrectAnswerIndex === i;
+                button.correctionImageSource = exercises.answerImageSource(exerciseIndex, i);
+            button.isCorrectAnswer = correctAnswerIndex === i;
         }
     }
 
@@ -97,9 +95,11 @@ Item {
                 answerChoice: choice
                 onCorrectlyPressed: choice.correctlyAnswered();
 
-                // Calculate next but one exercise now, where the animation is over.
-                onContentChangeAnimationFinished: modelData === choice.buttonsCount - 1 ?
-                                                      Database.exercise(choice.exerciseIndex + 2, choice.exerciseFunction, choice.buttonsCount) : true;
+                // Make the next but one exercise now, when the animation is over.
+                onContentChangeAnimationFinished: {
+                    if (modelData === choice.buttonsCount - 1)
+                        choice.exercises.prepare(choice.exerciseIndex + 2);
+                }
             }
             onItemAdded: choice.setButtonData();
         }

@@ -23,14 +23,12 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import "database.js" as Database
 
 Item {
     property alias backgroundImage: backgroundImage.source
     property alias currentExerciseIndex: listview.currentIndex
     property bool grayBackground
-    property string exerciseFunction
-    property int answersCount
+    required property Exercises exercises
     property real imageSizeFactor: 0.61
 
     readonly property int backgroundImageSourceSizeHeight: height * 0.3
@@ -100,7 +98,7 @@ Item {
                 readonly property int _leftMargin: (delegate.width - width) / 2
                 readonly property int _topMargin: (delegate.height - height) / 2
                 anchors { left: parent.left; top: parent.top; leftMargin: _leftMargin; topMargin: _topMargin; }
-                source: Database.exercise(delegate.modelData, imageview.exerciseFunction, imageview.answersCount).ImageSource
+                source: imageview.exercises.imageSource(delegate.modelData)
                 sourceSize { width: imageview.imageSourceSizeWidthHeight; height: imageview.imageSourceSizeWidthHeight }
                 asynchronous: true
             }

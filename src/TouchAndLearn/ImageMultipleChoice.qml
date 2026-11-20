@@ -21,14 +21,13 @@
 */
 
 import QtQuick
-import "database.js" as Database
 
 StageScreen {
     id: main
     final property alias backgroundImage: imageView.backgroundImage
     final property bool grayBackground
     final property alias imageSizeFactor: imageView.imageSizeFactor
-    final property alias exerciseFunction: imageView.exerciseFunction
+    final property alias exerciseKind: exercises.kind
     final property alias showCorrectionImageOnButton: choice.showCorrectionImage
     final property alias answersCount: choice.buttonsCount
     final property alias answersColumsCount: choice.columsCount
@@ -39,11 +38,16 @@ StageScreen {
     final readonly property int backButtonSize: (height < width ? height : width) * 0.2
     backLesson: "Menu"
 
+    Exercises {
+        id: exercises
+        answersCount: choice.buttonsCount
+    }
+
     ImageView {
         id: imageView
         width: main.portaitLayout ? parent.width : Math.ceil(parent.width / 2)
         height: main.portaitLayout ? main.imageViewHeight : parent.height
-        answersCount: choice.buttonsCount
+        exercises: exercises
         backgroundImage: "image://imageprovider/background/background_01"
         grayBackground: main.grayBackground
     }
@@ -87,7 +91,7 @@ StageScreen {
             anchors.fill: parent
             onPressed: main.selectedLesson = "Options"
         }
-        visible: Database.lessonsOfCurrentGroup().length > 1
+        visible: Lessons.lessonIds.length > 1
     }
 
     AnswerChoice {
@@ -99,7 +103,7 @@ StageScreen {
         width: main.portaitLayout ? parent.width : parent.width - imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
-        exerciseFunction: imageView.exerciseFunction
+        exercises: exercises
         onCorrectlyAnswered: imageView.goForward();
         grayBackground: main.grayBackground
     }

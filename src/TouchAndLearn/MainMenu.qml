@@ -21,18 +21,18 @@
 */
 
 import QtQuick
-import "database.js" as Database
 
 Rectangle {
     id: mainWindow
     color: "#000"
 
     readonly property StageScreen stageScreen: stage.item as StageScreen
+    // The screen that the stage shows, or that it loads after the current one blended out
+    property string currentScreen
 
     function handleVolumeChange(volume: int): void
     {
-        Database.currentVolume = volume;
-        AnswerSounds.volume = volume / 100;
+        AnswerSounds.volume = volume;
         if (!volumeDisplay.active)
             volumeDisplay.active = true;
         else
@@ -52,10 +52,10 @@ Rectangle {
                 Qt.quit();
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeUp || event.key === Qt.Key_Plus) {
-            handleVolumeChange(Math.min(Database.currentVolume + 20, 100));
+            handleVolumeChange(Math.min(AnswerSounds.volume + 20, 100));
             event.accepted = true;
         } else if (event.key === Qt.Key_VolumeDown || event.key === Qt.Key_Minus) {
-            handleVolumeChange(Math.max(Database.currentVolume - 20, 0));
+            handleVolumeChange(Math.max(AnswerSounds.volume - 20, 0));
             event.accepted = true;
         }
     }
@@ -101,7 +101,7 @@ Rectangle {
 
         function displayCurrentVolume(): void
         {
-            (volumeDisplay.item as VolumeDisplay).volume = Database.currentVolume;
+            (volumeDisplay.item as VolumeDisplay).volume = AnswerSounds.volume;
             volumeDisplayBlendOut.stop();
             opacity = 1;
             volumeDisplayBlendOut.start();
@@ -140,9 +140,7 @@ Rectangle {
 
     function switchToScreen(screen: string): void
     {
-        Database.lessonData = [];
-        Database.currentScreen = screen;
-        Database.persistence.writeAll(); // TODO: Remove this hack. See https://together.jolla.com/question/49775/componentondestruction-of-applicationwindow-not-called/
+        currentScreen = screen;
         if (stage.status === Loader.Null) {
             stage.sourceComponent = Qt.createComponent("TouchAndLearn", screen);
         } else {
@@ -155,7 +153,7 @@ Rectangle {
 
     SequentialAnimation {
         id: screenBlendOut
-        onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", Database.currentScreen)
+        onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", mainWindow.currentScreen)
         OpacityAnimator {
             target: courtain
             from: 0
@@ -177,20 +175,6 @@ Rectangle {
     Timer {
         interval: 1
         running: true
-        onTriggered: {
-            Database.data.initCaches();
-            mainWindow.switchToScreen("LessonMenu");
-        }
-    }
-
-    Component.onCompleted: {
-        Database.settings = Settings; // database.js is a ".pragma library" script, which does not see the imports of this file
-        Database.persistence.readCurrentLessonsOfGroups();
-        Database.currentVolume = Database.persistence.readVolume();
-        AnswerSounds.volume = Database.currentVolume / 100;
-    }
-
-    Component.onDestruction: {
-        Database.persistence.writeAll();
+        onTriggered: mainWindow.switchToScreen("LessonMenu")
     }
 }

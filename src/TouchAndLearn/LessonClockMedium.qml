@@ -25,5 +25,5 @@ import QtQuick
 ImageMultipleChoice {
     answersCount: 2
     viewHeightRatio: 0.55
-    exerciseFunction: "clockMediumExerciseFunction"
+    exerciseKind: Exercises.ClockMedium
 }

@@ -23,6 +23,6 @@
 import QtQuick
 
 ImageMultipleChoice {
-    exerciseFunction: "clockHardExerciseFunction"
+    exerciseKind: Exercises.ClockHard
     imageSizeFactor: 0.8
 }

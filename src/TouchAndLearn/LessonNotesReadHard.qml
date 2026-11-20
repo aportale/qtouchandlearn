@@ -23,5 +23,5 @@
 import QtQuick
 
 ImageMultipleChoice {
-    exerciseFunction: "notesReadHardExerciseFunction"
+    exerciseKind: Exercises.NotesReadHard
 }

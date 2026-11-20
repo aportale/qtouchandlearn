@@ -5,12 +5,13 @@ qt_add_qml_module(touchandlearn_qml
     SOURCES
         answersounds.cpp
         answersounds.h
-        settings.cpp
-        settings.h
+        exercises.cpp
+        exercises.h
+        lessons.cpp
+        lessons.h
     QML_FILES
         AnswerButton.qml
         AnswerChoice.qml
-        database.js
         ImageMultipleChoice.qml
         ImageView.qml
         LessonClockEasy.qml
