@@ -64,6 +64,12 @@ int main(int argc, char *argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("TouchAndLearn", "Main");
+    // QML creates a singleton only when it first uses it, which for AnswerSounds is the first
+    // answer. Create it now, so that the sounds are loaded before the child answers. On
+    // WebAssembly, this also prepares the AudioContext and its listeners before the first
+    // touch, which resumes the context, so that the first answer is not silent.
+    if (!engine.singletonInstance<QObject *>("TouchAndLearn", "AnswerSounds"))
+        qWarning() << "Could not create the AnswerSounds singleton";
 
     ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();

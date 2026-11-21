@@ -76,10 +76,38 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                 ui.style.display = 'block';
             }
 
+            // touchandlearn.js and touchandlearn.wasm must come from the same build, because the
+            // JavaScript refers to addresses in the wasm memory, for example in ASM_CONSTS. Safari
+            // may keep one of the two files from an earlier build in its cache, and use it without
+            // asking the server. So revalidate the wasm file on each load, which costs a small
+            // request if the file did not change, and load the JavaScript under a version from the
+            // wasm file. That way, the browser can keep both cached, but never mixes two builds.
+            const loadModule = async () => {
+                const response = await fetch('touchandlearn.wasm', { cache: 'no-cache' });
+                if (!response.ok)
+                    throw new Error(`Could not fetch touchandlearn.wasm: ${response.status}`);
+                const version = response.headers.get('ETag')
+                    ?? response.headers.get('Last-Modified') ?? String(Date.now());
+                await new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = `touchandlearn.js?v=${encodeURIComponent(version)}`;
+                    script.onload = resolve;
+                    script.onerror = () => reject(new Error('Could not load touchandlearn.js'));
+                    document.body.appendChild(script);
+                });
+                // Compiling while downloading needs the MIME type application/wasm. Not all web
+                // servers send it.
+                const contentType = response.headers.get('Content-Type') ?? '';
+                return contentType.startsWith('application/wasm')
+                    ? WebAssembly.compileStreaming(response)
+                    : WebAssembly.compile(await response.arrayBuffer());
+            };
+
             try {
                 showUi(spinner);
                 status.innerHTML = 'Loading...';
 
+                const module = await loadModule();
                 const instance = await qtLoad({
                     qt: {
                         onLoaded: () => showUi(screen),
@@ -94,7 +122,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                         },
                         entryFunction: window.touchandlearn_entry,
                         containerElements: [screen],
-
+                        module: module,
                     }
                 });
             } catch (e) {
@@ -103,7 +131,6 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             }
         }
     </script>
-    <script src="touchandlearn.js"></script>
     <script type="text/javascript" src="qtloader.js"></script>
   </body>
 </html>
