@@ -89,6 +89,20 @@ if(WIN32)
     set_target_properties(touchandlearn PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
 
+# Use our own HTML page instead of the one from Qt. It runs full screen when added to the
+# Home Screen on iOS, and blends in with the Safari bars otherwise. Qt copies its default
+# files when it finalizes the target, which would overwrite the page, so turn them off and
+# copy the loader and the logo here. Qt Creator opens touchandlearn.html, a web server index.html.
+if(EMSCRIPTEN)
+    set_target_properties(touchandlearn PROPERTIES NO_WASM_DEFAULT_FILES TRUE)
+    configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/touchandlearn.html COPYONLY)
+    configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/index.html COPYONLY)
+    configure_file(${QT6_INSTALL_PREFIX}/plugins/platforms/qtloader.js
+        ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js COPYONLY)
+    configure_file(${QT6_INSTALL_PREFIX}/plugins/platforms/qtlogo.svg
+        ${CMAKE_CURRENT_BINARY_DIR}/qtlogo.svg COPYONLY)
+endif()
+
 include(GNUInstallDirs)
 install(TARGETS touchandlearn
     BUNDLE DESTINATION .
