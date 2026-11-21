@@ -48,6 +48,11 @@
 // Decodes the audio file in data, and stores it under id. Replaces an earlier sound of id.
 EM_JS(void, touchandlearn_loadSound, (int id, const char *data, int size), {
     if (!Module.touchAndLearnAudio) {
+        // On iOS, the silent switch (or the silent mode) mutes Web Audio by default. The
+        // "playback" type of the Audio Session API (Safari 17 and later) lets the sounds play
+        // in silent mode, too. It also pauses the music of other apps while a sound plays.
+        if (navigator.audioSession)
+            navigator.audioSession.type = "playback";
         const context = new AudioContext();
         // Browsers keep an AudioContext suspended until the user interacts with the page.
         // Resume the context in the capture phase of each interaction, which runs before the
