@@ -42,39 +42,40 @@ static const QString idPrefix = QLatin1String("id_");
 static QString dataPath = QLatin1String("data/graphics");
 static const QImage::Format imageFormat = QImage::Format_ARGB32_Premultiplied;
 
+// Asynchronous images render in another thread. QSvgRenderer is not thread-safe, hence per thread.
 QSvgRenderer* designRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/design.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/design.svg"));
     return& renderer;
 }
 
 QSvgRenderer* objectRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/objects.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/objects.svg"));
     return &renderer;
 }
 
 QSvgRenderer* countablesRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/countables.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/countables.svg"));
     return &renderer;
 }
 
 QSvgRenderer* clocksRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/clocks.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/clocks.svg"));
     return &renderer;
 }
 
 QSvgRenderer* notesRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/notes.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/notes.svg"));
     return &renderer;
 }
 
 QSvgRenderer* lessonIconsRenderer()
 {
-    static QSvgRenderer renderer(dataPath + QLatin1String("/lessonicons.svg"));
+    thread_local QSvgRenderer renderer(dataPath + QLatin1String("/lessonicons.svg"));
     return &renderer;
 }
 
@@ -387,8 +388,8 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
         }
     }
     const QString &elementId = idPrefix + elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count());
-    static QImage cachedGradientButton;
-    static QImage cachedGradientFrame;
+    thread_local QImage cachedGradientButton;
+    thread_local QImage cachedGradientFrame;
     QImage &cachedGradient = type == DesignElementTypeButton ? cachedGradientButton : cachedGradientFrame;
     if (cachedGradient.size() == requestedSize) {
         QImage result(cachedGradient);
@@ -550,6 +551,7 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
     return result;
 }
 
+// Loads the calling thread's renderers. The image reader thread loads its own on first use.
 void ImageProvider::init()
 {
     designRenderer()->boundsOnElement(QString());
