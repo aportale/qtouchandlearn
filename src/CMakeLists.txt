@@ -108,12 +108,14 @@ install(TARGETS touchandlearn
 )
 
 # Installs the Qt libraries, plugins and QML modules on Windows, macOS and Linux. The other
-# platforms deploy when packaging. The app shows no texts of Qt, so no Qt translations.
+# platforms deploy when packaging. The app shows no texts of Qt, so no Qt translations, and
+# needs no QML debugging, TLS or network information plugins (excluded on Windows and Linux).
 qt_generate_deploy_qml_app_script(
     TARGET touchandlearn
     OUTPUT_SCRIPT deploy_script
     NO_UNSUPPORTED_PLATFORM_ERROR
     NO_TRANSLATIONS
+    EXCLUDE_PLUGIN_TYPES qmltooling tls networkinformation
 )
 install(SCRIPT ${deploy_script})
 
