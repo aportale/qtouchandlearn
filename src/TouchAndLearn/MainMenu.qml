@@ -147,6 +147,11 @@ Rectangle {
             // The old screen ignores input and stops its animations while it blends out.
             if (stageScreen)
                 stageScreen.leaving = true;
+            // The screen can be left while it still blends in. Stopping screenBlendIn writes
+            // the current opacity back to the curtain, and screenBlendOut, which has no from
+            // value, closes the curtain from there. Otherwise both animators would drive the
+            // curtain at the same time.
+            screenBlendIn.stop();
             screenBlendOut.start();
         }
     }
@@ -156,7 +161,6 @@ Rectangle {
         onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", mainWindow.currentScreen)
         OpacityAnimator {
             target: courtain
-            from: 0
             to: 1
             duration: 180
         }
