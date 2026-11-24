@@ -157,24 +157,20 @@ Rectangle {
         }
     }
 
-    SequentialAnimation {
+    OpacityAnimator {
         id: screenBlendOut
+        target: curtain
+        to: 1
+        duration: 180
         onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", mainWindow.currentScreen)
-        OpacityAnimator {
-            target: curtain
-            to: 1
-            duration: 180
-        }
     }
 
-    SequentialAnimation {
+    OpacityAnimator {
         id: screenBlendIn
-        OpacityAnimator {
-            target: curtain
-            from: 1
-            to: 0
-            duration: 180
-        }
+        target: curtain
+        from: 1
+        to: 0
+        duration: 180
     }
 
     Timer {
