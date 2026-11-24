@@ -35,18 +35,13 @@ struct Exercise
     // The image of each answer, which a button shows after a wrong answer
     QStringList answerImageSources;
     int correctAnswerIndex = -1;
-    // The indices of the answers in the list of items that the exercise was made from. The
-    // following exercises use them to avoid repetitions.
+    // The answers' indices in the source items, so that the next exercises avoid repetitions.
     QList<int> answerItems;
 };
 
-// The exercises of a lesson. Each lesson screen has its own instance, which makes each
-// exercise when it is first requested. The exercises repeat after a while: the index i and
-// i + 100 refer to the same exercise.
-//
-// The functions return strings and numbers instead of an exercise value type, because
-// qmlcachegen cannot compile the access to a value type that an invokable function returns:
-// a QML type that derives from Exercises could shadow the function and return anything.
+// A lesson screen's exercises, made on first request. Indices i and i + 100 are the same exercise.
+// Returns strings and numbers instead of a value type, because qmlcachegen cannot compile
+// access to a value type returned by an invokable, which a derived QML type could shadow.
 class Exercises : public QObject
 {
     Q_OBJECT

@@ -56,9 +56,8 @@ StageScreen {
         id: backButton
         width: main.backButtonSize
         height: main.backButtonSize
-        // Positioned via x instead of swapping left/right anchors: the anchor bindings
-        // re-evaluate in undefined order, so the item can transiently get both anchors,
-        // gets stretched to the parent width and ends up misplaced.
+        // Positioned via x: swapped left/right anchors re-evaluate in undefined order, and
+        // transiently having both stretches and misplaces the item.
         x: main.portaitLayout ? parent.width - width : 0
         anchors.top: parent.top
         Image {

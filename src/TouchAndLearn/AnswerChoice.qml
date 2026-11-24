@@ -48,13 +48,11 @@ Item {
     onExerciseIndexChanged: setButtonData();
 
     function setButtonData(): void {
-        // exerciseIndex is -1 until the ListView of the ImageView sets its current index. The
-        // buttons can exist before that, for example on WebAssembly, and would first show the
-        // answers of a bogus exercise -1. onExerciseIndexChanged calls this function again.
+        // -1 until the ImageView's ListView sets its index, but the buttons can exist before
+        // (e.g. on WebAssembly). onExerciseIndexChanged calls again.
         if (exerciseIndex < 0)
             return;
-        // Inside an asynchronous Loader, the Repeater creates the buttons over several
-        // frames. Wait until all of them exist.
+        // In an asynchronous Loader, the buttons appear over several frames. Wait for all.
         for (let j = 0; j < buttonsCount; j++) {
             if (!repeater.itemAt(j))
                 return;
@@ -83,8 +81,7 @@ Item {
             id: repeater
             model: choice.buttonsCount
             AnswerButton {
-                // AnswerButton has required properties, so the Repeater passes the model
-                // data only to required properties.
+                // The Repeater passes model data only to required properties, if there are any.
                 required property int modelData
                 readonly property int _width: ((choice.gridWidth - choice.buttonSpacing) / choice.columsCount) - choice.buttonSpacing
                 readonly property int _height: (choice.gridHeight / choice.gridRows) - choice.buttonSpacing

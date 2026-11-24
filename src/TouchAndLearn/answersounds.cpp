@@ -42,36 +42,30 @@
 
 #include <emscripten.h>
 
-// The JavaScript side of the Web Audio backend. It keeps one AudioContext for all sounds,
-// and a map from the ids of the Sound objects to their decoded audio data.
+// The JavaScript side of the Web Audio backend: one AudioContext, decoded audio by Sound id.
 
 // Decodes the audio file in data, and stores it under id. Replaces an earlier sound of id.
 EM_JS(void, touchandlearn_loadSound, (int id, const char *data, int size), {
     if (!Module.touchAndLearnAudio) {
-        // On iOS, the silent switch (or the silent mode) mutes Web Audio by default. The
-        // "playback" type of the Audio Session API (Safari 17 and later) lets the sounds play
-        // in silent mode, too. It also pauses the music of other apps while a sound plays.
+        // "playback" (Safari 17+) plays even in iOS silent mode, which mutes Web Audio by
+        // default. It also pauses the music of other apps while a sound plays.
         if (navigator.audioSession)
             navigator.audioSession.type = "playback";
         const context = new AudioContext();
-        // Browsers keep an AudioContext suspended until the user interacts with the page.
-        // Resume the context in the capture phase of each interaction, which runs before the
-        // event handlers of Qt. Doing this on each interaction also resumes the context after
-        // the system interrupted it, for example for a phone call on iOS.
+        // The context stays suspended until the user interacts. Resume it in the capture phase
+        // (before Qt's handlers) of each interaction, also after interruptions like iOS calls.
         const resume = function() {
             if (context.state !== "running")
                 context.resume();
         };
-        // The events that activate the page, as defined by the HTML standard. Some browsers
-        // resume an AudioContext only while handling such an event.
+        // HTML standard activation events. Some browsers resume a context only during these.
         const activationEvents = ["pointerdown", "pointerup", "touchend", "keydown"];
         for (const type of activationEvents)
             document.addEventListener(type, resume, true);
         Module.touchAndLearnAudio = { context: context, sounds: new Map() };
     }
     const audio = Module.touchAndLearnAudio;
-    // decodeAudioData takes over the ArrayBuffer. Give it a copy of the bytes in the wasm
-    // memory. The promise of a sound that fails to decode delivers null.
+    // decodeAudioData takes over the buffer, so pass a copy. Undecodable sounds resolve to null.
     const bytes = HEAPU8.slice(data, data + size);
     const decoded = audio.context.decodeAudioData(bytes.buffer).catch(function(error) {
         console.warn("Could not decode sound:", error);
@@ -107,8 +101,7 @@ EM_JS(void, touchandlearn_unloadSound, (int id), {
 static int lastSoundId = 0;
 #endif // TOUCHANDLEARN_USE_WEBAUDIO
 
-// A short sound. With TOUCHANDLEARN_USE_QTMULTIMEDIA, a QSoundEffect plays the sound. With
-// TOUCHANDLEARN_USE_WEBAUDIO, the browser plays it. Without either, the sound is silent.
+// A short sound, played by QSoundEffect or Web Audio, depending on the build. Otherwise silent.
 class Sound : public QObject
 {
 public:
@@ -220,8 +213,7 @@ void RandomSound::play(qreal volume)
     const int count = int(m_sounds.size());
     if (count == 0)
         return;
-    // Draw from the variants other than the previous one, by skipping its index. A single
-    // variant plays each time.
+    // Skip the previous variant's index, unless there is only one variant.
     const bool skipPrevious = m_previousIndex >= 0 && count > 1;
     int index = QRandomGenerator::global()->bounded(skipPrevious ? count - 1 : count);
     if (skipPrevious && index >= m_previousIndex)

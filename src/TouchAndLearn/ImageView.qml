@@ -43,9 +43,8 @@ Item {
     id: imageview
     Rectangle {
         id: hueBackground
-        // The hue is based on the scroll position in pages rather than in pixels, so that it
-        // does not change when the view gets resized. _hueOffsetInPages has no dependencies
-        // and is therefore evaluated only once.
+        // Hue from the scroll position in pages, not pixels, so that resizing keeps it.
+        // _hueOffsetInPages has no dependencies, so it is evaluated only once.
         readonly property real _hueSpanInPages: 10
         readonly property real _hueOffsetInPages: Math.random() * _hueSpanInPages
         readonly property real _scrollPositionInPages: listview.contentX / Math.max(imageview.width, 1)

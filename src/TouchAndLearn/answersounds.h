@@ -29,8 +29,7 @@
 
 class Sound;
 
-// Several variants of a sound. Each call of play() plays a random variant, other than the
-// one of the previous call, so that the same variant does not repeat.
+// Variants of a sound. play() picks a random one, never the previous one.
 class RandomSound
 {
 public:
@@ -46,8 +45,7 @@ private:
     int m_previousIndex = -1;
 };
 
-// The AnswerSounds singleton in QML. It plays a sound when the child answers correctly or
-// incorrectly, with a different variant than the last time. The settings store the volume.
+// QML singleton for the correct and incorrect answer sounds. The settings store the volume.
 class AnswerSounds : public QObject
 {
     Q_OBJECT

@@ -68,8 +68,7 @@ Item {
     Text {
         id: label
         anchors.verticalCenter: parent.verticalCenter
-        // We need to manually horizonally center the text, because in wrongAnswerAnimation,
-        // the x of the text is changed, which would not work if we use an anchor layout.
+        // Centered via x instead of anchors, because wrongAnswerAnimation animates x.
         readonly property int horizontallyCenteredX: (button.width - width) >> 1;
         x: horizontallyCenteredX;
         // Fixed width plus HorizontalFit keeps long (translated) answers inside the button.
@@ -119,9 +118,9 @@ Item {
         contentChangeAnimation.start();
     }
 
-    // MainMenu disables the screen before it unloads it. The Loader invalidates the QML context
-    // of the screen before it deletes the screen. An animation handler that runs in between would
-    // warn "QQmlExpression: Attempted to evaluate an expression in an invalid context".
+    // MainMenu disables the screen before unloading it. An animation handler running after the
+    // Loader invalidated the context would warn "Attempted to evaluate an expression in an
+    // invalid context".
     onEnabledChanged: {
         if (!enabled) {
             contentChangeAnimation.stop();
@@ -130,23 +129,19 @@ Item {
         }
     }
 
-    // The animations act in signal handlers instead of in ScriptActions. qmlcachegen does not
-    // compile the script of a ScriptAction to C++. It then also skips all bindings and signal
-    // handlers of the file that it processes after that script.
+    // No ScriptActions: qmlcachegen compiles neither them nor the rest of the file to C++.
 
     SequentialAnimation {
         id: contentChangeAnimation
-        // The label is empty before the first text arrives. Then there is nothing to blend
-        // out, so only the stagger pause runs before the blend in. blendOut is set before each
-        // start and must not be bound to label.text: the animation itself sets label.text, and
-        // the NumberAnimations would pick up the changed durations while running and replay
-        // the blend out and in.
+        // false for the initially empty label: only the stagger pause precedes the blend in.
+        // Not bound to label.text, which the animation sets, or the running animation would
+        // pick up the changed durations and replay.
         property bool blendOut
         readonly property int blendOutPause: blendOut ? button.blendOutDelay + button.staggerDelay : 0
         readonly property int blendOutDuration: blendOut ? button.blendDuration : 0
         readonly property int blendInPause: blendOut ? button.blendInDelay : 0
-        // Set by the PropertyAction between the blend out and the blend in, which then shows the
-        // new text. A PropertyAction on label.text would fail, and set the prior text.
+        // Set between blend out and in to show the new text. A PropertyAction on label.text
+        // would set the prior text.
         property bool showNewText
         onStarted: {
             showNewText = false;
@@ -163,9 +158,8 @@ Item {
         PauseAnimation {
             duration: contentChangeAnimation.blendOutPause
         }
-        // This animation runs while the ImageView scrolls. It uses NumberAnimations instead of
-        // Animators: Animators run on the render thread, which then renders additional frames
-        // and lets the scroll animation of the ImageView advance only on every second frame.
+        // No Animators: during the ImageView scroll, their extra render thread frames would
+        // make the scroll advance only every second frame.
         ParallelAnimation {
             NumberAnimation {
                 target: label
@@ -242,9 +236,8 @@ Item {
     }
     SequentialAnimation {
         id: wrongAnswerAnimation
-        // The last step sets reachedEnd. This animation contains Animators, and Qt emits
-        // finished also when stop() stops such an animation. onTextChanged stops it, and then
-        // the button must not report the press.
+        // Set by the last step. With Animators inside, stop() also emits finished, and a stop
+        // by onTextChanged must not report the press.
         property bool reachedEnd
         onStarted: {
             reachedEnd = false;

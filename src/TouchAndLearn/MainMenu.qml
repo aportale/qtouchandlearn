@@ -77,8 +77,7 @@ Rectangle {
         z: 1
     }
 
-    // Screens load asynchronously, so the UI keeps repainting while they are built.
-    // The opaque curtain covers the stage until onLoaded starts screenBlendIn.
+    // Asynchronous, so the UI keeps repainting. The curtain covers the stage until onLoaded.
     Loader {
         id: stage
         width: parent.width
@@ -108,14 +107,11 @@ Rectangle {
             volumeDisplayBlendOut.start();
         }
 
-        // The animations act in signal handlers instead of in ScriptActions. qmlcachegen does
-        // not compile the script of a ScriptAction to C++. It then also skips all bindings and
-        // signal handlers of the file that it processes after that script.
+        // No ScriptActions: qmlcachegen compiles neither them nor the rest of the file to C++.
         SequentialAnimation {
             id: volumeDisplayBlendOut
-            // The last step sets reachedEnd. This animation contains an Animator, and Qt emits
-            // finished also when stop() stops such an animation. displayCurrentVolume() stops
-            // it, and then the volume display must stay.
+            // Set by the last step. With an Animator inside, stop() also emits finished, and a
+            // stop by displayCurrentVolume() must keep the display.
             property bool reachedEnd
             onStarted: reachedEnd = false
             onReachedEndChanged: {
@@ -148,10 +144,8 @@ Rectangle {
             // The old screen ignores input and stops its animations while it blends out.
             if (stageScreen)
                 stageScreen.leaving = true;
-            // The screen can be left while it still blends in. Stopping screenBlendIn writes
-            // the current opacity back to the curtain, and screenBlendOut, which has no from
-            // value, closes the curtain from there. Otherwise both animators would drive the
-            // curtain at the same time.
+            // If still blending in, stop that first, so that only one animator drives the
+            // curtain. screenBlendOut has no from value and closes it from the current opacity.
             screenBlendIn.stop();
             screenBlendOut.start();
         }
@@ -173,9 +167,8 @@ Rectangle {
         duration: 180
     }
 
-    // Load the first screen once the window has its size. At Component.onCompleted, MainMenu
-    // is still 0x0. A screen built at that size requests its images with an invalid size, and
-    // the ImageProvider rejects them.
+    // Load the first screen once MainMenu is no longer 0x0, as it is at Component.onCompleted.
+    // Otherwise, the ImageProvider rejects the images requested with an invalid size.
     readonly property bool hasSize: width > 0 && height > 0
     onHasSizeChanged: {
         if (hasSize && stage.status === Loader.Null)

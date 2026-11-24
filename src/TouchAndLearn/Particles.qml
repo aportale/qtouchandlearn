@@ -21,8 +21,7 @@ Item {
         id: particleSystem
         running: true
         Timer {
-            // The first instance of ParticleSystem will take a while to initialize
-            // It does only nitialize while it is "running"
+            // The first ParticleSystem initializes slowly, and only while running.
             interval: 0
             onTriggered: particleSystem.running = false;
         }

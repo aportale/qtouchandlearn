@@ -53,8 +53,7 @@ int randomIndex(qsizetype count)
     return QRandomGenerator::global()->bounded(int(count));
 }
 
-// The translation contexts are those of the former database.js, so that the existing
-// translations still apply.
+// The translation contexts of the former database.js keep the existing translations valid.
 
 QList<Item> objects()
 {
@@ -261,8 +260,8 @@ bool previousExercisesHaveSameCorrectAnswer(const QList<Exercise> &exercises, in
     return false;
 }
 
-// Makes the exercise with the index from random items. An answer does not appear at the same
-// index as in the previous exercise, and the correct answer does not repeat for a while.
+// Makes an exercise from random items. No answer keeps its previous index, and the correct
+// answer does not repeat for a while.
 Exercise createExercise(const QList<Exercise> &exercises, int index, int answersCount,
                         const QList<Item> &items, ImageSourceFunction imageSource)
 {

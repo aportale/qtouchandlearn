@@ -28,8 +28,7 @@
 #include <QtCore/QStringList>
 #include <QtQml/QQmlEngine>
 
-// A lesson group in the lesson menu, or a lesson in the lesson options. The menus show the
-// icon of id, the imageLabel on the icon, and the displayName.
+// A lesson group in the menu, or a lesson in the options: icon of id, imageLabel and displayName.
 struct MenuEntry
 {
     QString id;
@@ -37,11 +36,8 @@ struct MenuEntry
     QString imageLabel;
 };
 
-// The Lessons singleton in QML. It holds the lesson groups and their lessons. Each group has a
-// current lesson, which the settings store.
-//
-// The groups and lessons are string lists with one entry per group or lesson, instead of lists
-// of a value type, because qmlcachegen cannot compile the access to a list of a value type.
+// QML singleton with the lesson groups, their lessons and each group's current lesson (stored).
+// Uses string lists instead of value type lists, which qmlcachegen cannot compile.
 class Lessons : public QObject
 {
     Q_OBJECT

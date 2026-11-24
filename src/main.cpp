@@ -30,15 +30,13 @@
 
 #include "imageprovider.h"
 
-// The static plugin of the QML module in TouchAndLearn/. The reference keeps the linker
-// from dropping the module.
+// Keeps the linker from dropping the static QML module plugin in TouchAndLearn/.
 Q_IMPORT_QML_PLUGIN(TouchAndLearnPlugin)
 
 int main(int argc, char *argv[])
 {
 #ifdef TOUCHANDLEARN_USE_QTMULTIMEDIA
-    // We only play WAV files. Turn off the FFmpeg backend's hardware codec check,
-    // which slows down startup. These variables are not public Qt API.
+    // Skip FFmpeg's slow hardware codec check, unneeded for WAV files (not public Qt API).
     if (!qEnvironmentVariableIsSet("QT_FFMPEG_DECODING_HW_DEVICE_TYPES"))
         qputenv("QT_FFMPEG_DECODING_HW_DEVICE_TYPES", ",");
     if (!qEnvironmentVariableIsSet("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES"))
@@ -64,10 +62,8 @@ int main(int argc, char *argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("TouchAndLearn", "Main");
-    // QML creates a singleton only when it first uses it, which for AnswerSounds is the first
-    // answer. Create it now, so that the sounds are loaded before the child answers. On
-    // WebAssembly, this also prepares the AudioContext and its listeners before the first
-    // touch, which resumes the context, so that the first answer is not silent.
+    // Create the singleton now instead of at the first answer, so that the sounds are loaded and,
+    // on WebAssembly, the AudioContext listeners are ready to resume it at the first touch.
     if (!engine.singletonInstance<QObject *>("TouchAndLearn", "AnswerSounds"))
         qWarning() << "Could not create the AnswerSounds singleton";
 

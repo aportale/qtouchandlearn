@@ -214,8 +214,7 @@ def post_process(sound, sample_rate, channels, samples):
         for channel in range(channels):
             samples[frame * channels + channel] *= factor
 
-    # No clipping needed: with PEAK_DBFS <= 0, all samples stay within the 16 bit range.
-    # Otherwise, array raises an OverflowError.
+    # PEAK_DBFS <= 0 keeps all samples in the 16 bit range, else array raises OverflowError.
     peak = max(abs(s) for s in samples)
     gain = 10 ** (PEAK_DBFS / 20) / peak * INT16_MAX
     pcm = array.array("h", (round(s * gain) for s in samples))

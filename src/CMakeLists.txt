@@ -7,9 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 6.11 REQUIRED COMPONENTS Core Gui Qml Quick Svg LinguistTools)
 qt_standard_project_setup(REQUIRES 6.11)
 
-# Qt Multimedia plays the sounds. Qt for WebAssembly lacks it, so the default there is OFF,
-# and the app plays the sounds with the Web Audio API instead. On the other platforms, the
-# default is ON if Qt Multimedia is installed. Without it, the app builds and stays mute.
+# Default: ON if Qt Multimedia is installed. Without it, the app is mute.
+# WebAssembly lacks Qt Multimedia and uses the Web Audio API instead.
 if(EMSCRIPTEN)
     set(use_qtmultimedia_default OFF)
 else()
@@ -46,8 +45,7 @@ if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
     target_compile_definitions(touchandlearn PRIVATE TOUCHANDLEARN_USE_QTMULTIMEDIA)
 endif()
 
-# lrelease builds the .qm files, and main.cpp loads them from the resources.
-# Build the update_translations target to update the .ts files with lupdate.
+# main.cpp loads the .qm files from the resources. update_translations updates the .ts files.
 qt_add_translations(touchandlearn
     SOURCE_TARGETS touchandlearn_qml
     TS_FILES
@@ -90,10 +88,9 @@ if(WIN32)
     target_sources(touchandlearn PRIVATE touchandlearn.rc)
 endif()
 
-# Use our own HTML page instead of the one from Qt. It runs full screen when added to the
-# Home Screen on iOS, and blends in with the Safari bars otherwise. Qt copies its default
-# files when it finalizes the target, which would overwrite the page, so turn them off and
-# copy the loader and the logo here. Qt Creator opens touchandlearn.html, a web server index.html.
+# Our own HTML page runs full screen from the iOS Home Screen and blends in with the Safari bars.
+# Qt's default files would overwrite it, so copy only the loader and logo. Qt Creator opens
+# touchandlearn.html, a web server index.html.
 if(EMSCRIPTEN)
     set_target_properties(touchandlearn PROPERTIES NO_WASM_DEFAULT_FILES TRUE)
     configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/touchandlearn.html COPYONLY)

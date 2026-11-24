@@ -50,8 +50,7 @@ static MenuEntry menuEntry(const QString &id, const QString &displayName, const 
 Lessons::Lessons(QObject *parent)
     : QObject(parent)
 {
-    // The translation contexts are those of the former database.js, so that the existing
-    // translations still apply.
+    // The translation contexts of the former database.js keep the existing translations valid.
     const QString robot = QCoreApplication::translate("Objects", "robot");
     const QString three = QCoreApplication::translate("Numbers", "three");
     const QString nine = QCoreApplication::translate("Numbers", "nine");

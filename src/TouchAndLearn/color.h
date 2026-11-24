@@ -26,12 +26,9 @@
 #include <QtGui/QColor>
 #include <QtQml/QQmlEngine>
 
-// A color from its hue, saturation, lightness and alpha, each from 0 to 1, like Qt.hsla(). The
-// hue wraps around, so that 1.25 is the same as 0.25.
-// Qt.hsla() and Qt.rgba() return a QVariant, which qmlcachegen cannot convert to a QColor. A
-// function of a singleton that returns a QColor does not compile either, not even one of the
-// Color singleton of Qt Quick 6.12. The color property of an HslaColor compiles, when the
-// binding refers to the HslaColor by its id.
+// Like Qt.hsla(), with all components from 0 to 1, but the hue wraps (1.25 == 0.25).
+// qmlcachegen cannot compile Qt.hsla()/Qt.rgba() (QVariant) or singleton functions returning
+// QColor, not even Qt Quick 6.12's Color. Binding to HslaColor.color by id compiles.
 class HslaColor : public QObject
 {
     Q_OBJECT
