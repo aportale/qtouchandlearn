@@ -71,7 +71,7 @@ Rectangle {
 
     Rectangle {
         anchors.fill: parent
-        id: courtain
+        id: curtain
         color: "#000"
         opacity: 1
         z: 1
@@ -161,7 +161,7 @@ Rectangle {
         id: screenBlendOut
         onFinished: stage.sourceComponent = Qt.createComponent("TouchAndLearn", mainWindow.currentScreen)
         OpacityAnimator {
-            target: courtain
+            target: curtain
             to: 1
             duration: 180
         }
@@ -170,7 +170,7 @@ Rectangle {
     SequentialAnimation {
         id: screenBlendIn
         OpacityAnimator {
-            target: courtain
+            target: curtain
             from: 1
             to: 0
             duration: 180
