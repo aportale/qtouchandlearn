@@ -89,27 +89,11 @@ Lessons::Lessons(QObject *parent)
     }
 }
 
-static QStringList ids(const QList<MenuEntry> &entries)
+// One member of each entry, like all ids
+static QStringList values(const QList<MenuEntry> &entries, QString MenuEntry::*member)
 {
-    QStringList result;
-    for (const MenuEntry &entry : entries)
-        result.append(entry.id);
-    return result;
-}
-
-static QStringList displayNames(const QList<MenuEntry> &entries)
-{
-    QStringList result;
-    for (const MenuEntry &entry : entries)
-        result.append(entry.displayName);
-    return result;
-}
-
-static QStringList imageLabels(const QList<MenuEntry> &entries)
-{
-    QStringList result;
-    for (const MenuEntry &entry : entries)
-        result.append(entry.imageLabel);
+    QStringList result(entries.size());
+    std::ranges::transform(entries, result.begin(), member);
     return result;
 }
 
@@ -123,17 +107,17 @@ QList<MenuEntry> Lessons::groupEntries() const
 
 QStringList Lessons::groupIds() const
 {
-    return ids(groupEntries());
+    return values(groupEntries(), &MenuEntry::id);
 }
 
 QStringList Lessons::groupDisplayNames() const
 {
-    return displayNames(groupEntries());
+    return values(groupEntries(), &MenuEntry::displayName);
 }
 
 QStringList Lessons::groupImageLabels() const
 {
-    return imageLabels(groupEntries());
+    return values(groupEntries(), &MenuEntry::imageLabel);
 }
 
 int Lessons::currentGroup() const
@@ -154,17 +138,17 @@ void Lessons::setCurrentGroup(int index)
 
 QStringList Lessons::lessonIds() const
 {
-    return ids(m_groups.at(m_currentGroup).lessons);
+    return values(m_groups.at(m_currentGroup).lessons, &MenuEntry::id);
 }
 
 QStringList Lessons::lessonDisplayNames() const
 {
-    return displayNames(m_groups.at(m_currentGroup).lessons);
+    return values(m_groups.at(m_currentGroup).lessons, &MenuEntry::displayName);
 }
 
 QStringList Lessons::lessonImageLabels() const
 {
-    return imageLabels(m_groups.at(m_currentGroup).lessons);
+    return values(m_groups.at(m_currentGroup).lessons, &MenuEntry::imageLabel);
 }
 
 QString Lessons::currentLesson() const
