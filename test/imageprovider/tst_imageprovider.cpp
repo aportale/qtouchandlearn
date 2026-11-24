@@ -223,7 +223,7 @@ void tst_ImageProvider::invalidRequests()
     QFETCH(QSize, requestedSize);
 
     // Each invalid request prints why.
-    QTest::ignoreMessage(QtDebugMsg, QRegularExpression(u".+"_s));
+    QTest::ignoreMessage(QtWarningMsg, QRegularExpression(u"^ImageProvider: "_s));
     QVERIFY(request(id, requestedSize).isNull());
 }
 

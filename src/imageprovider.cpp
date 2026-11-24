@@ -22,9 +22,11 @@
 
 #include "imageprovider.h"
 
-#include <math.h>
-
 #include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <iterator>
+#include <memory>
 
 #include <QtCore/QDebug>
 #include <QtCore/QRandomGenerator>
@@ -33,81 +35,65 @@
 
 using namespace Qt::StringLiterals;
 
-enum DesignElementType {
-    DesignElementTypeButton,
-    DesignElementTypeFrame
+namespace {
+
+enum class DesignElementType {
+    Button,
+    Frame
 };
 
-static constexpr auto frameString = "frame"_L1;
-static constexpr auto buttonString = "button"_L1;
-static constexpr auto idPrefix = "id_"_L1;
-static constexpr auto dataPath = ":/qt/qml/TouchAndLearn/data/graphics"_L1;
-static const QImage::Format imageFormat = QImage::Format_ARGB32_Premultiplied;
+constexpr auto frameString = "frame"_L1;
+constexpr auto buttonString = "button"_L1;
+constexpr auto idPrefix = "id_"_L1;
+constexpr auto dataPath = ":/qt/qml/TouchAndLearn/data/graphics/"_L1;
+const QImage::Format imageFormat = QImage::Format_ARGB32_Premultiplied;
+
+enum class SvgFile {
+    Design,
+    Objects,
+    Countables,
+    Clocks,
+    Notes,
+    LessonIcons,
+    Count
+};
 
 // Asynchronous images render in another thread. QSvgRenderer is not thread-safe, hence per thread.
-QSvgRenderer* designRenderer()
+QSvgRenderer *svgRenderer(SvgFile file)
 {
-    thread_local QSvgRenderer renderer(dataPath + u"/design.svg"_s);
-    return& renderer;
+    static constexpr QLatin1StringView fileNames[] = {
+        "design.svg"_L1, "objects.svg"_L1, "countables.svg"_L1, "clocks.svg"_L1, "notes.svg"_L1,
+        "lessonicons.svg"_L1,
+    };
+    static_assert(std::size(fileNames) == size_t(SvgFile::Count));
+    thread_local std::unique_ptr<QSvgRenderer> renderers[std::size(fileNames)];
+    std::unique_ptr<QSvgRenderer> &renderer = renderers[int(file)];
+    if (!renderer)
+        renderer = std::make_unique<QSvgRenderer>(dataPath + fileNames[int(file)]);
+    return renderer.get();
 }
 
-QSvgRenderer* objectRenderer()
+QImage gradientImage(DesignElementType type)
 {
-    thread_local QSvgRenderer renderer(dataPath + u"/objects.svg"_s);
-    return &renderer;
-}
-
-QSvgRenderer* countablesRenderer()
-{
-    thread_local QSvgRenderer renderer(dataPath + u"/countables.svg"_s);
-    return &renderer;
-}
-
-QSvgRenderer* clocksRenderer()
-{
-    thread_local QSvgRenderer renderer(dataPath + u"/clocks.svg"_s);
-    return &renderer;
-}
-
-QSvgRenderer* notesRenderer()
-{
-    thread_local QSvgRenderer renderer(dataPath + u"/notes.svg"_s);
-    return &renderer;
-}
-
-QSvgRenderer* lessonIconsRenderer()
-{
-    thread_local QSvgRenderer renderer(dataPath + u"/lessonicons.svg"_s);
-    return &renderer;
-}
-
-const QImage gradientImage(DesignElementType type)
-{
-    QSvgRenderer *renderer = designRenderer();
-    const QString gradientId = idPrefix + (type == DesignElementTypeButton ? buttonString : frameString) + u"gradient"_s;
+    QSvgRenderer *renderer = svgRenderer(SvgFile::Design);
+    const QString gradientId = idPrefix + (type == DesignElementType::Button ? buttonString : frameString) + u"gradient"_s;
     Q_ASSERT(renderer->boundsOnElement(gradientId).size().toSize() == QSize(256, 1));
     QImage result(256, 1, imageFormat);
     result.fill(0);
     QPainter p(&result);
     renderer->render(&p, gradientId, result.rect());
-#if 0
-    // for debugging
-    p.fillRect(0, 0, 16, 1, Qt::red);
-    p.fillRect(120, 0, 16, 1, Qt::green);
-    p.fillRect(240, 0, 16, 1, Qt::blue);
-#endif
     return result;
 }
 
-QImage const *buttonGradient()
+const QImage *buttonGradient()
 {
-    const static QImage gradient(gradientImage(DesignElementTypeButton));
+    const static QImage gradient(gradientImage(DesignElementType::Button));
     return &gradient;
 }
 
-QImage const *frameGradient()
+const QImage *frameGradient()
 {
-    const static QImage gradient(gradientImage(DesignElementTypeFrame));
+    const static QImage gradient(gradientImage(DesignElementType::Frame));
     return &gradient;
 }
 
@@ -115,7 +101,7 @@ struct ElementVariations
 {
     QStringList elementIds;
     qreal widthToHeightRatio;
-    inline bool operator<(const ElementVariations &other) const
+    bool operator<(const ElementVariations &other) const
     {
         return widthToHeightRatio < other.widthToHeightRatio;
     }
@@ -126,7 +112,7 @@ using ElementVariationList = QList<ElementVariations>;
 ElementVariationList elementsWithSizes(const QString &elementBase)
 {
     ElementVariationList result;
-    const QSvgRenderer *renderer = designRenderer();
+    const QSvgRenderer *renderer = svgRenderer(SvgFile::Design);
     ElementVariations element;
     element.widthToHeightRatio = -1;
     for (int i = 1; ; i++) {
@@ -149,28 +135,23 @@ ElementVariationList elementsWithSizes(const QString &elementBase)
     return result;
 }
 
-ElementVariationList const *buttonVariations()
+const ElementVariationList *buttonVariations()
 {
     const static ElementVariationList list(elementsWithSizes(buttonString));
     return &list;
 }
 
-ElementVariationList const *frameVariations()
+const ElementVariationList *frameVariations()
 {
     const static ElementVariationList list(elementsWithSizes(frameString));
     return &list;
 }
 
-ImageProvider::ImageProvider()
-    : QQuickImageProvider(QQuickImageProvider::Image)
+QImage quantity(int quantity, const QString &item, QSize *size, const QSize &requestedSize)
 {
-}
-
-inline static QImage quantity(int quantity, const QString &item, QSize *size, const QSize &requestedSize)
-{
-    QSvgRenderer *renderer = countablesRenderer();
-    const auto columns = int(ceil(sqrt(qreal(quantity))));
-    const auto rows = int(ceil(quantity / qreal(columns)));
+    QSvgRenderer *renderer = svgRenderer(SvgFile::Countables);
+    const auto columns = int(std::ceil(std::sqrt(qreal(quantity))));
+    const auto rows = int(std::ceil(quantity / qreal(columns)));
     const int columnsInLastRow = quantity % columns == 0 ? columns : quantity % columns;
     const int itemSize = qMin((requestedSize.width() / qMax(3, columns)), (requestedSize.height() / qMax(3, rows)));
     const QSize resultSize(itemSize * columns, itemSize * rows);
@@ -192,22 +173,17 @@ inline static QImage quantity(int quantity, const QString &item, QSize *size, co
     return result;
 }
 
-inline static int variationsCount(const QSvgRenderer *renderer, const QString &baseName)
+int variationsCount(const QSvgRenderer *renderer, const QString &baseName)
 {
     int count = 0;
-    const QString elementIdBase = baseName + u'_';
-    Q_FOREVER {
-        const QString elementId = elementIdBase + QString::number(count + 1);
-        if (renderer->elementExists(idPrefix + elementId))
-            count++;
-        else
-            break;
-    }
+    const QString elementIdBase = idPrefix + baseName + u'_';
+    while (renderer->elementExists(elementIdBase + QString::number(count + 1)))
+        count++;
     return count;
 }
 
-inline static void renderIndicator(const QString &indicatorId, int rotation, const QRectF &background,
-                                   qreal scaleFactor, QSvgRenderer *renderer, QPainter *p)
+void renderIndicator(const QString &indicatorId, int rotation, const QRectF &background,
+                     qreal scaleFactor, QSvgRenderer *renderer, QPainter *p)
 {
     const QPointF bgCenter = background.center();
     QTransform transform;
@@ -220,9 +196,9 @@ inline static void renderIndicator(const QString &indicatorId, int rotation, con
     renderer->render(p, idPrefix + indicatorId, renderer->boundsOnElement(idPrefix + indicatorId));
 }
 
-inline static QImage clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
+QImage clock(int hour, int minute, int variation, QSize *size, const QSize &requestedSize)
 {
-    QSvgRenderer *renderer = clocksRenderer();
+    QSvgRenderer *renderer = svgRenderer(SvgFile::Clocks);
     const static QString clockBackgroundString = u"background"_s;
     const static int variationsCnt = variationsCount(renderer, clockBackgroundString);
     const int actualVariation = (variation % variationsCnt) + 1;
@@ -235,7 +211,7 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
     QImage result(resultSize, imageFormat);
     if (result.isNull())
-        qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << variation;
+        qWarning() << "ImageProvider: the clock image is null, variation" << variation;
     result.fill(Qt::transparent);
     QPainter p(&result);
     const qreal scaleFactor = resultSize.width() / backgroundRect.width();
@@ -262,9 +238,9 @@ inline static QImage clock(int hour, int minute, int variation, QSize *size, con
     return result;
 }
 
-inline static QImage notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
+QImage notes(const QStringList &notes, QSize *size, const QSize &requestedSize)
 {
-    QSvgRenderer *renderer = notesRenderer();
+    QSvgRenderer *renderer = svgRenderer(SvgFile::Notes);
     static const QString clefId = u"clef"_s;
     static const QRectF clefRect = renderer->boundsOnElement(idPrefix + clefId);
     static const QString staffLinesId = u"stafflines"_s;
@@ -280,7 +256,7 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     resultSize.scale(requestedSize, Qt::KeepAspectRatio);
     QImage result(resultSize, imageFormat);
     if (result.isNull())
-        qDebug() << Q_FUNC_INFO << "notes image is NULL! Notes:" << notes;
+        qWarning() << "ImageProvider: the notes image is null, notes" << notes;
     result.fill(Qt::transparent);
     QPainter p(&result);
     const qreal scaleFactor = resultSize.width() / imageRect.width();
@@ -318,8 +294,8 @@ inline static QImage notes(const QStringList &notes, QSize *size, const QSize &r
     return result;
 }
 
-inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
-                                        QSize *size, const QSize &requestedSize)
+QImage renderedSvgElement(const QString &elementId, QSvgRenderer *renderer, Qt::AspectRatioMode aspectRatioMode,
+                          QSize *size, const QSize &requestedSize)
 {
     const QString rectId = elementId + u"_rect"_s;
     const QRectF rect = renderer->boundsOnElement(idPrefix + (renderer->elementExists(idPrefix + rectId) ? rectId : elementId));
@@ -337,13 +313,13 @@ inline static QImage renderedSvgElement(const QString &elementId, QSvgRenderer *
     return result;
 }
 
-inline static void drawGradient(DesignElementType type, QImage &image)
+void drawGradient(DesignElementType type, QImage &image)
 {
     const int imageWidth = image.width();
     const int imageHeight = image.height();
     if (imageWidth < 1 || imageHeight < 1)
         return;
-    const QImage *gradient = type == DesignElementTypeButton ? buttonGradient() : frameGradient();
+    const QImage *gradient = type == DesignElementType::Button ? buttonGradient() : frameGradient();
     const auto *gradientRgb = reinterpret_cast<const QRgb*>(gradient->constBits());
     auto *imageRgb = reinterpret_cast<QRgb*>(image.bits());
     const int quarterWidth = imageWidth / 2;
@@ -358,7 +334,7 @@ inline static void drawGradient(DesignElementType type, QImage &image)
         const int offsetYPlusQuarterWidth = quarterWidth + imageWidth * (quarterHeight - y);
         for (int x = 0; x <= quarterWidth; x++) {
             const auto scaledX = int(xScaleFactor * x);
-            const auto gradientColorIndex = int(sqrt(qreal(scaledYSquare + scaledX * scaledX)));
+            const auto gradientColorIndex = int(std::sqrt(qreal(scaledYSquare + scaledX * scaledX)));
             const QRgb gradientColor = gradientRgb[gradientColorIndex];
             imageRgb[offsetYPlusQuarterWidth - x] = gradientColor;
             imageRgb[offsetYPlusQuarterWidth + x] = gradientColor;
@@ -368,17 +344,17 @@ inline static void drawGradient(DesignElementType type, QImage &image)
     QRgb *dst = imageRgb + imageWidth * image.height() - imageWidth;
     QRgb *src = imageRgb;
     for (int row = 0; row < quarterHeight; row++) {
-        memcpy(dst, src, size_t(bytesPerLine));
+        std::memcpy(dst, src, size_t(bytesPerLine));
         dst -= imageWidth;
         src += imageWidth;
     }
 }
 
-inline static QImage renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
+QImage renderedDesignElement(DesignElementType type, int variation, QSize *size, const QSize &requestedSize)
 {
     Q_UNUSED(size)
 
-    const ElementVariationList *elements = type == DesignElementTypeButton ? buttonVariations() : frameVariations();
+    const ElementVariationList *elements = type == DesignElementType::Button ? buttonVariations() : frameVariations();
     const qreal requestedRatio = requestedSize.width() / qreal(requestedSize.height());
     const ElementVariations *elementWithNearestRatio = &elements->last();
     for (const ElementVariations &element : *elements) {
@@ -389,14 +365,14 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
             break;
         }
     }
-    const QString &elementId = idPrefix + elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count());
+    const QString elementId = idPrefix + elementWithNearestRatio->elementIds.at(variation % elementWithNearestRatio->elementIds.count());
     thread_local QImage cachedGradientButton;
     thread_local QImage cachedGradientFrame;
-    QImage &cachedGradient = type == DesignElementTypeButton ? cachedGradientButton : cachedGradientFrame;
+    QImage &cachedGradient = type == DesignElementType::Button ? cachedGradientButton : cachedGradientFrame;
     if (cachedGradient.size() == requestedSize) {
         QImage result(cachedGradient);
         QPainter p(&result);
-        designRenderer()->render(&p, elementId, result.rect());
+        svgRenderer(SvgFile::Design)->render(&p, elementId, result.rect());
         return result;
     } else {
         QImage result(requestedSize, imageFormat);
@@ -404,17 +380,17 @@ inline static QImage renderedDesignElement(DesignElementType type, int variation
         drawGradient(type, result);
         cachedGradient = result;
         QPainter p(&result);
-        designRenderer()->render(&p, elementId, result.rect());
+        svgRenderer(SvgFile::Design)->render(&p, elementId, result.rect());
         return result;
     }
 }
 
-inline static QImage renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
+QImage renderedLessonIcon(const QString &iconId, int buttonVariation, QSize *size, const QSize &requestedSize)
 {
     QImage result(requestedSize, imageFormat);
     result.fill(Qt::transparent);
     QPainter p(&result);
-    QSvgRenderer *renderer = lessonIconsRenderer();
+    QSvgRenderer *renderer = svgRenderer(SvgFile::LessonIcons);
     const QRectF iconRectOriginal = renderer->boundsOnElement(idPrefix + iconId);
     QSizeF iconSize = iconRectOriginal.size();
     iconSize.scale(requestedSize, Qt::KeepAspectRatio);
@@ -424,12 +400,12 @@ inline static QImage renderedLessonIcon(const QString &iconId, int buttonVariati
     else
         iconRect.moveTop((requestedSize.height() - iconSize.height()) / 2);
     renderer->render(&p, idPrefix + iconId, iconRect);
-    const QImage button = renderedDesignElement(DesignElementTypeButton, buttonVariation, size, requestedSize);
+    const QImage button = renderedDesignElement(DesignElementType::Button, buttonVariation, size, requestedSize);
     p.drawImage(QPointF(), button);
     return result;
 }
 
-inline static QImage spectrum(QSize *size, const QSize &requestedSize)
+QImage spectrum(QSize *size, const QSize &requestedSize)
 {
     const QSize resultSize(360, requestedSize.height());
     QImage result(resultSize.width(), 1, imageFormat);
@@ -438,17 +414,12 @@ inline static QImage spectrum(QSize *size, const QSize &requestedSize)
         *(bits++) = QColor::fromHsl(i, 120, 200).rgb();
     if (size)
         *size = result.size();
-#if 0
-    // for debugging
-    QPainter p(&result);
-    p.fillRect(resultSize.width() - 1, 0, 1, requestedSize.height(), Qt::white);
-#endif
     return result.scaled(resultSize);
 }
 
-inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
+QImage colorBlot(const QColor &color, int blotVariation, QSize *size, const QSize &requestedSize)
 {
-    QSvgRenderer *renderer = designRenderer();
+    QSvgRenderer *renderer = svgRenderer(SvgFile::Design);
     const static QString elementIdBase = u"colorblot"_s;
     const static int variationsCnt = variationsCount(renderer, elementIdBase);
     const int actualVariation = (blotVariation % variationsCnt) + 1;
@@ -466,7 +437,7 @@ inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *si
     transform.translate(-backgroundRect.topLeft().x(), -backgroundRect.topLeft().y());
     QImage result(resultSize, imageFormat);
     if (result.isNull())
-        qDebug() << Q_FUNC_INFO << "clock image is NULL! Variation:" << blotVariation;
+        qWarning() << "ImageProvider: the color blot image is null, variation" << blotVariation;
     result.fill(0);
     QPainter p(&result);
     p.setTransform(transform);
@@ -479,37 +450,44 @@ inline static QImage colorBlot(const QColor &color, int blotVariation, QSize *si
     return result;
 }
 
+} // namespace
+
+ImageProvider::ImageProvider()
+    : QQuickImageProvider(QQuickImageProvider::Image)
+{
+}
+
 QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     QImage result;
     const QStringList idSegments = id.split(u'/');
     if (requestedSize.width() < 1 || requestedSize.height() < 1) {
-        qDebug() << Q_FUNC_INFO << " requestedSize is invalid!" << requestedSize << id;
+        qWarning() << "ImageProvider: invalid requested size" << requestedSize << "for" << id;
         return QImage();
     }
     if (idSegments.count() < 2) {
-        qDebug() << Q_FUNC_INFO << "Not enough parameters for the image provider: " << id;
+        qWarning() << "ImageProvider: no element in" << id;
         return QImage();
     }
     const QString &elementId = idSegments.at(1);
     if (idSegments.first() == "background"_L1) {
-        return renderedSvgElement(elementId, designRenderer(), Qt::KeepAspectRatioByExpanding, size, requestedSize);
+        return renderedSvgElement(elementId, svgRenderer(SvgFile::Design), Qt::KeepAspectRatioByExpanding, size, requestedSize);
     } else if (idSegments.first() == "title"_L1) {
         if (elementId == "textmask"_L1)
-            result = renderedSvgElement(idSegments.first(), designRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+            result = renderedSvgElement(idSegments.first(), svgRenderer(SvgFile::Design), Qt::KeepAspectRatio, size, requestedSize);
         else
             result = spectrum(size, requestedSize);
     } else if (idSegments.first() == "specialbutton"_L1) {
-        result = renderedSvgElement(elementId, designRenderer(), Qt::IgnoreAspectRatio, size, requestedSize);
+        result = renderedSvgElement(elementId, svgRenderer(SvgFile::Design), Qt::IgnoreAspectRatio, size, requestedSize);
     } else if (idSegments.first() == buttonString) {
-        result = renderedDesignElement(DesignElementTypeButton, elementId.toInt(), size, requestedSize);
+        result = renderedDesignElement(DesignElementType::Button, elementId.toInt(), size, requestedSize);
     } else if (idSegments.first() == frameString) {
-        result = renderedDesignElement(DesignElementTypeFrame, 0, size, requestedSize);
+        result = renderedDesignElement(DesignElementType::Frame, 0, size, requestedSize);
     } else if (idSegments.first() == "object"_L1) {
-        result = renderedSvgElement(elementId, objectRenderer(), Qt::KeepAspectRatio, size, requestedSize);
+        result = renderedSvgElement(elementId, svgRenderer(SvgFile::Objects), Qt::KeepAspectRatio, size, requestedSize);
     } else if (idSegments.first() == "clock"_L1) {
         if (idSegments.count() != 4) {
-            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for clock images:" << id;
+            qWarning() << "ImageProvider: wrong number of parameters in" << id;
             return QImage();
         }
         result = clock(idSegments.at(1).toInt(), idSegments.at(2).toInt(), idSegments.at(3).toInt(), size, requestedSize);
@@ -517,51 +495,34 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
         result = notes(elementId.split(u',', Qt::SkipEmptyParts), size, requestedSize);
     } else if (idSegments.first() == "quantity"_L1) {
         if (idSegments.count() != 3) {
-            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for quantity images:" << id;
+            qWarning() << "ImageProvider: wrong number of parameters in" << id;
             return QImage();
         }
         result = quantity(idSegments.at(1).toInt(), idSegments.at(2), size, requestedSize);
     } else if (idSegments.first() == "lessonicon"_L1) {
         if (idSegments.count() != 3) {
-            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for lessonicon:" << id;
+            qWarning() << "ImageProvider: wrong number of parameters in" << id;
             return QImage();
         }
         result = renderedLessonIcon(idSegments.at(1), idSegments.at(2).toInt(), size, requestedSize);
     } else if (idSegments.first() == "color"_L1) {
         if (idSegments.count() != 3) {
-            qDebug() << Q_FUNC_INFO << "Wrong number of parameters for color:" << id;
+            qWarning() << "ImageProvider: wrong number of parameters in" << id;
             return QImage();
         }
         const QColor color(idSegments.at(1));
         result = colorBlot(color, idSegments.at(2).toInt(), size, requestedSize);
     } else {
-        qDebug() << Q_FUNC_INFO << "invalid image Id:" << id;
+        qWarning() << "ImageProvider: unknown kind of image in" << id;
     }
-#if 0
-    if (idSegments.first() == "object"_L1) {
-        QPainter p(&result);
-        QPolygon points;
-        for (int i = 0; i < result.width(); i += 2)
-            for (int j = 0; j < result.height(); j += 2)
-                points.append(QPoint(i, j));
-        p.drawPoints(points);
-        p.setPen(Qt::white);
-        p.translate(1, 1);
-        p.drawPoints(points);
-    }
-#endif
     return result;
 }
 
 // Loads the calling thread's renderers. The image reader thread loads its own on first use.
 void ImageProvider::init()
 {
-    designRenderer()->boundsOnElement(QString());
-    objectRenderer()->boundsOnElement(QString());
-    countablesRenderer()->boundsOnElement(QString());
-    clocksRenderer()->boundsOnElement(QString());
-    notesRenderer()->boundsOnElement(QString());
-    lessonIconsRenderer()->boundsOnElement(QString());
+    for (int file = 0; file < int(SvgFile::Count); ++file)
+        svgRenderer(SvgFile(file));
     buttonVariations();
     frameVariations();
 }
