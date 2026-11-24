@@ -63,7 +63,8 @@ if(TARGET Qt6::qmlsc)
     # Direct mode: the generated code includes the headers of the C++ types, and calls their
     # getters, setters and invokables directly. Most of these headers are private, so link the
     # private modules of all the C++ types that the QML code uses. Private APIs can change in
-    # each Qt version, so a Qt update can break the build.
+    # each Qt version, so a Qt update can break the build. find_package would warn about that.
+    set(QT_NO_PRIVATE_MODULE_WARNING ON)
     find_package(Qt6 REQUIRED COMPONENTS QmlPrivate QuickPrivate QuickParticlesPrivate)
     target_link_libraries(touchandlearn_qml PRIVATE
         Qt6::QmlPrivate
