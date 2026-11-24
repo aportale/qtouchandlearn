@@ -42,7 +42,8 @@ Rectangle {
     focus: true
     Keys.onPressed: function(event: KeyEvent): void {
         if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
-            if (!stageScreen) { // Next screen is still loading
+            // The next screen is still loading, or the current one blends out and ignores input.
+            if (!stageScreen || stageScreen.leaving) {
                 event.accepted = true;
                 return;
             }
