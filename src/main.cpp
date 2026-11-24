@@ -48,14 +48,13 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
 
     QGuiApplication app(argc, argv);
-    const QString assetsPrefix = QLatin1String(":/qt/qml/TouchAndLearn/");
-    const QString dataPath = assetsPrefix + QLatin1String("data");
-
-    const QString translation = QLocale::system().name();
+    // The user's UI languages, not the region of the formats (QLocale::name()), which can differ
+    const QString translationsPath = QLatin1String(":/qt/qml/TouchAndLearn/data/translations");
     QTranslator translator;
-    if (!translator.load(translation, dataPath + QLatin1String("/translations")))
-        qWarning() << "Could not load translation" << translation;
-    QGuiApplication::installTranslator(&translator);
+    if (translator.load(QLocale(), QString(), QString(), translationsPath))
+        QGuiApplication::installTranslator(&translator);
+    else
+        qWarning() << "Could not load a translation for" << QLocale().uiLanguages();
 
     QQmlApplicationEngine engine;
     engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
