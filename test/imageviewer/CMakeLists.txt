@@ -1,4 +1,9 @@
-find_package(Qt6 REQUIRED COMPONENTS Widgets Quick Svg)
+find_package(Qt6 QUIET OPTIONAL_COMPONENTS Widgets)
+if(NOT TARGET Qt6::Widgets)
+    message(STATUS "Building without the image viewer, which needs Qt Widgets.")
+    return()
+endif()
+find_package(Qt6 REQUIRED COMPONENTS Quick Svg)
 
 qt_add_executable(imageviewer
     test.cpp

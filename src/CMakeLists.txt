@@ -107,8 +107,13 @@ install(TARGETS touchandlearn
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-# Optional pieces
-option(TOUCHANDLEARN_BUILD_TESTS "Build test programs" OFF)
+# Optional pieces. Default: ON, except in cross builds, whose tests cannot run on the build machine.
+if(CMAKE_CROSSCOMPILING)
+    set(build_tests_default OFF)
+else()
+    set(build_tests_default ON)
+endif()
+option(TOUCHANDLEARN_BUILD_TESTS "Build the tests and the image viewer" ${build_tests_default})
 if(TOUCHANDLEARN_BUILD_TESTS)
     enable_testing()
     add_subdirectory(../test/imageprovider test_imageprovider)
