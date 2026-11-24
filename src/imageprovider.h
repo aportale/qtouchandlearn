@@ -31,5 +31,4 @@ public:
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
     static void init();
-    static void setDataPath(const QString &path);
 };

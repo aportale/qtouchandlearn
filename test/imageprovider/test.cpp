@@ -68,7 +68,6 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    ImageProvider::setDataPath(":/data/graphics");
     ImageProvider::init();
     ImagePainter ip;
     ip.setId(QLatin1String("button/1"));

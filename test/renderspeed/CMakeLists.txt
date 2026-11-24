@@ -5,8 +5,17 @@ qt_add_executable(tst_renderspeed
     ../../src/imageprovider.cpp
     ../../src/imageprovider.h
 )
+qt_add_resources(tst_renderspeed graphics
+    PREFIX "/qt/qml/TouchAndLearn"
+    BASE ../../src/TouchAndLearn
+    FILES
+        ../../src/TouchAndLearn/data/graphics/objects.svg
+        ../../src/TouchAndLearn/data/graphics/lessonicons.svg
+        ../../src/TouchAndLearn/data/graphics/notes.svg
+        ../../src/TouchAndLearn/data/graphics/design.svg
+        ../../src/TouchAndLearn/data/graphics/clocks.svg
+        ../../src/TouchAndLearn/data/graphics/countables.svg
+)
 set_target_properties(tst_renderspeed PROPERTIES AUTOMOC ON)
 target_include_directories(tst_renderspeed PRIVATE ../../src)
-target_compile_definitions(tst_renderspeed PRIVATE
-    SRCDIR="${CMAKE_CURRENT_SOURCE_DIR}/../../src/TouchAndLearn/data")
 target_link_libraries(tst_renderspeed PRIVATE Qt6::Test Qt6::Quick Qt6::Svg)

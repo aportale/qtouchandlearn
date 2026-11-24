@@ -6,7 +6,7 @@ qt_add_executable(tst_imageprovider
     ../../src/imageprovider.h
 )
 qt_add_resources(tst_imageprovider graphics
-    PREFIX "/"
+    PREFIX "/qt/qml/TouchAndLearn"
     BASE ../../src/TouchAndLearn
     FILES
         ../../src/TouchAndLearn/data/graphics/particle.png

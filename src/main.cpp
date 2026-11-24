@@ -67,7 +67,6 @@ int main(int argc, char *argv[])
     if (!engine.singletonInstance<QObject *>("TouchAndLearn", "AnswerSounds"))
         qWarning() << "Could not create the AnswerSounds singleton";
 
-    ImageProvider::setDataPath(dataPath + QLatin1String("/graphics"));
     ImageProvider::init();
 
     return app.exec();
