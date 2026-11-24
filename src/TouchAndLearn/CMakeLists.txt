@@ -52,6 +52,27 @@ target_link_libraries(touchandlearn_qml PRIVATE
     Qt6::Quick
 )
 
+# If the commercial Qt Quick Compiler Extensions are installed, qt_add_qml_module compiles the
+# QML files with qmlsc instead of qmlcachegen. Only qmlsc has the two modes below.
+if(TARGET Qt6::qmlsc)
+    # Static mode: qmlsc assumes that no QML type shadows a property of a C++ type, and leaves
+    # out the checks for it. Never declare a property with the name of a property of the base
+    # type, because qmlsc then generates invalid code.
+    set_property(TARGET touchandlearn_qml APPEND PROPERTY QT_QMLCACHEGEN_ARGUMENTS --static)
+
+    # Direct mode: the generated code includes the headers of the C++ types, and calls their
+    # getters, setters and invokables directly. Most of these headers are private, so link the
+    # private modules of all the C++ types that the QML code uses. Private APIs can change in
+    # each Qt version, so a Qt update can break the build.
+    find_package(Qt6 REQUIRED COMPONENTS QmlPrivate QuickPrivate QuickParticlesPrivate)
+    target_link_libraries(touchandlearn_qml PRIVATE
+        Qt6::QmlPrivate
+        Qt6::QuickPrivate
+        Qt6::QuickParticlesPrivate
+    )
+    set_property(TARGET touchandlearn_qml APPEND PROPERTY QT_QMLCACHEGEN_ARGUMENTS --direct-calls)
+endif()
+
 if(TOUCHANDLEARN_USE_QTMULTIMEDIA)
     target_link_libraries(touchandlearn_qml PRIVATE Qt6::Multimedia)
     target_compile_definitions(touchandlearn_qml PRIVATE TOUCHANDLEARN_USE_QTMULTIMEDIA)
