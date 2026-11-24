@@ -27,13 +27,15 @@
 
 #include "imageprovider.h"
 
+using namespace Qt::StringLiterals;
+
 class ImagePainter: public QWidget
 {
     Q_PROPERTY(QString id READ id WRITE setId)
 
 public:
     ImagePainter()
-        : m_id(QLatin1String("object/elephant"))
+        : m_id(u"object/elephant"_s)
     { }
 
     void paintEvent(QPaintEvent *event)
@@ -70,7 +72,7 @@ int main(int argc, char *argv[])
 
     ImageProvider::init();
     ImagePainter ip;
-    ip.setId(QLatin1String("button/1"));
+    ip.setId(u"button/1"_s);
     ip.show();
 
     return app.exec();

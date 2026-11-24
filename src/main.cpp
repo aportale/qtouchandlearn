@@ -30,6 +30,8 @@
 
 #include "imageprovider.h"
 
+using namespace Qt::StringLiterals;
+
 // Keeps the linker from dropping the static QML module plugin in TouchAndLearn/.
 Q_IMPORT_QML_PLUGIN(TouchAndLearnPlugin)
 
@@ -43,13 +45,13 @@ int main(int argc, char *argv[])
         qputenv("QT_FFMPEG_ENCODING_HW_DEVICE_TYPES", ",");
 #endif
 
-    QCoreApplication::setOrganizationName("CasaPortale");
-    QCoreApplication::setOrganizationDomain("casaportale.de");
-    QCoreApplication::setApplicationName(QLatin1String("Touch'n'learn"));
+    QCoreApplication::setOrganizationName(u"CasaPortale"_s);
+    QCoreApplication::setOrganizationDomain(u"casaportale.de"_s);
+    QCoreApplication::setApplicationName(u"Touch'n'learn"_s);
 
     QGuiApplication app(argc, argv);
     // The user's UI languages, not the region of the formats (QLocale::name()), which can differ
-    const QString translationsPath = QLatin1String(":/qt/qml/TouchAndLearn/data/translations");
+    const QString translationsPath = u":/qt/qml/TouchAndLearn/data/translations"_s;
     QTranslator translator;
     if (translator.load(QLocale(), QString(), QString(), translationsPath))
         QGuiApplication::installTranslator(&translator);
@@ -57,7 +59,7 @@ int main(int argc, char *argv[])
         qWarning() << "Could not load a translation for" << QLocale().uiLanguages();
 
     QQmlApplicationEngine engine;
-    engine.addImageProvider(QLatin1String("imageprovider"), new ImageProvider);
+    engine.addImageProvider(u"imageprovider"_s, new ImageProvider);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.loadFromModule("TouchAndLearn", "Main");

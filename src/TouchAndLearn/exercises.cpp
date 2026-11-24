@@ -30,6 +30,8 @@
 #include <initializer_list>
 #include <iterator>
 
+using namespace Qt::StringLiterals;
+
 // The number of different exercises of a lesson, after which they repeat
 static constexpr int exercisesCount = 100;
 
@@ -81,7 +83,7 @@ QList<Item> objects()
     };
     QList<Item> result;
     for (const char *id : ids)
-        result.append({ QLatin1String(id), QCoreApplication::translate("Objects", id) });
+        result.append({ QString::fromLatin1(id), QCoreApplication::translate("Objects", id) });
     return result;
 }
 
@@ -141,7 +143,7 @@ QList<Item> times(int minutesInterval)
     for (int hour = 1; hour <= 12; ++hour) {
         for (int minute = 0; minute < 60; minute += minutesInterval) {
             const QString id = QString::number(result.size());
-            const QString displayName = QStringLiteral("%1:%2").arg(hour).arg(minute, 2, 10, QLatin1Char('0'));
+            const QString displayName = u"%1:%2"_s.arg(hour).arg(minute, 2, 10, u'0');
             result.append({ id, displayName, {}, hour, minute });
         }
     }
@@ -175,7 +177,7 @@ QList<Item> notes(bool naturalOnly)
     };
     QList<Item> result;
     for (const char *id : ids) {
-        const QString idString = QLatin1String(id);
+        const QString idString = QString::fromLatin1(id);
         if (!naturalOnly || idString.size() == 1)
             result.append({ idString, QCoreApplication::translate("Notes", id) });
     }
@@ -202,42 +204,42 @@ QList<Item> colors()
     };
     QList<Item> result;
     for (const auto &color : colors)
-        result.append({ QLatin1String(color.id), QCoreApplication::translate("Colors", color.name) });
+        result.append({ QString::fromLatin1(color.id), QCoreApplication::translate("Colors", color.name) });
     return result;
 }
 
 // A random object that starts with the letter
 QString firstLetterImageSource(const Item &item, int)
 {
-    return QLatin1String("image://imageprovider/object/") + item.objectIds.at(randomIndex(item.objectIds.size()));
+    return u"image://imageprovider/object/"_s + item.objectIds.at(randomIndex(item.objectIds.size()));
 }
 
 QString objectImageSource(const Item &item, int)
 {
-    return QLatin1String("image://imageprovider/object/") + item.id;
+    return u"image://imageprovider/object/"_s + item.id;
 }
 
 // Fish, apples or balloons, depending on the exercise
 QString quantityImageSource(const Item &item, int exerciseIndex)
 {
-    static const char *const countables[] = { "fish", "apple", "balloon" };
-    return QLatin1String("image://imageprovider/quantity/") + item.id + QLatin1Char('/')
-            + QLatin1String(countables[exerciseIndex % int(std::size(countables))]);
+    static constexpr QLatin1StringView countables[] = { "fish"_L1, "apple"_L1, "balloon"_L1 };
+    return u"image://imageprovider/quantity/"_s + item.id + u'/'
+            + countables[exerciseIndex % int(std::size(countables))];
 }
 
 QString clockImageSource(const Item &item, int exerciseIndex)
 {
-    return QStringLiteral("image://imageprovider/clock/%1/%2/%3").arg(item.hour).arg(item.minute).arg(exerciseIndex);
+    return u"image://imageprovider/clock/%1/%2/%3"_s.arg(item.hour).arg(item.minute).arg(exerciseIndex);
 }
 
 QString notesImageSource(const Item &item, int)
 {
-    return QLatin1String("image://imageprovider/notes/") + item.id;
+    return u"image://imageprovider/notes/"_s + item.id;
 }
 
 QString colorImageSource(const Item &item, int exerciseIndex)
 {
-    return QStringLiteral("image://imageprovider/color/%1/%2").arg(item.id).arg(exerciseIndex);
+    return u"image://imageprovider/color/%1/%2"_s.arg(item.id).arg(exerciseIndex);
 }
 
 // Whether the previous exercise has the item at the same answer index

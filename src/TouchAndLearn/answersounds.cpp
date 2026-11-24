@@ -26,6 +26,8 @@
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 
+using namespace Qt::StringLiterals;
+
 // Without Qt Multimedia, WebAssembly builds play the sounds with the Web Audio API.
 #if !defined(TOUCHANDLEARN_USE_QTMULTIMEDIA) && defined(Q_OS_WASM)
 #define TOUCHANDLEARN_USE_WEBAUDIO
@@ -231,17 +233,17 @@ static QList<QUrl> audioUrls(const QString &prefix, int count)
 {
     QList<QUrl> result;
     for (int i = 1; i <= count; ++i) {
-        result.append(QUrl(QStringLiteral("qrc:/qt/qml/TouchAndLearn/data/audio/%1_%2.wav")
+        result.append(QUrl(u"qrc:/qt/qml/TouchAndLearn/data/audio/%1_%2.wav"_s
                                .arg(prefix)
-                               .arg(i, 2, 10, QLatin1Char('0'))));
+                               .arg(i, 2, 10, u'0')));
     }
     return result;
 }
 
 AnswerSounds::AnswerSounds(QObject *parent)
     : QObject(parent)
-    , m_correctSounds(audioUrls(QStringLiteral("correctanswer"), 5), this)
-    , m_incorrectSounds(audioUrls(QStringLiteral("incorrectanswer"), 4), this)
+    , m_correctSounds(audioUrls(u"correctanswer"_s, 5), this)
+    , m_incorrectSounds(audioUrls(u"incorrectanswer"_s, 4), this)
     , m_volume(qBound(0, QSettings().value(volumeSettingsKey, 80).toInt(), 100))
 {
 }

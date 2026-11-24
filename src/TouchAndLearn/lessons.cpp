@@ -27,9 +27,11 @@
 
 #include <algorithm>
 
+using namespace Qt::StringLiterals;
+
 static QString lessonSettingsKey(const QString &groupId)
 {
-    return QLatin1String("LessonOfGroup/") + groupId;
+    return u"LessonOfGroup/"_s + groupId;
 }
 
 static bool containsLesson(const QList<MenuEntry> &lessons, const QString &lesson)
@@ -60,33 +62,33 @@ Lessons::Lessons(QObject *parent)
 
     // Each group starts with its default lesson as the current one.
     m_groups = {
-        { menuEntry("Read", QCoreApplication::translate("LessonMenu", "Read"), robot), {
-            menuEntry("FirstLetter", QCoreApplication::translate("LessonMenu", "Read the first letter"), robot.left(1)),
-            menuEntry("NameTerms", QCoreApplication::translate("LessonMenu", "Read words"), robot),
-        }, "NameTerms" },
-        { menuEntry("Count", QCoreApplication::translate("LessonMenu", "Count"), "3"), {
-            menuEntry("CountEasy", QCoreApplication::translate("LessonMenu", "Count to 5"), "3"),
-            menuEntry("CountReadEasy", QCoreApplication::translate("LessonMenu", "Count and read to 5"), three),
-            menuEntry("CountHard", QCoreApplication::translate("LessonMenu", "Count to 20"), "9"),
-            menuEntry("CountReadHard", QCoreApplication::translate("LessonMenu", "Count and read to 20"), nine),
-        }, "CountEasy" },
-        { menuEntry("Clock", QCoreApplication::translate("LessonMenu", "Clock"), "5:00"), {
-            menuEntry("ClockEasy", QCoreApplication::translate("LessonMenu", "Read the clock, full hours"), "5:00"),
-            menuEntry("ClockMedium", QCoreApplication::translate("LessonMenu", "Read the clock, half hours"), "8:30"),
-            menuEntry("ClockHard", QCoreApplication::translate("LessonMenu", "Read the clock"), "1:20"),
-        }, "ClockMedium" },
-        { menuEntry("Music", QCoreApplication::translate("LessonMenu", "Music"), a), {
-            menuEntry("NotesReadEasy", QCoreApplication::translate("LessonMenu", "Read notes, whole step"), a),
-            menuEntry("NotesReadHard", QCoreApplication::translate("LessonMenu", "Read notes, half-step"), aSharp),
-        }, "NotesReadHard" },
-        { menuEntry("Color", QCoreApplication::translate("LessonMenu", "Color"), blue), {
-            menuEntry("ColorEasy", QCoreApplication::translate("LessonMenu", "Recognize the color"), blue),
-        }, "ColorEasy" },
-        { menuEntry("Mixed", QCoreApplication::translate("LessonMenu", "Mixed"), "?"), {
-            menuEntry("MixedEasy", QCoreApplication::translate("LessonMenu", "Mixed lessons, easy"), "?"),
-            menuEntry("MixedMedium", QCoreApplication::translate("LessonMenu", "Mixed lessons, medium"), "??"),
-            menuEntry("MixedHard", QCoreApplication::translate("LessonMenu", "Mixed lessons, hard"), "???"),
-        }, "MixedEasy" },
+        { menuEntry(u"Read"_s, QCoreApplication::translate("LessonMenu", "Read"), robot), {
+            menuEntry(u"FirstLetter"_s, QCoreApplication::translate("LessonMenu", "Read the first letter"), robot.left(1)),
+            menuEntry(u"NameTerms"_s, QCoreApplication::translate("LessonMenu", "Read words"), robot),
+        }, u"NameTerms"_s },
+        { menuEntry(u"Count"_s, QCoreApplication::translate("LessonMenu", "Count"), u"3"_s), {
+            menuEntry(u"CountEasy"_s, QCoreApplication::translate("LessonMenu", "Count to 5"), u"3"_s),
+            menuEntry(u"CountReadEasy"_s, QCoreApplication::translate("LessonMenu", "Count and read to 5"), three),
+            menuEntry(u"CountHard"_s, QCoreApplication::translate("LessonMenu", "Count to 20"), u"9"_s),
+            menuEntry(u"CountReadHard"_s, QCoreApplication::translate("LessonMenu", "Count and read to 20"), nine),
+        }, u"CountEasy"_s },
+        { menuEntry(u"Clock"_s, QCoreApplication::translate("LessonMenu", "Clock"), u"5:00"_s), {
+            menuEntry(u"ClockEasy"_s, QCoreApplication::translate("LessonMenu", "Read the clock, full hours"), u"5:00"_s),
+            menuEntry(u"ClockMedium"_s, QCoreApplication::translate("LessonMenu", "Read the clock, half hours"), u"8:30"_s),
+            menuEntry(u"ClockHard"_s, QCoreApplication::translate("LessonMenu", "Read the clock"), u"1:20"_s),
+        }, u"ClockMedium"_s },
+        { menuEntry(u"Music"_s, QCoreApplication::translate("LessonMenu", "Music"), a), {
+            menuEntry(u"NotesReadEasy"_s, QCoreApplication::translate("LessonMenu", "Read notes, whole step"), a),
+            menuEntry(u"NotesReadHard"_s, QCoreApplication::translate("LessonMenu", "Read notes, half-step"), aSharp),
+        }, u"NotesReadHard"_s },
+        { menuEntry(u"Color"_s, QCoreApplication::translate("LessonMenu", "Color"), blue), {
+            menuEntry(u"ColorEasy"_s, QCoreApplication::translate("LessonMenu", "Recognize the color"), blue),
+        }, u"ColorEasy"_s },
+        { menuEntry(u"Mixed"_s, QCoreApplication::translate("LessonMenu", "Mixed"), u"?"_s), {
+            menuEntry(u"MixedEasy"_s, QCoreApplication::translate("LessonMenu", "Mixed lessons, easy"), u"?"_s),
+            menuEntry(u"MixedMedium"_s, QCoreApplication::translate("LessonMenu", "Mixed lessons, medium"), u"??"_s),
+            menuEntry(u"MixedHard"_s, QCoreApplication::translate("LessonMenu", "Mixed lessons, hard"), u"???"_s),
+        }, u"MixedEasy"_s },
     };
 
     const QSettings settings;
