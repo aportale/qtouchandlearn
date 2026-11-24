@@ -110,6 +110,7 @@ install(TARGETS touchandlearn
 # Optional pieces
 option(TOUCHANDLEARN_BUILD_TESTS "Build test programs" OFF)
 if(TOUCHANDLEARN_BUILD_TESTS)
+    enable_testing()
     add_subdirectory(../test/imageprovider test_imageprovider)
-    add_subdirectory(../test/renderspeed test_renderspeed)
+    add_subdirectory(../test/imageviewer test_imageviewer)
 endif()
