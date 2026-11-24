@@ -173,9 +173,12 @@ Rectangle {
         duration: 180
     }
 
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: mainWindow.switchToScreen("LessonMenu")
+    // Load the first screen once the window has its size. At Component.onCompleted, MainMenu
+    // is still 0x0. A screen built at that size requests its images with an invalid size, and
+    // the ImageProvider rejects them.
+    readonly property bool hasSize: width > 0 && height > 0
+    onHasSizeChanged: {
+        if (hasSize && stage.status === Loader.Null)
+            switchToScreen("LessonMenu");
     }
 }
