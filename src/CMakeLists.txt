@@ -107,6 +107,16 @@ install(TARGETS touchandlearn
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Installs the Qt libraries, plugins and QML modules on Windows, macOS and Linux. The other
+# platforms deploy when packaging. The app shows no texts of Qt, so no Qt translations.
+qt_generate_deploy_qml_app_script(
+    TARGET touchandlearn
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+    NO_TRANSLATIONS
+)
+install(SCRIPT ${deploy_script})
+
 # Optional pieces. Default: ON, except in cross builds, whose tests cannot run on the build machine.
 if(CMAKE_CROSSCOMPILING)
     set(build_tests_default OFF)
