@@ -1,0 +1,2 @@
+# LF in the repository and in every checkout, regardless of core.autocrlf.
+* text=auto eol=lf
