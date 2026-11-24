@@ -87,6 +87,7 @@ endif()
 
 if(WIN32)
     set_target_properties(touchandlearn PROPERTIES WIN32_EXECUTABLE TRUE)
+    target_sources(touchandlearn PRIVATE touchandlearn.rc)
 endif()
 
 # Use our own HTML page instead of the one from Qt. It runs full screen when added to the
