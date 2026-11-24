@@ -27,7 +27,7 @@ StageScreen {
     final property alias backgroundImage: imageView.backgroundImage
     final property bool grayBackground
     final property alias imageSizeFactor: imageView.imageSizeFactor
-    final property alias exerciseKind: exercises.kind
+    final property alias exerciseKind: lessonExercises.kind
     final property alias showCorrectionImageOnButton: choice.showCorrectionImage
     final property alias answersCount: choice.buttonsCount
     final property alias answersColumsCount: choice.columsCount
@@ -39,7 +39,7 @@ StageScreen {
     backLesson: "Menu"
 
     Exercises {
-        id: exercises
+        id: lessonExercises
         answersCount: choice.buttonsCount
     }
 
@@ -47,7 +47,7 @@ StageScreen {
         id: imageView
         width: main.portaitLayout ? parent.width : Math.ceil(parent.width / 2)
         height: main.portaitLayout ? main.imageViewHeight : parent.height
-        exercises: exercises
+        exercises: lessonExercises
         backgroundImage: "image://imageprovider/background/background_01"
         grayBackground: main.grayBackground
     }
@@ -102,7 +102,7 @@ StageScreen {
         width: main.portaitLayout ? parent.width : parent.width - imageView.width
 
         exerciseIndex: imageView.currentExerciseIndex
-        exercises: exercises
+        exercises: lessonExercises
         onCorrectlyAnswered: imageView.goForward();
         grayBackground: main.grayBackground
     }
