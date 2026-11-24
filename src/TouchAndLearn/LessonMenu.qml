@@ -80,15 +80,17 @@ StageScreen {
                 y: _y
             }
 
-            MouseArea {
-                onPressed: rectangle.color = menu.pressedStateColor;
+            // Canceled when the Flickable takes over the drag
+            TapHandler {
+                onPressedChanged: {
+                    if (pressed)
+                        rectangle.color = menu.pressedStateColor;
+                }
                 onCanceled: rectangle.color = menu.normalStateColor;
-                onClicked: {
-                    rectangle.color = menu.pressedStateColor;
+                onTapped: {
                     Lessons.currentGroup = menuItem.index;
                     menu.selectedLesson = Lessons.currentLesson;
                 }
-                anchors.fill: parent
             }
         }
     }

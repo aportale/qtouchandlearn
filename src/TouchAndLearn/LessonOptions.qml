@@ -50,7 +50,7 @@ StageScreen {
             Rectangle {
                 id: rectangle
                 anchors.fill: parent
-                color: mouseArea.pressed ? menu.pressedStateColor : menu.normalStateColor
+                color: tapHandler.pressed ? menu.pressedStateColor : menu.normalStateColor
             }
 
             Image {
@@ -95,14 +95,13 @@ StageScreen {
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter; margins: _anchors_margins }
             }
 
-            MouseArea {
-                id: mouseArea
-                onClicked: {
+            TapHandler {
+                id: tapHandler
+                onTapped: {
                     rectangle.color = menu.pressedStateColor;
                     Lessons.currentLesson = lessonItem.lesson;
                     menu.selectedLesson = lessonItem.lesson;
                 }
-                anchors.fill: parent
             }
         }
     }
@@ -126,9 +125,8 @@ StageScreen {
                 sourceSize { width: _sourceSize; height: _sourceSize; }
                 source: "image://imageprovider/specialbutton/backbutton"
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: menu.selectedLesson = menu.backLesson
+            TapHandler {
+                onTapped: menu.selectedLesson = menu.backLesson
             }
         }
 

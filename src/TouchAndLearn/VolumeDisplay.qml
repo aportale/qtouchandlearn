@@ -55,6 +55,7 @@ Rectangle {
         Repeater { model: 5; delegate: volumeBarDelegate }
     }
 
+    // Takes the presses, so that the screen below gets none while the volume shows
     MouseArea {
         anchors.fill: parent
     }

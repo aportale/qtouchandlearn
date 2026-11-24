@@ -67,9 +67,13 @@ StageScreen {
             source: "image://imageprovider/specialbutton/backbutton"
             smooth: false
         }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: main.selectedLesson = main.backLesson
+        // Reacts on press, and takes it from the image view below
+        TapHandler {
+            gesturePolicy: TapHandler.WithinBounds
+            onPressedChanged: {
+                if (pressed)
+                    main.selectedLesson = main.backLesson;
+            }
         }
     }
 
@@ -86,9 +90,12 @@ StageScreen {
             source: "image://imageprovider/specialbutton/optionsbutton"
             smooth: false
         }
-        MouseArea {
-            anchors.fill: parent
-            onPressed: main.selectedLesson = "Options"
+        TapHandler {
+            gesturePolicy: TapHandler.WithinBounds
+            onPressedChanged: {
+                if (pressed)
+                    main.selectedLesson = "Options";
+            }
         }
         visible: Lessons.lessonIds.length > 1
     }

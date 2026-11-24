@@ -89,10 +89,11 @@ Item {
         smooth: false
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onPressed: {
-            if (!button.answerChoice.blockClicks) {
+    // Reacts on press, not on release
+    TapHandler {
+        gesturePolicy: TapHandler.WithinBounds
+        onPressedChanged: {
+            if (pressed && !button.answerChoice.blockClicks) {
                 if (button.isCorrectAnswer)
                     correctAnswerAnimation.start();
                 else
