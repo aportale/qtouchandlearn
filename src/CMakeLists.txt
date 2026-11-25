@@ -100,7 +100,7 @@ if(EMSCRIPTEN)
     foreach(page touchandlearn.html index.html)
         configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/${page} @ONLY)
     endforeach()
-    configure_file(touchandlearn.ico ${CMAKE_CURRENT_BINARY_DIR}/favicon.ico COPYONLY)
+    configure_file(wasm/favicon.ico ${CMAKE_CURRENT_BINARY_DIR}/favicon.ico COPYONLY)
     configure_file(wasm/apple-touch-icon.png ${CMAKE_CURRENT_BINARY_DIR}/apple-touch-icon.png
         COPYONLY)
     configure_file(${QT6_INSTALL_PREFIX}/plugins/platforms/qtloader.js
