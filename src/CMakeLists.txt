@@ -90,11 +90,19 @@ endif()
 
 # Our own HTML page runs full screen from the iOS Home Screen and blends in with the Safari bars.
 # Qt's default files would overwrite it, so copy only the loader and logo. Qt Creator opens
-# touchandlearn.html, a web server index.html.
+# touchandlearn.html, a web server index.html. The page keeps the placeholders of Qt's page
+# (plugins/platforms/wasm_shell.html), which makes it easy to compare with a new Qt version.
 if(EMSCRIPTEN)
     set_target_properties(touchandlearn PROPERTIES NO_WASM_DEFAULT_FILES TRUE)
-    configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/touchandlearn.html COPYONLY)
-    configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/index.html COPYONLY)
+    set(APPNAME touchandlearn)
+    set(APPEXPORTNAME touchandlearn_entry) # Qt's default export name: <target>_entry
+    set(PRELOAD "") # Only shared Qt builds preload plugins and QML imports.
+    foreach(page touchandlearn.html index.html)
+        configure_file(wasm/index.html ${CMAKE_CURRENT_BINARY_DIR}/${page} @ONLY)
+    endforeach()
+    configure_file(touchandlearn.ico ${CMAKE_CURRENT_BINARY_DIR}/favicon.ico COPYONLY)
+    configure_file(wasm/apple-touch-icon.png ${CMAKE_CURRENT_BINARY_DIR}/apple-touch-icon.png
+        COPYONLY)
     configure_file(${QT6_INSTALL_PREFIX}/plugins/platforms/qtloader.js
         ${CMAKE_CURRENT_BINARY_DIR}/qtloader.js COPYONLY)
     configure_file(${QT6_INSTALL_PREFIX}/plugins/platforms/qtlogo.svg

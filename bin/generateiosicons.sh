@@ -16,3 +16,8 @@ generatePng $doubleDensity $outputPath/${prefix}@2x.png;\
 generatePng $singleDensity $outputPath/${prefix}~ipad.png;\
 generatePng $doubleDensity $outputPath/${prefix}@2x~ipad.png;\
 done
+
+# Icon of the WebAssembly page on the iOS Home Screen (60x60@3x). Inkscape renders the SVG
+# directly at the given pixel size.
+inkscape -w 180 -h 180 -o ../src/wasm/apple-touch-icon.png $iconSvg
+optipng ../src/wasm/apple-touch-icon.png

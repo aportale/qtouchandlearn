@@ -24,7 +24,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
     <meta name="theme-color" content="#000000">
     <meta name="color-scheme" content="dark">
 
-    <title>touchandlearn</title>
+    <title>@APPNAME@</title>
     <style>
       /* Make the html body cover the entire (visual) viewport with no scroll bars.
          The fixed position and overscroll-behavior stop the rubber band scrolling
@@ -52,12 +52,13 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
       }
     </style>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
   </head>
   <body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
       <center style="margin-top:1.5em; line-height:150%">
         <img src="qtlogo.svg" width="320" height="200" style="display:block"></img>
-        <strong>Qt for WebAssembly: touchandlearn</strong>
+        <strong>Qt for WebAssembly: @APPNAME@</strong>
         <div id="qtstatus"></div>
         <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
       </center>
@@ -92,9 +93,9 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
                                 exitData.text !== undefined ? ` (${exitData.text})` : '';
                             showUi(spinner);
                         },
-                        entryFunction: window.touchandlearn_entry,
+                        entryFunction: window.@APPEXPORTNAME@,
                         containerElements: [screen],
-
+                        @PRELOAD@
                     }
                 });
             } catch (e) {
@@ -103,7 +104,7 @@ SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
             }
         }
     </script>
-    <script src="touchandlearn.js"></script>
+    <script src="@APPNAME@.js"></script>
     <script type="text/javascript" src="qtloader.js"></script>
   </body>
 </html>
